@@ -18,11 +18,16 @@
         }
         
         body { 
-            background-color: #f0f2f5; 
-            color: #333; 
-            overflow-x: hidden; 
+            height: 100%;
+            margin: 0;
         }
-
+        body {
+            display: flex;
+            flex-direction: column;  
+        }
+        .main-wrapper {
+            flex: 1;
+        }
         /* Custom Scrollbar */
         ::-webkit-scrollbar { 
             width: 10px; 
@@ -241,6 +246,7 @@
     </style>
 </head>
 <body>
+    <div class="main-wrapper">
     <div id="loader"></div>
     <nav class="navbar">
         <div class="logo">MUDHIHIRJZ <span>TECH</span></div>
@@ -295,7 +301,7 @@
         </div>
 
     </div>
-
+    </div>
     <footer>
         <div class="footer-content">
             <div class="footer-section">
