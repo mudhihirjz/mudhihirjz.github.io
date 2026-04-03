@@ -18,8 +18,16 @@
         }
         body { 
             background-color: #f0f2f5; 
-            padding-bottom: 80px; 
+             height: 100%;
+            margin: 0;            
         }
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+    .main-wrapper {
+        flex: 1;
+    }
         /* Custom Scrollbar */
 ::-webkit-scrollbar { 
     width: 10px; 
@@ -316,6 +324,7 @@
     </style>
 </head>
 <body>
+    <div class="main-wrapper">
     <div id="loader"></div>
     <nav class="navbar">
         <div class="logo">MUDHIHIRJZ <span>TECH</span></div>
@@ -367,7 +376,8 @@
             </div>
            <a href="javascript:void(0)" class="read-more" id="btn-id2" onclick="fungua('id2')"><span class="text">Soma zaidi</span>  <i class="fas fa-chevron-down"></i></a>
         </div>
-    </div>    
+    </div>
+    </div> 
     <footer>
         <div class="footer-content">
             <div class="footer-section">
@@ -386,6 +396,7 @@
         <div class="footer-bottom">
         <p>&copy; 2026 | Mudhihirjz Online Service Agency | Designed by Mr. Rock</p>
         </div>
+    
     </footer>
 
     <a href="https://wa.me/255671533265" class="whatsapp-float" target="_blank">
