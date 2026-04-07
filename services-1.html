@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services | Mudhihirjz Tech</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta name="description" content="Mudhihirjz Online Service Agency - Huduma bora za usajili wa vyeti (RITA), TIN, na Software Development Zanzibar.">
+    <meta name="keywords" content="Zanzibar, RITA, TIN, Software Development, Flutter, Mudhihirjz Tech, Think and Grow">
+    <meta name="author" content="Mudhihirjz Mohamed Selemani">
+    <style>
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Poppins', sans-serif; 
+        }
+        body { 
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background-color: #f4f7f6;  
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #007bff; border-radius: 10px; }
+
+        /* Loading Animation */
+        #loader {
+            position: fixed;
+            width: 100%;
+            height: 100vh;
+            background: #fff url('https://i.gifer.com/ZZ5H.gif') no-repeat center; 
+            z-index: 9999;
+        }
+        
+        /* --- NAVBAR --- */
+        .navbar { 
+            background: #1a1a1a; 
+            padding: 15px 5%; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3); 
+        }
+
+        .logo { color: white; font-size: 22px; font-weight: 600; }
+        .logo span { color: #007bff; }
+
+        .menu-toggle { color: white; font-size: 26px; cursor: pointer; z-index: 1001; }
+
+        .nav-links {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            background: #1a1a1a;
+            width: 280px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 100px;
+            transition: 0.4s ease-in-out;
+            list-style: none;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.5);
+        }
+
+        .nav-links.active { right: 0; }
+        .nav-links li { margin: 20px 0; }
+        .nav-links a { color: white; text-decoration: none; font-size: 18px; transition: 0.3s; }
+        .nav-links a:hover { color: #007bff; }
+
+        /* --- CONTENT --- */
+        .header-section {
+            background: linear-gradient(135deg, #1a1a1a, #007bff);
+            color: wheat;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px; /* Aligned for Desktop */
+            margin: 40px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .container h2 {
+            grid-column: 1 / -1;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #333;
+        }
+
+        .service-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: 0.3s;
+            border-bottom: 4px solid transparent;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Makes buttons align at bottom */
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-bottom: 4px solid #007bff;
+        }
+
+        .icon { font-size: 45px; color: #007bff; margin-bottom: 20px; display: block; }
+        h3 { color: #333; margin-bottom: 15px; }
+        p { color: #666; line-height: 1.6; }
+
+        /* FAQ Section */
+        .faq-item {
+            background: white;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: 0.3s;
+            width: 100%;
+        }
+
+        .faq-item h4 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #333;
+            font-size: 16px;
+        }
+
+        .faq-item i { color: #007bff; transition: transform 0.4s ease; }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .faq-item.active i { transform: rotate(180deg); }
+        .faq-item.active .faq-answer { max-height: 500px; margin-top: 15px; }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #007bff, #00d4ff);
+            color: white;
+            padding: 10px 25px;
+            text-decoration: none;
+            border-radius: 30px;
+            margin-top: 20px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        /* Footer */
+        footer { 
+            background: #1a1a1a; 
+            color: #888; 
+            text-align: center; 
+            padding: 40px 5%; 
+            width: 100%; 
+            margin-top: auto;
+        }
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            max-width: 1100px;
+            margin: 0 auto 20px;
+            gap: 30px;
+        } 
+        .footer-section { flex: 1; min-width: 250px; }
+        .footer-section h4 { color: #007bff; margin-bottom: 15px; font-size: 16px; }
+        .footer-section a { font-size: 14px; color: #bbb; text-decoration: none; display: block; margin: 8px 0; }
+        .footer-section a:hover { color: #00d4ff; }
+        .footer-bottom { border-top: 1px solid #333; padding-top: 20px; font-size: 13px; }
+
+        /* WhatsApp */
+        .whatsapp-float {
+            position: fixed; width: 60px; height: 60px; bottom: 40px; right: 40px;
+            background-color: #25d366; color: #FFF; border-radius: 50px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 30px; z-index: 1000; text-decoration: none;
+            box-shadow: 2px 2px 3px #999;
+            transition: 0.3s; 
+        }
+        .whatsapp-float:hover {
+            background-color: #128c7e;
+            transform: rotate(360deg) scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .header-section h1 { font-size: 28px; }
+            .container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div id="loader"></div>
+    <nav class="navbar">
+        <div class="logo">MUDHIHIRJZ <span>TECH</span></div>
+        <div class="menu-toggle" id="mobile-menu">
+            <i class="fas fa-bars"></i>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="publications.html">Publications</a></li>
+            <li><a href="new.html">New</a></li>
+            <li><a href="news.html">News</a></li>
+            <li><a href="services.html">Services</a></li>
+        </ul>
+    </nav>
+
+    <div class="header-section">
+        <h1>Our Services</h1>
+        <p style="font-size: 18px; color: #00d4ff;">Helping you solve challenges through professional digital tools.</p>
+    </div>
+
+    <div class="container">
+        <div class="service-card">
+            <i class="fas fa-file-signature icon"></i>
+            <h3>Certificates & TIN</h3>
+            <p>Birth and Death certificates application, verification, and TIN registration with high efficiency through RITA and TRA systems.</p>
+            <div style="margin-top: auto;"></div> </div>
+
+        <div class="service-card">
+            <i class="fas fa-code icon"></i>
+            <h3>Software Development</h3>
+            <p>Creating custom websites and mobile applications using Flutter and Dart for business and personal growth.</p>
+            <div class="btn">Coming soon</div>
+        </div>
+
+        <div class="service-card">
+            <i class="fas fa-user-graduate icon"></i>
+            <h3>College Applications</h3>
+            <p>Assisting with TCU/NACTE applications and providing academic advice for O-Level and A-Level graduates.</p>
+        </div>
+    </div>
+    
+    <div class="container" style="display: block;"> <h2>Maswali ya Mara kwa Mara (FAQ)</h2>
+        <div class="faq-item" onclick="toggleFaq(this)">
+            <h4>1. Inachukua muda gani kupata Cheti cha Kuzaliwa? <i class="fas fa-chevron-down"></i></h4>
+            <div class="faq-answer">
+                <p>Inategemea na kasi ya mfumo wa RITA, lakini kawaida ni ndani ya siku 5 mpaka 14 za kazi kwa usajili wa kawaida.</p>
+            </div>
+        </div>
+        <div class="faq-item" onclick="toggleFaq(this)">
+            <h4>2. Je, mtu anaweza kupakua cheti chake mtandaoni? <i class="fas fa-chevron-down"></i></h4>
+            <div class="faq-answer">
+                <p>Kwa sasa mfumo wa eRita hauna hiyo chaguo la mtu kupakua cheti kupitia njia ya mtandao.</p>
+            </div>
+        </div>
+        <div class="faq-item" onclick="toggleFaq(this)">
+            <h4>3. Je, mnachapisha vyeti? <i class="fas fa-chevron-down"></i></h4>
+            <div class="faq-answer">
+                <p>Hapana! Sisi ni wasaidizi wa kujitolea tunaosaidia kufanya maombi kwa njia ya mtandao ili kuokoa muda na gharama za usafiri kwenda ofisi za RITA.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Contact Us</h4>
+                <a href="tel:+255671533265"><i class="fas fa-phone"></i> +255 671 533 265</a>
+                <a href="mailto:mudhihirjz@gmail.com"><i class="fas fa-envelope"></i> mudhihirjz@gmail.com</a>
+                <p><i class="fas fa-map-marker-alt"></i> Zanzibar</p>
+            </div>
+            <div class="footer-section">
+                <h4>Government Portals</h4>
+                <a href="https://www.rita.go.tz/" target="_blank"></i> e-RITA</a>
+                <a href="https://services.nida.go.tz/nidanew/" target="_blank"></i> NIDA Online</a>
+                <a href="https://ors.brela.go.tz/" target="_blank"></i> BRELA</a>
+            </div>
+        </div>    
+        <div class="footer-bottom">
+            <p>&copy; 2026 | Mudhihirjz Online Service Agency | Designed by Mr. Rock</p>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/255671533265" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script>
+        const menu = document.querySelector('#mobile-menu');
+        const menuLinks = document.querySelector('.nav-links');
+        menu.addEventListener('click', () => menuLinks.classList.toggle('active'));
+
+        function toggleFaq(item) {
+            const allItems = document.querySelectorAll('.faq-item');
+            allItems.forEach(el => { if (el !== item) el.classList.remove('active'); });
+            item.classList.toggle('active');
+        }
+
+        window.onload = () => document.getElementById('loader').style.display = 'none';
+    </script>
+</body>
+</html>

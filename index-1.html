@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Think and Grow | Official</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta name="description" content="Mudhihirjz Online Service Agency - Huduma bora za usajili wa vyeti (RITA), TIN, na Software Development Zanzibar.">
+    <meta name="keywords" content="Zanzibar, RITA, TIN, Software Development, Flutter, Mudhihirjz Tech, Think and Grow">
+    <meta name="author" content="Mudhihirjz Mohamed Selemani">
+    <style>
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Poppins', sans-serif; 
+        }
+        
+        body { 
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background-color: #f4f7f6;  
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #007bff; border-radius: 10px; }
+
+        /* Loading Animation */
+        #loader {
+            position: fixed;
+            width: 100%;
+            height: 100vh;
+            background: #fff url('https://i.gifer.com/ZZ5H.gif') no-repeat center; 
+            z-index: 9999;
+        }
+
+        /* --- NAVBAR --- */
+        .navbar { 
+            background: #1a1a1a; 
+            padding: 15px 5%; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3); 
+        }
+
+        .logo { color: white; font-size: 22px; font-weight: 600; }
+        .logo span { color: #007bff; }
+        .menu-toggle { color: white; font-size: 26px; cursor: pointer; z-index: 1001; }
+
+        .nav-links {
+            position: fixed; top: 0; right: -300px;
+            background: #1a1a1a; width: 280px; height: 100vh;
+            display: flex; flex-direction: column; align-items: center;
+            padding-top: 100px; transition: 0.4s ease-in-out;
+            list-style: none; box-shadow: -5px 0 15px rgba(0,0,0,0.5);
+        }
+        .nav-links.active { right: 0; }
+        .nav-links li { margin: 20px 0; }
+        .nav-links a { color: white; text-decoration: none; font-size: 18px; transition: 0.3s; }
+        .nav-links a:hover { color: #007bff; }
+
+        /* --- HEADER --- */
+        header {
+            height: 60vh;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+            url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1352&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #00d4ff;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        /* --- CONTENT GRID SYSTEM --- */
+        .background-ctn {
+            display: flex;
+            width: 100%;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            gap: 25px;
+            align-items: stretch; /* Inalinganisha urefu wa box zote */
+        }
+
+        .box-left, .box-right {
+            flex: 1; /* Inachukua nafasi sawa pembeni */
+            padding: 30px;
+            border-radius: 15px;
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+
+        .box-left { background: #ffffff; border-top: 5px solid #007bff; }
+        .box-right { background: #007bff; color: white; border-top: 5px solid #00d4ff; }
+
+        .box-center {
+            flex: 2; /* Inakuwa pana zaidi katikati */
+            transition: 0.3s;
+        }
+
+        .box-left:hover, .box-right:hover { transform: translateY(-10px); }
+
+        /* --- CONTAINER INNER --- */
+        .container {
+            background: #fff;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            height: 100%;
+        }
+
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+        .card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            transition: 0.3s;
+            border: 1px solid #eee;
+        }
+        .card i { font-size: 30px; color: #007bff; margin-bottom: 10px; display: block; }
+        .card:hover { background: #eef6ff; border-color: #007bff; }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #007bff, #00d4ff);
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 30px;
+            margin-top: 20px;
+            font-weight: 600;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        .btn:hover { transform: scale(1.05); box-shadow: 0 5px 15px rgba(0,123,255,0.4); }
+
+        /* Footer */
+        footer { 
+            background: #1a1a1a; 
+            color: #888; 
+            text-align: center; 
+            padding: 40px 5%;
+            width: 100%; 
+            margin-top: auto;
+        }
+        .footer-content { display: flex; flex-wrap: wrap; justify-content: space-around; gap: 30px; }
+        .footer-section { flex: 1; min-width: 250px; }
+        .footer-section h4 { color: #007bff; margin-bottom: 15px; }
+        .footer-section a { color: #bbb; text-decoration: none; display: block; margin: 8px 0; font-size: 14px; }
+        .footer-bottom { margin-top: 20px; border-top: 1px solid #333; padding-top: 20px; font-size: 13px; }
+
+        .whatsapp-float {
+            position: fixed; width: 60px; height: 60px; bottom: 40px; right: 40px;
+            background-color: #25d366; color: #FFF; border-radius: 50px;
+            display: flex; align-items: center; justify-content: center; 
+            font-size: 30px; z-index: 1000; transition: 0.3s;
+            text-decoration: none;
+            box-shadow: 2px 2px 3px #999;
+        }
+        .whatsapp-float:hover { 
+            background-color: #128c7e;
+            transform: rotate(360deg) scale(1.1); }
+
+        @media (max-width: 1000px) {
+            .background-ctn { flex-direction: column; }
+            .box-center { order: -1; } /* Inaleta box ya katikati iwe ya kwanza kwenye simu */
+        }
+        /* Container ya badge */
+.badge-pulse {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-color: #ff3e3e; /* Rangi nyekundu */
+    border-radius: 50%; /* Inafanya iwe mduara */
+    margin-left: 5px;
+    position: relative;
+    vertical-align: middle;
+}
+
+/* Animation ya mdundo (The Pulse) */
+.badge-pulse::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #ff3e3e;
+    border-radius: 50%;
+    z-index: -1;
+    animation: pulse-animation 1.5s infinite ease-out;
+}
+
+@keyframes pulse-animation {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(3); /* Inatanuka mara 3 */
+        opacity: 0; /* Inafifia mpaka inapotea */
+    }
+}
+    </style>
+</head>
+<body>
+    <div id="loader"></div>
+    <nav class="navbar">
+        <div class="logo">MUDHIHIRJZ <span>TECH</span></div>
+        <div class="menu-toggle" id="mobile-menu"><i class="fas fa-bars"></i></div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="publications.html">Publications</a></li>
+            <li><a href="new.html">New</a></li>
+            <li><a href="news.html">News</a></li>
+            <li><a href="services.html">Services</a></li>
+        </ul>
+    </nav>
+
+    <header>
+        <h1 style="font-size: 3rem; margin-bottom: 10px;">Think and Grow</h1>
+        <p style="font-size: 1.2rem; color: #ddd;">Innovating Digital Solutions at your doorstep</p>
+        <p>Karibu kwenye kituo chako pendwa na rafiki kwa ajili ya kutatua changamoto zako mbalimbali ikiwemo nyaraka muhimu za kitaifa(Vyeti)</p>
+    </header>
+
+    <div class="background-ctn">
+        
+        <div class="box-left">
+            <h3 style="color: #007bff; margin-bottom: 15px;">LATEST NEWS</h3>
+            <p style="font-size: 0.9rem; color: #555; margin-bottom: 20px;">Get informed with our daily tech insights and community updates.<span class="badge-pulse"></span></p>
+            <a href="news.html" class="btn">Read News</a>
+        </div>
+
+        <div class="box-center">
+            <div class="container">
+                <h2 style="color: #333; text-align: center;">What We Do?</h2>
+                <p style="text-align: center; color: #666;">Think and Grow is your ultimate partner in digital transformation.</p>
+                
+                <div class="services">
+                    <div class="card">
+                        <i class="fas fa-laptop-code"></i>
+                        <h4>Software Dev</h4>
+                        <p style="font-size: 0.8rem;">Custom web & mobile apps.</p>
+                    </div>
+                    <div class="card">
+                        <i class="fas fa-fingerprint"></i>
+                        <h4>E-Services</h4>
+                        <p style="font-size: 0.8rem;">RITA, TIN & NIDA help.</p>
+                    </div>
+                </div>
+
+                <div style="text-align: center;">
+                    <a href="services.html" class="btn">View All Services</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="box-right">
+            <h3 style="color: #fff; margin-bottom: 15px;">GET HELP</h3>
+            <p style="font-size: 0.9rem; margin-bottom: 20px;">Step-by-step guides for government portal applications.</p>
+            <a href="publications.html" class="btn" style="background: white; color: #007bff;">Learn More</a>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Contact Us</h4>
+                <a href="tel:+255671533265"><i class="fas fa-phone"></i> +255 671 533 265</a>
+                <a href="mailto:mudhihirjz@gmail.com"><i class="fas fa-envelope"></i> mudhihirjz@gmail.com</a>
+                <p><i class="fas fa-map-marker-alt"></i> Zanzibar</p>
+            </div>
+            <div class="footer-section">
+                <h4>Government Portals</h4>
+                <a href="https://www.rita.go.tz/" target="_blank">e-RITA</a>
+                <a href="https://services.nida.go.tz/nidanew/" target="_blank">NIDA Online</a>
+                <a href="https://ors.brela.go.tz/" target="_blank">BRELA</a>
+            </div>
+        </div>    
+        <div class="footer-bottom">
+            <p>&copy; 2026 | Mudhihirjz Online Service Agency | Designed by Mr. Rock</p>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/255671533265" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+    <script>
+        const menu = document.querySelector('#mobile-menu');
+        const menuLinks = document.querySelector('.nav-links');
+        menu.addEventListener('click', () => menuLinks.classList.toggle('active'));
+
+        window.onload = () => document.getElementById('loader').style.display = 'none';
+    </script>
+</body>
+</html>

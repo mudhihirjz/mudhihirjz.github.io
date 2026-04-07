@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News | Mudhihirjz Tech</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta name="description" content="Mudhihirjz Online Service Agency - Huduma bora za usajili wa vyeti (RITA), TIN, na Software Development Zanzibar.">
+    <meta name="keywords" content="Zanzibar, RITA, TIN, Software Development, Flutter, Mudhihirjz Tech, Think and Grow">
+    <meta name="author" content="Mudhihirjz Mohamed Selemani">
+    <style>
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Poppins', sans-serif; 
+        }
+        body { 
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background-color: #f4f7f6;  
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #007bff; border-radius: 10px; }
+
+        /* Loading Animation */
+        #loader {
+            position: fixed;
+            width: 100%;
+            height: 100vh;
+            background: #fff url('https://i.gifer.com/ZZ5H.gif') no-repeat center; 
+            z-index: 9999;
+        }
+
+        /* --- NAVBAR --- */
+        .navbar { 
+            background: #1a1a1a; 
+            padding: 15px 5%; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3); 
+        }
+
+        .logo { color: white; font-size: 22px; font-weight: 600; }
+        .logo span { color: #007bff; }
+
+        .menu-toggle { color: white; font-size: 26px; cursor: pointer; z-index: 1001; }
+
+        .nav-links {
+            position: fixed; top: 0; right: -300px;
+            background: #1a1a1a; width: 280px; height: 100vh;
+            display: flex; flex-direction: column; align-items: center;
+            padding-top: 100px; transition: 0.4s ease-in-out;
+            list-style: none; box-shadow: -5px 0 15px rgba(0,0,0,0.5);
+        }
+
+        .nav-links.active { right: 0; }
+        .nav-links li { margin: 20px 0; }
+        .nav-links a { color: white; text-decoration: none; font-size: 18px; transition: 0.3s; }
+        .nav-links a:hover { color: #007bff; }
+
+        /* --- HEADER --- */
+        .header-section {
+            background: linear-gradient(135deg, #1a1a1a, #007bff);
+            color: wheat;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        /* --- BLOG CONTAINER --- */
+        .blog-container { 
+            width: 100%; 
+            max-width: 1200px;
+            margin: 20px auto; 
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+        
+        .blog-container h1 {
+            grid-column: 1 / -1;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .post {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        .post:hover {
+            transform: translateY(-5px);
+            border-bottom: 4px solid #007bff;
+        }
+
+        .post-img {
+            width: 100%; 
+            height: 250px; 
+            object-fit: cover;
+            border-radius: 8px; 
+            margin-bottom: 15px; 
+        }
+
+        .post h2 { color: #333; margin-bottom: 10px; font-size: 1.2rem; }
+        .post .date { color: #999; font-size: 0.8rem; margin-bottom: 15px; display: block; }
+        .post p { color: #555; line-height: 1.7; font-size: 0.95rem; }
+
+        .read-more { 
+            color: #007bff; 
+            text-decoration: none; 
+            font-weight: bold; 
+            display: inline-flex; 
+            align-items: center;
+            margin-top: auto; 
+            padding-top: 15px;
+            cursor: pointer;
+        }
+        .read-more i { transition: 0.3s; margin-left: 8px; }
+
+        /* Video Setup */
+        .video-container {
+            width: 100%; 
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            aspect-ratio: 16 / 9;
+            background: #000;
+        }
+        .video-container iframe { width: 100%; height: 100%; border: none; }
+
+        /* Footer */
+        footer { 
+            background: #1a1a1a; 
+            color: #888; 
+            text-align: center; 
+            padding: 40px 5%;
+            width: 100%; 
+            margin-top: auto;
+        }
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            max-width: 1100px;
+            margin: 0 auto 20px;
+            gap: 30px;
+        } 
+        .footer-section { flex: 1; min-width: 250px; }
+        .footer-section h4 { color: #007bff; margin-bottom: 15px; font-size: 16px; }
+        .footer-section a { font-size: 14px; color: #bbb; text-decoration: none; display: block; margin: 8px 0; }
+        .footer-bottom { border-top: 1px solid #333; padding-top: 20px; font-size: 13px; }
+
+        /* WhatsApp */
+        .whatsapp-float {
+            position: fixed; width: 60px; height: 60px; bottom: 40px; right: 40px;
+            background-color: #25d366; color: #FFF; border-radius: 50px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 30px; z-index: 1000; text-decoration: none;
+            box-shadow: 2px 2px 3px #999;
+            transition: 0.3s; 
+        }
+        .whatsapp-float:hover {
+         background-color: #128c7e;
+         transform: rotate(360deg) scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .header-section h1 { font-size: 28px; }
+            .blog-container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div id="loader"></div>
+    <nav class="navbar">
+        <div class="logo">MUDHIHIRJZ <span>TECH</span></div>
+        <div class="menu-toggle" id="mobile-menu">
+            <i class="fas fa-bars"></i>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="publications.html">Publications</a></li>
+            <li><a href="new.html">New</a></li>
+            <li><a href="news.html">News</a></li>
+            <li><a href="services.html">Services</a></li>
+        </ul>
+    </nav>
+
+    <div class="header-section">
+        <h1>Latest News</h1>
+        <p style="font-size: 18px; color: #00d4ff;">Expand your knowledge with our free professional insights.</p>
+    </div>
+
+    <div class="blog-container">
+        <h1>Recent Posts</h1>
+        
+        <div class="post">
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/3LEvsfX2HwM" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <h2>Ufafanuzi kuhusu usajili wa ndoa</h2>
+            <p>Je, unajua kuwa ukishapata cheti cha ndoa kutoka kwa msajili wako hauna haja ya kwenda RITA tena.?</p>
+                <p>  Msajili wa ndoa anapokamilisha mchakato na kutoa cheti kwa wanandoa, usajili huo unakuwa umekamilika kisheria.</p>
+        </div>
+
+        <div class="post">
+            <img src="slide7.png" alt="AI" class="post-img">
+            <span class="date">Machi 26, 2026</span>
+            <h2>Ijue AI kwa ufupi</h2>
+            <p>AI ni mfumo wa akili bandia ambao una uwezo wa kutoa maamuzi karibu sana na maamuzi ya binadamu. AI hupokea maamrisho kutoka kwa binadamu ya kuyafanyia kazi kulingana na maelekezo yako.</p>
+            <div id="id1" style="display: none; margin-top: 10px;">
+                <p>Kwa hali ya Ulimwengu wa sasa AI imekuwa tishio kubwa sana kwa binadamu kutokana na uwezo wake mkubwa wa kufanya kazi kwa muda mfupi na kwa haraka zaidi. AI ikitumiwa vizuri itakuletea manufaa, usiogope AI jitahidi kujifunza jinsi ya kuitumia ili isiwe kama kikwazo kwako bali iwe fursa kwako.</p>
+            </div>
+            <a href="javascript:void(0)" class="read-more" onclick="fungua('id1')"><span class="text">Read more</span> <i class="fas fa-chevron-down"></i></a>
+        </div>
+
+        <div class="post">
+            <img src="ajira.jpeg" alt="Flutter" class="post-img">
+            <span class="date">Machi 20, 2026</span>
+            <h2>Mfumo rasmi wa ajira(Ajira Portal)</h2>
+            <p>Mfumo huu umekuja kurahisisha mchakato mzima wa ajira kwa taasisi za serikali, ambapo maombi yote ya ajira hufanyika kwa njia ya mtandao, na mhusika hupata mrejesho moja kwa moja kupitia aacount yake kwenye Ajira Portal.</p>
+            <div id="id2" style="display: none; margin-top: 10px;">
+                <p>Mwombaji anachotakiwa kufanya kabla ya kuomba ajira husika anatakiwa kufungua account kwenye Ajira Portal, huko ndipo patakuwa mlango wake wa kila taarifa kuhusiana na maendeleo ya maombi yake, atapaswa kuweka nakala za CV yake, pamoja na vyeti vyake vya kitaaluma.</p>
+            </div>
+           <a href="javascript:void(0)" class="read-more" onclick="fungua('id2')"><span class="text">Read more</span> <i class="fas fa-chevron-down"></i></a>
+        </div>
+    </div>    
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Contact Us</h4>
+                <a href="tel:+255671533265"><i class="fas fa-phone"></i> +255 671 533 265</a>
+                <a href="mailto:mudhihirjz@gmail.com"><i class="fas fa-envelope"></i> mudhihirjz@gmail.com</a>
+                <p><i class="fas fa-map-marker-alt"></i> Zanzibar</p>
+            </div>
+            <div class="footer-section">
+                <h4>Government Portals</h4>
+                <a href="https://www.rita.go.tz/" target="_blank">e-RITA</a>
+                <a href="https://services.nida.go.tz/nidanew/" target="_blank">NIDA Online</a>
+                <a href="https://ors.brela.go.tz/" target="_blank">BRELA</a>
+            </div>
+        </div>    
+        <div class="footer-bottom">
+            <p>&copy; 2026 | Mudhihirjz Online Service Agency | Designed by Mr. Rock</p>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/255671533265" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script>
+        function fungua(id) {
+            let maelezo = document.getElementById(id);
+            let button = event.currentTarget;
+            let mshale = button.querySelector('i');
+            let maneno = button.querySelector('.text');
+
+            if (maelezo.style.display === "none" || maelezo.style.display === "") {
+                maelezo.style.display = "block";
+                mshale.style.transform = "rotate(180deg)";
+                maneno.innerText = "Show less";
+            } else {
+                maelezo.style.display = "none";
+                mshale.style.transform = "rotate(0deg)";
+                maneno.innerText = "Read more";
+            }
+        }
+
+        const menu = document.querySelector('#mobile-menu');
+        const menuLinks = document.querySelector('.nav-links');
+        menu.addEventListener('click', () => menuLinks.classList.toggle('active'));
+
+        window.onload = () => document.getElementById('loader').style.display = 'none';
+    </script>
+</body>
+</html>
