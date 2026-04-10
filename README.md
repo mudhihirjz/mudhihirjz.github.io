@@ -1,2 +1,2 @@
-# my-website
+# mudhihirjz.github.io
 testing mode
