@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services | Mudhihirjz Tech</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f0f2f5;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .main-content-wrapper {
+            flex: 1;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #e0e0e0; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: #007bff; border-radius: 10px; }
+
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1a1a1a, #0d2b3e);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s;
+        }
+        .loader.hide {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255,255,255,0.3);
+            border-top: 4px solid #007bff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .navbar {
+            background: #1a1a1a;
+            padding: 15px 5%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+        .logo {
+            color: white;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        .logo span {
+            color: #007bff;
+        }
+        .menu-toggle {
+            color: white;
+            font-size: 26px;
+            cursor: pointer;
+            display: none;
+            transition: 0.3s;
+            z-index: 1002;
+        }
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: 0.3s;
+            position: relative;
+        }
+        .nav-links a:hover {
+            color: #007bff;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #007bff;
+            transition: 0.3s;
+        }
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+        .nav-links a.active {
+            color: #007bff;
+        }
+
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(3px);
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s ease;
+        }
+        .menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, #1a1a1a, #007bff);
+            padding: 60px 20px;
+            text-align: center;
+            color: white;
+        }
+        .page-header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            animation: fadeInDown 0.6s ease;
+        }
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            animation: fadeInUp 0.6s ease 0.2s both;
+        }
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .services-section {
+            max-width: 1300px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        .service-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: 0.4s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            position: relative;
+            overflow: hidden;
+        }
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #007bff, #00d4ff);
+            transform: scaleX(0);
+            transition: 0.4s;
+        }
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #007bff10, #00d4ff10);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+        }
+        .service-icon i {
+            font-size: 40px;
+            color: #007bff;
+        }
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        .service-card p {
+            color: #666;
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+        .service-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff9100, #067e1a);
+            color: white;
+            padding: 10px 28px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+        .service-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,123,255,0.4);
+        }
+
+        .faq-section {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+        .faq-section h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 40px;
+            color: #333;
+            position: relative;
+        }
+        .faq-section h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #007bff, #00d4ff);
+            margin: 15px auto 0;
+            border-radius: 3px;
+        }
+        .faq-item {
+            margin-bottom: 15px;
+            border: 1px solid #e9ecef;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: 0.3s;
+        }
+        .faq-question {
+            background: #f8f9fa;
+            padding: 18px 25px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: #333;
+            transition: 0.3s;
+        }
+        .faq-question:hover {
+            background: #eef6ff;
+        }
+        .faq-question i {
+            color: #007bff;
+            transition: 0.3s;
+        }
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            padding: 0 25px;
+            color: #666;
+            line-height: 1.6;
+        }
+        .faq-item.active .faq-answer {
+            max-height: 200px;
+            padding: 18px 25px;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, rgb(24, 110, 24), greenyellow);
+            border-radius: 20px;
+            padding: 50px;
+            text-align: center;
+            color: white;
+            margin-top: 60px;
+        }
+        .cta-section h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+        .cta-section p {
+            margin-bottom: 25px;
+            opacity: 0.95;
+        }
+        .cta-btn {
+            display: inline-block;
+            background: white;
+            color: #007bff;
+            padding: 12px 35px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: 0.3s;
+
+        }
+        .cta-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        footer {
+            background: #1a1a1a;
+            color: #888;
+            padding: 50px 5% 30px;
+            margin-top: auto;
+            text-align: center;
+        }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .footer-section h4 {
+            color: #007bff;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        .footer-section a {
+            color: #bbb;
+            text-decoration: none;
+            display: block;
+            margin: 10px 0;
+            transition: 0.3s;
+        }
+        .footer-section a:hover {
+            color: #007bff;
+            transform: translateX(5px);
+        }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #333;
+            font-size: 0.85rem;
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: #25d366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            color: white;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(37,211,102,0.3);
+            transition: 0.3s;
+            z-index: 1000;
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.1) rotate(360deg);
+            background: #128c7e;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 45px;
+            height: 45px;
+            background: #007bff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s;
+            z-index: 1000;
+        }
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .back-to-top:hover {
+            background: #0056b3;
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                height: 100vh;
+                background: #1a1a1a;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 30px;
+                transition: 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+                z-index: 1001;
+                box-shadow: -5px 0 30px rgba(0,0,0,0.3);
+            }
+            .nav-links.active {
+                right: 0;
+            }
+            .page-header h1 {
+                font-size: 2rem;
+            }
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            .faq-section {
+                padding: 30px 20px;
+            }
+            .cta-section {
+                padding: 40px 25px;
+            }
+            .cta-section h3 {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="loader" id="loader">
+    <div class="spinner"></div>
+</div>
+
+<div class="menu-overlay" id="menuOverlay"></div>
+
+<nav class="navbar">
+    <div class="logo">MUDHIHIRJZ <span>TECH</span></div>
+    <div class="menu-toggle" id="mobile-menu">
+        <i class="fas fa-bars"></i>
+    </div>
+    <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="publications.html">Publications</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="news.html">News</a></li>
+        <li><a href="services.html" class="active">Services</a></li>
+    </ul>
+</nav>
+
+<div class="main-content-wrapper">
+    <section class="page-header">
+        <h1>Our Services</h1>
+        <p>Helping you solve challenges through professional digital tools</p>
+    </section>
+
+    <div class="services-section">
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-file-signature"></i>
+                </div>
+                <h3>Certificates & TIN</h3>
+                <p>Birth and Death certificates application, verification, and TIN registration with high efficiency through RITA and TRA systems.</p>
+                <a href="#" class="service-btn">Learn More →</a>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-code"></i>
+                </div>
+                <h3>Software Development</h3>
+                <p>Creating custom websites and mobile applications using Flutter and Dart for business and personal growth.</p>
+                <a href="projects.html" class="service-btn">View Projects →</a>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-user-graduate"></i>
+                </div>
+                <h3>College Applications</h3>
+                <p>Assisting with TCU/NACTE applications and providing academic advice for O-Level and A-Level graduates.</p>
+                <a href="#" class="service-btn">Learn More →</a>
+            </div>
+        </div>
+
+        <div class="faq-section">
+            <h2>Maswali ya Mara kwa Mara (FAQ)</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>📄 Inachukua muda gani kupata Cheti cha Kuzaliwa?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Inategemea na kasi ya mfumo wa RITA, lakini kawaida ni ndani ya siku 5 mpaka 14 za kazi kwa usajili wa kawaida. Kwa huduma ya haraka, tunaweza kukusaidia kufuatilia mchakato.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>💻 Je, mtu anaweza kupakua cheti chake mtandaoni?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Kwa sasa mfumo wa e-RITA hauna chaguo la kupakua cheti moja kwa moja mtandaoni. Tunakusaidia kupata cheti kwa njia rasmi na kukifanyia usajili kwa urahisi.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>🖨️ Je, mnachapisha vyeti?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Hapana! Sisi ni wasaidizi wa kujitolea tunaosaidia kufanya maombi kwa njia ya mtandao ili kuokoa muda na gharama za usafiri kwenda ofisi za RITA. Tunakusaidia kufuatilia hadi cheti kiko tayari.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>💰 Gharama yake ni kiasi gani?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Gharama inategemea na huduma unayohitaji. Tunatoa bei nafuu na ya urafiki. Wasiliana nasi kwa maelezo zaidi kuhusu gharama kamili.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <h3>Unahitaji Msaada wa Haraka?</h3>
+            <p>Wasiliana nasi sasa kwa msaada wa kitaalamu na wa haraka.</p>
+            <a href="https://wa.me/255671533265" class="cta-btn" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-content">
+        <div class="footer-section">
+            <h4>📞 Contact Us</h4>
+            <a href="tel:+255671533265"><i class="fas fa-phone"></i> +255 671 533 265</a>
+            <a href="mailto:mudhihirjz@gmail.com"><i class="fas fa-envelope"></i> mudhihirjz@gmail.com</a>
+            <p><i class="fas fa-map-marker-alt"></i> Zanzibar, Tanzania</p>
+        </div>
+        <div class="footer-section">
+            <h4>🏛️ Government Portals</h4>
+            <a href="https://www.rita.go.tz/" target="_blank">e-RITA</a>
+            <a href="https://services.nida.go.tz/nidanew/" target="_blank">NIDA Online</a>
+            <a href="https://ors.brela.go.tz/" target="_blank">BRELA</a>
+        </div>
+        <div class="footer-section">
+            <h4>🔗 Quick Links</h4>
+            <a href="index.html">Home</a>
+            <a href="services.html">Services</a>
+            <a href="news.html">News</a>
+            <a href="projects.html">Projects</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026 | Mudhihirjz Tech | Designed by Mudhihirjz/p>
+    </div>
+</footer>
+
+<a href="https://wa.me/255671533265" class="whatsapp-float" target="_blank">
+    <i class="fab fa-whatsapp"></i>
+</a>
+
+<a href="#" class="back-to-top" id="backToTop">
+    <i class="fas fa-arrow-up"></i>
+</a>
+
+<script>
+    window.addEventListener('load', () => {
+        const loader = document.getElementById('loader');
+        setTimeout(() => loader.classList.add('hide'), 500);
+    });
+
+    const menuBtn = document.getElementById('mobile-menu');
+    const navLinks = document.getElementById('navLinks');
+    const menuOverlay = document.getElementById('menuOverlay');
+    const menuIcon = menuBtn.querySelector('i');
+
+    function openMenu() {
+        navLinks.classList.add('active');
+        menuOverlay.classList.add('active');
+        menuIcon.classList.remove('fa-bars');
+        menuIcon.classList.add('fa-times');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeMenu() {
+        navLinks.classList.remove('active');
+        menuOverlay.classList.remove('active');
+        menuIcon.classList.remove('fa-times');
+        menuIcon.classList.add('fa-bars');
+        document.body.style.overflow = '';
+    }
+
+    menuBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        navLinks.classList.contains('active') ? closeMenu() : openMenu();
+    });
+
+    menuOverlay.addEventListener('click', closeMenu);
+    document.querySelectorAll('.nav-links a').forEach(link => link.addEventListener('click', closeMenu));
+    document.addEventListener('keydown', (e) => e.key === 'Escape' && navLinks.classList.contains('active') && closeMenu());
+
+    let touchStartX = 0;
+    document.addEventListener('touchstart', (e) => touchStartX = e.changedTouches[0].screenX);
+    document.addEventListener('touchend', (e) => {
+        let touchEndX = e.changedTouches[0].screenX;
+        if (touchEndX - touchStartX > 80 && navLinks.classList.contains('active')) closeMenu();
+    });
+
+    function toggleFaq(element) {
+        const faqItem = element.closest('.faq-item');
+        faqItem.classList.toggle('active');
+    }
+
+    const backBtn = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => window.scrollY > 300 ? backBtn.classList.add('show') : backBtn.classList.remove('show'));
+    backBtn.addEventListener('click', (e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+
+    const currentPage = window.location.pathname.split('/').pop() || 'services.html';
+    document.querySelectorAll('.nav-links a').forEach(link => { if (link.getAttribute('href') === currentPage) link.classList.add('active'); });
+</script>
+</body>
+</html>
