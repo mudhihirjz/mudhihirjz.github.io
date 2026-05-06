@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MUDHIHIRJZ Tech</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🟢</text></svg>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        /* ==========================================
+           CSS CUSTOM PROPERTIES - COLOR PALETTE
+           ========================================== */
+        :root {
+            --clr-dark: #1E293B;
+            --clr-primary: #0F766E;
+            --clr-primary-hover: #0D5F58;
+            --clr-accent: #C9A96E;
+            --clr-accent-light: #E8D9C5;
+            --clr-bg: #F9F8F4;
+            --clr-surface: #FFFFFF;
+            --clr-surface-alt: #F5F3EC;
+            --clr-text: #292524;
+            --clr-text-soft: #78716C;
+            --clr-border: #E7E5E0;
+            --clr-badge-live: #0F766E;
+            --clr-badge-progress: #C9A96E;
+            --clr-badge-coming: #94A3B8;
+            --font-main: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.08);
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 16px;
+            --transition: 0.25s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background: var(--clr-bg);
+            color: var(--clr-text);
+            line-height: 1.7;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ==========================================
+           WELCOME PAGE
+           ========================================== */
+        .welcome-page {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: var(--clr-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.7s ease, visibility 0.7s ease;
+            overflow: hidden;
+            font-family: var(--font-main);
+        }
+
+        .welcome-page.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        /* Bubbles */
+        .bubbles-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .bubble {
+            position: absolute;
+            bottom: -100px;
+            border-radius: 50%;
+            animation: rise linear infinite;
+            opacity: 0;
+        }
+
+        .bubble:nth-child(1) { left: 10%; width: 40px; height: 40px; background: rgba(201,169,110,0.12); animation-duration: 9s; animation-delay: 0s; }
+        .bubble:nth-child(2) { left: 22%; width: 55px; height: 55px; background: rgba(15,118,110,0.10); animation-duration: 11s; animation-delay: 1s; }
+        .bubble:nth-child(3) { left: 35%; width: 30px; height: 30px; background: rgba(201,169,110,0.15); animation-duration: 7s; animation-delay: 2s; }
+        .bubble:nth-child(4) { left: 48%; width: 65px; height: 65px; background: rgba(15,118,110,0.08); animation-duration: 13s; animation-delay: 0.5s; }
+        .bubble:nth-child(5) { left: 60%; width: 45px; height: 45px; background: rgba(201,169,110,0.11); animation-duration: 10s; animation-delay: 1.5s; }
+        .bubble:nth-child(6) { left: 72%; width: 35px; height: 35px; background: rgba(15,118,110,0.13); animation-duration: 8s; animation-delay: 3s; }
+        .bubble:nth-child(7) { left: 82%; width: 50px; height: 50px; background: rgba(201,169,110,0.09); animation-duration: 12s; animation-delay: 2.5s; }
+        .bubble:nth-child(8) { left: 5%; width: 28px; height: 28px; background: rgba(15,118,110,0.12); animation-duration: 7s; animation-delay: 1s; }
+        .bubble:nth-child(9) { left: 90%; width: 58px; height: 58px; background: rgba(201,169,110,0.10); animation-duration: 10s; animation-delay: 0s; }
+        .bubble:nth-child(10) { left: 42%; width: 32px; height: 32px; background: rgba(15,118,110,0.14); animation-duration: 8s; animation-delay: 3.5s; }
+        .bubble:nth-child(11) { left: 55%; width: 42px; height: 42px; background: rgba(201,169,110,0.08); animation-duration: 11s; animation-delay: 2s; }
+        .bubble:nth-child(12) { left: 75%; width: 38px; height: 38px; background: rgba(15,118,110,0.11); animation-duration: 9s; animation-delay: 1.5s; }
+
+        @keyframes rise {
+            0% { bottom: -100px; opacity: 0; }
+            10% { opacity: 0.5; }
+            40% { opacity: 0.25; }
+            80% { opacity: 0.08; }
+            100% { bottom: 110%; opacity: 0; }
+        }
+
+        /* Welcome Content */
+        .welcome-content {
+            text-align: center;
+            color: white;
+            z-index: 1;
+            position: relative;
+        }
+
+        .welcome-brand {
+            font-size: 2.8rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.7s ease forwards;
+        }
+
+        .welcome-brand span {
+            color: var(--clr-accent);
+        }
+
+        .welcome-image-container {
+            margin: 28px auto 0;
+            width: 280px;
+            height: 280px;
+            opacity: 0;
+            transform: scale(0.4);
+            animation: popInOut 2.5s ease 0.6s forwards;
+            border-radius: 50%;
+            overflow: hidden;
+            background: rgba(255,255,255,0.04);
+            border: 2px solid rgba(201,169,110,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .welcome-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @keyframes popInOut {
+            0% { opacity: 0; transform: scale(0.3); }
+            15% { opacity: 1; transform: scale(1.05); }
+            30% { opacity: 1; transform: scale(0.98); }
+            45% { opacity: 1; transform: scale(1); }
+            70% { opacity: 1; transform: scale(1); }
+            85% { opacity: 0.6; transform: scale(0.9); }
+            100% { opacity: 0; transform: scale(0.3); }
+        }
+
+        .welcome-subtitle {
+            font-size: 1.15rem;
+            margin-top: 14px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.7s ease 0.25s forwards;
+            color: var(--clr-accent-light);
+            letter-spacing: 1px;
+        }
+
+        .welcome-loader {
+            margin: 32px auto 0;
+            width: 70px;
+            height: 3px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 3px;
+            overflow: hidden;
+            opacity: 0;
+            animation: fadeInUp 0.7s ease 0.9s forwards;
+        }
+
+        .welcome-loader-bar {
+            height: 100%;
+            background: var(--clr-accent);
+            width: 0%;
+            animation: loadBar 3s ease-in-out forwards;
+        }
+
+        /* Skip button */
+        .skip-btn {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            z-index: 10;
+            background: rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.6);
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: 13px;
+            transition: all var(--transition);
+            font-family: var(--font-main);
+        }
+
+        .skip-btn:hover {
+            background: rgba(255,255,255,0.2);
+            color: white;
+        }
+
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes loadBar {
+            to { width: 100%; }
+        }
+
+        /* ==========================================
+           MAIN APP (Hidden until Welcome done)
+           ========================================== */
+        .main-app {
+            display: none;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .main-app.show {
+            display: flex;
+        }
+
+        /* ==========================================
+           NAVIGATION - HORIZONTAL SCROLL
+           ========================================== */
+        .top-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--clr-dark);
+            color: white;
+            padding: 0;
+            z-index: 1000;
+            overflow-x: auto;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+            box-shadow: var(--shadow-md);
+        }
+
+        .top-nav::-webkit-scrollbar {
+            height: 3px;
+        }
+
+        .top-nav::-webkit-scrollbar-thumb {
+            background: var(--clr-accent);
+            border-radius: 3px;
+        }
+
+        .nav-inner {
+            display: inline-flex;
+            align-items: center;
+            padding: 0 20px;
+            gap: 0;
+            min-width: max-content;
+        }
+
+        .nav-brand-small {
+            color: var(--clr-accent);
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 1px;
+            padding: 14px 18px 14px 0;
+            border-right: 1px solid rgba(255,255,255,0.15);
+            margin-right: 6px;
+            flex-shrink: 0;
+        }
+
+        .nav-inner a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            padding: 14px 20px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all var(--transition);
+            cursor: pointer;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .nav-inner a:hover {
+            color: white;
+            background: rgba(255,255,255,0.06);
+        }
+
+        .nav-inner a.active {
+            color: white;
+            background: var(--clr-primary);
+        }
+
+        /* ==========================================
+           PAGE CONTENT
+           ========================================== */
+        .page-content {
+            padding: 70px 24px 0;
+            max-width: 1000px;
+            margin: 0 auto;
+            width: 100%;
+            flex: 1;
+        }
+
+        /* ==========================================
+           PAGE PANELS
+           ========================================== */
+        .page-panel {
+            display: none;
+            animation: fadePage 0.35s ease;
+        }
+
+        .page-panel.active {
+            display: block;
+        }
+
+        @keyframes fadePage {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ==========================================
+           SECTION CARDS
+           ========================================== */
+        .section-card {
+            background: var(--clr-surface);
+            border-radius: var(--radius-lg);
+            padding: 32px 28px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--clr-border);
+            transition: all var(--transition);
+        }
+
+        .section-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .section-card h2 {
+            font-size: 1.5rem;
+            color: var(--clr-text);
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .section-card h3 {
+            font-size: 1.1rem;
+            color: var(--clr-text);
+            margin-bottom: 6px;
+        }
+
+        .section-card .subtitle {
+            color: var(--clr-text-soft);
+            font-size: 0.95rem;
+            margin-bottom: 16px;
+        }
+
+        /* ==========================================
+           NEWS LAYOUT (side-divider improved)
+           ========================================== */
+        .side-divider {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            align-items: start;
+        }
+
+        .side-divider .left,
+        .side-divider .right {
+            min-height: 100px;
+        }
+
+        .side-divider .right {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Empty right panel placeholder */
+        .right-placeholder {
+            text-align: center;
+            color: var(--clr-text-soft);
+            padding: 40px 20px;
+            background: var(--clr-surface-alt);
+            border-radius: var(--radius-lg);
+            width: 100%;
+            border: 1px dashed var(--clr-border);
+        }
+
+        .right-placeholder i {
+            font-size: 48px;
+            color: var(--clr-accent);
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .right-placeholder p {
+            font-size: 14px;
+        }
+
+        /* Text card centered */
+        .text-card {
+            background: var(--clr-surface-alt);
+            border-radius: var(--radius-md);
+            padding: 20px 28px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--clr-border);
+            max-width: 700px;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ==========================================
+           BUTTONS
+           ========================================== */
+        .btn {
+            display: inline-block;
+            padding: 10px 22px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: all var(--transition);
+            font-family: var(--font-main);
+        }
+
+        .btn-primary {
+            background: var(--clr-primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--clr-primary-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(15,118,110,0.25);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--clr-primary);
+            border: 2px solid var(--clr-primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--clr-primary);
+            color: white;
+        }
+
+        .btn-accent {
+            background: var(--clr-accent);
+            color: white;
+        }
+
+        .btn-accent:hover {
+            background: #b8954f;
+            transform: translateY(-1px);
+        }
+
+        /* ==========================================
+           BADGES
+           ========================================== */
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-live {
+            background: #D1FAE5;
+            color: #065F46;
+        }
+
+        .badge-progress {
+            background: #FEF3C7;
+            color: #92400E;
+        }
+
+        .badge-coming {
+            background: #E2E8F0;
+            color: #475569;
+        }
+
+        .badge-new {
+            background: var(--clr-accent);
+            color: white;
+        }
+
+        /* ==========================================
+           CARD GRID (3 COLUMNS)
+           ========================================== */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .card-mini {
+            background: var(--clr-surface);
+            border: 1px solid var(--clr-border);
+            border-radius: var(--radius-md);
+            padding: 24px 20px;
+            text-align: center;
+            transition: all var(--transition);
+            cursor: default;
+        }
+
+        .card-mini:hover {
+            box-shadow: var(--shadow-md);
+            border-color: var(--clr-accent);
+            transform: translateY(-2px);
+        }
+
+        .card-icon {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .card-mini h4 {
+            font-size: 15px;
+            margin-bottom: 4px;
+            color: var(--clr-text);
+        }
+
+        .card-mini .card-desc {
+            font-size: 13px;
+            color: var(--clr-text-soft);
+        }
+
+        /* ==========================================
+           NEWS ITEMS
+           ========================================== */
+        .news-item {
+            border-bottom: 1px solid var(--clr-border);
+            padding: 18px 0;
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+
+        .news-item:last-child {
+            border-bottom: none;
+        }
+
+        .news-date {
+            font-size: 13px;
+            color: var(--clr-primary);
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .news-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .news-excerpt {
+            font-size: 14px;
+            color: var(--clr-text-soft);
+            margin-bottom: 6px;
+        }
+
+        .news-full {
+            display: none;
+            margin-top: 8px;
+            padding: 14px 16px;
+            background: var(--clr-surface-alt);
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+            color: var(--clr-text-soft);
+            line-height: 1.7;
+        }
+
+        .news-full.open {
+            display: block;
+            animation: fadePage 0.3s ease;
+        }
+
+        .news-toggle {
+            color: var(--clr-primary);
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 4px 0;
+            transition: color var(--transition);
+        }
+
+        .news-toggle:hover {
+            color: var(--clr-primary-hover);
+        }
+
+        /* ==========================================
+           PROJECT CARDS
+           ========================================== */
+        .project-card {
+            background: var(--clr-surface);
+            border: 1px solid var(--clr-border);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            margin-bottom: 14px;
+            transition: all var(--transition);
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .project-card:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .project-info {
+            flex: 1;
+        }
+
+        .project-info h4 {
+            margin-bottom: 4px;
+        }
+
+        .project-info p {
+            font-size: 14px;
+            color: var(--clr-text-soft);
+        }
+
+        /* ==========================================
+           FAQ ACCORDION
+           ========================================== */
+        .faq-item {
+            border-bottom: 1px solid var(--clr-border);
+            padding: 14px 0;
+            cursor: pointer;
+        }
+
+        .faq-question {
+            font-weight: 600;
+            font-size: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: color var(--transition);
+        }
+
+        .faq-question:hover {
+            color: var(--clr-primary);
+        }
+
+        .faq-answer {
+            display: none;
+            padding-top: 10px;
+            font-size: 14px;
+            color: var(--clr-text-soft);
+            line-height: 1.7;
+        }
+
+        .faq-item.open .faq-answer {
+            display: block;
+            animation: fadePage 0.25s ease;
+        }
+
+        .faq-arrow {
+            font-size: 18px;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.open .faq-arrow {
+            transform: rotate(180deg);
+        }
+
+        /* ==========================================
+           DOWNLOAD CARDS
+           ========================================== */
+        .download-card {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px;
+            background: var(--clr-surface-alt);
+            border-radius: var(--radius-md);
+            margin-bottom: 10px;
+            transition: all var(--transition);
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .download-card:hover {
+            border-color: var(--clr-accent);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .download-icon {
+            font-size: 28px;
+            flex-shrink: 0;
+        }
+
+        .download-info h4 {
+            font-size: 15px;
+            margin-bottom: 2px;
+        }
+
+        .download-info span {
+            font-size: 12px;
+            color: var(--clr-text-soft);
+        }
+
+        /* ==========================================
+           WHATSAPP FLOATING BUTTON
+           ========================================== */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 1100;
+            width: 56px;
+            height: 56px;
+            background: #25D366;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            box-shadow: 0 4px 16px rgba(37,211,102,0.35);
+            cursor: pointer;
+            transition: all var(--transition);
+            text-decoration: none;
+            animation: bounce 2s infinite;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(37,211,102,0.45);
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
+        /* ==========================================
+           FOOTER
+           ========================================== */
+        .site-footer {
+            background: var(--clr-dark);
+            color: rgba(255,255,255,0.7);
+            padding: 40px 24px 20px;
+            margin-top: 40px;
+            width: 100%;
+        }
+
+        .footer-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .footer-col h5 {
+            color: var(--clr-accent);
+            font-size: 13px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+
+        .footer-col p,
+        .footer-col a {
+            font-size: 14px;
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 6px;
+            transition: color var(--transition);
+            cursor: pointer;
+        }
+
+        .footer-col a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            max-width: 1000px;
+            margin: 20px auto 0;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            font-size: 13px;
+            color: rgba(255,255,255,0.4);
+        }
+
+        /* ==========================================
+           RESPONSIVE
+           ========================================== */
+        @media (max-width: 768px) {
+            .welcome-brand { font-size: 2rem; }
+            .welcome-image-container { width: 180px; height: 180px; }
+            .welcome-subtitle { font-size: 1rem; }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .side-divider {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .page-content {
+                padding: 64px 14px 0;
+            }
+
+            .section-card {
+                padding: 22px 16px;
+            }
+
+            .project-card {
+                flex-direction: column;
+            }
+
+            .whatsapp-float {
+                width: 50px;
+                height: 50px;
+                font-size: 24px;
+                bottom: 16px;
+                right: 16px;
+            }
+
+            .skip-btn {
+                bottom: 20px;
+                right: 20px;
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .welcome-brand { font-size: 1.5rem; }
+            .welcome-image-container { width: 140px; height: 140px; }
+            .nav-inner a { padding: 12px 14px; font-size: 13px; }
+            .nav-brand-small { font-size: 12px; padding: 12px 12px 12px 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==========================================
+         WELCOME PAGE
+         ========================================== -->
+    <div class="welcome-page" id="welcomePage">
+        <div class="bubbles-container">
+            <div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
+            <div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
+            <div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
+            <div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
+        </div>
+        <!-- Skip Button -->
+        <button class="skip-btn" id="skipBtn" onclick="skipWelcome()">Skip →</button>
+
+        <div class="welcome-content">
+            <div class="welcome-brand">MUDHIHIRJZ <span>Tech</span></div>
+            <div class="welcome-image-container">
+                <img src="img/welcome.png" alt="MUDHIHIRJZ Tech Welcome Logo">
+            </div>
+            <div class="welcome-subtitle">Innovation for the Future</div>
+            <div class="welcome-loader">
+                <div class="welcome-loader-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         MAIN APP
+         ========================================== -->
+    <div class="main-app" id="mainApp">
+
+        <!-- NAVIGATION -->
+        <nav class="top-nav" id="topNav">
+            <div class="nav-inner">
+                <span class="nav-brand-small">MUDHIHIRJZ</span>
+                <a class="active" data-page="home"><i class="fas fa-home"></i> Home</a>
+                <a data-page="projects"><i class="fas fa-folder"></i> Projects</a>
+                <a data-page="news"><i class="fas fa-newspaper"></i> News</a>
+                <a data-page="services"><i class="fas fa-cogs"></i> Services</a>
+                <a data-page="publications"><i class="fas fa-book"></i> Publications</a>
+            </div>
+        </nav>
+
+        <!-- PAGE CONTENT -->
+        <div class="page-content">
+
+            <!-- ========== HOME PAGE ========== -->
+            <div class="page-panel active" id="page-home">
+
+                <!-- Latest News -->
+                <div class="section-card">
+                    <span class="badge badge-new">New updates available!</span>
+                    <h2 style="margin-top:8px;"><i class="fas fa-newspaper"></i> Latest News</h2>
+                    <p class="subtitle">Get informed with our daily tech insights and community updates.</p>
+                    <button class="btn btn-primary" onclick="navigateTo('news')">Read News →</button>
+                </div>
+
+                <!-- What We Do -->
+                <div class="section-card">
+                    <h2><i class="fas fa-tools"></i> What We Do?</h2>
+                    <p class="subtitle">Think and Grow is your ultimate partner in digital transformation.</p>
+                    <div class="card-grid">
+                        <div class="card-mini">
+                            <div class="card-icon"><i class="fas fa-code"></i></div>
+                            <h4>Software Dev</h4>
+                            <p class="card-desc">Custom web & mobile apps</p>
+                        </div>
+                        <div class="card-mini">
+                            <div class="card-icon"><i class="fas fa-building"></i></div>
+                            <h4>E-Services</h4>
+                            <p class="card-desc">RITA, TIN & NIDA help</p>
+                        </div>
+                        <div class="card-mini">
+                            <div class="card-icon"><i class="fas fa-chart-line"></i></div>
+                            <h4>Consultancy</h4>
+                            <p class="card-desc">Digital growth advice</p>
+                        </div>
+                    </div>
+                    <div style="margin-top:16px; text-align:center;">
+                        <button class="btn btn-outline" onclick="navigateTo('services')">View All Services →</button>
+                    </div>
+                </div>
+
+                <!-- Get Help -->
+                <div class="section-card">
+                    <h2><i class="fas fa-hands-helping"></i> Get Help</h2>
+                    <p class="subtitle">Step-by-step guides for government portal applications. Pata msaada wa haraka.</p>
+                    <button class="btn btn-primary" onclick="navigateTo('services')">Learn More →</button>
+                </div>
+
+                <!-- NAPA -->
+                <div class="section-card">
+                    <h2><i class="fas fa-file-alt"></i> NAPA - Pata barua ya utambulisho</h2>
+                    <p>Suala la maombi ya mkopo wa elimu ya juu limekuwa kidigitali zaidi, hivyo barua za utambulisho zote tunazipata kupitia mfumo maalumu wa NAPA. Hivyo basi hakikisha unapata barua yako ya utambulisho ili swala la maombi ya mkopo kwako iwe rahisi sana.</p>
+                </div>
+
+                <!-- Zingatia -->
+                <div class="section-card" style="border-left: 4px solid var(--clr-accent);">
+                    <h2><i class="fas fa-exclamation-triangle"></i> Zingatia!</h2>
+                    <p>1️⃣ Ili uweze kupata barua kwa mfumo wa NAPA, hakikisha nyumba yenu imesajiliwa katika anuani za makazi. Kama bado, basi wasiliana na Mtendaji wako wa kijiji au kata ili aweze kukusaidia hilo!</p>
+                </div>
+            </div>
+
+            <!-- ========== PROJECTS PAGE ========== -->
+            <div class="page-panel" id="page-projects">
+                <div class="section-card">
+                    <h2><i class="fas fa-folder-open"></i> Our Projects</h2>
+                    <p class="subtitle">We based on performing better and exclusive works</p>
+                </div>
+
+                <div class="project-card">
+                    <span class="badge badge-coming">Coming Soon</span>
+                    <div class="project-info">
+                        <h4><i class="fas fa-film"></i> The Rogue Directorate (3D Animation)</h4>
+                        <p>An animation project. We expect to create a cartoon using Blender tools, still in planning yet.</p>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <span class="badge badge-progress">50% Complete</span>
+                    <div class="project-info">
+                        <h4><i class="fas fa-vote-yea"></i> Electronic Voting System</h4>
+                        <p>Making easier election process without affecting economic and other social activities, gives people equal opportunity to choose their leader wherever they are.</p>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <span class="badge badge-live">Live Now</span>
+                    <div class="project-info">
+                        <h4><i class="fas fa-globe"></i> Digital Services Agency</h4>
+                        <p>Created to assist friends in certificate applications (RITA), TIN, and HESLB beneficiary processes.</p>
+                        <button class="btn btn-primary" style="margin-top:8px;" onclick="navigateTo('services')">View Service →</button>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <span class="badge badge-coming">Coming Soon</span>
+                    <div class="project-info">
+                        <h4><i class="fas fa-comment-dots"></i> SMS App (Private Messaging)</h4>
+                        <p>An offline Messaging App that we expecting to create in coming days. Secure and private communication without internet.</p>
+                        <button class="btn btn-outline" style="margin-top:8px;">Coming Soon →</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== NEWS PAGE ========== -->
+            <div class="page-panel" id="page-news">
+                <div class="text-card">
+                    <h2><i class="fas fa-newspaper"></i> Latest News & Updates</h2>
+                    <p class="subtitle">Stay informed with our daily tech insights and community updates.</p>
+                </div>
+
+                <div class="side-divider">
+                    <!-- Left Column - News Items -->
+                    <div class="left">
+                        <div class="section-card">
+                            <div class="news-item" onclick="toggleNews(this)">
+                                <div class="news-date"><i class="fas fa-calendar"></i> April 10, 2026</div>
+                                <div class="news-title">Ufafanuzi kuhusu Usajili wa Ndoa</div>
+                                <p class="news-excerpt">Je, unajua kuwa ukishapata cheti cha ndoa kutoka kwa msajili wako hauna haja ya kwenda RITA tena?</p>
+                                <span class="news-toggle">more ▼</span>
+                                <div class="news-full">
+                                    <p>Ukishapata cheti cha ndoa kutoka kwa msajili wako wa ndoa, tayari ndoa yako imeshasajiliwa kisheria. Hakuna haja ya kwenda RITA kufanya usajili mwingine. Hata hivyo, kama unahitaji nakala halisi ya cheti chako cha ndoa, unaweza kukipata kupitia mfumo wa RITA mtandaoni.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="section-card">
+                            <div class="news-item" onclick="toggleNews(this)">
+                                <div class="news-date"><i class="fas fa-calendar"></i> Machi 26, 2026</div>
+                                <div class="news-title">Ijue AI kwa Ufupi</div>
+                                <p class="news-excerpt">AI ni mfumo wa akili bandia ambao una uwezo wa kutoa maamuzi karibu sana na maamuzi ya binadamu.</p>
+                                <span class="news-toggle">more ▼</span>
+                                <div class="news-full">
+                                    <p>Akili Bandia (AI) ni teknolojia inayowezesha kompyuta kujifunza, kufikiri, na kufanya maamuzi kwa namna inayofanana na binadamu. AI inatumika katika nyanja mbalimbali kama afya, elimu, biashara, na hata kwenye simu zetu za mkononi. Kwa mfano, assistants kama Siri, Google Assistant, na ChatGPT ni mifano ya AI inayotusaidia kila siku.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="section-card">
+                            <div class="news-item" onclick="toggleNews(this)">
+                                <div class="news-date"><i class="fas fa-calendar"></i> Machi 20, 2026</div>
+                                <div class="news-title">Mfumo Rasmi wa Ajira (Ajira Portal)</div>
+                                <p class="news-excerpt">Mfumo huu umekuja kurahisisha mchakato mzima wa ajira kwa taasisi za serikali.</p>
+                                <span class="news-toggle">more ▼</span>
+                                <div class="news-full">
+                                    <p>Ajira Portal ni mfumo rasmi wa Serikali ya Tanzania unaowezesha watumiaji kuomba ajira katika taasisi mbalimbali za serikali kupitia mtandao. Mfumo huu umerahisisha sana mchakato mzima wa kuomba ajira, kuanzia kutuma maombi, kufanyiwa usaili, hadi kupata majibu. Ili kutumia mfumo huu, unahitaji kujisajili na kujaza taarifa zako binafsi, elimu, na uzoefu wa kazi.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column - Placeholder (can add content later) -->
+                    <div class="right">
+                        <div class="right-placeholder">
+                            <i class="fas fa-bullhorn"></i>
+                            <p><strong>More Updates Coming Soon!</strong></p>
+                            <p style="font-size:13px;">Stay tuned for the latest news and announcements.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== SERVICES PAGE ========== -->
+            <div class="page-panel" id="page-services">
+
+                <div class="section-card" style="text-align:center;">
+                    <h2><i class="fas fa-certificate"></i> Certificates & TIN</h2>
+                    <p class="subtitle">Birth and Death certificates application, verification, and TIN registration with high efficiency through RITA and TRA systems.</p>
+                    <button class="btn btn-primary" onclick="navigateTo('publications')">Learn More →</button>
+                </div>
+
+                <div class="section-card" style="text-align: center;">
+                    <h2><i class="fas fa-laptop-code"></i> Software Development</h2>
+                    <p class="subtitle">Creating custom websites and mobile applications using Flutter and Dart for business and personal growth.</p>
+                    <button class="btn btn-primary" onclick="navigateTo('projects')">View Projects →</button>
+                </div>
+
+                <div class="section-card" style="text-align: center;">
+                    <h2><i class="fas fa-graduation-cap"></i> College Applications</h2>
+                    <p class="subtitle">Assisting with TCU/NACTE applications and providing academic advice for O-Level and A-Level graduates.</p>
+                    <button class="btn btn-primary" onclick="navigateTo('home')">Learn More →</button>
+                </div>
+
+                <div class="section-card">
+                    <h2><i class="fas fa-question-circle"></i> Maswali ya Mara kwa Mara (FAQ)</h2>
+                    <div class="faq-item" onclick="toggleFaq(this)">
+                        <div class="faq-question">
+                            Inachukua muda gani kupata Cheti cha Kuzaliwa?
+                            <span class="faq-arrow"><i class="fas fa-chevron-down"></i></span>
+                        </div>
+                        <div class="faq-answer">Muda unategemea mfumo wa RITA, lakini kwa kawaida huchukua kati ya siku 7 hadi 14 za kazi. Kwa msaada wetu, tunaharakisha mchakato huu kadri inavyowezekana.</div>
+                    </div>
+                    <div class="faq-item" onclick="toggleFaq(this)">
+                        <div class="faq-question">
+                            Je, mtu anaweza kupakua cheti chake mtandaoni?
+                            <span class="faq-arrow"><i class="fas fa-chevron-down"></i></span>
+                        </div>
+                        <div class="faq-answer">Ndiyo! Kupitia mfumo wa e-RITA, unaweza kupakua cheti chako cha kuzaliwa au kifo moja kwa moja mtandaoni baada ya kukisajili. Tunakusaidia kufanya hili kwa urahisi.</div>
+                    </div>
+                    <div class="faq-item" onclick="toggleFaq(this)">
+                        <div class="faq-question">
+                            Je, mnachapisha vyeti?
+                            <span class="faq-arrow"><i class="fas fa-chevron-down"></i></span>
+                        </div>
+                        <div class="faq-answer">Ndiyo, tunachapisha vyeti rasmi vinavyotambulika kisheria. Vyeti vyote vinachapishwa kwa ubora wa hali ya juu na vinakubalika katika taasisi zote za serikali na binafsi.</div>
+                    </div>
+                    <div class="faq-item" onclick="toggleFaq(this)">
+                        <div class="faq-question">
+                            Gharama yake ni kiasi gani?
+                            <span class="faq-arrow"><i class="fas fa-chevron-down"></i></span>
+                        </div>
+                        <div class="faq-answer">Gharama inategemea huduma unayohitaji. Wasiliana nasi kwa ushauri wa bure na tutakupa bei nafuu kabisa inayolingana na huduma unayohitaji. Unaweza kututumia ujumbe WhatsApp au kupiga simu.</div>
+                    </div>
+                </div>
+
+                <div class="section-card" style="text-align:center; background: var(--clr-primary); color: white;">
+                    <h2 style="color:white;"><i class="fas fa-headset"></i> Unahitaji Msaada wa Haraka?</h2>
+                    <p style="color:rgba(255,255,255,0.85);">Wasiliana nasi sasa kwa msaada wa kitaalamu na wa haraka.</p>
+                    <a href="https://wa.me/255671533265" target="_blank" class="btn btn-accent" style="margin-top:8px; font-size:16px;"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                </div>
+            </div>
+
+            <!-- ========== PUBLICATIONS PAGE ========== -->
+            <div class="page-panel" id="page-publications">
+                <div class="text-card">
+                    <h2><i class="fas fa-book"></i> Publications & Resources</h2>
+                    <p class="subtitle">Download important documents and get informed</p>
+                </div>
+
+                <div class="section-card">
+                    <h3><i class="fas fa-download"></i> Downloadable Documents</h3>
+                    <div class="download-card">
+                        <span class="download-icon"><i class="fas fa-file-pdf"></i></span>
+                        <div class="download-info">
+                            <h4>Maelezo ya Cheti cha Kuzaliwa</h4>
+                            <span>Birth Certificate Guidelines</span>
+                            <a href="docs/Birth.pdf" target="_blank" class="btn btn-outline" style="margin-top:8px;">Download</a>
+                        </div>
+
+                    </div>
+                    <div class="download-card">
+                        <span class="download-icon"><i class="fas fa-file-pdf"></i></span>
+                        <div class="download-info">
+                            <h4>Maelezo ya Cheti cha Kifo</h4>
+                            <span>Death Certificate Guidelines</span>
+                            <a href="docs/Death.pdf" target="_blank" class="btn btn-outline" style="margin-top:8px;">Download</a>
+                        </div>
+                    </div>
+                    <div class="download-card" style="opacity:0.6;">
+                        <span class="download-icon"><i class="fas fa-file-alt"></i></span>
+                        <div class="download-info">
+                            <h4>Mwongozo wa Usajili wa TIN</h4>
+                            <span>TIN Registration Guide – <span class="badge badge-coming">Coming Soon</span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-card" style="border-left: 4px solid var(--clr-accent);">
+                    <h3><i class="fas fa-exclamation-triangle"></i> Muhimu Kuzingatia!</h3>
+                    <p>Ni muhimu kufanya mabadilisho ya cheti chako cha zamani kuwa cheti kipya. Vyeti vya zamani ni pamoja na vile vyote vya <strong>HANDWRITING</strong> style, pamoja na vile vya <strong>rangi ya kijani</strong>.</p>
+                </div>
+
+                <div class="section-card">
+                    <h3><i class="fas fa-user-graduate"></i> Kwa Wanafunzi</h3>
+                    <p>Kama wewe ni mwanafunzi ni muhimu zaidi kubadilisha cheti chako, pia kama sio mwanafunzi ni bora kukabadilisha pia ili kuendana na fursa zilizopo.</p>
+                </div>
+
+                <div class="section-card" style="background: var(--clr-surface-alt); text-align: center;">
+                    <h3><i class="fas fa-lightbulb"></i> Ushauri</h3>
+                    <p>Mambo yote haya yanafanyika kupitia mtandao. Wasiliana nasi tukusaidie kwa weledi wa hali ya juu. <strong>KARIBU TUSHIRIKIANE!</strong></p>
+                    <a href="https://wa.me/255671533265" target="_blank" class="btn btn-accent" style="margin-top:10px;"><i class="fab fa-whatsapp"></i> Wasiliana Nasi</a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ==========================================
+             FOOTER
+             ========================================== -->
+        <footer class="site-footer">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h5><i class="fas fa-phone"></i> Contact Us</h5>
+                    <a href="tel:+255671533265"><i class="fas fa-phone-alt"></i> +255 671 533 265</a>
+                    <a href="mailto:mudhihirjz@gmail.com"><i class="fas fa-envelope"></i> mudhihirjz@gmail.com</a>
+                    <p><i class="fas fa-map-marker-alt"></i> Zanzibar, Tanzania</p>
+                </div>
+                <div class="footer-col">
+                    <h5><i class="fas fa-university"></i> Government Portals</h5>
+                    <a href="https://www.rita.go.tz" target="_blank">e-RITA</a>
+                    <a href="https://www.nida.go.tz" target="_blank">NIDA Online</a>
+                    <a href="https://www.brela.go.tz" target="_blank">BRELA</a>
+                </div>
+                <div class="footer-col">
+                    <h5><i class="fas fa-link"></i> Quick Links</h5>
+                    <a onclick="navigateTo('home')">Home</a>
+                    <a onclick="navigateTo('services')">Services</a>
+                    <a onclick="navigateTo('news')">News</a>
+                    <a onclick="navigateTo('projects')">Projects</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 MUDHIHIRJZ Tech. All rights reserved. | Designed by Mudhihirj
+            </div>
+        </footer>
+    </div>
+
+    <!-- ==========================================
+         WHATSAPP FLOATING BUTTON
+         ========================================== -->
+    <a href="https://wa.me/255671533265" target="_blank" class="whatsapp-float" id="whatsappFloat" style="display:none;" title="Chat on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- ==========================================
+         JAVASCRIPT
+         ========================================== -->
+    <script>
+        // ========== DOM ELEMENTS ==========
+        const welcomePage = document.getElementById('welcomePage');
+        const mainApp = document.getElementById('mainApp');
+        const whatsappFloat = document.getElementById('whatsappFloat');
+        const navLinks = document.querySelectorAll('.nav-inner a');
+        const pagePanels = document.querySelectorAll('.page-panel');
+        let welcomeTimer;
+
+        // ========== FUNCTION TO HIDE WELCOME & SHOW MAIN APP ==========
+        function hideWelcome() {
+            // Clear the timer if skip is clicked
+            if (welcomeTimer) clearTimeout(welcomeTimer);
+
+            welcomePage.classList.add('fade-out');
+
+            setTimeout(function () {
+                welcomePage.style.display = 'none';
+                mainApp.classList.add('show');
+                mainApp.style.display = 'flex';
+                whatsappFloat.style.display = 'flex';
+            }, 700);
+        }
+
+        // ========== SKIP WELCOME ==========
+        function skipWelcome() {
+            hideWelcome();
+        }
+
+        // ========== WELCOME PAGE TIMER (3 sec) ==========
+        welcomeTimer = setTimeout(function () {
+            hideWelcome();
+        }, 3000);
+
+        // ========== PAGE NAVIGATION (WITH ERROR HANDLING) ==========
+        function navigateTo(pageName) {
+            // Check if pageName is valid
+            const validPages = ['home', 'projects', 'news', 'services', 'publications'];
+            if (!validPages.includes(pageName)) {
+                console.warn('⚠️ Invalid page name: ' + pageName + '. Redirecting to home.');
+                pageName = 'home';
+            }
+
+            // Deactivate all nav links
+            navLinks.forEach(function (link) {
+                link.classList.remove('active');
+                if (link.getAttribute('data-page') === pageName) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Deactivate all page panels
+            pagePanels.forEach(function (panel) {
+                panel.classList.remove('active');
+            });
+
+            // Activate target page panel
+            var targetPanel = document.getElementById('page-' + pageName);
+            if (targetPanel) {
+                targetPanel.classList.add('active');
+            } else {
+                console.error('❌ Page panel not found: page-' + pageName);
+                // Fallback to home
+                document.getElementById('page-home').classList.add('active');
+            }
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Nav link click handlers
+        navLinks.forEach(function (link) {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                var pageName = this.getAttribute('data-page');
+                if (pageName) {
+                    navigateTo(pageName);
+                    // Scroll nav to make active link visible
+                    this.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                }
+            });
+        });
+
+        // Footer Quick Links - add cursor pointer and click handler
+        document.querySelectorAll('.footer-col a[onclick]').forEach(function (link) {
+            link.style.cursor = 'pointer';
+        });
+
+        // ========== NEWS TOGGLE ==========
+        function toggleNews(newsItem) {
+            // Prevent event from bubbling up
+            var fullContent = newsItem.querySelector('.news-full');
+            var toggleBtn = newsItem.querySelector('.news-toggle');
+
+            if (!fullContent) return;
+
+            if (fullContent.classList.contains('open')) {
+                fullContent.classList.remove('open');
+                if (toggleBtn) toggleBtn.textContent = 'more ▼';
+            } else {
+                fullContent.classList.add('open');
+                if (toggleBtn) toggleBtn.textContent = 'less ▲';
+            }
+        }
+
+        // ========== FAQ TOGGLE ==========
+        function toggleFaq(faqItem) {
+            if (faqItem.classList.contains('open')) {
+                faqItem.classList.remove('open');
+            } else {
+                // Close other open FAQs
+                document.querySelectorAll('.faq-item.open').forEach(function (item) {
+                    item.classList.remove('open');
+                });
+                faqItem.classList.add('open');
+            }
+        }
+
+        // ========== INITIAL SETUP ==========
+        console.log('🚀 MUDHIHIRJZ Tech Website Ready!');
+        console.log('📱 Welcome page loading... (3 seconds or click Skip)');
+    </script>
+</body>
+</html>
