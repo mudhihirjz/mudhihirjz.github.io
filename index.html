@@ -53,6 +53,37 @@
             min-height: 100vh;
             -webkit-font-smoothing: antialiased;
         }
+        /* ==========================================
+   BENDERA STRIP - BOTTOM OF PAGE
+   ========================================== */
+        .flag-strip {
+            display: flex;
+            height: 8px;          /* Nyembamba kwa mbali */
+            width: 100%;
+            margin-top: 40px;      /* Nafasi kabla ya footer */
+            opacity: 0.5;          /* Kwa mbali - soothed */
+        }
+
+        .flag-strip .flag-color {
+            flex: 1;
+            height: 100%;
+        }
+
+        .flag-green {
+            background: #1EB53A;   /* Green - juu */
+        }
+
+        .flag-yellow {
+            background: #FCD116;   /* Yellow - katikati */
+        }
+
+        .flag-black {
+            background: #000000;   /* Black - katikati */
+        }
+
+        .flag-blue {
+            background: #00A3DD;   /* Blue - chini */
+        }
 
         /* ==========================================
            WELCOME PAGE
@@ -1341,6 +1372,13 @@
                 </div>
             </div>
 
+        </div>
+        <!-- BENDERA STRIP -->
+        <div class="flag-strip">
+            <div class="flag-color flag-green"></div>
+            <div class="flag-color flag-yellow"></div>
+            <div class="flag-color flag-black"></div>
+            <div class="flag-color flag-blue"></div>
         </div>
 
         <!-- ==========================================
