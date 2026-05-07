@@ -337,6 +337,134 @@
             from { opacity: 0; transform: translateY(8px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        /* ==========================================
+   HERO HEADER CARD - Connected to Navigation
+   ========================================== */
+.hero-header {
+    background: linear-gradient(135deg, var(--clr-dark) 0%, #0F3D3A 50%, var(--clr-primary) 100%);
+    color: white;
+    padding: 50px 28px 50px;
+    margin-top: -6px; /* Inaungana na navigation */
+    margin-bottom: 24px;
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+}
+
+/* Pattern overlay */
+.hero-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(201,169,110,0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255,255,255,0.03) 0%, transparent 50%),
+        radial-gradient(circle at 60% 60%, rgba(201,169,110,0.06) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 750px;
+    margin: 0 auto;
+}
+
+.hero-header h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 8px;
+    line-height: 1.3;
+}
+
+.hero-header h1 span {
+    color: var(--clr-accent);
+}
+
+.hero-subtitle {
+    font-size: 1.1rem;
+    color: var(--clr-accent-light);
+    margin-bottom: 12px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.hero-desc {
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 24px;
+    line-height: 1.7;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-outline-light {
+    background: transparent;
+    color: white;
+    border: 2px solid rgba(255,255,255,0.4);
+}
+
+.btn-outline-light:hover {
+    background: rgba(255,255,255,0.1);
+    border-color: white;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Pulse animation for accent button */
+.hero-header .btn-accent {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(201,169,110,0.4); }
+    50% { box-shadow: 0 0 0 12px rgba(201,169,110,0); }
+}
+
+/* ========== RESPONSIVE HERO ========== */
+@media (max-width: 768px) {
+    .hero-header {
+        padding: 36px 16px 36px;
+        margin-top: -4px;
+    }
+
+    .hero-header h1 {
+        font-size: 1.6rem;
+    }
+
+    .hero-subtitle {
+        font-size: 0.95rem;
+    }
+
+    .hero-desc {
+        font-size: 0.88rem;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero-buttons .btn {
+        width: 100%;
+        max-width: 280px;
+        text-align: center;
+    }
+}
 
         /* ==========================================
            SECTION CARDS
@@ -922,6 +1050,18 @@
 
             <!-- ========== HOME PAGE ========== -->
             <div class="page-panel active" id="page-home">
+                <div class="hero-header">
+                    <div class="hero-content">
+                        <h1>Welcome to <span>MUDHIHIRJZ Tech</span></h1>
+                        <p class="hero-subtitle">Innovation for the Future</p>
+                        <p class="hero-desc">We are committed to providing cutting-edge solutions that drive growth and success for our clients.</p>
+                        <div class="hero-buttons">
+                            <button class="btn btn-accent">Get Started</button>
+                            <button class="btn btn-outline-light">Learn More</button>
+                        </div>
+                    </div>
+                </div>
+
 
                 <!-- Latest News -->
                 <div class="section-card">
