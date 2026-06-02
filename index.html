@@ -12,7 +12,6 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-HPHNZ85P5N');
 </script>
     <style>
@@ -87,7 +86,6 @@
             visibility: hidden;
         }
 
-        /* Bubbles */
         .bubbles-container {
             position: absolute;
             top: 0;
@@ -127,7 +125,6 @@
             100% { bottom: 110%; opacity: 0; }
         }
 
-        /* Welcome Content */
         .welcome-content {
             text-align: center;
             color: white;
@@ -208,7 +205,6 @@
             animation: loadBar 3s ease-in-out forwards;
         }
 
-        /* Skip button */
         .skip-btn {
             position: absolute;
             bottom: 30px;
@@ -239,7 +235,7 @@
         }
 
         /* ==========================================
-           MAIN APP (Hidden until Welcome done)
+           MAIN APP
            ========================================== */
         .main-app {
             display: none;
@@ -252,7 +248,7 @@
         }
 
         /* ==========================================
-           NAVIGATION - HORIZONTAL SCROLL
+           NAVIGATION
            ========================================== */
         .top-nav {
             position: fixed;
@@ -327,6 +323,25 @@
             background: var(--clr-primary);
         }
 
+        .lang-switch {
+            margin-left: auto;
+            margin-right: 10px;
+            background: var(--clr-accent);
+            color: var(--clr-dark);
+            border: none;
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all var(--transition);
+            flex-shrink: 0;
+        }
+        .lang-switch:hover {
+            background: #b8954f;
+            transform: scale(1.02);
+        }
+
         /* ==========================================
            PAGE CONTENT
            ========================================== */
@@ -338,9 +353,6 @@
             flex: 1;
         }
 
-        /* ==========================================
-           PAGE PANELS
-           ========================================== */
         .page-panel {
             display: none;
             animation: fadePage 0.35s ease;
@@ -354,134 +366,102 @@
             from { opacity: 0; transform: translateY(8px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
         /* ==========================================
-   HERO HEADER CARD - Connected to Navigation
-   ========================================== */
-.hero-header {
-    background: linear-gradient(135deg, var(--clr-dark) 0%, #0F3D3A 50%, var(--clr-primary) 100%);
-    color: white;
-    padding: 50px 28px 50px;
-    margin-top: -6px; /* Inaungana na navigation */
-    margin-bottom: 24px;
-    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    box-shadow: var(--shadow-lg);
-}
+           HERO HEADER
+           ========================================== */
+        .hero-header {
+            background: linear-gradient(135deg, var(--clr-dark) 0%, #0F3D3A 50%, var(--clr-primary) 100%);
+            color: white;
+            padding: 50px 28px 50px;
+            margin-top: -6px;
+            margin-bottom: 24px;
+            border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
 
-/* Pattern overlay */
-.hero-header::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: 
-        radial-gradient(circle at 20% 80%, rgba(201,169,110,0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(255,255,255,0.03) 0%, transparent 50%),
-        radial-gradient(circle at 60% 60%, rgba(201,169,110,0.06) 0%, transparent 50%);
-    pointer-events: none;
-}
+        .hero-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(201,169,110,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255,255,255,0.03) 0%, transparent 50%),
+                radial-gradient(circle at 60% 60%, rgba(201,169,110,0.06) 0%, transparent 50%);
+            pointer-events: none;
+        }
 
-.hero-content {
-    position: relative;
-    z-index: 1;
-    max-width: 750px;
-    margin: 0 auto;
-}
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 750px;
+            margin: 0 auto;
+        }
 
-.hero-header h1 {
-    font-size: 2.2rem;
-    font-weight: 700;
-    color: white;
-    margin-bottom: 8px;
-    line-height: 1.3;
-}
+        .hero-header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
 
-.hero-header h1 span {
-    color: var(--clr-accent);
-}
+        .hero-header h1 span {
+            color: var(--clr-accent);
+        }
 
-.hero-subtitle {
-    font-size: 1.1rem;
-    color: var(--clr-accent-light);
-    margin-bottom: 12px;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-}
+        .hero-subtitle {
+            font-size: 1.1rem;
+            color: var(--clr-accent-light);
+            margin-bottom: 12px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
 
-.hero-desc {
-    font-size: 0.95rem;
-    color: rgba(255,255,255,0.75);
-    margin-bottom: 24px;
-    line-height: 1.7;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-}
+        .hero-desc {
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.75);
+            margin-bottom: 24px;
+            line-height: 1.7;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
 
-.hero-buttons {
-    display: flex;
-    gap: 12px;
-    justify-content: center;
-    flex-wrap: wrap;
-}
+        .hero-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
 
-.btn-outline-light {
-    background: transparent;
-    color: white;
-    border: 2px solid rgba(255,255,255,0.4);
-}
+        .btn-outline-light {
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255,255,255,0.4);
+        }
 
-.btn-outline-light:hover {
-    background: rgba(255,255,255,0.1);
-    border-color: white;
-    color: white;
-    transform: translateY(-2px);
-}
+        .btn-outline-light:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: white;
+            color: white;
+            transform: translateY(-2px);
+        }
 
-/* Pulse animation for accent button */
-.hero-header .btn-accent {
-    animation: pulse 2s infinite;
-}
+        .hero-header .btn-accent {
+            animation: pulse 2s infinite;
+        }
 
-@keyframes pulse {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(201,169,110,0.4); }
-    50% { box-shadow: 0 0 0 12px rgba(201,169,110,0); }
-}
-
-/* ========== RESPONSIVE HERO ========== */
-@media (max-width: 768px) {
-    .hero-header {
-        padding: 36px 16px 36px;
-        margin-top: -4px;
-    }
-
-    .hero-header h1 {
-        font-size: 1.6rem;
-    }
-
-    .hero-subtitle {
-        font-size: 0.95rem;
-    }
-
-    .hero-desc {
-        font-size: 0.88rem;
-    }
-
-    .hero-buttons {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .hero-buttons .btn {
-        width: 100%;
-        max-width: 280px;
-        text-align: center;
-    }
-}
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(201,169,110,0.4); }
+            50% { box-shadow: 0 0 0 12px rgba(201,169,110,0); }
+        }
 
         /* ==========================================
            SECTION CARDS
@@ -521,7 +501,7 @@
         }
 
         /* ==========================================
-           NEWS LAYOUT (side-divider improved)
+           NEWS LAYOUT
            ========================================== */
         .side-divider {
             display: grid;
@@ -541,7 +521,6 @@
             justify-content: center;
         }
 
-        /* Empty right panel placeholder */
         .right-placeholder {
             text-align: center;
             color: var(--clr-text-soft);
@@ -563,7 +542,6 @@
             font-size: 14px;
         }
 
-        /* Text card centered */
         .text-card {
             background: var(--clr-surface-alt);
             border-radius: var(--radius-md);
@@ -658,7 +636,7 @@
         }
 
         /* ==========================================
-           CARD GRID (3 COLUMNS)
+           CARD GRID
            ========================================== */
         .card-grid {
             display: grid;
@@ -910,6 +888,348 @@
         }
 
         /* ==========================================
+           CHATBOT STYLES (Emojis only, no icons)
+           ========================================== */
+        .chatbot-float {
+            position: fixed;
+            bottom: 24px;
+            left: 24px;
+            z-index: 1100;
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--clr-primary) 0%, #0D5F58 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all var(--transition);
+            box-shadow: 0 4px 16px rgba(15,118,110,0.4);
+            animation: chatbotBounce 2s infinite;
+            font-size: 28px;
+        }
+
+        .chatbot-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(15,118,110,0.5);
+        }
+
+        .chatbot-pulse {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--clr-primary);
+            border-radius: 50%;
+            animation: pulseRing 1.5s ease-out infinite;
+            z-index: -1;
+        }
+
+        @keyframes chatbotBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
+        @keyframes pulseRing {
+            0% { transform: scale(1); opacity: 0.7; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
+
+        .chatbot-modal {
+            position: fixed;
+            bottom: 100px;
+            left: 24px;
+            width: 380px;
+            max-width: calc(100vw - 48px);
+            background: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            z-index: 1101;
+            display: none;
+            opacity: 0;
+            transform: translateY(20px) scale(0.95);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            border: 1px solid var(--clr-border);
+        }
+
+        .chatbot-modal.open {
+            display: block;
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .chatbot-container {
+            display: flex;
+            flex-direction: column;
+            height: 520px;
+            max-height: 70vh;
+        }
+
+        .chatbot-header {
+            background: linear-gradient(135deg, var(--clr-dark) 0%, var(--clr-primary) 100%);
+            color: white;
+            padding: 14px 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .chatbot-header-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .chatbot-avatar {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+
+        .chatbot-header-text h3 {
+            font-size: 15px;
+            margin: 0;
+            color: white;
+        }
+
+        .chatbot-header-text p {
+            font-size: 11px;
+            margin: 2px 0 0;
+            opacity: 0.8;
+            color: white;
+        }
+
+        .chatbot-close {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .chatbot-close:hover {
+            background: rgba(255,255,255,0.3);
+            transform: rotate(90deg);
+        }
+
+        .chatbot-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+            background: var(--clr-bg);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .chatbot-messages::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .chatbot-messages::-webkit-scrollbar-thumb {
+            background: var(--clr-accent);
+            border-radius: 4px;
+        }
+
+        .chatbot-message {
+            display: flex;
+            animation: messageSlideIn 0.3s ease;
+        }
+
+        @keyframes messageSlideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .chatbot-message.bot {
+            justify-content: flex-start;
+        }
+
+        .chatbot-message.user {
+            justify-content: flex-end;
+        }
+
+        .message-bubble {
+            max-width: 80%;
+            padding: 10px 14px;
+            border-radius: 18px;
+            font-size: 13px;
+            line-height: 1.5;
+            word-wrap: break-word;
+        }
+
+        .chatbot-message.bot .message-bubble {
+            background: white;
+            color: var(--clr-text);
+            border: 1px solid var(--clr-border);
+            border-bottom-left-radius: 4px;
+        }
+
+        .chatbot-message.user .message-bubble {
+            background: var(--clr-primary);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+
+        .message-bubble strong {
+            color: var(--clr-primary);
+        }
+
+        .chatbot-tabs {
+            display: flex;
+            background: var(--clr-surface-alt);
+            border-top: 1px solid var(--clr-border);
+            border-bottom: 1px solid var(--clr-border);
+            flex-shrink: 0;
+            overflow-x: auto;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 10px 6px;
+            background: transparent;
+            border: none;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition);
+            color: var(--clr-text-soft);
+            font-family: var(--font-main);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .tab-btn:hover {
+            background: rgba(15,118,110,0.1);
+            color: var(--clr-primary);
+        }
+
+        .tab-btn.active {
+            background: var(--clr-primary);
+            color: white;
+            border-bottom: 2px solid var(--clr-accent);
+        }
+
+        .chatbot-quick-replies {
+            padding: 10px 12px;
+            background: white;
+            border-top: 1px solid var(--clr-border);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            flex-shrink: 0;
+            max-height: 110px;
+            overflow-y: auto;
+        }
+
+        .quick-reply-btn {
+            background: var(--clr-surface-alt);
+            border: 1px solid var(--clr-border);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all var(--transition);
+            color: var(--clr-text);
+            font-family: var(--font-main);
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .quick-reply-btn:hover {
+            background: var(--clr-primary);
+            border-color: var(--clr-primary);
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .back-btn {
+            background: var(--clr-accent);
+            color: white;
+            border: none;
+        }
+
+        .back-btn:hover {
+            background: #b8954f;
+        }
+
+        .chatbot-input-area {
+            display: flex;
+            padding: 10px 14px;
+            background: white;
+            border-top: 1px solid var(--clr-border);
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .chatbot-input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid var(--clr-border);
+            border-radius: 25px;
+            font-size: 13px;
+            outline: none;
+            transition: all var(--transition);
+            font-family: var(--font-main);
+        }
+
+        .chatbot-input:focus {
+            border-color: var(--clr-primary);
+            box-shadow: 0 0 0 2px rgba(15,118,110,0.1);
+        }
+
+        .chatbot-send {
+            width: 36px;
+            height: 36px;
+            background: var(--clr-primary);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            transition: all var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .chatbot-send:hover {
+            background: var(--clr-primary-hover);
+            transform: scale(1.05);
+        }
+
+        .chatbot-footer {
+            text-align: center;
+            padding: 6px;
+            background: var(--clr-surface-alt);
+            font-size: 9px;
+            color: var(--clr-text-soft);
+            flex-shrink: 0;
+        }
+
+        /* ==========================================
            FOOTER
            ========================================== */
         .site-footer {
@@ -968,46 +1288,20 @@
             .welcome-brand { font-size: 2rem; }
             .welcome-image-container { width: 180px; height: 180px; }
             .welcome-subtitle { font-size: 1rem; }
-
-            .card-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .side-divider {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-
-            .page-content {
-                padding: 64px 14px 0;
-            }
-
-            .section-card {
-                padding: 22px 16px;
-            }
-
-            .project-card {
-                flex-direction: column;
-            }
-
-            .whatsapp-float {
-                width: 50px;
-                height: 50px;
-                font-size: 24px;
-                bottom: 16px;
-                right: 16px;
-            }
-
-            .skip-btn {
-                bottom: 20px;
-                right: 20px;
-                font-size: 12px;
-                padding: 6px 12px;
-            }
+            .card-grid { grid-template-columns: 1fr; }
+            .side-divider { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; gap: 20px; }
+            .page-content { padding: 64px 14px 0; }
+            .section-card { padding: 22px 16px; }
+            .project-card { flex-direction: column; }
+            .whatsapp-float { width: 50px; height: 50px; font-size: 24px; bottom: 16px; right: 16px; }
+            .skip-btn { bottom: 20px; right: 20px; font-size: 12px; padding: 6px 12px; }
+            .chatbot-float { bottom: 16px; left: 16px; width: 48px; height: 48px; font-size: 24px; }
+            .chatbot-modal { left: 12px; right: 12px; width: auto; bottom: 75px; }
+            .chatbot-container { height: 450px; }
+            .message-bubble { max-width: 90%; }
+            .tab-btn { padding: 8px 5px; font-size: 10px; }
+            .quick-reply-btn { padding: 4px 10px; font-size: 10px; }
         }
 
         @media (max-width: 400px) {
@@ -1030,9 +1324,7 @@
             <div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
             <div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
         </div>
-        <!-- Skip Button -->
         <button class="skip-btn" id="skipBtn" onclick="skipWelcome()">Skip →</button>
-
         <div class="welcome-content">
             <div class="welcome-brand">MUDHIHIRJZ <span>Tech</span></div>
             <div class="welcome-image-container">
@@ -1055,11 +1347,12 @@
             <div class="nav-inner">
                 <img src="images/logo.png" alt="Logo" class="nav-logo-img">
                 <span class="nav-brand-small">MUDHIHIRJZ</span>
-                <a class="active" data-page="home"><i class="fas fa-home"></i> Home</a>
-                <a data-page="projects"><i class="fas fa-folder"></i> Projects</a>
-                <a data-page="news"><i class="fas fa-newspaper"></i> News</a>
-                <a data-page="services"><i class="fas fa-cogs"></i> Services</a>
-                <a data-page="publications"><i class="fas fa-book"></i> Publications</a>
+                <a class="active" data-page="home"><i class="fas fa-home"></i> <span class="nav-home">Home</span></a>
+                <a data-page="projects"><i class="fas fa-folder"></i> <span class="nav-projects">Projects</span></a>
+                <a data-page="news"><i class="fas fa-newspaper"></i> <span class="nav-news">News</span></a>
+                <a data-page="services"><i class="fas fa-cogs"></i> <span class="nav-services">Services</span></a>
+                <a data-page="publications"><i class="fas fa-book"></i> <span class="nav-publications">Publications</span></a>
+                <button class="lang-switch" id="langSwitchBtn">🇬🇧 ENG</button>
             </div>
         </nav>
 
@@ -1074,171 +1367,134 @@
                         <p class="hero-subtitle">Innovation for the Future</p>
                         <p class="hero-desc">We are committed to providing cutting-edge solutions that drive growth and success for our clients.</p>
                         <div class="hero-buttons">
-                            <button class="btn btn-accent"onclick="navigateTo('services')">Get Started</button>
-                            <button class="btn btn-outline-light">Learn More</button>
+                            <button class="btn btn-accent" onclick="navigateTo('services')"><span class="btn-get-started">Get Started</span></button>
+                            <button class="btn btn-outline-light"><span class="btn-learn-more">Learn More</span></button>
                         </div>
                     </div>
                 </div>
 
-
-                <!-- Latest News -->
                 <div class="section-card">
                     <div class="side-divider">
                         <div class="left">
-                    <span class="badge badge-new">New updates available!</span>
-                    <h2 style="margin-top:8px;"><i class="fas fa-newspaper"></i> Latest News</h2>
-                    <p class="subtitle">Get informed with our daily tech insights and community updates.</p>
-                    <button class="btn btn-primary" onclick="navigateTo('news')">Read News →</button>
+                            <span class="badge badge-new"><span class="badge-new-text">New updates available!</span></span>
+                            <h2 style="margin-top:8px;"><i class="fas fa-newspaper"></i> <span class="latest-news-title">Latest News</span></h2>
+                            <p class="subtitle"><span class="latest-news-subtitle">Get informed with our daily tech insights and community updates.</span></p>
+                            <button class="btn btn-primary" onclick="navigateTo('news')"><span class="read-news-btn">Read News →</span></button>
                         </div>
                         <div class="right">
                             <div class="right-placeholder">
                                 <i class="fas fa-newspaper"></i>
-                                <p>Latest news highlights will appear here. Stay tuned!</p>
+                                <p><span class="placeholder-text">Latest news highlights will appear here. Stay tuned!</span></p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- What We Do -->
                 <div class="section-card">
-                    <h2><i class="fas fa-tools"></i> What We Do?</h2>
-                    <p class="subtitle">Think and Grow is your ultimate partner in digital transformation.</p>
+                    <h2><i class="fas fa-tools"></i> <span class="what-we-do-title">What We Do?</span></h2>
+                    <p class="subtitle"><span class="what-we-do-subtitle">Think and Grow is your ultimate partner in digital transformation.</span></p>
                     <div class="card-grid">
                         <div class="card-mini">
                             <div class="card-icon"><i class="fas fa-code"></i></div>
-                            <h4>Software Dev</h4>
-                            <p class="card-desc">Custom web & mobile apps</p>
+                            <h4><span class="software-dev-title">Software Dev</span></h4>
+                            <p class="card-desc"><span class="software-dev-desc">Custom web & mobile apps</span></p>
                         </div>
                         <div class="card-mini">
                             <div class="card-icon"><i class="fas fa-building"></i></div>
-                            <h4>E-Services</h4>
-                            <p class="card-desc">RITA, TIN & NIDA help</p>
+                            <h4><span class="eservices-title">E-Services</span></h4>
+                            <p class="card-desc"><span class="eservices-desc">RITA, TIN & NIDA help</span></p>
                         </div>
                         <div class="card-mini">
                             <div class="card-icon"><i class="fas fa-chart-line"></i></div>
-                            <h4>Consultancy</h4>
-                            <p class="card-desc">Digital growth advice</p>
+                            <h4><span class="consultancy-title">Consultancy</span></h4>
+                            <p class="card-desc"><span class="consultancy-desc">Digital growth advice</span></p>
                         </div>
                     </div>
                     <div style="margin-top:16px; text-align:center;">
-                        <button class="btn btn-outline" onclick="navigateTo('services')">View All Services →</button>
+                        <button class="btn btn-outline" onclick="navigateTo('services')"><span class="view-services-btn">View All Services →</span></button>
                     </div>
                 </div>
 
-                <!-- Get Help -->
                 <div class="section-card">
-                    <h2><i class="fas fa-hands-helping"></i> Get Help</h2>
-                    <p class="subtitle">Step-by-step guides for government portal applications. Pata msaada wa haraka.</p>
-                    <button class="btn btn-primary" onclick="navigateTo('services')">Learn More →</button>
+                    <h2><i class="fas fa-hands-helping"></i> <span class="get-help-title">Get Help</span></h2>
+                    <p class="subtitle"><span class="get-help-subtitle">Step-by-step guides for government portal applications. Pata msaada wa haraka.</span></p>
+                    <button class="btn btn-primary" onclick="navigateTo('services')"><span class="learn-more-help">Learn More →</span></button>
                 </div>
 
-                <!-- NAPA -->
                 <div class="section-card">
-                    <h2><i class="fas fa-file-alt"></i> NAPA - Pata barua ya utambulisho</h2>
-                    <p>Suala la maombi ya mkopo wa elimu ya juu limekuwa kidigitali zaidi, hivyo barua za utambulisho zote tunazipata kupitia mfumo maalumu wa NAPA. Hivyo basi hakikisha unapata barua yako ya utambulisho ili swala la maombi ya mkopo kwako iwe rahisi sana.</p>
+                    <h2><i class="fas fa-file-alt"></i> <span class="napa-title">NAPA - Pata barua ya utambulisho</span></h2>
+                    <p class="napa-desc"><span class="napa-desc-text">Suala la maombi ya mkopo wa elimu ya juu limekuwa kidigitali zaidi, hivyo barua za utambulisho zote tunazipata kupitia mfumo maalumu wa NAPA. Hivyo basi hakikisha unapata barua yako ya utambulisho ili swala la maombi ya mkopo kwako iwe rahisi sana.</span></p>
                 </div>
 
-                <!-- Zingatia -->
                 <div class="section-card" style="border-left: 4px solid var(--clr-accent);">
-                    <h2><i class="fas fa-exclamation-triangle"></i> Zingatia!</h2>
-                    <p>Ili uweze kupata barua kwa mfumo wa NAPA, hakikisha nyumba yenu imesajiliwa katika anuani za makazi. Kama bado, basi wasiliana na Mtendaji wako wa kijiji au kata ili aweze kukusaidia hilo!</p>
+                    <h2><i class="fas fa-exclamation-triangle"></i> <span class="zingatia-title">Zingatia!</span></h2>
+                    <p class="zingatia-desc"><span class="zingatia-desc-text">Ili uweze kupata barua kwa mfumo wa NAPA, hakikisha nyumba yenu imesajiliwa katika anuani za makazi. Kama bado, basi wasiliana na Mtendaji wako wa kijiji au kata ili aweze kukusaidia hilo!</span></p>
                 </div>
             </div>
 
             <!-- ========== PROJECTS PAGE ========== -->
             <div class="page-panel" id="page-projects">
                 <div class="text-card">
-                    <h2><i class="fas fa-folder-open"></i> Our Projects</h2>
-                    <p class="subtitle">We based on performing better and exclusive works</p>
+                    <h2><i class="fas fa-folder-open"></i> <span class="projects-title">Our Projects</span></h2>
+                    <p class="subtitle"><span class="projects-subtitle">We based on performing better and exclusive works</span></p>
                 </div>
-
-              <!---  <div class="project-card">
-                    <span class="badge badge-coming">Coming Soon</span>
-                    <div class="project-info">
-                        <h4><i class="fas fa-film"></i> The Rogue Directorate (3D Animation)</h4>
-                        <p>An animation project. We expect to create a cartoon using Blender tools, still in planning yet.</p>
-                    </div>
-                </div>
-
                 <div class="project-card">
-                    <span class="badge badge-progress">50% Complete</span>
+                    <span class="badge badge-live"><span class="live-now-badge">Live Now</span></span>
                     <div class="project-info">
-                        <h4><i class="fas fa-vote-yea"></i> Electronic Voting System</h4>
-                        <p>Making easier election process without affecting economic and other social activities, gives people equal opportunity to choose their leader wherever they are.</p>
-                    </div>
-                </div> -->
-
-                <div class="project-card">
-                    <span class="badge badge-live">Live Now</span>
-                    <div class="project-info">
-                        <h4><i class="fas fa-globe"></i> Digital Services Agency</h4>
-                        <p>Created to assist friends in certificate applications (RITA), TIN, and HESLB beneficiary processes.</p>
-                        <button class="btn btn-primary" style="margin-top:8px;" onclick="navigateTo('services')">View Service →</button>
+                        <h4><i class="fas fa-globe"></i> <span class="project-digital-title">Digital Services Agency</span></h4>
+                        <p><span class="project-digital-desc">Created to assist friends in certificate applications (RITA), TIN, and HESLB beneficiary processes.</span></p>
+                        <button class="btn btn-primary" style="margin-top:8px;" onclick="navigateTo('services')"><span class="view-service-btn">View Service →</span></button>
                     </div>
                 </div>
-
-                <!--<div class="project-card">
-                    <span class="badge badge-coming">Coming Soon</span>
-                    <div class="project-info">
-                        <h4><i class="fas fa-comment-dots"></i> SMS App (Private Messaging)</h4>
-                        <p>An offline Messaging App that we expecting to create in coming days. Secure and private communication without internet.</p>
-                    </div>
-                </div>-->
             </div>
 
             <!-- ========== NEWS PAGE ========== -->
             <div class="page-panel" id="page-news">
                 <div class="text-card">
-                    <h2><i class="fas fa-newspaper"></i> Latest News & Updates</h2>
-                    <p class="subtitle">Stay informed with our daily tech insights and community updates.</p>
+                    <h2><i class="fas fa-newspaper"></i> <span class="news-page-title">Latest News & Updates</span></h2>
+                    <p class="subtitle"><span class="news-page-subtitle">Stay informed with our daily tech insights and community updates.</span></p>
                 </div>
-
                 <div class="side-divider">
-                    <!-- Left Column - News Items -->
                     <div class="left">
                         <div class="section-card">
                             <div class="news-item" onclick="toggleNews(this)">
-                                <div class="news-date"><i class="fas fa-calendar"></i> April 10, 2026</div>
-                                <div class="news-title">Ufafanuzi kuhusu Usajili wa Ndoa</div>
-                                <p class="news-excerpt">Je, unajua kuwa ukishapata cheti cha ndoa kutoka kwa msajili wako hauna haja ya kwenda RITA tena?</p>
+                                <div class="news-date"><i class="fas fa-calendar"></i> <span class="news-date1">April 10, 2026</span></div>
+                                <div class="news-title"><span class="news-title1">Ufafanuzi kuhusu Usajili wa Ndoa</span></div>
+                                <p class="news-excerpt"><span class="news-excerpt1">Je, unajua kuwa ukishapata cheti cha ndoa kutoka kwa msajili wako hauna haja ya kwenda RITA tena?</span></p>
                                 <span class="news-toggle">more ▼</span>
                                 <div class="news-full">
-                                    <p>Ukishapata cheti cha ndoa kutoka kwa msajili wako wa ndoa, tayari ndoa yako imeshasajiliwa kisheria. Hakuna haja ya kwenda RITA kufanya usajili mwingine. Hata hivyo, kama unahitaji nakala halisi ya cheti chako cha ndoa, unaweza kukipata kupitia mfumo wa RITA mtandaoni.</p>
+                                    <p class="news-full1"><span class="news-full-text1">Ukishapata cheti cha ndoa kutoka kwa msajili wako wa ndoa, tayari ndoa yako imeshasajiliwa kisheria. Hakuna haja ya kwenda RITA kufanya usajili mwingine. Hata hivyo, kama unahitaji nakala halisi ya cheti chako cha ndoa, unaweza kukipata kupitia mfumo wa RITA mtandaoni.</span></p>
                                 </div>
                             </div>
                         </div>
-
                         <div class="section-card">
                             <div class="news-item" onclick="toggleNews(this)">
-                                <div class="news-date"><i class="fas fa-calendar"></i> Machi 26, 2026</div>
-                                <div class="news-title">Ijue AI kwa Ufupi</div>
-                                <p class="news-excerpt">AI ni mfumo wa akili bandia ambao una uwezo wa kutoa maamuzi karibu sana na maamuzi ya binadamu.</p>
+                                <div class="news-date"><i class="fas fa-calendar"></i> <span class="news-date2">Machi 26, 2026</span></div>
+                                <div class="news-title"><span class="news-title2">Ijue AI kwa Ufupi</span></div>
+                                <p class="news-excerpt"><span class="news-excerpt2">AI ni mfumo wa akili bandia ambao una uwezo wa kutoa maamuzi karibu sana na maamuzi ya binadamu.</span></p>
                                 <span class="news-toggle">more ▼</span>
                                 <div class="news-full">
-                                    <p>Akili Bandia (AI) ni teknolojia inayowezesha kompyuta kujifunza, kufikiri, na kufanya maamuzi kwa namna inayofanana na binadamu. AI inatumika katika nyanja mbalimbali kama afya, elimu, biashara, na hata kwenye simu zetu za mkononi. Kwa mfano, assistants kama Siri, Google Assistant, na ChatGPT ni mifano ya AI inayotusaidia kila siku.</p>
+                                    <p class="news-full2"><span class="news-full-text2">Akili Bandia (AI) ni teknolojia inayowezesha kompyuta kujifunza, kufikiri, na kufanya maamuzi kwa namna inayofanana na binadamu. AI inatumika katika nyanja mbalimbali kama afya, elimu, biashara, na hata kwenye simu zetu za mkononi. Kwa mfano, assistants kama Siri, Google Assistant, na ChatGPT ni mifano ya AI inayotusaidia kila siku.</span></p>
                                 </div>
                             </div>
                         </div>
-
                         <div class="section-card">
                             <div class="news-item" onclick="toggleNews(this)">
-                                <div class="news-date"><i class="fas fa-calendar"></i> Machi 20, 2026</div>
-                                <div class="news-title">Mfumo Rasmi wa Ajira (Ajira Portal)</div>
-                                <p class="news-excerpt">Mfumo huu umekuja kurahisisha mchakato mzima wa ajira kwa taasisi za serikali.</p>
+                                <div class="news-date"><i class="fas fa-calendar"></i> <span class="news-date3">Machi 20, 2026</span></div>
+                                <div class="news-title"><span class="news-title3">Mfumo Rasmi wa Ajira (Ajira Portal)</span></div>
+                                <p class="news-excerpt"><span class="news-excerpt3">Mfumo huu umekuja kurahisisha mchakato mzima wa ajira kwa taasisi za serikali.</span></p>
                                 <span class="news-toggle">more ▼</span>
                                 <div class="news-full">
-                                    <p>Ajira Portal ni mfumo rasmi wa Serikali ya Tanzania unaowezesha watumiaji kuomba ajira katika taasisi mbalimbali za serikali kupitia mtandao. Mfumo huu umerahisisha sana mchakato mzima wa kuomba ajira, kuanzia kutuma maombi, kufanyiwa usaili, hadi kupata majibu. Ili kutumia mfumo huu, unahitaji kujisajili na kujaza taarifa zako binafsi, elimu, na uzoefu wa kazi.</p>
+                                    <p class="news-full3"><span class="news-full-text3">Ajira Portal ni mfumo rasmi wa Serikali ya Tanzania unaowezesha watumiaji kuomba ajira katika taasisi mbalimbali za serikali kupitia mtandao. Mfumo huu umerahisisha sana mchakato mzima wa kuomba ajira, kuanzia kutuma maombi, kufanyiwa usaili, hadi kupata majibu. Ili kutumia mfumo huu, unahitaji kujisajili na kujaza taarifa zako binafsi, elimu, na uzoefu wa kazi.</span></p>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Right Column - Placeholder (can add content later) -->
                     <div class="right">
                         <div class="right-placeholder">
                             <i class="fas fa-bullhorn"></i>
-                            <p><strong>More Updates Coming Soon!</strong></p>
-                            <p style="font-size:13px;">Stay tuned for the latest news and announcements.</p>
+                            <p><strong><span class="more-updates-title">More Updates Coming Soon!</span></strong></p>
+                            <p style="font-size:13px;"><span class="stay-tuned-text">Stay tuned for the latest news and announcements.</span></p>
                         </div>
                     </div>
                 </div>
@@ -1247,118 +1503,158 @@
             <!-- ========== SERVICES PAGE ========== -->
             <div class="page-panel" id="page-services">
                 <div class="text-card">
-                    <h2><i class="fas fa-cogs"></i> Our Services</h2>
-                    <p class="subtitle">We offer a range of services to help you navigate the digital world with ease.</p>
+                    <h2><i class="fas fa-cogs"></i> <span class="services-page-title">Our Services</span></h2>
+                    <p class="subtitle"><span class="services-page-subtitle">We offer a range of services to help you navigate the digital world with ease.</span></p>
                 </div>
                 <div class="section-card" style="text-align:center;">
-                    <h2><i class="fas fa-certificate"></i> Certificates & TIN</h2>
-                    <p class="subtitle">Birth and Death certificates application, verification, and TIN registration with high efficiency through RITA and TRA systems.</p>
-                    <button class="btn btn-primary" onclick="navigateTo('publications')">Learn More →</button>
+                    <h2><i class="fas fa-certificate"></i> <span class="certificates-title">Certificates & TIN</span></h2>
+                    <p class="subtitle"><span class="certificates-subtitle">Birth and Death certificates application, verification, and TIN registration with high efficiency through RITA and TRA systems.</span></p>
+                    <button class="btn btn-primary" onclick="navigateTo('publications')"><span class="learn-more-cert">Learn More →</span></button>
                 </div>
-
                 <div class="section-card" style="text-align: center;">
-                    <h2><i class="fas fa-laptop-code"></i> Software Development</h2>
-                    <p class="subtitle">Creating custom websites and mobile applications using Flutter and Dart for business and personal growth.</p>
-                    <button class="btn btn-primary" onclick="navigateTo('projects')">View Projects →</button>
+                    <h2><i class="fas fa-laptop-code"></i> <span class="software-dev-title2">Software Development</span></h2>
+                    <p class="subtitle"><span class="software-dev-subtitle">Creating custom websites and mobile applications using Flutter and Dart for business and personal growth.</span></p>
+                    <button class="btn btn-primary" onclick="navigateTo('projects')"><span class="view-projects-btn">View Projects →</span></button>
                 </div>
-
                 <div class="section-card" style="text-align: center;">
-                    <h2><i class="fas fa-graduation-cap"></i> College Applications</h2>
-                    <p class="subtitle">Assisting with TCU/NACTE applications and providing academic advice for O-Level and A-Level graduates.</p>
-                    <button class="btn btn-primary" onclick="navigateTo('home')">Learn More →</button>
+                    <h2><i class="fas fa-graduation-cap"></i> <span class="college-apps-title">College Applications</span></h2>
+                    <p class="subtitle"><span class="college-apps-subtitle">Assisting with TCU/NACTE applications and providing academic advice for O-Level and A-Level graduates.</span></p>
+                    <button class="btn btn-primary" onclick="navigateTo('home')"><span class="learn-more-college">Learn More →</span></button>
                 </div>
-
                 <div class="section-card">
-                    <h2><i class="fas fa-question-circle"></i> Maswali ya Mara kwa Mara (FAQ)</h2>
+                    <h2><i class="fas fa-question-circle"></i> <span class="faq-title">Maswali ya Mara kwa Mara (FAQ)</span></h2>
                     <div class="faq-item" onclick="toggleFaq(this)">
                         <div class="faq-question">
-                            Inachukua muda gani kupata Cheti cha Kuzaliwa?
+                            <span class="faq-q1">Inachukua muda gani kupata Cheti cha Kuzaliwa?</span>
                             <span class="faq-arrow"><i class="fas fa-chevron-down"></i></span>
                         </div>
-                        <div class="faq-answer">Muda unategemea mfumo wa RITA, lakini kwa kawaida huchukua kati ya siku 7 hadi 14 za kazi. Kwa msaada wetu, tunaharakisha mchakato huu kadri inavyowezekana.</div>
+                        <div class="faq-answer"><span class="faq-a1">Muda unategemea mfumo wa RITA, lakini kwa kawaida huchukua kati ya siku 7 hadi 14 za kazi. Kwa msaada wetu, tunaharakisha mchakato huu kadri inavyowezekana.</span></div>
                     </div>
                     <div class="faq-item" onclick="toggleFaq(this)">
                         <div class="faq-question">
-                            Je, mtu anaweza kupakua cheti chake mtandaoni?
+                            <span class="faq-q2">Je, mtu anaweza kupakua cheti chake mtandaoni?</span>
                             <span class="faq-arrow"><i class="fas fa-chevron-down"></i></span>
                         </div>
-                        <div class="faq-answer">Ndiyo! Kupitia mfumo wa e-RITA, unaweza kupakua cheti chako cha kuzaliwa au kifo moja kwa moja mtandaoni baada ya kukisajili. Tunakusaidia kufanya hili kwa urahisi.</div>
+                        <div class="faq-answer"><span class="faq-a2">Ndiyo! Kupitia mfumo wa e-RITA, unaweza kupakua cheti chako cha kuzaliwa au kifo moja kwa moja mtandaoni baada ya kukisajili. Tunakusaidia kufanya hili kwa urahisi.</span></div>
                     </div>
                     <div class="faq-item" onclick="toggleFaq(this)">
                         <div class="faq-question">
-                            Je, mnachapisha vyeti?
+                            <span class="faq-q3">Je, mnachapisha vyeti?</span>
                             <span class="faq-arrow"><i class="fas fa-chevron-down"></i></span>
                         </div>
-                        <div class="faq-answer">Ndiyo, tunachapisha vyeti rasmi vinavyotambulika kisheria. Vyeti vyote vinachapishwa kwa ubora wa hali ya juu na vinakubalika katika taasisi zote za serikali na binafsi.</div>
+                        <div class="faq-answer"><span class="faq-a3">Ndiyo, tunachapisha vyeti rasmi vinavyotambulika kisheria. Vyeti vyote vinachapishwa kwa ubora wa hali ya juu na vinakubalika katika taasisi zote za serikali na binafsi.</span></div>
                     </div>
                     <div class="faq-item" onclick="toggleFaq(this)">
                         <div class="faq-question">
-                            Gharama yake ni kiasi gani?
+                            <span class="faq-q4">Gharama yake ni kiasi gani?</span>
                             <span class="faq-arrow"><i class="fas fa-chevron-down"></i></span>
                         </div>
-                        <div class="faq-answer">Gharama inategemea huduma unayohitaji. Wasiliana nasi kwa ushauri wa bure na tutakupa bei nafuu kabisa inayolingana na huduma unayohitaji. Unaweza kututumia ujumbe WhatsApp au kupiga simu.</div>
+                        <div class="faq-answer"><span class="faq-a4">Gharama inategemea huduma unayohitaji. Wasiliana nasi kwa ushauri wa bure na tutakupa bei nafuu kabisa inayolingana na huduma unayohitaji. Unaweza kututumia ujumbe WhatsApp au kupiga simu.</span></div>
                     </div>
                 </div>
-
                 <div class="section-card" style="text-align:center; background: var(--clr-primary); color: white;">
-                    <h2 style="color:white;"><i class="fas fa-headset"></i> Unahitaji Msaada wa Haraka?</h2>
-                    <p style="color:rgba(255,255,255,0.85);">Wasiliana nasi sasa kwa msaada wa kitaalamu na wa haraka.</p>
-                    <a href="https://wa.me/255671533265" target="_blank" class="btn btn-accent" style="margin-top:8px; font-size:16px;"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                    <h2 style="color:white;"><i class="fas fa-headset"></i> <span class="need-help-title">Unahitaji Msaada wa Haraka?</span></h2>
+                    <p style="color:rgba(255,255,255,0.85);"><span class="need-help-desc">Wasiliana nasi sasa kwa msaada wa kitaalamu na wa haraka.</span></p>
+                    <a href="https://wa.me/255671533265" target="_blank" class="btn btn-accent" style="margin-top:8px; font-size:16px;"><i class="fab fa-whatsapp"></i> <span class="whatsapp-btn-text">WhatsApp</span></a>
                 </div>
             </div>
 
             <!-- ========== PUBLICATIONS PAGE ========== -->
             <div class="page-panel" id="page-publications">
                 <div class="text-card">
-                    <h2><i class="fas fa-book"></i> Publications & Resources</h2>
-                    <p class="subtitle">Download important documents and get informed</p>
+                    <h2><i class="fas fa-book"></i> <span class="publications-title">Publications & Resources</span></h2>
+                    <p class="subtitle"><span class="publications-subtitle">Download important documents and get informed</span></p>
                 </div>
-
                 <div class="section-card">
-                    <h3><i class="fas fa-download"></i> Downloadable Documents</h3>
+                    <h3><i class="fas fa-download"></i> <span class="downloadable-title">Downloadable Documents</span></h3>
                     <div class="download-card">
                         <span class="download-icon"><i class="fas fa-file-pdf" style="color: red;"></i></span>
                         <div class="download-info">
-                            <h4>Maelezo ya Cheti cha Kuzaliwa</h4>
-                            <span>Birth Certificate Guidelines</span>
-                            <a href="docs/birth.pdf" target="_blank" class="btn btn-outline" style="margin-top:8px;">Download</a>
+                            <h4><span class="birth-guide-title">Maelezo ya Cheti cha Kuzaliwa</span></h4>
+                            <span><span class="birth-guide-sub">Birth Certificate Guidelines</span></span>
+                            <a href="docs/birth.pdf" target="_blank" class="btn btn-outline" style="margin-top:8px;"><span class="download-btn-text">Download</span></a>
                         </div>
-
                     </div>
                     <div class="download-card">
                         <span class="download-icon"><i class="fas fa-file-pdf" style="color: red;"></i></span>
                         <div class="download-info">
-                            <h4>Maelezo ya Cheti cha Kifo</h4>
-                            <span>Death Certificate Guidelines</span>
-                            <a href="docs/death.pdf" target="_blank" class="btn btn-outline" style="margin-top:8px;">Download</a>
+                            <h4><span class="death-guide-title">Maelezo ya Cheti cha Kifo</span></h4>
+                            <span><span class="death-guide-sub">Death Certificate Guidelines</span></span>
+                            <a href="docs/death.pdf" target="_blank" class="btn btn-outline" style="margin-top:8px;"><span class="download-btn-text2">Download</span></a>
                         </div>
                     </div>
                     <div class="download-card" style="opacity:0.6;">
                         <span class="download-icon"><i class="fas fa-file-alt"></i></span>
                         <div class="download-info">
-                            <h4>ORODHA YA VYUO VIKUU(TZ)</h4>
-                            <span>Orodha kutoka TCU kwa vyuo vikuu vyote vilivyoidhinishwa <span class="badge badge-coming">Coming Soon</span></span>
+                            <h4><span class="uni-list-title">ORODHA YA VYUO VIKUU(TZ)</span></h4>
+                            <span><span class="uni-list-sub">Orodha kutoka TCU kwa vyuo vikuu vyote vilivyoidhinishwa <span class="badge badge-coming"><span class="coming-soon-badge">Coming Soon</span></span></span></span>
                         </div>
                     </div>
                 </div>
-
                 <div class="section-card" style="border-left: 4px solid var(--clr-accent);">
-                    <h3><i class="fas fa-exclamation-triangle"></i> Muhimu Kuzingatia!</h3>
-                    <p>Ni muhimu kufanya mabadilisho ya cheti chako cha zamani kuwa cheti kipya. Vyeti vya zamani ni pamoja na vile vyote vya <strong>HANDWRITING</strong> style, pamoja na vile vya <strong>rangi ya kijani</strong>.</p>
+                    <h3><i class="fas fa-exclamation-triangle"></i> <span class="important-note-title">Muhimu Kuzingatia!</span></h3>
+                    <p><span class="important-note-desc">Ni muhimu kufanya mabadilisho ya cheti chako cha zamani kuwa cheti kipya. Vyeti vya zamani ni pamoja na vile vyote vya HANDWRITING style, pamoja na vile vya rangi ya kijani.</span></p>
                 </div>
-
                 <div class="section-card">
-                    <h3><i class="fas fa-user-graduate"></i> Kwa Wanafunzi</h3>
-                    <p>Kama wewe ni mwanafunzi ni muhimu zaidi kubadilisha cheti chako, pia kama sio mwanafunzi ni bora kukabadilisha pia ili kuendana na fursa zilizopo.</p>
+                    <h3><i class="fas fa-user-graduate"></i> <span class="for-students-title">Kwa Wanafunzi</span></h3>
+                    <p><span class="for-students-desc">Kama wewe ni mwanafunzi ni muhimu zaidi kubadilisha cheti chako, pia kama sio mwanafunzi ni bora kukabadilisha pia ili kuendana na fursa zilizopo.</span></p>
                 </div>
-
                 <div class="section-card" style="background: var(--clr-surface-alt); text-align: center;">
-                    <h3><i class="fas fa-lightbulb"></i> Ushauri</h3>
-                    <p>Mambo yote haya yanafanyika kupitia mtandao. Wasiliana nasi tukusaidie kwa weledi wa hali ya juu. <strong>KARIBU TUSHIRIKIANE!</strong></p>
-                    <a href="https://wa.me/255671533265" target="_blank" class="btn btn-accent" style="margin-top:10px;"><i class="fab fa-whatsapp"></i> Wasiliana Nasi</a>
+                    <h3><i class="fas fa-lightbulb"></i> <span class="advice-title">Ushauri</span></h3>
+                    <p><span class="advice-desc">Mambo yote haya yanafanyika kupitia mtandao. Wasiliana nasi tukusaidie kwa weledi wa hali ya juu. KARIBU TUSHIRIKIANE!</span></p>
+                    <a href="https://wa.me/255671533265" target="_blank" class="btn btn-accent" style="margin-top:10px;"><i class="fab fa-whatsapp"></i> <span class="contact-us-btn">Wasiliana Nasi</span></a>
                 </div>
             </div>
+        </div>
 
+        <!-- ==========================================
+             FLOATING CHATBOT BUTTON (LEFT SIDE)
+             ========================================== -->
+        <div class="chatbot-float" id="chatbotFloatBtn">
+            <div class="chatbot-icon"><i class="fas fa-robot" style="color: var(--clr-primary);"></i></div>
+            <div class="chatbot-pulse"></div>
+        </div>
+
+        <div class="chatbot-modal" id="chatbotModal">
+            <div class="chatbot-container">
+                <div class="chatbot-header">
+                    <div class="chatbot-header-info">
+                        <div class="chatbot-avatar"><i class="fas fa-robot" style="color: var(--clr-primary);"></i></div>
+                        <div class="chatbot-header-text">
+                            <h3>MUDHIHIRJZ Bot</h3>
+                            <p><i class="fas fa-circle" style="color: greenyellow;"></i> Online | Chagua huduma unayohitaji</p>
+                        </div>
+                    </div>
+                    <button class="chatbot-close" id="chatbotCloseBtn">✕</button>
+                </div>
+                <div class="chatbot-messages" id="chatbotMessages">
+                    <div class="chatbot-message bot">
+                        <div class="message-bubble">
+                            <i class="fas fa-handshake" style="color: gold;"></i> Habari! Mimi ni MUDHIHIRJZ Bot.<br><br>
+                            <i class="fas fa-info-circle"></i> <strong>Nakuwezesha kupata taarifa za:</strong><br>
+                             • Cheti cha Kuzaliwa<br>
+                             • Cheti cha Kifo<br>
+                             • Usajili wa TIN<br>
+                             • HESLB / NAPA<br><br>
+                             Chagua huduma kwenye menyu hapo chini.
+                        </div>
+                    </div>
+                </div>
+                <div class="chatbot-tabs" id="chatbotTabs">
+                    <button class="tab-btn" data-category="birth"><i class="fas fa-baby" style="color: rgb(224, 199, 152);"></i> Cheti Kuzaliwa</button>
+                    <button class="tab-btn" data-category="death"><i class="fas fa-skull" style="color: rgb(255, 68, 0);"></i> Cheti Kifo</button>
+                    <button class="tab-btn" data-category="tin"><i class="fas fa-id-card" style="color: var(--clr-surface);"></i> TIN</button>
+                    <button class="tab-btn" data-category="heslb"><i class="fas fa-graduation-cap" style="color: var(--clr-primary-hover);"></i> HESLB/NAPA</button>
+                </div>
+                <div class="chatbot-quick-replies" id="chatbotQuickReplies"></div>
+                <div class="chatbot-input-area">
+                    <input type="text" class="chatbot-input" id="chatbotInput" placeholder=" Au andika swali lako hapa..." autocomplete="off">
+                    <button class="chatbot-send" id="chatbotSendBtn"><i class="fas fa-paper-plane" style="color: rgb(25, 236, 25);"></i></button>
+                </div>
+                <div class="chatbot-footer">
+                    <small>⚡ Powered by MUDHIHIRJZ Tech | Tuko online</small>
+                </div>
+            </div>
         </div>
 
         <!-- ==========================================
@@ -1367,27 +1663,27 @@
         <footer class="site-footer">
             <div class="footer-grid">
                 <div class="footer-col">
-                    <h5><i class="fas fa-phone"></i> Contact Us</h5>
+                    <h5><i class="fas fa-phone"></i> <span class="contact-us-footer">Contact Us</span></h5>
                     <a href="tel:+255671533265"><i class="fas fa-phone-alt"></i> +255 671 533 265</a>
                     <a href="mailto:mudhihirjz@gmail.com"><i class="fas fa-envelope"></i> mudhihirjz@gmail.com</a>
-                    <p><i class="fas fa-map-marker-alt"></i> Zanzibar, Tanzania</p>
+                    <p><i class="fas fa-map-marker-alt"></i> <span class="location-footer">Zanzibar, Tanzania</span></p>
                 </div>
                 <div class="footer-col">
-                    <h5><i class="fas fa-university"></i> Government Portals</h5>
+                    <h5><i class="fas fa-university"></i> <span class="gov-portals-footer">Government Portals</span></h5>
                     <a href="https://www.rita.go.tz" target="_blank">e-RITA</a>
                     <a href="https://www.nida.go.tz" target="_blank">NIDA Online</a>
                     <a href="https://www.brela.go.tz" target="_blank">BRELA</a>
                 </div>
                 <div class="footer-col">
-                    <h5><i class="fas fa-link"></i> Quick Links</h5>
-                    <a onclick="navigateTo('home')">Home</a>
-                    <a onclick="navigateTo('services')">Services</a>
-                    <a onclick="navigateTo('news')">News</a>
-                    <a onclick="navigateTo('projects')">Projects</a>
+                    <h5><i class="fas fa-link"></i> <span class="quick-links-footer">Quick Links</span></h5>
+                    <a onclick="navigateTo('home')"><span class="footer-home">Home</span></a>
+                    <a onclick="navigateTo('services')"><span class="footer-services">Services</span></a>
+                    <a onclick="navigateTo('news')"><span class="footer-news">News</span></a>
+                    <a onclick="navigateTo('projects')"><span class="footer-projects">Projects</span></a>
                 </div>
             </div>
             <div class="footer-bottom">
-                &copy; 2026 MUDHIHIRJZ Tech. All rights reserved. | Designed by Mudhihirjz
+                &copy; 2026 MUDHIHIRJZ Tech. <span class="rights-text">All rights reserved.</span> | <span class="designed-by">Designed by Mudhihirjz</span>
             </div>
         </footer>
     </div>
@@ -1395,15 +1691,203 @@
     <!-- ==========================================
          WHATSAPP FLOATING BUTTON
          ========================================== -->
-    <a href="https://wa.me/255671533265?text=Habari, nahitaji kufahamu zaidi kuhusu huduma zako." target="_blank" class="whatsapp-float" id="whatsappFloat" style="display:none;" title="Chat on WhatsApp">
-        <i class="fab fa-whatsapp"></i>
-    </a>
+    <a href="https://wa.me/255671533265?text=Habari, nahitaji kufahamu zaidi kuhusu huduma zako." target="_blank" class="whatsapp-float" id="whatsappFloat" style="display:none;" title="Chat on WhatsApp"><i class="fab fa-whatsapp"></i></a>
 
     <!-- ==========================================
          JAVASCRIPT
          ========================================== -->
     <script>
-        // ========== DOM ELEMENTS ==========
+        // ========== TRANSLATIONS OBJECT ==========
+        const translations = {
+            sw: {
+                langBtn: "🇬🇧 ENG",
+                navHome: "Nyumbani", navProjects: "Miradi", navNews: "Habari", navServices: "Huduma", navPublications: "Machapisho",
+                heroTitle: "Karibu kwa <span>MUDHIHIRJZ Tech</span>", heroSubtitle: "Ubunifu kwa Ajili ya Maendeleo", heroDesc: "Tumejitolea kutoa suluhu za kisasa zinazochochea ukuaji na mafanikio kwa wateja wetu.",
+                btnGetStarted: "Anza", btnLearnMore: "Jifunze Zaidi",
+                badgeNew: "Taarifa Mpya zipo!", latestNewsTitle: "Habari Mpya", latestNewsSubtitle: "Jua taarifa zetu za kila siku za teknolojia na mabadiliko ya jamii.",
+                readNewsBtn: "Soma Habari →", placeholderText: "Taarifa muhimu zitaonekana hapa. Endelea kufuatilia!",
+                whatWeDoTitle: "Tunafanya Nini?", whatWeDoSubtitle: "Think and Grow ni mshirika wako mkuu katika mabadiliko ya kidijitali.",
+                softwareDevTitle: "Uundaji Programu", softwareDevDesc: "Programu maalum za tovuti na simu",
+                eservicesTitle: "Huduma za Kielektroniki", eservicesDesc: "Msaada wa RITA, TIN na NIDA",
+                consultancyTitle: "Ushauri", consultancyDesc: "Ushauri wa ukuaji wa kidijitali", viewServicesBtn: "Angalia Huduma Zote →",
+                getHelpTitle: "Pata Msaada", getHelpSubtitle: "Miongozo ya hatua kwa hatua ya maombi ya milango ya serikali. Pata msaada wa haraka.", learnMoreHelp: "Jifunze Zaidi →",
+                napaTitle: "NAPA - Pata barua ya utambulisho", napaDesc: "Suala la maombi ya mkopo wa elimu ya juu limekuwa kidigitali zaidi, hivyo barua za utambulisho zote tunazipata kupitia mfumo maalumu wa NAPA. Hivyo basi hakikisha unapata barua yako ya utambulisho ili swala la maombi ya mkopo kwako iwe rahisi sana.",
+                zingatiaTitle: "Zingatia!", zingatiaDesc: "Ili uweze kupata barua kwa mfumo wa NAPA, hakikisha nyumba yenu imesajiliwa katika anuani za makazi. Kama bado, basi wasiliana na Mtendaji wako wa kijiji au kata ili aweze kukusaidia hilo!",
+                projectsTitle: "Miradi Yetu", projectsSubtitle: "Tunategemea kufanya kazi bora na za kipekee", liveNowBadge: "Inaendelea Sasa",
+                projectDigitalTitle: "Wakala wa Huduma za Kidijitali", projectDigitalDesc: "Imeundwa kusaidia marafiki katika maombi ya vyeti (RITA), TIN, na michakato ya walengwa wa HESLB.", viewServiceBtn: "Angalia Huduma →",
+                newsPageTitle: "Habari Mpya na Taarifa", newsPageSubtitle: "Endelea kuwa na taarifa kwa ufahamu wetu wa kila siku wa teknolojia na mabadiliko ya jamii.",
+                newsTitle1: "Ufafanuzi kuhusu Usajili wa Ndoa", newsExcerpt1: "Je, unajua kuwa ukishapata cheti cha ndoa kutoka kwa msajili wako hauna haja ya kwenda RITA tena?", newsFull1: "Ukishapata cheti cha ndoa kutoka kwa msajili wako wa ndoa, tayari ndoa yako imeshasajiliwa kisheria. Hakuna haja ya kwenda RITA kufanya usajili mwingine. Hata hivyo, kama unahitaji nakala halisi ya cheti chako cha ndoa, unaweza kukipata kupitia mfumo wa RITA mtandaoni.",
+                newsTitle2: "Ijue AI kwa Ufupi", newsExcerpt2: "AI ni mfumo wa akili bandia ambao una uwezo wa kutoa maamuzi karibu sana na maamuzi ya binadamu.", newsFull2: "Akili Bandia (AI) ni teknolojia inayowezesha kompyuta kujifunza, kufikiri, na kufanya maamuzi kwa namna inayofanana na binadamu. AI inatumika katika nyanja mbalimbali kama afya, elimu, biashara, na hata kwenye simu zetu za mkononi. Kwa mfano, assistants kama Siri, Google Assistant, na ChatGPT ni mifano ya AI inayotusaidia kila siku.",
+                newsTitle3: "Mfumo Rasmi wa Ajira (Ajira Portal)", newsExcerpt3: "Mfumo huu umekuja kurahisisha mchakato mzima wa ajira kwa taasisi za serikali.", newsFull3: "Ajira Portal ni mfumo rasmi wa Serikali ya Tanzania unaowezesha watumiaji kuomba ajira katika taasisi mbalimbali za serikali kupitia mtandao. Mfumo huu umerahisisha sana mchakato mzima wa kuomba ajira, kuanzia kutuma maombi, kufanyiwa usaili, hadi kupata majibu. Ili kutumia mfumo huu, unahitaji kujisajili na kujaza taarifa zako binafsi, elimu, na uzoefu wa kazi.",
+                moreUpdatesTitle: "Taarifa Zingine Zinakuja Hivi Karibuni!", stayTunedText: "Endelea kufuatilia kwa habari mpya na matangazo.",
+                servicesPageTitle: "Huduma Zetu", servicesPageSubtitle: "Tunatoa huduma mbalimbali kukusaidia kuzunguka katika ulimwengu wa kidijitali kwa urahisi.",
+                certificatesTitle: "Vyeti na TIN", certificatesSubtitle: "Maombi ya vyeti vya kuzaliwa na vifo, uthibitishaji, na usajili wa TIN kwa ufanisi mkubwa kupitia mifumo ya RITA na TRA.",
+                softwareDevTitle2: "Uundaji Programu", softwareDevSubtitle: "Kuunda tovuti maalum na programu za simu kwa kutumia Flutter na Dart kwa ukuaji wa biashara na binafsi.",
+                collegeAppsTitle: "Maombi ya Vyuo", collegeAppsSubtitle: "Kusaidia maombi ya TCU/NACTE na kutoa ushauri wa kitaaluma kwa wahitimu wa O-Level na A-Level.",
+                learnMoreCert: "Jifunze Zaidi →", viewProjectsBtn: "Angalia Miradi →", learnMoreCollege: "Jifunze Zaidi →",
+                faqTitle: "Maswali ya Mara kwa Mara (FAQ)", needHelpTitle: "Unahitaji Msaada wa Haraka?", needHelpDesc: "Wasiliana nasi sasa kwa msaada wa kitaalamu na wa haraka.", whatsappBtnText: "WhatsApp",
+                publicationsTitle: "Machapisho na Rasilimali", publicationsSubtitle: "Pakua nyaraka muhimu na ujue taarifa", downloadableTitle: "Nyaraka za Kukusanya",
+                birthGuideTitle: "Maelezo ya Cheti cha Kuzaliwa", birthGuideSub: "Miongozo ya Cheti cha Kuzaliwa", deathGuideTitle: "Maelezo ya Cheti cha Kifo", deathGuideSub: "Miongozo ya Cheti cha Kifo",
+                uniListTitle: "ORODHA YA VYUO VIKUU(TZ)", uniListSub: "Orodha kutoka TCU kwa vyuo vikuu vyote vilivyoidhinishwa", comingSoonBadge: "Inakuja Hivi Karibuni", downloadBtnText: "Pakua",
+                importantNoteTitle: "Muhimu Kuzingatia!", importantNoteDesc: "Ni muhimu kufanya mabadilisho ya cheti chako cha zamani kuwa cheti kipya. Vyeti vya zamani ni pamoja na vile vyote vya HANDWRITING style, pamoja na vile vya rangi ya kijani.",
+                forStudentsTitle: "Kwa Wanafunzi", forStudentsDesc: "Kama wewe ni mwanafunzi ni muhimu zaidi kubadilisha cheti chako, pia kama sio mwanafunzi ni bora kukabadilisha pia ili kuendana na fursa zilizopo.",
+                adviceTitle: "Ushauri", adviceDesc: "Mambo yote haya yanafanyika kupitia mtandao. Wasiliana nasi tukusaidie kwa weledi wa hali ya juu. KARIBU TUSHIRIKIANE!", contactUsBtn: "Wasiliana Nasi",
+                contactUsFooter: "Wasiliana Nasi", locationFooter: "Zanzibar, Tanzania", govPortalsFooter: "Milango ya Serikali", quickLinksFooter: "Viungo vya Haraka",
+                footerHome: "Nyumbani", footerServices: "Huduma", footerNews: "Habari", footerProjects: "Miradi", rightsText: "Haki zote zimehifadhiwa.", designedBy: "Iliundwa na Mudhihirjz"
+            },
+            en: {
+                langBtn: "🇹🇿 SWA",
+                navHome: "Home", navProjects: "Projects", navNews: "News", navServices: "Services", navPublications: "Publications",
+                heroTitle: "Welcome to <span>MUDHIHIRJZ Tech</span>", heroSubtitle: "Innovation for the Future", heroDesc: "We are committed to providing cutting-edge solutions that drive growth and success for our clients.",
+                btnGetStarted: "Get Started", btnLearnMore: "Learn More",
+                badgeNew: "New updates available!", latestNewsTitle: "Latest News", latestNewsSubtitle: "Get informed with our daily tech insights and community updates.",
+                readNewsBtn: "Read News →", placeholderText: "Latest news highlights will appear here. Stay tuned!",
+                whatWeDoTitle: "What We Do?", whatWeDoSubtitle: "Think and Grow is your ultimate partner in digital transformation.",
+                softwareDevTitle: "Software Dev", softwareDevDesc: "Custom web & mobile apps", eservicesTitle: "E-Services", eservicesDesc: "RITA, TIN & NIDA help",
+                consultancyTitle: "Consultancy", consultancyDesc: "Digital growth advice", viewServicesBtn: "View All Services →",
+                getHelpTitle: "Get Help", getHelpSubtitle: "Step-by-step guides for government portal applications. Get quick assistance.", learnMoreHelp: "Learn More →",
+                napaTitle: "NAPA - Get identification letter", napaDesc: "The issue of higher education loan applications has become more digital, so all identification letters are obtained through the NAPA system. Therefore, make sure you get your identification letter to make your loan application process easier.",
+                zingatiaTitle: "Important!", zingatiaDesc: "To get a letter through the NAPA system, make sure your house is registered in residential addresses. If not, contact your Village or Ward Executive Officer to help you with that!",
+                projectsTitle: "Our Projects", projectsSubtitle: "We based on performing better and exclusive works", liveNowBadge: "Live Now",
+                projectDigitalTitle: "Digital Services Agency", projectDigitalDesc: "Created to assist friends in certificate applications (RITA), TIN, and HESLB beneficiary processes.", viewServiceBtn: "View Service →",
+                newsPageTitle: "Latest News & Updates", newsPageSubtitle: "Stay informed with our daily tech insights and community updates.",
+                newsTitle1: "Clarification on Marriage Registration", newsExcerpt1: "Did you know that once you get a marriage certificate from your registrar, you don't need to go to RITA again?", newsFull1: "Once you get a marriage certificate from your marriage registrar, your marriage is already legally registered. There is no need to go to RITA for another registration. However, if you need a hard copy of your marriage certificate, you can get it through the online RITA system.",
+                newsTitle2: "Brief Introduction to AI", newsExcerpt2: "AI is an artificial intelligence system that can make decisions very close to human decisions.", newsFull2: "Artificial Intelligence (AI) is a technology that enables computers to learn, think, and make decisions in a way similar to humans. AI is used in various fields such as health, education, business, and even on our mobile phones. For example, assistants like Siri, Google Assistant, and ChatGPT are examples of AI that help us every day.",
+                newsTitle3: "Official Employment System (Ajira Portal)", newsExcerpt3: "This system has come to simplify the entire employment process for government institutions.", newsFull3: "Ajira Portal is the official system of the Government of Tanzania that enables users to apply for jobs in various government institutions through the internet. This system has greatly simplified the entire job application process, from submitting applications, taking interviews, to receiving responses. To use this system, you need to register and fill in your personal information, education, and work experience.",
+                moreUpdatesTitle: "More Updates Coming Soon!", stayTunedText: "Stay tuned for the latest news and announcements.",
+                servicesPageTitle: "Our Services", servicesPageSubtitle: "We offer a range of services to help you navigate the digital world with ease.",
+                certificatesTitle: "Certificates & TIN", certificatesSubtitle: "Birth and Death certificates application, verification, and TIN registration with high efficiency through RITA and TRA systems.",
+                softwareDevTitle2: "Software Development", softwareDevSubtitle: "Creating custom websites and mobile applications using Flutter and Dart for business and personal growth.",
+                collegeAppsTitle: "College Applications", collegeAppsSubtitle: "Assisting with TCU/NACTE applications and providing academic advice for O-Level and A-Level graduates.",
+                learnMoreCert: "Learn More →", viewProjectsBtn: "View Projects →", learnMoreCollege: "Learn More →",
+                faqTitle: "Frequently Asked Questions (FAQ)", needHelpTitle: "Need Quick Help?", needHelpDesc: "Contact us now for professional and fast assistance.", whatsappBtnText: "WhatsApp",
+                publicationsTitle: "Publications & Resources", publicationsSubtitle: "Download important documents and get informed", downloadableTitle: "Downloadable Documents",
+                birthGuideTitle: "Birth Certificate Guidelines", birthGuideSub: "Birth Certificate Guidelines", deathGuideTitle: "Death Certificate Guidelines", deathGuideSub: "Death Certificate Guidelines",
+                uniListTitle: "LIST OF UNIVERSITIES (TZ)", uniListSub: "List from TCU for all accredited universities", comingSoonBadge: "Coming Soon", downloadBtnText: "Download",
+                importantNoteTitle: "Important to Note!", importantNoteDesc: "It is important to exchange your old certificate for a new one. Old certificates include all HANDWRITING style ones, as well as the green-colored ones.",
+                forStudentsTitle: "For Students", forStudentsDesc: "If you are a student, it is more important to change your certificate, and even if you are not a student, it is better to change it as well to align with available opportunities.",
+                adviceTitle: "Advice", adviceDesc: "All these matters are done through the internet. Contact us and we will help you with high professionalism. WELCOME TO PARTNER WITH US!", contactUsBtn: "Contact Us",
+                contactUsFooter: "Contact Us", locationFooter: "Zanzibar, Tanzania", govPortalsFooter: "Government Portals", quickLinksFooter: "Quick Links",
+                footerHome: "Home", footerServices: "Services", footerNews: "News", footerProjects: "Projects", rightsText: "All rights reserved.", designedBy: "Designed by Mudhihirjz"
+            }
+        };
+
+        let currentLang = 'sw';
+
+        function applyTranslations(lang) {
+            const t = translations[lang];
+            document.getElementById('langSwitchBtn').innerHTML = t.langBtn;
+            document.querySelector('.nav-home').textContent = t.navHome;
+            document.querySelector('.nav-projects').textContent = t.navProjects;
+            document.querySelector('.nav-news').textContent = t.navNews;
+            document.querySelector('.nav-services').textContent = t.navServices;
+            document.querySelector('.nav-publications').textContent = t.navPublications;
+            document.querySelector('.hero-header h1').innerHTML = t.heroTitle;
+            document.querySelector('.hero-subtitle').textContent = t.heroSubtitle;
+            document.querySelector('.hero-desc').textContent = t.heroDesc;
+            document.querySelector('.btn-get-started').textContent = t.btnGetStarted;
+            document.querySelector('.btn-learn-more').textContent = t.btnLearnMore;
+            document.querySelector('.badge-new-text').textContent = t.badgeNew;
+            document.querySelector('.latest-news-title').textContent = t.latestNewsTitle;
+            document.querySelector('.latest-news-subtitle').textContent = t.latestNewsSubtitle;
+            document.querySelector('.read-news-btn').textContent = t.readNewsBtn;
+            document.querySelector('.placeholder-text').textContent = t.placeholderText;
+            document.querySelector('.what-we-do-title').textContent = t.whatWeDoTitle;
+            document.querySelector('.what-we-do-subtitle').textContent = t.whatWeDoSubtitle;
+            document.querySelector('.software-dev-title').textContent = t.softwareDevTitle;
+            document.querySelector('.software-dev-desc').textContent = t.softwareDevDesc;
+            document.querySelector('.eservices-title').textContent = t.eservicesTitle;
+            document.querySelector('.eservices-desc').textContent = t.eservicesDesc;
+            document.querySelector('.consultancy-title').textContent = t.consultancyTitle;
+            document.querySelector('.consultancy-desc').textContent = t.consultancyDesc;
+            document.querySelector('.view-services-btn').textContent = t.viewServicesBtn;
+            document.querySelector('.get-help-title').textContent = t.getHelpTitle;
+            document.querySelector('.get-help-subtitle').textContent = t.getHelpSubtitle;
+            document.querySelector('.learn-more-help').textContent = t.learnMoreHelp;
+            document.querySelector('.napa-title').textContent = t.napaTitle;
+            document.querySelector('.napa-desc-text').textContent = t.napaDesc;
+            document.querySelector('.zingatia-title').textContent = t.zingatiaTitle;
+            document.querySelector('.zingatia-desc-text').textContent = t.zingatiaDesc;
+            document.querySelector('.projects-title').textContent = t.projectsTitle;
+            document.querySelector('.projects-subtitle').textContent = t.projectsSubtitle;
+            document.querySelector('.live-now-badge').textContent = t.liveNowBadge;
+            document.querySelector('.project-digital-title').textContent = t.projectDigitalTitle;
+            document.querySelector('.project-digital-desc').textContent = t.projectDigitalDesc;
+            document.querySelector('.view-service-btn').textContent = t.viewServiceBtn;
+            document.querySelector('.news-page-title').textContent = t.newsPageTitle;
+            document.querySelector('.news-page-subtitle').textContent = t.newsPageSubtitle;
+            document.querySelector('.news-title1').textContent = t.newsTitle1;
+            document.querySelector('.news-excerpt1').textContent = t.newsExcerpt1;
+            document.querySelector('.news-full-text1').textContent = t.newsFull1;
+            document.querySelector('.news-title2').textContent = t.newsTitle2;
+            document.querySelector('.news-excerpt2').textContent = t.newsExcerpt2;
+            document.querySelector('.news-full-text2').textContent = t.newsFull2;
+            document.querySelector('.news-title3').textContent = t.newsTitle3;
+            document.querySelector('.news-excerpt3').textContent = t.newsExcerpt3;
+            document.querySelector('.news-full-text3').textContent = t.newsFull3;
+            document.querySelector('.more-updates-title').textContent = t.moreUpdatesTitle;
+            document.querySelector('.stay-tuned-text').textContent = t.stayTunedText;
+            document.querySelector('.services-page-title').textContent = t.servicesPageTitle;
+            document.querySelector('.services-page-subtitle').textContent = t.servicesPageSubtitle;
+            document.querySelector('.certificates-title').textContent = t.certificatesTitle;
+            document.querySelector('.certificates-subtitle').textContent = t.certificatesSubtitle;
+            document.querySelector('.learn-more-cert').textContent = t.learnMoreCert;
+            document.querySelector('.software-dev-title2').textContent = t.softwareDevTitle2;
+            document.querySelector('.software-dev-subtitle').textContent = t.softwareDevSubtitle;
+            document.querySelector('.view-projects-btn').textContent = t.viewProjectsBtn;
+            document.querySelector('.college-apps-title').textContent = t.collegeAppsTitle;
+            document.querySelector('.college-apps-subtitle').textContent = t.collegeAppsSubtitle;
+            document.querySelector('.learn-more-college').textContent = t.learnMoreCollege;
+            document.querySelector('.faq-title').textContent = t.faqTitle;
+            document.querySelector('.need-help-title').textContent = t.needHelpTitle;
+            document.querySelector('.need-help-desc').textContent = t.needHelpDesc;
+            document.querySelector('.whatsapp-btn-text').textContent = t.whatsappBtnText;
+            document.querySelector('.faq-q1').textContent = t.faqQ1 || (lang === 'sw' ? "Inachukua muda gani kupata Cheti cha Kuzaliwa?" : "How long does it take to get a Birth Certificate?");
+            document.querySelector('.faq-a1').textContent = t.faqA1 || (lang === 'sw' ? "Muda unategemea mfumo wa RITA, lakini kwa kawaida huchukua kati ya siku 7 hadi 14 za kazi. Kwa msaada wetu, tunaharakisha mchakato huu kadri inavyowezekana." : "The time depends on the RITA system, but usually takes between 7 to 14 working days. With our help, we expedite this process as much as possible.");
+            document.querySelector('.faq-q2').textContent = t.faqQ2 || (lang === 'sw' ? "Je, mtu anaweza kupakua cheti chake mtandaoni?" : "Can someone download their certificate online?");
+            document.querySelector('.faq-a2').textContent = t.faqA2 || (lang === 'sw' ? "Ndiyo! Kupitia mfumo wa e-RITA, unaweza kupakua cheti chako cha kuzaliwa au kifo moja kwa moja mtandaoni baada ya kukisajili. Tunakusaidia kufanya hili kwa urahisi." : "Yes! Through the e-RITA system, you can download your birth or death certificate directly online after registering it. We help you do this easily.");
+            document.querySelector('.faq-q3').textContent = t.faqQ3 || (lang === 'sw' ? "Je, mnachapisha vyeti?" : "Do you print certificates?");
+            document.querySelector('.faq-a3').textContent = t.faqA3 || (lang === 'sw' ? "Ndiyo, tunachapisha vyeti rasmi vinavyotambulika kisheria. Vyeti vyote vinachapishwa kwa ubora wa hali ya juu na vinakubalika katika taasisi zote za serikali na binafsi." : "Yes, we print official legally recognized certificates. All certificates are printed with high quality and are accepted in all government and private institutions.");
+            document.querySelector('.faq-q4').textContent = t.faqQ4 || (lang === 'sw' ? "Gharama yake ni kiasi gani?" : "How much does it cost?");
+            document.querySelector('.faq-a4').textContent = t.faqA4 || (lang === 'sw' ? "Gharama inategemea huduma unayohitaji. Wasiliana nasi kwa ushauri wa bure na tutakupa bei nafuu kabisa inayolingana na huduma unayohitaji. Unaweza kututumia ujumbe WhatsApp au kupiga simu." : "The cost depends on the service you need. Contact us for free advice and we will give you the most affordable price that matches the service you need. You can send us a WhatsApp message or call.");
+            document.querySelector('.publications-title').textContent = t.publicationsTitle;
+            document.querySelector('.publications-subtitle').textContent = t.publicationsSubtitle;
+            document.querySelector('.downloadable-title').textContent = t.downloadableTitle;
+            document.querySelector('.birth-guide-title').textContent = t.birthGuideTitle;
+            document.querySelector('.birth-guide-sub').textContent = t.birthGuideSub;
+            document.querySelector('.death-guide-title').textContent = t.deathGuideTitle;
+            document.querySelector('.death-guide-sub').textContent = t.deathGuideSub;
+            document.querySelector('.uni-list-title').textContent = t.uniListTitle;
+            document.querySelector('.uni-list-sub').innerHTML = t.uniListSub + ' <span class="badge badge-coming"><span class="coming-soon-badge">' + t.comingSoonBadge + '</span></span>';
+            document.querySelectorAll('.download-btn-text, .download-btn-text2').forEach(el => {
+                if(el.classList.contains('download-btn-text')) el.textContent = t.downloadBtnText;
+                if(el.classList.contains('download-btn-text2')) el.textContent = t.downloadBtnText;
+            });
+            document.querySelector('.important-note-title').textContent = t.importantNoteTitle;
+            document.querySelector('.important-note-desc').innerHTML = t.importantNoteDesc;
+            document.querySelector('.for-students-title').textContent = t.forStudentsTitle;
+            document.querySelector('.for-students-desc').textContent = t.forStudentsDesc;
+            document.querySelector('.advice-title').textContent = t.adviceTitle;
+            document.querySelector('.advice-desc').innerHTML = t.adviceDesc;
+            document.querySelector('.contact-us-btn').textContent = t.contactUsBtn;
+            document.querySelector('.contact-us-footer').textContent = t.contactUsFooter;
+            document.querySelector('.location-footer').textContent = t.locationFooter;
+            document.querySelector('.gov-portals-footer').textContent = t.govPortalsFooter;
+            document.querySelector('.quick-links-footer').textContent = t.quickLinksFooter;
+            document.querySelector('.footer-home').textContent = t.footerHome;
+            document.querySelector('.footer-services').textContent = t.footerServices;
+            document.querySelector('.footer-news').textContent = t.footerNews;
+            document.querySelector('.footer-projects').textContent = t.footerProjects;
+            document.querySelector('.rights-text').textContent = t.rightsText;
+            document.querySelector('.designed-by').textContent = t.designedBy;
+        }
+
+        function switchLanguage() {
+            currentLang = currentLang === 'sw' ? 'en' : 'sw';
+            applyTranslations(currentLang);
+            localStorage.setItem('preferredLanguage', currentLang);
+        }
+
         const welcomePage = document.getElementById('welcomePage');
         const mainApp = document.getElementById('mainApp');
         const whatsappFloat = document.getElementById('whatsappFloat');
@@ -1411,13 +1895,9 @@
         const pagePanels = document.querySelectorAll('.page-panel');
         let welcomeTimer;
 
-        // ========== FUNCTION TO HIDE WELCOME & SHOW MAIN APP ==========
         function hideWelcome() {
-            // Clear the timer if skip is clicked
             if (welcomeTimer) clearTimeout(welcomeTimer);
-
             welcomePage.classList.add('fade-out');
-
             setTimeout(function () {
                 welcomePage.style.display = 'none';
                 mainApp.classList.add('show');
@@ -1426,78 +1906,38 @@
             }, 700);
         }
 
-        // ========== SKIP WELCOME ==========
-        function skipWelcome() {
-            hideWelcome();
-        }
+        function skipWelcome() { hideWelcome(); }
+        welcomeTimer = setTimeout(function () { hideWelcome(); }, 3000);
 
-        // ========== WELCOME PAGE TIMER (3 sec) ==========
-        welcomeTimer = setTimeout(function () {
-            hideWelcome();
-        }, 3000);
-
-        // ========== PAGE NAVIGATION (WITH ERROR HANDLING) ==========
         function navigateTo(pageName) {
-            // Check if pageName is valid
             const validPages = ['home', 'projects', 'news', 'services', 'publications'];
-            if (!validPages.includes(pageName)) {
-                console.warn('⚠️ Invalid page name: ' + pageName + '. Redirecting to home.');
-                pageName = 'home';
-            }
-
-            // Deactivate all nav links
+            if (!validPages.includes(pageName)) pageName = 'home';
             navLinks.forEach(function (link) {
                 link.classList.remove('active');
-                if (link.getAttribute('data-page') === pageName) {
-                    link.classList.add('active');
-                }
+                if (link.getAttribute('data-page') === pageName) link.classList.add('active');
             });
-
-            // Deactivate all page panels
-            pagePanels.forEach(function (panel) {
-                panel.classList.remove('active');
-            });
-
-            // Activate target page panel
+            pagePanels.forEach(function (panel) { panel.classList.remove('active'); });
             var targetPanel = document.getElementById('page-' + pageName);
-            if (targetPanel) {
-                targetPanel.classList.add('active');
-            } else {
-                console.error('❌ Page panel not found: page-' + pageName);
-                // Fallback to home
-                document.getElementById('page-home').classList.add('active');
-            }
-
-            // Scroll to top
+            if (targetPanel) targetPanel.classList.add('active');
+            else document.getElementById('page-home').classList.add('active');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Nav link click handlers
         navLinks.forEach(function (link) {
             link.addEventListener('click', function (e) {
                 e.preventDefault();
                 var pageName = this.getAttribute('data-page');
-                if (pageName) {
-                    navigateTo(pageName);
-                    // Scroll nav to make active link visible
-                    this.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-                }
+                if (pageName) navigateTo(pageName);
+                this.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
             });
         });
 
-        // Footer Quick Links - add cursor pointer and click handler
-        document.querySelectorAll('.footer-col a[onclick]').forEach(function (link) {
-            link.style.cursor = 'pointer';
-        });
+        document.querySelectorAll('.footer-col a[onclick]').forEach(function (link) { link.style.cursor = 'pointer'; });
 
-        // ========== NEWS TOGGLE ==========
         function toggleNews(newsItem) {
-            // Prevent event from bubbling up
             var fullContent = newsItem.querySelector('.news-full');
             var toggleBtn = newsItem.querySelector('.news-toggle');
-
             if (!fullContent) return;
-
             if (fullContent.classList.contains('open')) {
                 fullContent.classList.remove('open');
                 if (toggleBtn) toggleBtn.textContent = 'more ▼';
@@ -1507,22 +1947,183 @@
             }
         }
 
-        // ========== FAQ TOGGLE ==========
         function toggleFaq(faqItem) {
             if (faqItem.classList.contains('open')) {
                 faqItem.classList.remove('open');
             } else {
-                // Close other open FAQs
-                document.querySelectorAll('.faq-item.open').forEach(function (item) {
-                    item.classList.remove('open');
-                });
+                document.querySelectorAll('.faq-item.open').forEach(function (item) { item.classList.remove('open'); });
                 faqItem.classList.add('open');
             }
         }
 
-        // ========== INITIAL SETUP ==========
-        console.log('🚀 MUDHIHIRJZ Tech Website Ready!');
-        console.log('📱 Welcome page loading... (3 seconds or click Skip)');
+        const savedLang = localStorage.getItem('preferredLanguage');
+        if (savedLang && (savedLang === 'sw' || savedLang === 'en')) currentLang = savedLang;
+        applyTranslations(currentLang);
+        document.getElementById('langSwitchBtn').addEventListener('click', switchLanguage);
+
+        // ========== CHATBOT WITH TABS & QUICK REPLIES (Emojis only, no console logs) ==========
+        (function() {
+            const ready = function(fn) {
+                if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fn);
+                else fn();
+            };
+            
+            ready(function() {
+                const chatbotFloatBtn = document.getElementById('chatbotFloatBtn');
+                const chatbotModal = document.getElementById('chatbotModal');
+                const chatbotCloseBtn = document.getElementById('chatbotCloseBtn');
+                const chatbotSendBtn = document.getElementById('chatbotSendBtn');
+                const chatbotInput = document.getElementById('chatbotInput');
+                const chatbotMessages = document.getElementById('chatbotMessages');
+                const chatbotQuickReplies = document.getElementById('chatbotQuickReplies');
+                const tabButtons = document.querySelectorAll('.tab-btn');
+                
+                if (!chatbotFloatBtn || !chatbotModal) return;
+                
+                let activeCategory = 'birth';
+                
+                const servicesData = {
+                    birth: {
+                        mainMessage: '<strong>Kuzaliwa</strong>. Chagua taarifa unayoitaka:',
+                        options: [
+                            { text: ' Gharama', message: ' <strong>Gharama ya Cheti cha Kuzaliwa:</strong><br><br>• Kawaida: TSh 5,000 - 10,000<br>• Tunatoa bei nafuu kulingana na huduma.<br><br> Wasiliana nasi kwa bei kamili!' },
+                            { text: ' Muda', message: ' <strong>Muda wa kupata Cheti cha Kuzaliwa:</strong><br><br>• Kwa kawaida: Siku 7-14 za kazi<br>• Haraka (Express): Siku 2-3 za kazi<br>• Tunaharakisha mchakato wako.' },
+                            { text: ' Mahitaji', message: ' <strong>Mahitaji ya Cheti cha Kuzaliwa:</strong><br><br>1.Jina kamili la mtoto<br>2.Tarehe na mahali pa kuzaliwa<br>3.Majina ya wazazi (baba na mama)<br>4. Nakala ya kitambulisho cha mzazi<br>5.Fomu ya kujaza (tunakusaidia)<br><br>Tunakusaidia kukusanya na kutuma maombi!' },
+                            { text: ' Mchakato', message: ' <strong>Mchakato wa kupata Cheti cha Kuzaliwa:</strong><br><br>1.Tunakusanya taarifa zako<br>2. Tunatuma ombi kupitia e-RITA<br>3. Kufuatilia ombi' },
+                            { text: ' Wasiliana', message: ' <strong>Kuanza mchakato wa Cheti cha Kuzaliwa:</strong><br><br>Wasiliana nasi kupitia:<br>• WhatsApp: +255 671 533 265<br>• Simu: +255 671 533 265<br>•Email: mudhihirjz@gmail.com<br><br>Tunakusaidia kwa urahisi na haraka!' }
+                        ]
+                    },
+                    death: {
+                        mainMessage: '<strong>Kifo</strong>. Chagua taarifa unayoitaka:',
+                        options: [
+                            { text: ' Gharama', message: ' <strong>Gharama ya Cheti cha Kifo:</strong><br><br>• Kawaida: TSh 3,000 - 7,000<br><br> Wasiliana nasi kwa bei kamili!' },
+                            { text: ' Muda', message: ' <strong>Muda wa kupata Cheti cha Kifo:</strong><br><br>• Kwa kawaida: Siku 5-10 za kazi' },
+                            { text: ' Mahitaji', message: ' <strong>Mahitaji ya Cheti cha Kifo:</strong><br><br>1.Jina kamili la marehemu<br>2. Tarehe na mahali pa kifo<br>3. Sababu ya kifo (kama inajulikana)<br>4. Nakala ya kitambulisho cha mtoa taarifa<br>5.Fomu ya kujaza (tunakusaidia)' },
+                            { text: ' Mchakato', message: ' <strong>Mchakato wa kupata Cheti cha Kifo:</strong><br><br>1.Tunakusanya taarifa<br>2.Tunatuma ombi kupitia e-RITA' },
+                            { text: ' Wasiliana', message: ' <strong>Kuanza mchakato wa Cheti cha Kifo:</strong><br><br>Wasiliana nasi kupitia WhatsApp +255 671 533 265' }
+                        ]
+                    },
+                    tin: {
+                        mainMessage: '<strong>TIN</strong>. Chagua taarifa unayoitaka:',
+                        options: [
+                            { text: ' Gharama', message: ' <strong>Gharama ya Usajili wa TIN:</strong><br><br>• Gharama: TSh 5,000 - 10,000 (huduma na usajili)<br>Wasiliana nasi kwa usaidizi!' },
+                            { text: ' Muda', message: ' <strong>Muda wa kupata TIN:</strong><br><br>• Siku 1-3 za kazi baada ya kutuma taarifa<br>• Haraka: Saa 24' },
+                            { text: ' Mahitaji', message: ' <strong>Mahitaji ya Usajili wa TIN:</strong><br><br>1. Cheti cha kuzaliwa au kitambulisho<br>2. Picha ya pasipoti (kwa biashara)<br>3. Anuani ya makazi/biashara<br>4. Namba ya simu na barua pepe' },
+                            { text: ' Mchakato', message: ' <strong>Mchakato wa Usajili wa TIN:</strong><br><br>1. Tunakusanya taarifa zako<br>2. Tunatuma ombi kupitia TRA<br>3. Tunakupatia namba yako ya TIN' },
+                            { text: ' Faida', message: ' <strong>Faida za kuwa na TIN:</strong><br><br>• Kufungua akaunti ya benki<br>• Kuanza biashara rasmi<br>• Kupata mikopo<br>• Kutoa invoice za kisheria' },
+                            { text: ' Wasiliana', message: '<strong>Kuanza Usajili wa TIN:</strong><br><br>Wasiliana nasi +255 671 533 265 kwa maelezo zaidi!' }
+                        ]
+                    },
+                    heslb: {
+                        mainMessage: '<strong>HESLB na NAPA</strong>. Chagua taarifa unayoitaka:',
+                        options: [
+                            { text: ' Gharama', message: ' <strong>Gharama ya Msaada wa HESLB/NAPA:</strong><br><br>• Msaada wa NAPA: TSh 1000-2000(barua ya utambulisho)<br>• Msaada wa HESLB: TSh 10,000 - 20,000 (maombi kamili)<br>• Tunatoa bei nafuu kwa wanafunzi!' },
+                            { text: ' Muda', message: '<strong>Muda wa Mchakato:</strong><br><br>• NAPA barua: Siku 2-5 za kazi<br>• HESLB maombi: Siku 3-7 za kazi' },
+                            { text: ' Mahitaji', message: ' <strong>Mahitaji ya NAPA na HESLB:</strong><br><br><strong>NAPA (Barua ya Utambulisho):</strong><br>• Nyumba imesajiliwa kwenye anuani za makazi<br>• Taarifa za mwombaji<br><br>🎓 <strong>HESLB (Mkopo):</strong><br>• Barua ya utambulisho (NAPA)<br>• Matokeo ya kidato cha sita<br>• Barua ya kujiunga chuo<br>• Taarifa za kifamilia' },
+                            { text: ' Mchakato', message: ' <strong>Mchakato wa HESLB na NAPA:</strong><br><br>1. Kwanza pata barua ya NAPA<br>2. Kisha tuma ombi HESLB mtandaoni<br>3. Tunakusaidia hatua zote<br><br> Zingatia: Hakikisha nyumba imesajiliwa kabla ya NAPA!' },
+                            { text: ' Tarehe', message: '<strong>Tarehe za Maombi HESLB 2026/2027:</strong><br><br>• Maelezo yatatangazwa Juni-Julai<br>• Maombi hufunguliwa Julai hadi Agosti<br>• Tunakuarifu tarehe kamili ukitufuata!' },
+                            { text: ' Wasiliana', message: ' <strong>Kuanza Mchakato wa HESLB/NAPA:</strong><br><br>Wasiliana nasi WhatsApp +255 671 533 265 ili tukusaidie hatua kwa hatua!' }
+                        ]
+                    }
+                };
+                
+                function addMessage(text, isUser) {
+                    const messageDiv = document.createElement('div');
+                    messageDiv.className = `chatbot-message ${isUser ? 'user' : 'bot'}`;
+                    const bubble = document.createElement('div');
+                    bubble.className = 'message-bubble';
+                    bubble.innerHTML = text;
+                    messageDiv.appendChild(bubble);
+                    chatbotMessages.appendChild(messageDiv);
+                    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+                }
+                
+                function updateQuickReplies(category) {
+                    const service = servicesData[category];
+                    if (!service) return;
+                    chatbotQuickReplies.innerHTML = '';
+                    const backBtn = document.createElement('button');
+                    backBtn.className = 'quick-reply-btn back-btn';
+                    backBtn.innerHTML = '◀ Nyuma';
+                    backBtn.onclick = () => {
+                        updateQuickReplies(activeCategory);
+                        addMessage(service.mainMessage, false);
+                    };
+                    chatbotQuickReplies.appendChild(backBtn);
+                    service.options.forEach(option => {
+                        const btn = document.createElement('button');
+                        btn.className = 'quick-reply-btn';
+                        btn.innerHTML = option.text;
+                        btn.onclick = () => {
+                            addMessage(option.text, true);
+                            addMessage(option.message, false);
+                            setTimeout(() => {
+                                const contactMsg = '<strong>Je, ungependa kuanza mchakato?</strong><br><br>Wasiliana nasi moja kwa moja kwa:<br>•WhatsApp: +255 671 533 265<br>•Simu: +255 671 533 265';
+                                addMessage(contactMsg, false);
+                            }, 500);
+                        };
+                        chatbotQuickReplies.appendChild(btn);
+                    });
+                }
+                
+                function switchCategory(category) {
+                    activeCategory = category;
+                    tabButtons.forEach(btn => {
+                        if (btn.dataset.category === category) btn.classList.add('active');
+                        else btn.classList.remove('active');
+                    });
+                    updateQuickReplies(category);
+                    addMessage(servicesData[category].mainMessage, false);
+                }
+                
+                tabButtons.forEach(btn => {
+                    btn.addEventListener('click', () => switchCategory(btn.dataset.category));
+                });
+                
+                function sendManualMessage() {
+                    const message = chatbotInput.value.trim();
+                    if (message === '') return;
+                    addMessage(escapeHtml(message), true);
+                    chatbotInput.value = '';
+                    const lowerMsg = message.toLowerCase();
+                    if (lowerMsg.includes('kuzaliwa') || lowerMsg.includes('birth')) {
+                        addMessage(' Labda unahitaji msaada wa <strong>Cheti cha Kuzaliwa</strong>. Bonyeza kwenye tab ya "Cheti Kuzaliwa" ', false);
+                    } else if (lowerMsg.includes('kifo') || lowerMsg.includes('death')) {
+                        addMessage(' Labda unahitaji msaada wa <strong>Cheti cha Kifo</strong>. Bonyeza kwenye tab ya "Cheti Kifo" ', false);
+                    } else if (lowerMsg.includes('tin') || lowerMsg.includes('namba ya kodi')) {
+                        addMessage(' Labda unahitaji msaada wa  <strong>Usajili wa TIN</strong>. Bonyeza kwenye tab ya " TIN" ', false);
+                    } else if (lowerMsg.includes('heslb') || lowerMsg.includes('napa') || lowerMsg.includes('mkopo')) {
+                        addMessage(' Labda unahitaji msaada wa <strong>HESLB / NAPA</strong>. Bonyeza kwenye tab ya "🎓 HESLB/NAPA" ', false);
+                    } else if (lowerMsg.includes('msaada') || lowerMsg.includes('help')) {
+                        addMessage(' <strong>Jinsi ya kutumia Bot:</strong><br><br>1. Chagua huduma kwenye tabs<br>2. Bonyeza swali unalotaka (Gharama, Muda, Mahitaji, n.k)<br>3. Au andika swali lako hapa chini<br><br>Kwa msaada wa haraka: WhatsApp +255 671 533 265', false);
+                    } else {
+                        addMessage(' Samahani, sikuelewa vizuri. Tafadhali chagua huduma kutoka kwenye tabs iliyopo juu, au wasiliana nasi moja kwa moja kwa WhatsApp +255 671 533 265', false);
+                    }
+                }
+                
+                function escapeHtml(text) {
+                    const div = document.createElement('div');
+                    div.textContent = text;
+                    return div.innerHTML;
+                }
+                
+                chatbotSendBtn.addEventListener('click', sendManualMessage);
+                chatbotInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendManualMessage(); });
+                chatbotFloatBtn.addEventListener('click', () => {
+                    chatbotModal.classList.toggle('open');
+                    if (chatbotModal.classList.contains('open')) chatbotInput.focus();
+                });
+                chatbotCloseBtn.addEventListener('click', () => chatbotModal.classList.remove('open'));
+                document.addEventListener('click', (e) => {
+                    if (chatbotModal.classList.contains('open')) {
+                        if (!chatbotModal.contains(e.target) && !chatbotFloatBtn.contains(e.target)) {
+                            chatbotModal.classList.remove('open');
+                        }
+                    }
+                });
+                switchCategory('birth');
+            });
+        })();
     </script>
 </body>
 </html>
