@@ -1310,93 +1310,6 @@
             .nav-inner a { padding: 12px 14px; font-size: 13px; }
             .nav-brand-small { font-size: 12px; padding: 12px 12px 12px 0; }
         }
-                /* ==========================================
-           MUSIC PLAYER - Full Song (No Loop)
-           ========================================== */
-        .music-control {
-            position: fixed;
-            bottom: 100px;
-            right: 24px;
-            z-index: 1100;
-            width: 42px;
-            height: 42px;
-            background: var(--clr-accent);
-            color: var(--clr-dark);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all var(--transition);
-            box-shadow: var(--shadow-md);
-            font-size: 18px;
-            opacity: 0.9;
-        }
-
-        .music-control:hover {
-            opacity: 1;
-            transform: scale(1.05);
-        }
-
-        .music-control.playing {
-            background: var(--clr-primary);
-            color: white;
-            animation: musicPulse 1s infinite;
-        }
-
-        @keyframes musicPulse {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(15,118,110,0.4); }
-            50% { box-shadow: 0 0 0 8px rgba(15,118,110,0); }
-        }
-        
-        .music-control.muted {
-            background: #94A3B8;
-            opacity: 0.6;
-        }
-        
-        .music-progress {
-            position: fixed;
-            bottom: 150px;
-            right: 24px;
-            width: 180px;
-            background: rgba(0,0,0,0.7);
-            border-radius: 20px;
-            padding: 6px 12px;
-            z-index: 1100;
-            display: none;
-            align-items: center;
-            gap: 8px;
-            backdrop-filter: blur(5px);
-        }
-        
-        .music-progress.show {
-            display: flex;
-        }
-        
-        .music-time {
-            font-size: 10px;
-            color: white;
-            font-family: monospace;
-            min-width: 35px;
-        }
-        
-        .progress-bar,
-        .progress-fill {
-            display: none;
-        }
-        
-        .song-name {
-            font-size: 9px;
-            color: var(--clr-accent-light);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-width: 100px;
-        }
-        
-        #bgMusic {
-            display: none;
-        }
     </style>
 </head>
 <body>
@@ -1693,22 +1606,6 @@
                 </div>
             </div>
         </div>
-            <!-- ==========================================
-         MUSIC PLAYER - Full Song (No Auto Loop)
-         ========================================== -->
-    <audio id="bgMusic" preload="auto">
-        <source src="music/heart.mp3" type="audio/mpeg">
-        <!-- Badilisha "wimbo.mp3" iwe jina la faili yako -->
-    </audio>
-    
-    <div class="music-control" id="musicControl" title="🔊 show/close music">
-        🔊
-    </div>
-    
-    <div class="music-progress" id="musicProgress">
-        <span class="song-name" id="songName">Heart Sweet</span>
-        <span class="music-time" id="musicTime">0:00</span>
-    </div>
 
         <!-- ==========================================
              FLOATING CHATBOT BUTTON (LEFT SIDE)
@@ -2226,75 +2123,6 @@
                 });
                 switchCategory('birth');
             });
-        })();
-        //FUNCTIONALITY FOR BACKGROUND MUSIC WITH PROGRESS BAR AND TIME DISPLAY
-        (function() {
-            const bgMusic = document.getElementById('bgMusic');
-            const musicControl = document.getElementById('musicControl');
-            const musicTime = document.getElementById('musicTime');
-            const fill = document.getElementById('progressFill');
-            
-            // Hakikisha kitufe kinaonekana kama kuna source ya muziki
-            if (bgMusic && bgMusic.querySelector('source')) {
-                musicControl.style.display = 'flex';
-            }
-
-            function updateProgress() {
-                if (!bgMusic.duration) return;
-                const percent = (bgMusic.currentTime / bgMusic.duration) * 100;
-                if (fill) fill.style.width = percent + '%';
-                
-                const mins = Math.floor(bgMusic.currentTime / 60);
-                const secs = Math.floor(bgMusic.currentTime % 60);
-                if (musicTime) {
-                    musicTime.textContent = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
-                }
-            }
-            
-            function playMusic() {
-                bgMusic.play().then(() => {
-                    musicControl.classList.add('playing');
-                    musicControl.innerHTML = '⏸️ <span id="musicTime" class="music-time">0:00</span> <div id="musicProgress" class="music-progress show"><div id="progressFill" class="progress-fill"></div></div>';
-                  
-                }).catch(err => {
-                    console.log("Autoplay ilizuiliwa na browser, inasubiri kubofya skrini.");
-                });
-            }
-            
-            function toggleMusic(e) {
-                if (e) e.stopPropagation();
-                if (bgMusic.paused) {
-                    playMusic();
-                } else {
-                    bgMusic.pause();
-                    musicControl.classList.remove('playing');
-                    musicControl.innerHTML = '🔊';
-                }
-            }
-            
-            // Cheza muziki pale mtumiaji anapogusa popote kwenye screen kwa mara ya kwanza
-            let userInteracted = false;
-            function enableMusicOnInteraction() {
-                if (userInteracted) return;
-                userInteracted = true;
-                playMusic();
-                
-                // Ondoa listeners baada ya kuitwa mara moja
-                document.removeEventListener('click', enableMusicOnInteraction);
-                document.removeEventListener('touchstart', enableMusicOnInteraction);
-            }
-            
-            musicControl.addEventListener('click', toggleMusic);
-            document.addEventListener('click', enableMusicOnInteraction);
-            document.addEventListener('touchstart', enableMusicOnInteraction);
-            
-            const skipWelcomeBtn = document.getElementById('skipBtn');
-            if (skipWelcomeBtn) {
-                skipWelcomeBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    enableMusicOnInteraction();
-                });
-            }
         })();
     </script>
 </body>
