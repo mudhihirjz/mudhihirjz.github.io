@@ -2242,155 +2242,86 @@
                 switchCategory('birth');
             });
         })();
-                // ========== FULL SONG MUSIC PLAYER (WITH LOOP) ==========
+        //FUNCTIONALITY FOR BACKGROUND MUSIC WITH PROGRESS BAR AND TIME DISPLAY
         (function() {
             const bgMusic = document.getElementById('bgMusic');
             const musicControl = document.getElementById('musicControl');
-            const musicProgress = document.getElementById('musicProgress');
-            const progressFill = document.getElementById('progressFill');
             const musicTime = document.getElementById('musicTime');
-            const songNameSpan = document.getElementById('songName');
+            const fill = document.getElementById('progressFill');
             
-            let musicPlaying = false;
-            let updateInterval = null;
-            
-            if (!bgMusic || !musicControl) return;
-            
-            // Set song name (badilisha hapa)
-            songNameSpan.textContent = '🎵 Wimbo wangu';
-            
-            // Set volume to 30% (si kubwa sana)
-            bgMusic.volume = 0.3;
-            
-            // ✅ IMPORTANT: Enable loop - song will repeat forever!
-            bgMusic.loop = true;
-            
-            // Update progress bar and time display
+            // Hakikisha kitufe kinaonekana kama kuna source ya muziki
+            if (bgMusic && bgMusic.querySelector('source')) {
+                musicControl.style.display = 'flex';
+            }
+
             function updateProgress() {
-                if (bgMusic.duration && !isNaN(bgMusic.duration)) {
-                    const percent = (bgMusic.currentTime / bgMusic.duration) * 100;
-                    progressFill.style.width = percent + '%';
-                    
-                    const currentMin = Math.floor(bgMusic.currentTime / 60);
-                    const currentSec = Math.floor(bgMusic.currentTime % 60);
-                    const totalMin = Math.floor(bgMusic.duration / 60);
-                    const totalSec = Math.floor(bgMusic.duration % 60);
-                    
-                    musicTime.textContent = `${currentMin}:${currentSec.toString().padStart(2,'0')} / ${totalMin}:${totalSec.toString().padStart(2,'0')}`;
+                if (!bgMusic.duration) return;
+                const percent = (bgMusic.currentTime / bgMusic.duration) * 100;
+                if (fill) fill.style.width = percent + '%';
+                
+                const mins = Math.floor(bgMusic.currentTime / 60);
+                const secs = Math.floor(bgMusic.currentTime % 60);
+                if (musicTime) {
+                    musicTime.textContent = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
                 }
             }
             
-            // Start progress update interval
-            function startProgressUpdate() {
-                if (updateInterval) clearInterval(updateInterval);
-                updateInterval = setInterval(() => {
-                    if (musicPlaying) {
-                        updateProgress();
-                    }
-                }, 500);
-            }
-            
-            // Play music from beginning or resume
             function playMusic() {
-                if (!bgMusic.src || bgMusic.src === window.location.href) return;
-                
-                // If song is paused at the end, reset to beginning
-                if (bgMusic.ended) {
-                    bgMusic.currentTime = 0;
-                }
-                
                 bgMusic.play().then(() => {
-                    musicPlaying = true;
-                    musicControl.innerHTML = '🔊';
                     musicControl.classList.add('playing');
-                    musicControl.classList.remove('muted');
-                    musicProgress.classList.add('show');
-                    startProgressUpdate();
-                }).catch((e) => {
-                    // Browser blocks autoplay
-                    musicControl.innerHTML = '🔊';
+                    musicControl.innerHTML = '⏸️ <span id="musicTime" class="music-time">0:00</span> <div id="musicProgress" class="music-progress show"><div id="progressFill" class="progress-fill"></div></div>';
+                    // Re-bind elements kwa sababu innerHTML imebadilika
+                    setTimeout(() => {
+                        const newFill = document.getElementById('progressFill');
+                        const newTime = document.getElementById('musicTime');
+                        bgMusic.ontimeupdate = () => {
+                            if (!bgMusic.duration) return;
+                            const percent = (bgMusic.currentTime / bgMusic.duration) * 100;
+                            if (newFill) newFill.style.width = percent + '%';
+                            const m = Math.floor(bgMusic.currentTime / 60);
+                            const s = Math.floor(bgMusic.currentTime % 60);
+                            if (newTime) newTime.textContent = `${m}:${s < 10 ? '0' : ''}${s}`;
+                        };
+                    }, 50);
+                }).catch(err => {
+                    console.log("Autoplay ilizuiliwa na browser, inasubiri kubofya skrini.");
                 });
             }
             
-            // Pause music
-            function pauseMusic() {
-                bgMusic.pause();
-                musicPlaying = false;
-                musicControl.innerHTML = '🔊';
-                musicControl.classList.remove('playing');
-                musicControl.classList.add('muted');
-                musicProgress.classList.remove('show');
-                if (updateInterval) clearInterval(updateInterval);
-                updateInterval = null;
-            }
-            
-            // Toggle music
-            function toggleMusic() {
-                if (!bgMusic.src || bgMusic.src === window.location.href) return;
-                
-                if (musicPlaying) {
-                    pauseMusic();
-                } else {
+            function toggleMusic(e) {
+                if (e) e.stopPropagation();
+                if (bgMusic.paused) {
                     playMusic();
-                }
-            }
-            
-            // Seek to position when clicking on progress bar
-            const progressBar = document.getElementById('progressBar');
-            if (progressBar) {
-                progressBar.addEventListener('click', (e) => {
-                    if (!bgMusic.duration) return;
-                    const rect = progressBar.getBoundingClientRect();
-                    const clickX = e.clientX - rect.left;
-                    const width = rect.width;
-                    const percent = clickX / width;
-                    bgMusic.currentTime = percent * bgMusic.duration;
-                    updateProgress();
-                });
-            }
-            
-            // ✅ When song ends, it will loop automatically (bgMusic.loop = true)
-            // No need for extra code - loop handles it!
-            
-            // Check if audio source exists
-            function checkAudioSource() {
-                if (bgMusic.src && bgMusic.src !== window.location.href && bgMusic.src.includes('music/')) {
-                    musicControl.style.display = 'flex';
-                    // Update total time when loaded
-                    bgMusic.addEventListener('loadedmetadata', () => {
-                        updateProgress();
-                    });
                 } else {
-                    musicControl.style.display = 'none';
+                    bgMusic.pause();
+                    musicControl.classList.remove('playing');
+                    musicControl.innerHTML = '🔊';
                 }
             }
             
-            // Enable music on first user interaction
+            // Cheza muziki pale mtumiaji anapogusa popote kwenye screen kwa mara ya kwanza
             let userInteracted = false;
             function enableMusicOnInteraction() {
                 if (userInteracted) return;
                 userInteracted = true;
+                playMusic();
                 
-                if (bgMusic.src && bgMusic.src !== window.location.href && bgMusic.src.includes('music/')) {
-                    playMusic();
-                }
+                // Ondoa listeners baada ya kuitwa mara moja
+                document.removeEventListener('click', enableMusicOnInteraction);
+                document.removeEventListener('touchstart', enableMusicOnInteraction);
             }
             
-            // Event listeners
             musicControl.addEventListener('click', toggleMusic);
+            document.addEventListener('click', enableMusicOnInteraction);
+            document.addEventListener('touchstart', enableMusicOnInteraction);
             
-            // Start music on first user click/tap anywhere
-            document.addEventListener('click', enableMusicOnInteraction, { once: true });
-            document.addEventListener('touchstart', enableMusicOnInteraction, { once: true });
-            
-            // Also on skip welcome button
             const skipWelcomeBtn = document.getElementById('skipBtn');
             if (skipWelcomeBtn) {
-                skipWelcomeBtn.addEventListener('click', enableMusicOnInteraction);
+                skipWelcomeBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    enableMusicOnInteraction();
+                });
             }
-            
-            // Initial check
-            setTimeout(checkAudioSource, 100);
         })();
     </script>
 </body>
