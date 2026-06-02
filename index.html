@@ -1707,9 +1707,6 @@
     
     <div class="music-progress" id="musicProgress">
         <span class="song-name" id="songName">Heart Sweet</span>
-        <div class="progress-bar" id="progressBar">
-            <div class="progress-fill" id="progressFill"></div>
-        </div>
         <span class="music-time" id="musicTime">0:00</span>
     </div>
 
@@ -2258,18 +2255,7 @@
                 bgMusic.play().then(() => {
                     musicControl.classList.add('playing');
                     musicControl.innerHTML = '⏸️ <span id="musicTime" class="music-time">0:00</span> <div id="musicProgress" class="music-progress show"><div id="progressFill" class="progress-fill"></div></div>';
-                    setTimeout(() => {
-                        const newFill = document.getElementById('progressFill');
-                        const newTime = document.getElementById('musicTime');
-                        bgMusic.ontimeupdate = () => {
-                            if (!bgMusic.duration) return;
-                            const percent = (bgMusic.currentTime / bgMusic.duration) * 100;
-                            if (newFill) newFill.style.width = percent + '%';
-                            const m = Math.floor(bgMusic.currentTime / 60);
-                            const s = Math.floor(bgMusic.currentTime % 60);
-                            if (newTime) newTime.textContent = `${m}:${s < 10 ? '0' : ''}${s}`;
-                        };
-                    }, 50);
+                  
                 }).catch(err => {
                     console.log("Autoplay ilizuiliwa na browser, inasubiri kubofya skrini.");
                 });
