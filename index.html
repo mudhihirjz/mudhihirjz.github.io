@@ -7,13 +7,13 @@
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🟢</text></svg>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-HPHNZ85P5N"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-HPHNZ85P5N');
-</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HPHNZ85P5N"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-HPHNZ85P5N');
+    </script>
     <style>
         /* ==========================================
            CSS CUSTOM PROPERTIES - COLOR PALETTE
@@ -894,7 +894,7 @@
         }
 
         /* ==========================================
-           CHATBOT STYLES (Emojis only, no icons)
+           CHATBOT STYLES (Fixed)
            ========================================== */
         .chatbot-float {
             position: fixed;
@@ -953,8 +953,8 @@
             border-radius: var(--radius-lg);
             box-shadow: var(--shadow-lg);
             z-index: 1101;
-            display: none;
             opacity: 0;
+            visibility: hidden;
             transform: translateY(20px) scale(0.95);
             transition: all 0.3s ease;
             overflow: hidden;
@@ -962,8 +962,8 @@
         }
 
         .chatbot-modal.open {
-            display: block;
             opacity: 1;
+            visibility: visible;
             transform: translateY(0) scale(1);
         }
 
@@ -1330,7 +1330,7 @@
             <div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
             <div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
         </div>
-        <button class="skip-btn" id="skipBtn" onclick="skipWelcome()">Skip →</button>
+        <button class="skip-btn" id="skipBtn">Skip →</button>
         <div class="welcome-content">
             <div class="welcome-brand">MUDHIHIRJZ <span>Tech</span></div>
             <div class="welcome-image-container">
@@ -1616,7 +1616,7 @@
              FLOATING CHATBOT BUTTON (LEFT SIDE)
              ========================================== -->
         <div class="chatbot-float" id="chatbotFloatBtn">
-            <div class="chatbot-icon"><i class="fas fa-robot" style="color: rgb(159, 20, 59);"></i></div>
+            <div class="chatbot-icon"><i class="fas fa-robot"></i></div>
             <div class="chatbot-pulse"></div>
         </div>
 
@@ -1624,10 +1624,10 @@
             <div class="chatbot-container">
                 <div class="chatbot-header">
                     <div class="chatbot-header-info">
-                        <div class="chatbot-avatar"><i class="fas fa-robot" style="color: rgb(157, 59, 87);"></i></div>
+                        <div class="chatbot-avatar"><i class="fas fa-robot"></i></div>
                         <div class="chatbot-header-text">
                             <h3>MUDHIHIRJZ Bot</h3>
-                            <p><i class="fas fa-circle" style="color: greenyellow;"></i> Online | Chagua huduma unayohitaji</p>
+                            <p><i class="fas fa-circle" style="color: greenyellow; font-size: 8px;"></i> Online | Chagua huduma unayohitaji</p>
                         </div>
                     </div>
                     <button class="chatbot-close" id="chatbotCloseBtn">✕</button>
@@ -1646,15 +1646,15 @@
                     </div>
                 </div>
                 <div class="chatbot-tabs" id="chatbotTabs">
-                    <button class="tab-btn" data-category="birth"><i class="fas fa-baby" style="color: rgb(224, 199, 152);"></i> Cheti Kuzaliwa</button>
-                    <button class="tab-btn" data-category="death"><i class="fas fa-skull" style="color: rgb(255, 68, 0);"></i> Cheti Kifo</button>
-                    <button class="tab-btn" data-category="tin"><i class="fas fa-id-card" style="color: var(--clr-surface);"></i> TIN</button>
-                    <button class="tab-btn" data-category="heslb"><i class="fas fa-graduation-cap" style="color: var(--clr-primary-hover);"></i> HESLB/NAPA</button>
+                    <button class="tab-btn" data-category="birth"><i class="fas fa-baby"></i> Cheti Kuzaliwa</button>
+                    <button class="tab-btn" data-category="death"><i class="fas fa-skull"></i> Cheti Kifo</button>
+                    <button class="tab-btn" data-category="tin"><i class="fas fa-id-card"></i> TIN</button>
+                    <button class="tab-btn" data-category="heslb"><i class="fas fa-graduation-cap"></i> HESLB/NAPA</button>
                 </div>
                 <div class="chatbot-quick-replies" id="chatbotQuickReplies"></div>
                 <div class="chatbot-input-area">
-                    <input type="text" class="chatbot-input" id="chatbotInput" placeholder=" Au andika swali lako hapa..." autocomplete="off">
-                    <button class="chatbot-send" id="chatbotSendBtn"><i class="fas fa-paper-plane" style="color: rgb(25, 236, 25);"></i></button>
+                    <input type="text" class="chatbot-input" id="chatbotInput" placeholder="Au andika swali lako hapa..." autocomplete="off">
+                    <button class="chatbot-send" id="chatbotSendBtn"><i class="fas fa-paper-plane"></i></button>
                 </div>
                 <div class="chatbot-footer">
                     <small>⚡ Powered by MUDHIHIRJZ Tech | Tuko online</small>
@@ -1699,7 +1699,7 @@
     <a href="https://wa.me/255671533265?text=Habari, nahitaji kufahamu zaidi kuhusu huduma zako." target="_blank" class="whatsapp-float" id="whatsappFloat" style="display:none;" title="Chat on WhatsApp"><i class="fab fa-whatsapp"></i></a>
 
     <!-- ==========================================
-         JAVASCRIPT
+         JAVASCRIPT (FIXED - Chatbot & Language)
          ========================================== -->
     <script>
         // ========== TRANSLATIONS OBJECT ==========
@@ -1710,7 +1710,7 @@
                 heroTitle: "Karibu kwa <span>MUDHIHIRJZ Tech</span>", heroSubtitle: "Ubunifu kwa Ajili ya Maendeleo", heroDesc: "Tumejitolea kutoa suluhu za kisasa zinazochochea ukuaji na mafanikio kwa wateja wetu.",
                 btnGetStarted: "Anza", btnLearnMore: "Jifunze Zaidi",
                 badgeNew: "Taarifa Mpya zipo!", latestNewsTitle: "Habari Mpya", latestNewsSubtitle: "Jua taarifa zetu za kila siku za teknolojia na mabadiliko ya jamii.",
-                readNewsBtn: "Soma Habari →", placeholderText: "Taarifa muhimu zitaonekana hapa. Endelea kufuatilia!",
+                readNewsBtn: "Soma Habari →",
                 whatWeDoTitle: "Tunafanya Nini?", whatWeDoSubtitle: "Think and Grow ni mshirika wako mkuu katika mabadiliko ya kidijitali.",
                 softwareDevTitle: "Uundaji Programu", softwareDevDesc: "Programu maalum za tovuti na simu",
                 eservicesTitle: "Huduma za Kielektroniki", eservicesDesc: "Msaada wa RITA, TIN na NIDA",
@@ -1746,7 +1746,7 @@
                 heroTitle: "Welcome to <span>MUDHIHIRJZ Tech</span>", heroSubtitle: "Innovation for the Future", heroDesc: "We are committed to providing cutting-edge solutions that drive growth and success for our clients.",
                 btnGetStarted: "Get Started", btnLearnMore: "Learn More",
                 badgeNew: "New updates available!", latestNewsTitle: "Latest News", latestNewsSubtitle: "Get informed with our daily tech insights and community updates.",
-                readNewsBtn: "Read News →", placeholderText: "Latest news highlights will appear here. Stay tuned!",
+                readNewsBtn: "Read News →",
                 whatWeDoTitle: "What We Do?", whatWeDoSubtitle: "Think and Grow is your ultimate partner in digital transformation.",
                 softwareDevTitle: "Software Dev", softwareDevDesc: "Custom web & mobile apps", eservicesTitle: "E-Services", eservicesDesc: "RITA, TIN & NIDA help",
                 consultancyTitle: "Consultancy", consultancyDesc: "Digital growth advice", viewServicesBtn: "View All Services →",
@@ -1781,110 +1781,215 @@
 
         function applyTranslations(lang) {
             const t = translations[lang];
-            document.getElementById('langSwitchBtn').innerHTML = t.langBtn;
-            document.querySelector('.nav-home').textContent = t.navHome;
-            document.querySelector('.nav-projects').textContent = t.navProjects;
-            document.querySelector('.nav-news').textContent = t.navNews;
-            document.querySelector('.nav-services').textContent = t.navServices;
-            document.querySelector('.nav-publications').textContent = t.navPublications;
-            document.querySelector('.hero-header h1').innerHTML = t.heroTitle;
-            document.querySelector('.hero-subtitle').textContent = t.heroSubtitle;
-            document.querySelector('.hero-desc').textContent = t.heroDesc;
-            document.querySelector('.btn-get-started').textContent = t.btnGetStarted;
-            document.querySelector('.btn-learn-more').textContent = t.btnLearnMore;
-            document.querySelector('.badge-new-text').textContent = t.badgeNew;
-            document.querySelector('.latest-news-title').textContent = t.latestNewsTitle;
-            document.querySelector('.latest-news-subtitle').textContent = t.latestNewsSubtitle;
-            document.querySelector('.read-news-btn').textContent = t.readNewsBtn;
-            document.querySelector('.placeholder-text').textContent = t.placeholderText;
-            document.querySelector('.what-we-do-title').textContent = t.whatWeDoTitle;
-            document.querySelector('.what-we-do-subtitle').textContent = t.whatWeDoSubtitle;
-            document.querySelector('.software-dev-title').textContent = t.softwareDevTitle;
-            document.querySelector('.software-dev-desc').textContent = t.softwareDevDesc;
-            document.querySelector('.eservices-title').textContent = t.eservicesTitle;
-            document.querySelector('.eservices-desc').textContent = t.eservicesDesc;
-            document.querySelector('.consultancy-title').textContent = t.consultancyTitle;
-            document.querySelector('.consultancy-desc').textContent = t.consultancyDesc;
-            document.querySelector('.view-services-btn').textContent = t.viewServicesBtn;
-            document.querySelector('.get-help-title').textContent = t.getHelpTitle;
-            document.querySelector('.get-help-subtitle').textContent = t.getHelpSubtitle;
-            document.querySelector('.learn-more-help').textContent = t.learnMoreHelp;
-            document.querySelector('.napa-title').textContent = t.napaTitle;
-            document.querySelector('.napa-desc-text').textContent = t.napaDesc;
-            document.querySelector('.zingatia-title').textContent = t.zingatiaTitle;
-            document.querySelector('.zingatia-desc-text').textContent = t.zingatiaDesc;
-            document.querySelector('.projects-title').textContent = t.projectsTitle;
-            document.querySelector('.projects-subtitle').textContent = t.projectsSubtitle;
-            document.querySelector('.live-now-badge').textContent = t.liveNowBadge;
-            document.querySelector('.project-digital-title').textContent = t.projectDigitalTitle;
-            document.querySelector('.project-digital-desc').textContent = t.projectDigitalDesc;
-            document.querySelector('.view-service-btn').textContent = t.viewServiceBtn;
-            document.querySelector('.news-page-title').textContent = t.newsPageTitle;
-            document.querySelector('.news-page-subtitle').textContent = t.newsPageSubtitle;
-            document.querySelector('.news-title1').textContent = t.newsTitle1;
-            document.querySelector('.news-excerpt1').textContent = t.newsExcerpt1;
-            document.querySelector('.news-full-text1').textContent = t.newsFull1;
-            document.querySelector('.news-title2').textContent = t.newsTitle2;
-            document.querySelector('.news-excerpt2').textContent = t.newsExcerpt2;
-            document.querySelector('.news-full-text2').textContent = t.newsFull2;
-            document.querySelector('.news-title3').textContent = t.newsTitle3;
-            document.querySelector('.news-excerpt3').textContent = t.newsExcerpt3;
-            document.querySelector('.news-full-text3').textContent = t.newsFull3;
-            document.querySelector('.more-updates-title').textContent = t.moreUpdatesTitle;
-            document.querySelector('.stay-tuned-text').textContent = t.stayTunedText;
-            document.querySelector('.services-page-title').textContent = t.servicesPageTitle;
-            document.querySelector('.services-page-subtitle').textContent = t.servicesPageSubtitle;
-            document.querySelector('.certificates-title').textContent = t.certificatesTitle;
-            document.querySelector('.certificates-subtitle').textContent = t.certificatesSubtitle;
-            document.querySelector('.learn-more-cert').textContent = t.learnMoreCert;
-            document.querySelector('.software-dev-title2').textContent = t.softwareDevTitle2;
-            document.querySelector('.software-dev-subtitle').textContent = t.softwareDevSubtitle;
-            document.querySelector('.view-projects-btn').textContent = t.viewProjectsBtn;
-            document.querySelector('.college-apps-title').textContent = t.collegeAppsTitle;
-            document.querySelector('.college-apps-subtitle').textContent = t.collegeAppsSubtitle;
-            document.querySelector('.learn-more-college').textContent = t.learnMoreCollege;
-            document.querySelector('.faq-title').textContent = t.faqTitle;
-            document.querySelector('.need-help-title').textContent = t.needHelpTitle;
-            document.querySelector('.need-help-desc').textContent = t.needHelpDesc;
-            document.querySelector('.whatsapp-btn-text').textContent = t.whatsappBtnText;
-            document.querySelector('.faq-q1').textContent = t.faqQ1 || (lang === 'sw' ? "Inachukua muda gani kupata Cheti cha Kuzaliwa?" : "How long does it take to get a Birth Certificate?");
-            document.querySelector('.faq-a1').textContent = t.faqA1 || (lang === 'sw' ? "Muda unategemea mfumo wa RITA, lakini kwa kawaida huchukua kati ya siku 7 hadi 14 za kazi. Kwa msaada wetu, tunaharakisha mchakato huu kadri inavyowezekana." : "The time depends on the RITA system, but usually takes between 7 to 14 working days. With our help, we expedite this process as much as possible.");
-            document.querySelector('.faq-q2').textContent = t.faqQ2 || (lang === 'sw' ? "Je, mtu anaweza kupakua cheti chake mtandaoni?" : "Can someone download their certificate online?");
-            document.querySelector('.faq-a2').textContent = t.faqA2 || (lang === 'sw' ? "Ndiyo! Kupitia mfumo wa e-RITA, unaweza kupakua cheti chako cha kuzaliwa au kifo moja kwa moja mtandaoni baada ya kukisajili. Tunakusaidia kufanya hili kwa urahisi." : "Yes! Through the e-RITA system, you can download your birth or death certificate directly online after registering it. We help you do this easily.");
-            document.querySelector('.faq-q3').textContent = t.faqQ3 || (lang === 'sw' ? "Je, mnachapisha vyeti?" : "Do you print certificates?");
-            document.querySelector('.faq-a3').textContent = t.faqA3 || (lang === 'sw' ? "Ndiyo, tunachapisha vyeti rasmi vinavyotambulika kisheria. Vyeti vyote vinachapishwa kwa ubora wa hali ya juu na vinakubalika katika taasisi zote za serikali na binafsi." : "Yes, we print official legally recognized certificates. All certificates are printed with high quality and are accepted in all government and private institutions.");
-            document.querySelector('.faq-q4').textContent = t.faqQ4 || (lang === 'sw' ? "Gharama yake ni kiasi gani?" : "How much does it cost?");
-            document.querySelector('.faq-a4').textContent = t.faqA4 || (lang === 'sw' ? "Gharama inategemea huduma unayohitaji. Wasiliana nasi kwa ushauri wa bure na tutakupa bei nafuu kabisa inayolingana na huduma unayohitaji. Unaweza kututumia ujumbe WhatsApp au kupiga simu." : "The cost depends on the service you need. Contact us for free advice and we will give you the most affordable price that matches the service you need. You can send us a WhatsApp message or call.");
-            document.querySelector('.publications-title').textContent = t.publicationsTitle;
-            document.querySelector('.publications-subtitle').textContent = t.publicationsSubtitle;
-            document.querySelector('.downloadable-title').textContent = t.downloadableTitle;
-            document.querySelector('.birth-guide-title').textContent = t.birthGuideTitle;
-            document.querySelector('.birth-guide-sub').textContent = t.birthGuideSub;
-            document.querySelector('.death-guide-title').textContent = t.deathGuideTitle;
-            document.querySelector('.death-guide-sub').textContent = t.deathGuideSub;
-            document.querySelector('.uni-list-title').textContent = t.uniListTitle;
-            document.querySelector('.uni-list-sub').innerHTML = t.uniListSub + ' <span class="badge badge-coming"><span class="coming-soon-badge">' + t.comingSoonBadge + '</span></span>';
-            document.querySelectorAll('.download-btn-text, .download-btn-text2').forEach(el => {
-                if(el.classList.contains('download-btn-text')) el.textContent = t.downloadBtnText;
-                if(el.classList.contains('download-btn-text2')) el.textContent = t.downloadBtnText;
-            });
-            document.querySelector('.important-note-title').textContent = t.importantNoteTitle;
-            document.querySelector('.important-note-desc').innerHTML = t.importantNoteDesc;
-            document.querySelector('.for-students-title').textContent = t.forStudentsTitle;
-            document.querySelector('.for-students-desc').textContent = t.forStudentsDesc;
-            document.querySelector('.advice-title').textContent = t.adviceTitle;
-            document.querySelector('.advice-desc').innerHTML = t.adviceDesc;
-            document.querySelector('.contact-us-btn').textContent = t.contactUsBtn;
-            document.querySelector('.contact-us-footer').textContent = t.contactUsFooter;
-            document.querySelector('.location-footer').textContent = t.locationFooter;
-            document.querySelector('.gov-portals-footer').textContent = t.govPortalsFooter;
-            document.querySelector('.quick-links-footer').textContent = t.quickLinksFooter;
-            document.querySelector('.footer-home').textContent = t.footerHome;
-            document.querySelector('.footer-services').textContent = t.footerServices;
-            document.querySelector('.footer-news').textContent = t.footerNews;
-            document.querySelector('.footer-projects').textContent = t.footerProjects;
-            document.querySelector('.rights-text').textContent = t.rightsText;
-            document.querySelector('.designed-by').textContent = t.designedBy;
+            
+            // Button ya lugha
+            const langBtn = document.getElementById('langSwitchBtn');
+            if (langBtn) langBtn.innerHTML = t.langBtn;
+            
+            // Navigation
+            const navHome = document.querySelector('.nav-home');
+            if (navHome) navHome.textContent = t.navHome;
+            const navProjects = document.querySelector('.nav-projects');
+            if (navProjects) navProjects.textContent = t.navProjects;
+            const navNews = document.querySelector('.nav-news');
+            if (navNews) navNews.textContent = t.navNews;
+            const navServices = document.querySelector('.nav-services');
+            if (navServices) navServices.textContent = t.navServices;
+            const navPublications = document.querySelector('.nav-publications');
+            if (navPublications) navPublications.textContent = t.navPublications;
+            
+            // Hero section
+            const heroTitle = document.querySelector('.hero-header h1');
+            if (heroTitle) heroTitle.innerHTML = t.heroTitle;
+            const heroSubtitle = document.querySelector('.hero-subtitle');
+            if (heroSubtitle) heroSubtitle.textContent = t.heroSubtitle;
+            const heroDesc = document.querySelector('.hero-desc');
+            if (heroDesc) heroDesc.textContent = t.heroDesc;
+            const btnGetStarted = document.querySelector('.btn-get-started');
+            if (btnGetStarted) btnGetStarted.textContent = t.btnGetStarted;
+            const btnLearnMore = document.querySelector('.btn-learn-more');
+            if (btnLearnMore) btnLearnMore.textContent = t.btnLearnMore;
+            
+            // Latest News section
+            const badgeNewText = document.querySelector('.badge-new-text');
+            if (badgeNewText) badgeNewText.textContent = t.badgeNew;
+            const latestNewsTitle = document.querySelector('.latest-news-title');
+            if (latestNewsTitle) latestNewsTitle.textContent = t.latestNewsTitle;
+            const latestNewsSubtitle = document.querySelector('.latest-news-subtitle');
+            if (latestNewsSubtitle) latestNewsSubtitle.textContent = t.latestNewsSubtitle;
+            const readNewsBtn = document.querySelector('.read-news-btn');
+            if (readNewsBtn) readNewsBtn.textContent = t.readNewsBtn;
+            
+            // What We Do section
+            const whatWeDoTitle = document.querySelector('.what-we-do-title');
+            if (whatWeDoTitle) whatWeDoTitle.textContent = t.whatWeDoTitle;
+            const whatWeDoSubtitle = document.querySelector('.what-we-do-subtitle');
+            if (whatWeDoSubtitle) whatWeDoSubtitle.textContent = t.whatWeDoSubtitle;
+            const softwareDevTitle = document.querySelector('.software-dev-title');
+            if (softwareDevTitle) softwareDevTitle.textContent = t.softwareDevTitle;
+            const softwareDevDesc = document.querySelector('.software-dev-desc');
+            if (softwareDevDesc) softwareDevDesc.textContent = t.softwareDevDesc;
+            const eservicesTitle = document.querySelector('.eservices-title');
+            if (eservicesTitle) eservicesTitle.textContent = t.eservicesTitle;
+            const eservicesDesc = document.querySelector('.eservices-desc');
+            if (eservicesDesc) eservicesDesc.textContent = t.eservicesDesc;
+            const consultancyTitle = document.querySelector('.consultancy-title');
+            if (consultancyTitle) consultancyTitle.textContent = t.consultancyTitle;
+            const consultancyDesc = document.querySelector('.consultancy-desc');
+            if (consultancyDesc) consultancyDesc.textContent = t.consultancyDesc;
+            const viewServicesBtn = document.querySelector('.view-services-btn');
+            if (viewServicesBtn) viewServicesBtn.textContent = t.viewServicesBtn;
+            
+            // Get Help section
+            const getHelpTitle = document.querySelector('.get-help-title');
+            if (getHelpTitle) getHelpTitle.textContent = t.getHelpTitle;
+            const getHelpSubtitle = document.querySelector('.get-help-subtitle');
+            if (getHelpSubtitle) getHelpSubtitle.textContent = t.getHelpSubtitle;
+            const learnMoreHelp = document.querySelector('.learn-more-help');
+            if (learnMoreHelp) learnMoreHelp.textContent = t.learnMoreHelp;
+            
+            // NAPA section
+            const napaTitle = document.querySelector('.napa-title');
+            if (napaTitle) napaTitle.textContent = t.napaTitle;
+            const napaDescText = document.querySelector('.napa-desc-text');
+            if (napaDescText) napaDescText.textContent = t.napaDesc;
+            
+            // Zingatia section
+            const zingatiaTitle = document.querySelector('.zingatia-title');
+            if (zingatiaTitle) zingatiaTitle.textContent = t.zingatiaTitle;
+            const zingatiaDescText = document.querySelector('.zingatia-desc-text');
+            if (zingatiaDescText) zingatiaDescText.textContent = t.zingatiaDesc;
+            
+            // Projects page
+            const projectsTitle = document.querySelector('.projects-title');
+            if (projectsTitle) projectsTitle.textContent = t.projectsTitle;
+            const projectsSubtitle = document.querySelector('.projects-subtitle');
+            if (projectsSubtitle) projectsSubtitle.textContent = t.projectsSubtitle;
+            const liveNowBadge = document.querySelector('.live-now-badge');
+            if (liveNowBadge) liveNowBadge.textContent = t.liveNowBadge;
+            const projectDigitalTitle = document.querySelector('.project-digital-title');
+            if (projectDigitalTitle) projectDigitalTitle.textContent = t.projectDigitalTitle;
+            const projectDigitalDesc = document.querySelector('.project-digital-desc');
+            if (projectDigitalDesc) projectDigitalDesc.textContent = t.projectDigitalDesc;
+            const viewServiceBtn = document.querySelector('.view-service-btn');
+            if (viewServiceBtn) viewServiceBtn.textContent = t.viewServiceBtn;
+            
+            // News page
+            const newsPageTitle = document.querySelector('.news-page-title');
+            if (newsPageTitle) newsPageTitle.textContent = t.newsPageTitle;
+            const newsPageSubtitle = document.querySelector('.news-page-subtitle');
+            if (newsPageSubtitle) newsPageSubtitle.textContent = t.newsPageSubtitle;
+            
+            const newsTitle1 = document.querySelector('.news-title1');
+            if (newsTitle1) newsTitle1.textContent = t.newsTitle1;
+            const newsExcerpt1 = document.querySelector('.news-excerpt1');
+            if (newsExcerpt1) newsExcerpt1.textContent = t.newsExcerpt1;
+            const newsFullText1 = document.querySelector('.news-full-text1');
+            if (newsFullText1) newsFullText1.textContent = t.newsFull1;
+            
+            const newsTitle2 = document.querySelector('.news-title2');
+            if (newsTitle2) newsTitle2.textContent = t.newsTitle2;
+            const newsExcerpt2 = document.querySelector('.news-excerpt2');
+            if (newsExcerpt2) newsExcerpt2.textContent = t.newsExcerpt2;
+            const newsFullText2 = document.querySelector('.news-full-text2');
+            if (newsFullText2) newsFullText2.textContent = t.newsFull2;
+            
+            const newsTitle3 = document.querySelector('.news-title3');
+            if (newsTitle3) newsTitle3.textContent = t.newsTitle3;
+            const newsExcerpt3 = document.querySelector('.news-excerpt3');
+            if (newsExcerpt3) newsExcerpt3.textContent = t.newsExcerpt3;
+            const newsFullText3 = document.querySelector('.news-full-text3');
+            if (newsFullText3) newsFullText3.textContent = t.newsFull3;
+            
+            const moreUpdatesTitle = document.querySelector('.more-updates-title');
+            if (moreUpdatesTitle) moreUpdatesTitle.textContent = t.moreUpdatesTitle;
+            const stayTunedText = document.querySelector('.stay-tuned-text');
+            if (stayTunedText) stayTunedText.textContent = t.stayTunedText;
+            
+            // Services page
+            const servicesPageTitle = document.querySelector('.services-page-title');
+            if (servicesPageTitle) servicesPageTitle.textContent = t.servicesPageTitle;
+            const servicesPageSubtitle = document.querySelector('.services-page-subtitle');
+            if (servicesPageSubtitle) servicesPageSubtitle.textContent = t.servicesPageSubtitle;
+            const certificatesTitle = document.querySelector('.certificates-title');
+            if (certificatesTitle) certificatesTitle.textContent = t.certificatesTitle;
+            const certificatesSubtitle = document.querySelector('.certificates-subtitle');
+            if (certificatesSubtitle) certificatesSubtitle.textContent = t.certificatesSubtitle;
+            const learnMoreCert = document.querySelector('.learn-more-cert');
+            if (learnMoreCert) learnMoreCert.textContent = t.learnMoreCert;
+            const softwareDevTitle2 = document.querySelector('.software-dev-title2');
+            if (softwareDevTitle2) softwareDevTitle2.textContent = t.softwareDevTitle2;
+            const softwareDevSubtitle = document.querySelector('.software-dev-subtitle');
+            if (softwareDevSubtitle) softwareDevSubtitle.textContent = t.softwareDevSubtitle;
+            const viewProjectsBtn = document.querySelector('.view-projects-btn');
+            if (viewProjectsBtn) viewProjectsBtn.textContent = t.viewProjectsBtn;
+            const collegeAppsTitle = document.querySelector('.college-apps-title');
+            if (collegeAppsTitle) collegeAppsTitle.textContent = t.collegeAppsTitle;
+            const collegeAppsSubtitle = document.querySelector('.college-apps-subtitle');
+            if (collegeAppsSubtitle) collegeAppsSubtitle.textContent = t.collegeAppsSubtitle;
+            const learnMoreCollege = document.querySelector('.learn-more-college');
+            if (learnMoreCollege) learnMoreCollege.textContent = t.learnMoreCollege;
+            
+            // FAQ
+            const faqTitle = document.querySelector('.faq-title');
+            if (faqTitle) faqTitle.textContent = t.faqTitle;
+            
+            const needHelpTitle = document.querySelector('.need-help-title');
+            if (needHelpTitle) needHelpTitle.textContent = t.needHelpTitle;
+            const needHelpDesc = document.querySelector('.need-help-desc');
+            if (needHelpDesc) needHelpDesc.textContent = t.needHelpDesc;
+            const whatsappBtnText = document.querySelector('.whatsapp-btn-text');
+            if (whatsappBtnText) whatsappBtnText.textContent = t.whatsappBtnText;
+            
+            // Publications page
+            const publicationsTitle = document.querySelector('.publications-title');
+            if (publicationsTitle) publicationsTitle.textContent = t.publicationsTitle;
+            const publicationsSubtitle = document.querySelector('.publications-subtitle');
+            if (publicationsSubtitle) publicationsSubtitle.textContent = t.publicationsSubtitle;
+            const downloadableTitle = document.querySelector('.downloadable-title');
+            if (downloadableTitle) downloadableTitle.textContent = t.downloadableTitle;
+            const birthGuideTitle = document.querySelector('.birth-guide-title');
+            if (birthGuideTitle) birthGuideTitle.textContent = t.birthGuideTitle;
+            const deathGuideTitle = document.querySelector('.death-guide-title');
+            if (deathGuideTitle) deathGuideTitle.textContent = t.deathGuideTitle;
+            const uniListTitle = document.querySelector('.uni-list-title');
+            if (uniListTitle) uniListTitle.textContent = t.uniListTitle;
+            const importantNoteTitle = document.querySelector('.important-note-title');
+            if (importantNoteTitle) importantNoteTitle.textContent = t.importantNoteTitle;
+            const importantNoteDesc = document.querySelector('.important-note-desc');
+            if (importantNoteDesc) importantNoteDesc.innerHTML = t.importantNoteDesc;
+            const forStudentsTitle = document.querySelector('.for-students-title');
+            if (forStudentsTitle) forStudentsTitle.textContent = t.forStudentsTitle;
+            const forStudentsDesc = document.querySelector('.for-students-desc');
+            if (forStudentsDesc) forStudentsDesc.textContent = t.forStudentsDesc;
+            const adviceTitle = document.querySelector('.advice-title');
+            if (adviceTitle) adviceTitle.textContent = t.adviceTitle;
+            const adviceDesc = document.querySelector('.advice-desc');
+            if (adviceDesc) adviceDesc.innerHTML = t.adviceDesc;
+            const contactUsBtn = document.querySelector('.contact-us-btn');
+            if (contactUsBtn) contactUsBtn.textContent = t.contactUsBtn;
+            
+            // Footer
+            const contactUsFooter = document.querySelector('.contact-us-footer');
+            if (contactUsFooter) contactUsFooter.textContent = t.contactUsFooter;
+            const locationFooter = document.querySelector('.location-footer');
+            if (locationFooter) locationFooter.textContent = t.locationFooter;
+            const govPortalsFooter = document.querySelector('.gov-portals-footer');
+            if (govPortalsFooter) govPortalsFooter.textContent = t.govPortalsFooter;
+            const quickLinksFooter = document.querySelector('.quick-links-footer');
+            if (quickLinksFooter) quickLinksFooter.textContent = t.quickLinksFooter;
+            const footerHome = document.querySelector('.footer-home');
+            if (footerHome) footerHome.textContent = t.footerHome;
+            const footerServices = document.querySelector('.footer-services');
+            if (footerServices) footerServices.textContent = t.footerServices;
+            const footerNews = document.querySelector('.footer-news');
+            if (footerNews) footerNews.textContent = t.footerNews;
+            const footerProjects = document.querySelector('.footer-projects');
+            if (footerProjects) footerProjects.textContent = t.footerProjects;
+            const rightsText = document.querySelector('.rights-text');
+            if (rightsText) rightsText.textContent = t.rightsText;
+            const designedBy = document.querySelector('.designed-by');
+            if (designedBy) designedBy.textContent = t.designedBy;
         }
 
         function switchLanguage() {
@@ -1907,12 +2012,14 @@
                 welcomePage.style.display = 'none';
                 mainApp.classList.add('show');
                 mainApp.style.display = 'flex';
-                whatsappFloat.style.display = 'flex';
+                if (whatsappFloat) whatsappFloat.style.display = 'flex';
             }, 700);
         }
 
         function skipWelcome() { hideWelcome(); }
         welcomeTimer = setTimeout(function () { hideWelcome(); }, 3000);
+        const skipBtn = document.getElementById('skipBtn');
+        if (skipBtn) skipBtn.onclick = skipWelcome;
 
         function navigateTo(pageName) {
             const validPages = ['home', 'projects', 'news', 'services', 'publications'];
@@ -1964,9 +2071,10 @@
         const savedLang = localStorage.getItem('preferredLanguage');
         if (savedLang && (savedLang === 'sw' || savedLang === 'en')) currentLang = savedLang;
         applyTranslations(currentLang);
-        document.getElementById('langSwitchBtn').addEventListener('click', switchLanguage);
+        const langSwitchBtn = document.getElementById('langSwitchBtn');
+        if (langSwitchBtn) langSwitchBtn.addEventListener('click', switchLanguage);
 
-        // ========== CHATBOT WITH TABS & QUICK REPLIES (Emojis only, no console logs) ==========
+        // ========== CHATBOT (FIXED - opens and works properly) ==========
         (function() {
             const ready = function(fn) {
                 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fn);
@@ -1989,45 +2097,45 @@
                 
                 const servicesData = {
                     birth: {
-                        mainMessage: '<strong>Kuzaliwa</strong>. Chagua taarifa unayoitaka:',
+                        mainMessage: '<strong>🧸 Cheti cha Kuzaliwa</strong><br><br>Chagua taarifa unayoitaka:',
                         options: [
-                            { text: ' Gharama', message: ' <strong>Gharama ya Cheti cha Kuzaliwa:</strong><br><br>• Kawaida: TSh 5,000 - 10,000<br>• Tunatoa bei nafuu kulingana na huduma.<br><br> Wasiliana nasi kwa bei kamili!' },
-                            { text: ' Muda', message: ' <strong>Muda wa kupata Cheti cha Kuzaliwa:</strong><br><br>• Kwa kawaida: Siku 7-14 za kazi<br>• Haraka (Express): Siku 2-3 za kazi<br>• Tunaharakisha mchakato wako.' },
-                            { text: ' Mahitaji', message: ' <strong>Mahitaji ya Cheti cha Kuzaliwa:</strong><br><br>1.Jina kamili la mtoto<br>2.Tarehe na mahali pa kuzaliwa<br>3.Majina ya wazazi (baba na mama)<br>4. Nakala ya kitambulisho cha mzazi<br>5.Fomu ya kujaza (tunakusaidia)<br><br>Tunakusaidia kukusanya na kutuma maombi!' },
-                            { text: ' Mchakato', message: ' <strong>Mchakato wa kupata Cheti cha Kuzaliwa:</strong><br><br>1.Tunakusanya taarifa zako<br>2. Tunatuma ombi kupitia e-RITA<br>3. Kufuatilia ombi' },
-                            { text: ' Wasiliana', message: ' <strong>Kuanza mchakato wa Cheti cha Kuzaliwa:</strong><br><br>Wasiliana nasi kupitia:<br>• WhatsApp: +255 671 533 265<br>• Simu: +255 671 533 265<br>•Email: mudhihirjz@gmail.com<br><br>Tunakusaidia kwa urahisi na haraka!' }
+                            { text: '💰 Gharama', message: '<strong>💰 Gharama ya Cheti cha Kuzaliwa:</strong><br><br>• Kawaida: TSh 5,000 - 10,000<br>• Tunatoa bei nafuu kulingana na huduma.<br><br>Wasiliana nasi kwa bei kamili!' },
+                            { text: '⏰ Muda', message: '<strong>⏰ Muda wa kupata Cheti cha Kuzaliwa:</strong><br><br>• Kwa kawaida: Siku 7-14 za kazi<br>• Haraka (Express): Siku 2-3 za kazi<br>• Tunaharakisha mchakato wako.' },
+                            { text: '📋 Mahitaji', message: '<strong>📋 Mahitaji ya Cheti cha Kuzaliwa:</strong><br><br>1. Jina kamili la mtoto<br>2. Tarehe na mahali pa kuzaliwa<br>3. Majina ya wazazi (baba na mama)<br>4. Nakala ya kitambulisho cha mzazi<br>5. Fomu ya kujaza (tunakusaidia)<br><br>Tunakusaidia kukusanya na kutuma maombi!' },
+                            { text: '📝 Mchakato', message: '<strong>📝 Mchakato wa kupata Cheti cha Kuzaliwa:</strong><br><br>1. Tunakusanya taarifa zako<br>2. Tunatuma ombi kupitia e-RITA<br>3. Kufuatilia ombi lako' },
+                            { text: '📞 Wasiliana', message: '<strong>📞 Kuanza mchakato wa Cheti cha Kuzaliwa:</strong><br><br>Wasiliana nasi kupitia:<br>• WhatsApp: +255 671 533 265<br>• Simu: +255 671 533 265<br>• Email: mudhihirjz@gmail.com<br><br>Tunakusaidia kwa urahisi na haraka!' }
                         ]
                     },
                     death: {
-                        mainMessage: '<strong>Kifo</strong>. Chagua taarifa unayoitaka:',
+                        mainMessage: '<strong>⚰️ Cheti cha Kifo</strong><br><br>Chagua taarifa unayoitaka:',
                         options: [
-                            { text: ' Gharama', message: ' <strong>Gharama ya Cheti cha Kifo:</strong><br><br>• Kawaida: TSh 3,000 - 7,000<br><br> Wasiliana nasi kwa bei kamili!' },
-                            { text: ' Muda', message: ' <strong>Muda wa kupata Cheti cha Kifo:</strong><br><br>• Kwa kawaida: Siku 5-10 za kazi' },
-                            { text: ' Mahitaji', message: ' <strong>Mahitaji ya Cheti cha Kifo:</strong><br><br>1.Jina kamili la marehemu<br>2. Tarehe na mahali pa kifo<br>3. Sababu ya kifo (kama inajulikana)<br>4. Nakala ya kitambulisho cha mtoa taarifa<br>5.Fomu ya kujaza (tunakusaidia)' },
-                            { text: ' Mchakato', message: ' <strong>Mchakato wa kupata Cheti cha Kifo:</strong><br><br>1.Tunakusanya taarifa<br>2.Tunatuma ombi kupitia e-RITA' },
-                            { text: ' Wasiliana', message: ' <strong>Kuanza mchakato wa Cheti cha Kifo:</strong><br><br>Wasiliana nasi kupitia WhatsApp +255 671 533 265' }
+                            { text: '💰 Gharama', message: '<strong>💰 Gharama ya Cheti cha Kifo:</strong><br><br>• Kawaida: TSh 3,000 - 7,000<br><br>Wasiliana nasi kwa bei kamili!' },
+                            { text: '⏰ Muda', message: '<strong>⏰ Muda wa kupata Cheti cha Kifo:</strong><br><br>• Kwa kawaida: Siku 5-10 za kazi' },
+                            { text: '📋 Mahitaji', message: '<strong>📋 Mahitaji ya Cheti cha Kifo:</strong><br><br>1. Jina kamili la marehemu<br>2. Tarehe na mahali pa kifo<br>3. Sababu ya kifo (kama inajulikana)<br>4. Nakala ya kitambulisho cha mtoa taarifa<br>5. Fomu ya kujaza (tunakusaidia)' },
+                            { text: '📝 Mchakato', message: '<strong>📝 Mchakato wa kupata Cheti cha Kifo:</strong><br><br>1. Tunakusanya taarifa<br>2. Tunatuma ombi kupitia e-RITA' },
+                            { text: '📞 Wasiliana', message: '<strong>📞 Kuanza mchakato wa Cheti cha Kifo:</strong><br><br>Wasiliana nasi kupitia WhatsApp +255 671 533 265' }
                         ]
                     },
                     tin: {
-                        mainMessage: '<strong>TIN</strong>. Chagua taarifa unayoitaka:',
+                        mainMessage: '<strong>🆔 Usajili wa TIN</strong><br><br>Chagua taarifa unayoitaka:',
                         options: [
-                            { text: ' Gharama', message: ' <strong>Gharama ya Usajili wa TIN:</strong><br><br>• Gharama: TSh 5,000 - 10,000 (huduma na usajili)<br>Wasiliana nasi kwa usaidizi!' },
-                            { text: ' Muda', message: ' <strong>Muda wa kupata TIN:</strong><br><br>• Siku 1-3 za kazi baada ya kutuma taarifa<br>• Haraka: Saa 24' },
-                            { text: ' Mahitaji', message: ' <strong>Mahitaji ya Usajili wa TIN:</strong><br><br>1. Cheti cha kuzaliwa au kitambulisho<br>2. Picha ya pasipoti (kwa biashara)<br>3. Anuani ya makazi/biashara<br>4. Namba ya simu na barua pepe' },
-                            { text: ' Mchakato', message: ' <strong>Mchakato wa Usajili wa TIN:</strong><br><br>1. Tunakusanya taarifa zako<br>2. Tunatuma ombi kupitia TRA<br>3. Tunakupatia namba yako ya TIN' },
-                            { text: ' Faida', message: ' <strong>Faida za kuwa na TIN:</strong><br><br>• Kufungua akaunti ya benki<br>• Kuanza biashara rasmi<br>• Kupata mikopo<br>• Kutoa invoice za kisheria' },
-                            { text: ' Wasiliana', message: '<strong>Kuanza Usajili wa TIN:</strong><br><br>Wasiliana nasi +255 671 533 265 kwa maelezo zaidi!' }
+                            { text: '💰 Gharama', message: '<strong>💰 Gharama ya Usajili wa TIN:</strong><br><br>• Gharama: TSh 5,000 - 10,000 (huduma na usajili)<br>Wasiliana nasi kwa usaidizi!' },
+                            { text: '⏰ Muda', message: '<strong>⏰ Muda wa kupata TIN:</strong><br><br>• Siku 1-3 za kazi baada ya kutuma taarifa<br>• Haraka: Saa 24' },
+                            { text: '📋 Mahitaji', message: '<strong>📋 Mahitaji ya Usajili wa TIN:</strong><br><br>1. Cheti cha kuzaliwa au kitambulisho<br>2. Picha ya pasipoti (kwa biashara)<br>3. Anuani ya makazi/biashara<br>4. Namba ya simu na barua pepe' },
+                            { text: '📝 Mchakato', message: '<strong>📝 Mchakato wa Usajili wa TIN:</strong><br><br>1. Tunakusanya taarifa zako<br>2. Tunatuma ombi kupitia TRA<br>3. Tunakupatia namba yako ya TIN' },
+                            { text: '✅ Faida', message: '<strong>✅ Faida za kuwa na TIN:</strong><br><br>• Kufungua akaunti ya benki<br>• Kuanza biashara rasmi<br>• Kupata mikopo<br>• Kutoa invoice za kisheria' },
+                            { text: '📞 Wasiliana', message: '<strong>📞 Kuanza Usajili wa TIN:</strong><br><br>Wasiliana nasi +255 671 533 265 kwa maelezo zaidi!' }
                         ]
                     },
                     heslb: {
-                        mainMessage: '<strong>HESLB na NAPA</strong>. Chagua taarifa unayoitaka:',
+                        mainMessage: '<strong>🎓 HESLB na NAPA</strong><br><br>Chagua taarifa unayoitaka:',
                         options: [
-                            { text: ' Gharama', message: ' <strong>Gharama ya Msaada wa HESLB/NAPA:</strong><br><br>• Msaada wa NAPA: TSh 1000-2000(barua ya utambulisho)<br>• Msaada wa HESLB: TSh 10,000 - 20,000 (maombi kamili)<br>• Tunatoa bei nafuu kwa wanafunzi!' },
-                            { text: ' Muda', message: '<strong>Muda wa Mchakato:</strong><br><br>• NAPA barua: Siku 2-5 za kazi<br>• HESLB maombi: Siku 3-7 za kazi' },
-                            { text: ' Mahitaji', message: ' <strong>Mahitaji ya NAPA na HESLB:</strong><br><br><strong>NAPA (Barua ya Utambulisho):</strong><br>• Nyumba imesajiliwa kwenye anuani za makazi<br>• Taarifa za mwombaji<br><br>🎓 <strong>HESLB (Mkopo):</strong><br>• Barua ya utambulisho (NAPA)<br>• Matokeo ya kidato cha sita<br>• Barua ya kujiunga chuo<br>• Taarifa za kifamilia' },
-                            { text: ' Mchakato', message: ' <strong>Mchakato wa HESLB na NAPA:</strong><br><br>1. Kwanza pata barua ya NAPA<br>2. Kisha tuma ombi HESLB mtandaoni<br>3. Tunakusaidia hatua zote<br><br> Zingatia: Hakikisha nyumba imesajiliwa kabla ya NAPA!' },
-                            { text: ' Tarehe', message: '<strong>Tarehe za Maombi HESLB 2026/2027:</strong><br><br>• Maelezo yatatangazwa Juni-Julai<br>• Maombi hufunguliwa Julai hadi Agosti<br>• Tunakuarifu tarehe kamili ukitufuata!' },
-                            { text: ' Wasiliana', message: ' <strong>Kuanza Mchakato wa HESLB/NAPA:</strong><br><br>Wasiliana nasi WhatsApp +255 671 533 265 ili tukusaidie hatua kwa hatua!' }
+                            { text: '💰 Gharama', message: '<strong>💰 Gharama ya Msaada wa HESLB/NAPA:</strong><br><br>• Msaada wa NAPA: TSh 1000-2000 (barua ya utambulisho)<br>• Msaada wa HESLB: TSh 10,000 - 20,000 (maombi kamili)<br>• Tunatoa bei nafuu kwa wanafunzi!' },
+                            { text: '⏰ Muda', message: '<strong>⏰ Muda wa Mchakato:</strong><br><br>• NAPA barua: Siku 2-5 za kazi<br>• HESLB maombi: Siku 3-7 za kazi' },
+                            { text: '📋 Mahitaji', message: '<strong>📋 Mahitaji ya NAPA na HESLB:</strong><br><br><strong>NAPA (Barua ya Utambulisho):</strong><br>• Nyumba imesajiliwa kwenye anuani za makazi<br>• Taarifa za mwombaji<br><br>🎓 <strong>HESLB (Mkopo):</strong><br>• Barua ya utambulisho (NAPA)<br>• Matokeo ya kidato cha sita<br>• Barua ya kujiunga chuo<br>• Taarifa za kifamilia' },
+                            { text: '📝 Mchakato', message: '<strong>📝 Mchakato wa HESLB na NAPA:</strong><br><br>1. Kwanza pata barua ya NAPA<br>2. Kisha tuma ombi HESLB mtandaoni<br>3. Tunakusaidia hatua zote<br><br>📌 Zingatia: Hakikisha nyumba imesajiliwa kabla ya NAPA!' },
+                            { text: '📅 Tarehe', message: '<strong>📅 Tarehe za Maombi HESLB 2026/2027:</strong><br><br>• Maelezo yatatangazwa Juni-Julai<br>• Maombi hufunguliwa Julai hadi Agosti<br>• Tunakuarifu tarehe kamili ukitufuata!' },
+                            { text: '📞 Wasiliana', message: '<strong>📞 Kuanza Mchakato wa HESLB/NAPA:</strong><br><br>Wasiliana nasi WhatsApp +255 671 533 265 ili tukusaidie hatua kwa hatua!' }
                         ]
                     }
                 };
@@ -2047,14 +2155,15 @@
                     const service = servicesData[category];
                     if (!service) return;
                     chatbotQuickReplies.innerHTML = '';
+                    
                     const backBtn = document.createElement('button');
                     backBtn.className = 'quick-reply-btn back-btn';
                     backBtn.innerHTML = '◀ Nyuma';
                     backBtn.onclick = () => {
                         updateQuickReplies(activeCategory);
-                        addMessage(service.mainMessage, false);
                     };
                     chatbotQuickReplies.appendChild(backBtn);
+                    
                     service.options.forEach(option => {
                         const btn = document.createElement('button');
                         btn.className = 'quick-reply-btn';
@@ -2063,7 +2172,7 @@
                             addMessage(option.text, true);
                             addMessage(option.message, false);
                             setTimeout(() => {
-                                const contactMsg = '<strong>Je, ungependa kuanza mchakato?</strong><br><br>Wasiliana nasi moja kwa moja kwa:<br>•WhatsApp: +255 671 533 265<br>•Simu: +255 671 533 265';
+                                const contactMsg = '<strong>📞 Je, ungependa kuanza mchakato?</strong><br><br>Wasiliana nasi moja kwa moja kwa:<br>• WhatsApp: +255 671 533 265<br>• Simu: +255 671 533 265';
                                 addMessage(contactMsg, false);
                             }, 500);
                         };
@@ -2072,6 +2181,7 @@
                 }
                 
                 function switchCategory(category) {
+                    if (activeCategory === category) return;
                     activeCategory = category;
                     tabButtons.forEach(btn => {
                         if (btn.dataset.category === category) btn.classList.add('active');
@@ -2082,51 +2192,79 @@
                 }
                 
                 tabButtons.forEach(btn => {
-                    btn.addEventListener('click', () => switchCategory(btn.dataset.category));
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        switchCategory(btn.dataset.category);
+                    });
                 });
                 
                 function sendManualMessage() {
                     const message = chatbotInput.value.trim();
                     if (message === '') return;
+                    
+                    function escapeHtml(text) {
+                        const div = document.createElement('div');
+                        div.textContent = text;
+                        return div.innerHTML;
+                    }
+                    
                     addMessage(escapeHtml(message), true);
                     chatbotInput.value = '';
                     const lowerMsg = message.toLowerCase();
+                    
                     if (lowerMsg.includes('kuzaliwa') || lowerMsg.includes('birth')) {
-                        addMessage(' Labda unahitaji msaada wa <strong>Cheti cha Kuzaliwa</strong>. Bonyeza kwenye tab ya "Cheti Kuzaliwa" ', false);
+                        addMessage('👶 Labda unahitaji msaada wa <strong>Cheti cha Kuzaliwa</strong>. Bonyeza kwenye tab ya "Cheti Kuzaliwa" hapo juu.', false);
                     } else if (lowerMsg.includes('kifo') || lowerMsg.includes('death')) {
-                        addMessage(' Labda unahitaji msaada wa <strong>Cheti cha Kifo</strong>. Bonyeza kwenye tab ya "Cheti Kifo" ', false);
+                        addMessage('⚰️ Labda unahitaji msaada wa <strong>Cheti cha Kifo</strong>. Bonyeza kwenye tab ya "Cheti Kifo" hapo juu.', false);
                     } else if (lowerMsg.includes('tin') || lowerMsg.includes('namba ya kodi')) {
-                        addMessage(' Labda unahitaji msaada wa  <strong>Usajili wa TIN</strong>. Bonyeza kwenye tab ya " TIN" ', false);
+                        addMessage('🆔 Labda unahitaji msaada wa <strong>Usajili wa TIN</strong>. Bonyeza kwenye tab ya "TIN" hapo juu.', false);
                     } else if (lowerMsg.includes('heslb') || lowerMsg.includes('napa') || lowerMsg.includes('mkopo')) {
-                        addMessage(' Labda unahitaji msaada wa <strong>HESLB / NAPA</strong>. Bonyeza kwenye tab ya "🎓 HESLB/NAPA" ', false);
+                        addMessage('🎓 Labda unahitaji msaada wa <strong>HESLB / NAPA</strong>. Bonyeza kwenye tab ya "HESLB/NAPA" hapo juu.', false);
                     } else if (lowerMsg.includes('msaada') || lowerMsg.includes('help')) {
-                        addMessage(' <strong>Jinsi ya kutumia Bot:</strong><br><br>1. Chagua huduma kwenye tabs<br>2. Bonyeza swali unalotaka (Gharama, Muda, Mahitaji, n.k)<br>3. Au andika swali lako hapa chini<br><br>Kwa msaada wa haraka: WhatsApp +255 671 533 265', false);
+                        addMessage('<strong>🤖 Jinsi ya kutumia Bot:</strong><br><br>1. Chagua huduma kwenye tabs hapo juu<br>2. Bonyeza swali unalotaka (Gharama, Muda, Mahitaji, n.k)<br>3. Au andika swali lako hapa chini<br><br>📞 Kwa msaada wa haraka: WhatsApp +255 671 533 265', false);
                     } else {
-                        addMessage(' Samahani, sikuelewa vizuri. Tafadhali chagua huduma kutoka kwenye tabs iliyopo juu, au wasiliana nasi moja kwa moja kwa WhatsApp +255 671 533 265', false);
+                        addMessage('🙏 Samahani, sikuelewa vizuri. Tafadhali chagua huduma kutoka kwenye tabs iliyopo juu, au wasiliana nasi moja kwa moja kwa WhatsApp +255 671 533 265', false);
                     }
                 }
                 
-                function escapeHtml(text) {
-                    const div = document.createElement('div');
-                    div.textContent = text;
-                    return div.innerHTML;
+                if (chatbotSendBtn) chatbotSendBtn.addEventListener('click', sendManualMessage);
+                if (chatbotInput) chatbotInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendManualMessage(); });
+                
+                // Open/Close chatbot - FIXED
+                if (chatbotFloatBtn) {
+                    chatbotFloatBtn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        chatbotModal.classList.toggle('open');
+                        if (chatbotModal.classList.contains('open') && chatbotInput) {
+                            setTimeout(() => chatbotInput.focus(), 100);
+                        }
+                    });
                 }
                 
-                chatbotSendBtn.addEventListener('click', sendManualMessage);
-                chatbotInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendManualMessage(); });
-                chatbotFloatBtn.addEventListener('click', () => {
-                    chatbotModal.classList.toggle('open');
-                    if (chatbotModal.classList.contains('open')) chatbotInput.focus();
-                });
-                chatbotCloseBtn.addEventListener('click', () => chatbotModal.classList.remove('open'));
-                document.addEventListener('click', (e) => {
-                    if (chatbotModal.classList.contains('open')) {
+                if (chatbotCloseBtn) {
+                    chatbotCloseBtn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        chatbotModal.classList.remove('open');
+                    });
+                }
+                
+                // Close when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (chatbotModal && chatbotModal.classList.contains('open')) {
                         if (!chatbotModal.contains(e.target) && !chatbotFloatBtn.contains(e.target)) {
                             chatbotModal.classList.remove('open');
                         }
                     }
                 });
-                switchCategory('birth');
+                
+                // Initialize chatbot - set active tab and quick replies without duplicate message
+                activeCategory = 'birth';
+                tabButtons.forEach(btn => {
+                    if (btn.dataset.category === 'birth') btn.classList.add('active');
+                    else btn.classList.remove('active');
+                });
+                updateQuickReplies('birth');
+                // Do NOT add initial main message - keep the welcome message only
             });
         })();
     </script>
