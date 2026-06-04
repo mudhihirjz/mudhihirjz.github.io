@@ -405,7 +405,7 @@
         }
 
         .hero-header h1 {
-            font-size: 2.2rem;
+           font-size: 2.2rem;
             font-weight: 700;
             color: white;
             margin-bottom: 8px;
@@ -1316,6 +1316,79 @@
             .nav-inner a { padding: 12px 14px; font-size: 13px; }
             .nav-brand-small { font-size: 12px; padding: 12px 12px 12px 0; }
         }
+                /* ==========================================
+           VIDEO CARD FOR NEWS PAGE
+           ========================================== */
+        .video-card {
+            background: var(--clr-surface);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: all var(--transition);
+            border: 1px solid var(--clr-border);
+        }
+
+        .video-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            background: #000;
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+            overflow: hidden;
+        }
+
+        .news-video {
+            width: 100%;
+            height: auto;
+            display: block;
+            cursor: pointer;
+        }
+
+        .news-video:focus {
+            outline: none;
+        }
+
+        /* Custom video styling */
+        .news-video::-webkit-media-controls-panel {
+            background: rgba(0,0,0,0.7);
+        }
+
+        .news-video::-webkit-media-controls-play-button {
+            background-color: var(--clr-primary);
+            border-radius: 50%;
+        }
+
+        .video-caption {
+            padding: 12px 16px;
+            background: var(--clr-surface-alt);
+            border-top: 1px solid var(--clr-border);
+            text-align: center;
+        }
+
+        .video-caption p {
+            margin: 0;
+            font-size: 13px;
+            color: var(--clr-text-soft);
+        }
+
+        .video-caption i {
+            color: var(--clr-primary);
+            margin-right: 6px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .video-caption p {
+                font-size: 11px;
+            }
+            .video-caption {
+                padding: 8px 12px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1496,10 +1569,16 @@
                         </div>
                     </div>
                     <div class="right">
-                        <div class="right-placeholder">
-                            <i class="fas fa-bullhorn"></i>
-                            <p><strong><span class="more-updates-title">More Updates Coming Soon!</span></strong></p>
-                            <p style="font-size:13px;"><span class="stay-tuned-text">Stay tuned for the latest news and announcements.</span></p>
+                                                <div class="video-card">
+                            <div class="video-wrapper">
+                                <video class="news-video" id="newsVideo" poster="images/video-poster.jpg" controls>
+                                    <source src="videos/promo.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                            <div class="video-caption">
+                                <p><i class="fas fa-play-circle"></i> <span class="video-caption-text">MUDHIHIRJZ Tech - Huduma zetu kwa urahisi</span></p>
+                            </div>
                         </div>
                     </div>
                 </div>
