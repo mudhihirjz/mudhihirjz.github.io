@@ -6,8 +6,22 @@
     <title>MUDHIHIRJZ Tech</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>💻</text></svg>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- Tailwind CSS CDN kwa profile -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-HPHNZ85P5N"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3b82f6',
+                        dark: '#0f172a',
+                    }
+                }
+            }
+        }
+    </script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
@@ -41,6 +55,60 @@
             --radius-md: 10px;
             --radius-lg: 16px;
             --transition: 0.25s ease;
+        }
+
+        /* Profile page specific styles */
+        .timeline-line::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: #e2e8f0;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        @media (max-width: 768px) {
+            .timeline-line::after {
+                left: 32px;
+                transform: none;
+            }
+        }
+        
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .timeline-line::after {
+                left: 32px;
+                transform: none;
+            }
+            .timeline-line > .relative.w-full.md\:w-1\/2 {
+                width: 100% !important;
+                padding-left: 60px !important;
+                left: 0 !important;
+            }
+            .timeline-line .absolute.w-4.h-4 {
+                left: 23px !important;
+                right: auto !important;
+            }
+            .timeline-line .pl-12.md\:pl-0,
+            .timeline-line .pl-12 {
+                padding-left: 0 !important;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .timeline-line .bg-slate-50 {
+                background-color: #ffffff;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+                border-left: 3px solid #3b82f6;
+            }
+        }
+        
+        .social-icon {
+            transition: all 0.2s ease;
+        }
+        .social-icon:hover {
+            transform: scale(1.1);
         }
 
         * {
@@ -360,6 +428,19 @@
 
         .page-panel.active {
             display: block;
+        }
+
+        /* Profile panel - full width */
+        .page-panel#page-profile {
+            max-width: 100%;
+            padding: 0;
+            margin: 0;
+            background: #f8fafc;
+        }
+
+        .page-panel#page-profile .page-content {
+            max-width: 100%;
+            padding: 0;
         }
 
         @keyframes fadePage {
@@ -1316,9 +1397,7 @@
             .nav-inner a { padding: 12px 14px; font-size: 13px; }
             .nav-brand-small { font-size: 12px; padding: 12px 12px 12px 0; }
         }
-                /* ==========================================
-           VIDEO CARD FOR NEWS PAGE
-           ========================================== */
+        
         .video-card {
             background: var(--clr-surface);
             border-radius: var(--radius-lg);
@@ -1352,7 +1431,6 @@
             outline: none;
         }
 
-        /* Custom video styling */
         .news-video::-webkit-media-controls-panel {
             background: rgba(0,0,0,0.7);
         }
@@ -1380,7 +1458,6 @@
             margin-right: 6px;
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
             .video-caption p {
                 font-size: 11px;
@@ -1393,9 +1470,7 @@
 </head>
 <body>
 
-    <!-- ==========================================
-         WELCOME PAGE
-         ========================================== -->
+    <!-- WELCOME PAGE -->
     <div class="welcome-page" id="welcomePage">
         <div class="bubbles-container">
             <div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
@@ -1416,9 +1491,7 @@
         </div>
     </div>
 
-    <!-- ==========================================
-         MAIN APP
-         ========================================== -->
+    <!-- MAIN APP -->
     <div class="main-app" id="mainApp">
 
         <!-- NAVIGATION -->
@@ -1438,7 +1511,7 @@
         <!-- PAGE CONTENT -->
         <div class="page-content">
 
-            <!-- ========== HOME PAGE ========== -->
+            <!-- HOME PAGE -->
             <div class="page-panel active" id="page-home">
                 <div class="hero-header">
                     <div class="hero-content">
@@ -1447,9 +1520,7 @@
                         <p class="hero-desc">We are committed to providing cutting-edge solutions that drive growth and success for our clients.</p>
                         <div class="hero-buttons">
                             <button class="btn btn-accent" onclick="navigateTo('services')"><span class="btn-get-started">Get Started</span></button>
-                        <a href="docs/profile.html" target="_blank">
-                            <button class="btn btn-outline-light"><span class="btn-about-me">About Me</span></button>
-                        </a>
+                            <button class="btn btn-outline-light" onclick="navigateTo('profile')"><span class="btn-about-me">About Me</span></button>
                         </div>
                     </div>
                 </div>
@@ -1512,7 +1583,7 @@
                 </div>
             </div>
 
-            <!-- ========== PROJECTS PAGE ========== -->
+            <!-- PROJECTS PAGE -->
             <div class="page-panel" id="page-projects">
                 <div class="text-card">
                     <h2><i class="fas fa-folder-open"></i> <span class="projects-title">Our Projects</span></h2>
@@ -1528,7 +1599,7 @@
                 </div>
             </div>
 
-            <!-- ========== NEWS PAGE ========== -->
+            <!-- NEWS PAGE -->
             <div class="page-panel" id="page-news">
                 <div class="text-card">
                     <h2><i class="fas fa-newspaper"></i> <span class="news-page-title">Latest News & Updates</span></h2>
@@ -1586,7 +1657,7 @@
                 </div>
             </div>
 
-            <!-- ========== SERVICES PAGE ========== -->
+            <!-- SERVICES PAGE -->
             <div class="page-panel" id="page-services">
                 <div class="text-card">
                     <h2><i class="fas fa-cogs"></i> <span class="services-page-title">Our Services</span></h2>
@@ -1645,7 +1716,7 @@
                 </div>
             </div>
 
-            <!-- ========== PUBLICATIONS PAGE ========== -->
+            <!-- PUBLICATIONS PAGE -->
             <div class="page-panel" id="page-publications">
                 <div class="text-card">
                     <h2><i class="fas fa-book"></i> <span class="publications-title">Publications & Resources</span></h2>
@@ -1691,11 +1762,206 @@
                     <a href="https://wa.me/255671533265" target="_blank" class="btn btn-accent" style="margin-top:10px;"><i class="fab fa-whatsapp"></i> <span class="contact-us-btn">Wasiliana Nasi</span></a>
                 </div>
             </div>
+
+            <!-- ========== PROFILE PAGE (NEW - NOT IN MENU) ========== -->
+            <div class="page-panel" id="page-profile">
+                <!-- Profile content - background white -->
+                <div class="bg-[#f8fafc] text-slate-700 font-sans antialiased" style="margin-top: -6px;">
+                    <!-- Navigation ya profile (simple) -->
+                    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 px-6 py-4">
+                        <div class="max-w-6xl mx-auto flex justify-between items-center">
+                            <div class="flex items-center gap-3">
+                                <img src="images/avatar.jpg" alt="Avatar ya MUDHIHIR MOHAMED" class="w-10 h-10 rounded-full border-2 border-primary object-cover">
+                                <div>
+                                    <span class="font-bold text-dark text-lg block leading-none">MUDHIHIR MOHAMED</span>
+                                    <span class="text-xs text-slate-400">Self Employed</span>
+                                </div>
+                            </div>
+                            <div class="hidden md:flex items-center gap-8 font-medium text-slate-600">
+                                <a href="#" onclick="navigateTo('profile'); return false;" class="hover:text-primary transition-colors">About</a>
+                                <a href="#" onclick="document.getElementById('profile-education').scrollIntoView({behavior:'smooth'}); return false;" class="hover:text-primary transition-colors">Education</a>
+                                <a href="#" onclick="document.getElementById('profile-skills').scrollIntoView({behavior:'smooth'}); return false;" class="hover:text-primary transition-colors">Skills</a>
+                                <a href="#" onclick="document.getElementById('profile-contact').scrollIntoView({behavior:'smooth'}); return false;" class="hover:text-primary transition-colors">Contact</a>
+                                <button onclick="navigateTo('home')" class="bg-primary text-white px-5 py-2 rounded-full hover:bg-blue-600 transition-all text-sm shadow-sm shadow-blue-200">Return to Home</button>
+                            </div>
+                        </div>
+                    </nav>
+
+                    <!-- HERO SECTION ya profile -->
+                    <header id="About" class="max-w-6xl mx-auto px-6 py-16 md:py-24 grid md:grid-cols-12 gap-12 items-center">
+                        <div class="md:col-span-7 space-y-6">
+                            <span class="bg-blue-50 text-primary px-4 py-1.5 rounded-full text-sm font-semibold tracking-wide uppercase">WELCOME</span>
+                            <h1 class="text-4xl md:text-5xl font-black text-dark leading-tight">
+                                Habari! Mimi ni <span class="text-primary">MUDHIHIR MOHAMED</span>, Self Employed.
+                            </h1>
+                            <p class="text-lg text-slate-600 leading-relaxed">
+                                Kwa sasa ni mwanafunzi katika chuo kikuu Taifa Zanzibar (SUZA), nina ufahamu kidogo katika uundaji na kubuni mifumo mbalimbali ya kiteknolojia hasa WebApp designing.
+                            </p>
+                            <div class="flex flex-wrap gap-4 pt-2">
+                                <a href="#" onclick="document.getElementById('profile-education').scrollIntoView({behavior:'smooth'}); return false;" class="bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-600 transition-all shadow-md shadow-blue-100">Level of Education</a>
+                                <a href="#" onclick="document.getElementById('profile-contact').scrollIntoView({behavior:'smooth'}); return false;" class="bg-white border border-slate-200 text-slate-700 px-6 py-3 rounded-lg font-medium hover:bg-slate-50 transition-all">Contact Me</a>
+                            </div>
+                        </div>
+                        <div class="md:col-span-5 flex justify-center">
+                            <div class="relative">
+                                <div class="absolute inset-0 bg-blue-100 rounded-2xl rotate-6 scale-105 -z-10"></div>
+                                <img src="images/avatar.jpg" alt="Picha ya MUDHIHIR MOHAMED" class="w-72 h-72 md:w-80 md:h-80 object-cover rounded-2xl shadow-xl border-4 border-white">
+                            </div>
+                        </div>
+                    </header>
+
+                    <!-- TIMELINE SECTION (Education) -->
+                    <section id="profile-education" class="bg-white py-20 border-y border-slate-100">
+                        <div class="max-w-4xl mx-auto px-6">
+                            <div class="text-center max-w-lg mx-auto mb-16">
+                                <h2 class="text-3xl font-bold text-dark mb-4">Education</h2>
+                                <p class="text-slate-500">Historical overview of my educational journey.</p>
+                            </div>
+                            <div class="relative timeline-line">
+                                <!-- Degree -->
+                                <div class="relative w-full md:w-1/2 pr-0 md:pr-12 pb-12 left-0 md:text-right group">
+                                    <div class="absolute w-4 h-4 rounded-full bg-primary border-4 border-white ring-4 ring-blue-100 top-2 right-auto left-4 md:left-auto md:-right-2 z-10 transition-transform group-hover:scale-125"></div>
+                                    <div class="pl-12 md:pl-0">
+                                        <div class="bg-slate-50 border border-slate-100 p-6 md:p-8 rounded-2xl shadow-sm hover:shadow-md transition-all text-left">
+                                            <span class="text-primary font-bold text-sm block mb-2"><i class="fa-regular fa-calendar-days mr-1.5"></i> 2026 - Present</span>
+                                            <h3 class="text-xl font-bold text-dark mb-1">DEGREE Student</h3>
+                                            <h4 class="text-slate-500 font-medium text-sm mb-4">Computer Science studies</h4>
+                                            <p class="text-slate-600 text-sm leading-relaxed">
+                                                Pursuing first degree in Computer Science at State University of Zanzibar (SUZA), with a focus on software development, system analysis, and database designing.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Advanced level -->
+                                <div class="relative w-full md:w-1/2 pl-0 md:pl-12 pb-12 md:left-1/2 group">
+                                    <div class="absolute w-4 h-4 rounded-full bg-primary border-4 border-white ring-4 ring-blue-100 top-2 left-4 md:-left-2 z-10 transition-transform group-hover:scale-125"></div>
+                                    <div class="pl-12">
+                                        <div class="bg-slate-50 border border-slate-100 p-6 md:p-8 rounded-2xl shadow-sm hover:shadow-md transition-all">
+                                            <span class="text-primary font-bold text-sm block mb-2"><i class="fa-regular fa-calendar-days mr-1.5"></i> 2023 - 2025</span>
+                                            <h3 class="text-xl font-bold text-dark mb-1">Advanced Level Studies</h3>
+                                            <h4 class="text-slate-500 font-medium text-sm mb-4">SOKOINE MEMORIAL HIGH SCHOOL (SMHS), Mvomero (MOROGORO).</h4>
+                                            <p class="text-slate-600 text-sm leading-relaxed">
+                                                Advanced level studies in Economics, Geography, and Mathematics (EGM).
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Secondary -->
+                                <div class="relative w-full md:w-1/2 pr-0 md:pr-12 pb-4 left-0 md:text-right group">
+                                    <div class="absolute w-4 h-4 rounded-full bg-primary border-4 border-white ring-4 ring-blue-100 top-2 right-auto left-4 md:left-auto md:-right-2 z-10 transition-transform group-hover:scale-125"></div>
+                                    <div class="pl-12 md:pl-0">
+                                        <div class="bg-slate-50 border border-slate-100 p-6 md:p-8 rounded-2xl shadow-sm hover:shadow-md transition-all text-left">
+                                            <span class="text-primary font-bold text-sm block mb-2"><i class="fa-regular fa-calendar-days mr-1.5"></i> 2019 - 2022</span>
+                                            <h3 class="text-xl font-bold text-dark mb-1">Secondary Education Certificate</h3>
+                                            <h4 class="text-slate-500 font-medium text-sm mb-4">Rafsanjani Soga Secondary School (RSSS), Tanzania</h4>
+                                            <p class="text-slate-600 text-sm leading-relaxed">
+                                                Completed secondary education with a focus on science subjects and mathematics.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Primary -->
+                                <div class="relative w-full md:w-1/2 pl-0 md:pl-12 pb-12 md:left-1/2 group">
+                                    <div class="absolute w-4 h-4 rounded-full bg-primary border-4 border-white ring-4 ring-blue-100 top-2 left-4 md:-left-2 z-10 transition-transform group-hover:scale-125"></div>
+                                    <div class="pl-12">
+                                        <div class="bg-slate-50 border border-slate-100 p-6 md:p-8 rounded-2xl shadow-sm hover:shadow-md transition-all">
+                                            <span class="text-primary font-bold text-sm block mb-2"><i class="fa-regular fa-calendar-days mr-1.5"></i> 2011 - 2018</span>
+                                            <h3 class="text-xl font-bold text-dark mb-1">Primary Level Studies</h3>
+                                            <h4 class="text-slate-500 font-medium text-sm mb-4">Shule ya Msingi SOGA, Kibaha (Pwani)</h4>
+                                            <p class="text-slate-600 text-sm leading-relaxed">
+                                                Primary level studies in all core subjects.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- SKILLS SECTION -->
+                    <section id="profile-skills" class="py-20 max-w-6xl mx-auto px-6">
+                        <div class="text-center max-w-lg mx-auto mb-16">
+                            <h2 class="text-3xl font-bold text-dark mb-4">My Skills</h2>
+                            <p class="text-slate-500">I have a diverse set of skills in various domains.</p>
+                            <p class="text-slate-500 mt-2">Proficient in Core Microsoft programs (Excel, Word, PowerPoint).</p>
+                            <p class="text-slate-500">Little understanding of system design and programming languages such as C++ and HTML(5)/CSS3/JavaScript, which I use for WebApp projects.</p>
+                        </div>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                            <div class="bg-white p-6 rounded-xl border border-slate-100 shadow-sm text-center space-y-3 hover:border-primary/30 hover:shadow transition-all">
+                                <div class="w-12 h-12 bg-blue-50 text-primary rounded-full flex items-center justify-center mx-auto text-xl">
+                                    <i class="fa-brands fa-python"></i>
+                                </div>
+                                <h3 class="font-bold text-dark">HTML/CSS/JS</h3>
+                                <p class="text-xs text-slate-400">Web development</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl border border-slate-100 shadow-sm text-center space-y-3 hover:border-primary/30 hover:shadow transition-all">
+                                <div class="w-12 h-12 bg-blue-50 text-primary rounded-full flex items-center justify-center mx-auto text-xl">
+                                    <i class="fa-solid fa-brain"></i>
+                                </div>
+                                <h3 class="font-bold text-dark">Microsoft Office</h3>
+                                <p class="text-xs text-slate-400">Excel, Word, PowerPoint</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl border border-slate-100 shadow-sm text-center space-y-3 hover:border-primary/30 hover:shadow transition-all">
+                                <div class="w-12 h-12 bg-blue-50 text-primary rounded-full flex items-center justify-center mx-auto text-xl">
+                                    <i class="fa-solid fa-earth-africa"></i>
+                                </div>
+                                <h3 class="font-bold text-dark">WebApp Designing</h3>
+                                <p class="text-xs text-slate-400">UI/UX Design</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl border border-slate-100 shadow-sm text-center space-y-3 hover:border-primary/30 hover:shadow transition-all">
+                                <div class="w-12 h-12 bg-blue-50 text-primary rounded-full flex items-center justify-center mx-auto text-xl">
+                                    <i class="fa-solid fa-database"></i>
+                                </div>
+                                <h3 class="font-bold text-dark">SQL</h3>
+                                <p class="text-xs text-slate-400">MySQL/MariaDB</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- CONTACT SECTION -->
+                    <section id="profile-contact" class="bg-slate-900 text-white py-20">
+                        <div class="max-w-4xl mx-auto px-6 grid md:grid-cols-2 gap-12">
+                            <div class="space-y-6">
+                                <h2 class="text-3xl font-black">Contact Me</h2>
+                                <p class="text-slate-400 leading-relaxed">
+                                    I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions. Feel free to reach out.
+                                </p>
+                                <div class="space-y-4">
+                                    <div class="flex items-center gap-4 text-slate-300">
+                                        <span class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-primary"><i class="fa-regular fa-envelope"></i></span>
+                                        <a href="mailto:mudhihirjz@gmail.com" class="text-slate-300 hover:text-white transition-all">mudhihirjz@gmail.com</a>
+                                    </div>
+                                    <div class="flex items-center gap-4 text-slate-300">
+                                        <span class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-primary"><i class="fa-solid fa-location-dot"></i></span>
+                                        <span>Zanzibar, Tanzania</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <form method="post" action="#" class="space-y-4 text-slate-800" onsubmit="event.preventDefault(); alert('✅ Ujumbe wako umepokelewa! Nitarudi kwako haraka.');">
+                                <input type="text" placeholder="Jina Lako" class="w-full p-4 rounded-lg bg-slate-800 border border-slate-700 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all" required>
+                                <input type="email" placeholder="Barua Pepe Yako" class="w-full p-4 rounded-lg bg-slate-800 border border-slate-700 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all" required>
+                                <textarea rows="4" placeholder="Ujumbe Wako..." class="w-full p-4 rounded-lg bg-slate-800 border border-slate-700 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all" required></textarea>
+                                <button type="submit" class="w-full bg-primary hover:bg-blue-600 text-white font-bold py-4 rounded-lg transition-all shadow-lg shadow-blue-900/20 active:scale-95">Send</button>
+                            </form>
+                        </div>
+                    </section>
+
+                    <!-- FOOTER ya profile -->
+                    <footer class="bg-slate-950 text-slate-500 py-8 text-center border-t border-slate-900">
+                        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+                            <p class="text-sm">&copy; 2026 All Rights Reserved.</p>
+                            <div class="flex gap-4 text-lg">
+                                <a href="#" class="social-icon hover:text-white transition-all duration-200 inline-block" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                                <a href="#" class="social-icon hover:text-white transition-all duration-200 inline-block" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                                <a href="#" class="social-icon hover:text-white transition-all duration-200 inline-block" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                            </div>
+                        </div>
+                    </footer>
+                </div>
+            </div>
         </div>
 
-        <!-- ==========================================
-             FLOATING CHATBOT BUTTON (LEFT SIDE)
-             ========================================== -->
+        <!-- FLOATING CHATBOT BUTTON -->
         <div class="chatbot-float" id="chatbotFloatBtn">
             <div class="chatbot-icon"><i class="fas fa-robot"></i></div>
             <div class="chatbot-pulse"></div>
@@ -1743,9 +2009,7 @@
             </div>
         </div>
 
-        <!-- ==========================================
-             FOOTER
-             ========================================== -->
+        <!-- FOOTER -->
         <footer class="site-footer">
             <div class="footer-grid">
                 <div class="footer-col">
@@ -1774,14 +2038,10 @@
         </footer>
     </div>
 
-    <!-- ==========================================
-         WHATSAPP FLOATING BUTTON
-         ========================================== -->
+    <!-- WHATSAPP FLOATING BUTTON -->
     <a href="https://wa.me/255671533265?text=Habari, nahitaji kufahamu zaidi kuhusu huduma zako." target="_blank" class="whatsapp-float" id="whatsappFloat" style="display:none;" title="Chat on WhatsApp"><i class="fab fa-whatsapp"></i></a>
 
-    <!-- ==========================================
-         JAVASCRIPT (FIXED - Chatbot & Language)
-         ========================================== -->
+    <!-- JAVASCRIPT -->
     <script>
         // ========== TRANSLATIONS OBJECT ==========
         const translations = {
@@ -1805,7 +2065,6 @@
                 newsTitle1: "Ufafanuzi kuhusu Usajili wa Ndoa", newsExcerpt1: "Je, unajua kuwa ukishapata cheti cha ndoa kutoka kwa msajili wako hauna haja ya kwenda RITA tena?", newsFull1: "Ukishapata cheti cha ndoa kutoka kwa msajili wako wa ndoa, tayari ndoa yako imeshasajiliwa kisheria. Hakuna haja ya kwenda RITA kufanya usajili mwingine. Hata hivyo, kama unahitaji nakala halisi ya cheti chako cha ndoa, unaweza kukipata kupitia mfumo wa RITA mtandaoni.",
                 newsTitle2: "Ijue AI kwa Ufupi", newsExcerpt2: "AI ni mfumo wa akili bandia ambao una uwezo wa kutoa maamuzi karibu sana na maamuzi ya binadamu.", newsFull2: "Akili Bandia (AI) ni teknolojia inayowezesha kompyuta kujifunza, kufikiri, na kufanya maamuzi kwa namna inayofanana na binadamu. AI inatumika katika nyanja mbalimbali kama afya, elimu, biashara, na hata kwenye simu zetu za mkononi. Kwa mfano, assistants kama Siri, Google Assistant, na ChatGPT ni mifano ya AI inayotusaidia kila siku.",
                 newsTitle3: "Mfumo Rasmi wa Ajira (Ajira Portal)", newsExcerpt3: "Mfumo huu umekuja kurahisisha mchakato mzima wa ajira kwa taasisi za serikali.", newsFull3: "Ajira Portal ni mfumo rasmi wa Serikali ya Tanzania unaowezesha watumiaji kuomba ajira katika taasisi mbalimbali za serikali kupitia mtandao. Mfumo huu umerahisisha sana mchakato mzima wa kuomba ajira, kuanzia kutuma maombi, kufanyiwa usaili, hadi kupata majibu. Ili kutumia mfumo huu, unahitaji kujisajili na kujaza taarifa zako binafsi, elimu, na uzoefu wa kazi.",
-                moreUpdatesTitle: "Taarifa Zingine Zinakuja Hivi Karibuni!", stayTunedText: "Endelea kufuatilia kwa habari mpya na matangazo.",
                 servicesPageTitle: "Huduma Zetu", servicesPageSubtitle: "Tunatoa huduma mbalimbali kukusaidia kuzunguka katika ulimwengu wa kidijitali kwa urahisi.",
                 certificatesTitle: "Vyeti na TIN", certificatesSubtitle: "Maombi ya vyeti vya kuzaliwa na vifo, uthibitishaji, na usajili wa TIN kwa ufanisi mkubwa kupitia mifumo ya RITA na TRA.",
                 softwareDevTitle2: "Uundaji Programu", softwareDevSubtitle: "Kuunda tovuti maalum na programu za simu kwa kutumia Flutter na Dart kwa ukuaji wa biashara na binafsi.",
@@ -1840,7 +2099,6 @@
                 newsTitle1: "Clarification on Marriage Registration", newsExcerpt1: "Did you know that once you get a marriage certificate from your registrar, you don't need to go to RITA again?", newsFull1: "Once you get a marriage certificate from your marriage registrar, your marriage is already legally registered. There is no need to go to RITA for another registration. However, if you need a hard copy of your marriage certificate, you can get it through the online RITA system.",
                 newsTitle2: "Brief Introduction to AI", newsExcerpt2: "AI is an artificial intelligence system that can make decisions very close to human decisions.", newsFull2: "Artificial Intelligence (AI) is a technology that enables computers to learn, think, and make decisions in a way similar to humans. AI is used in various fields such as health, education, business, and even on our mobile phones. For example, assistants like Siri, Google Assistant, and ChatGPT are examples of AI that help us every day.",
                 newsTitle3: "Official Employment System (Ajira Portal)", newsExcerpt3: "This system has come to simplify the entire employment process for government institutions.", newsFull3: "Ajira Portal is the official system of the Government of Tanzania that enables users to apply for jobs in various government institutions through the internet. This system has greatly simplified the entire job application process, from submitting applications, taking interviews, to receiving responses. To use this system, you need to register and fill in your personal information, education, and work experience.",
-                moreUpdatesTitle: "More Updates Coming Soon!", stayTunedText: "Stay tuned for the latest news and announcements.",
                 servicesPageTitle: "Our Services", servicesPageSubtitle: "We offer a range of services to help you navigate the digital world with ease.",
                 certificatesTitle: "Certificates & TIN", certificatesSubtitle: "Birth and Death certificates application, verification, and TIN registration with high efficiency through RITA and TRA systems.",
                 softwareDevTitle2: "Software Development", softwareDevSubtitle: "Creating custom websites and mobile applications using Flutter and Dart for business and personal growth.",
@@ -1863,11 +2121,9 @@
         function applyTranslations(lang) {
             const t = translations[lang];
             
-            // Button ya lugha
             const langBtn = document.getElementById('langSwitchBtn');
             if (langBtn) langBtn.innerHTML = t.langBtn;
             
-            // Navigation
             const navHome = document.querySelector('.nav-home');
             if (navHome) navHome.textContent = t.navHome;
             const navProjects = document.querySelector('.nav-projects');
@@ -1879,7 +2135,6 @@
             const navPublications = document.querySelector('.nav-publications');
             if (navPublications) navPublications.textContent = t.navPublications;
             
-            // Hero section
             const heroTitle = document.querySelector('.hero-header h1');
             if (heroTitle) heroTitle.innerHTML = t.heroTitle;
             const heroSubtitle = document.querySelector('.hero-subtitle');
@@ -1888,10 +2143,7 @@
             if (heroDesc) heroDesc.textContent = t.heroDesc;
             const btnGetStarted = document.querySelector('.btn-get-started');
             if (btnGetStarted) btnGetStarted.textContent = t.btnGetStarted;
-            const btnLearnMore = document.querySelector('.btn-learn-more');
-            if (btnLearnMore) btnLearnMore.textContent = t.btnLearnMore;
             
-            // Latest News section
             const badgeNewText = document.querySelector('.badge-new-text');
             if (badgeNewText) badgeNewText.textContent = t.badgeNew;
             const latestNewsTitle = document.querySelector('.latest-news-title');
@@ -1901,7 +2153,6 @@
             const readNewsBtn = document.querySelector('.read-news-btn');
             if (readNewsBtn) readNewsBtn.textContent = t.readNewsBtn;
             
-            // What We Do section
             const whatWeDoTitle = document.querySelector('.what-we-do-title');
             if (whatWeDoTitle) whatWeDoTitle.textContent = t.whatWeDoTitle;
             const whatWeDoSubtitle = document.querySelector('.what-we-do-subtitle');
@@ -1921,7 +2172,6 @@
             const viewServicesBtn = document.querySelector('.view-services-btn');
             if (viewServicesBtn) viewServicesBtn.textContent = t.viewServicesBtn;
             
-            // Get Help section
             const getHelpTitle = document.querySelector('.get-help-title');
             if (getHelpTitle) getHelpTitle.textContent = t.getHelpTitle;
             const getHelpSubtitle = document.querySelector('.get-help-subtitle');
@@ -1929,19 +2179,16 @@
             const learnMoreHelp = document.querySelector('.learn-more-help');
             if (learnMoreHelp) learnMoreHelp.textContent = t.learnMoreHelp;
             
-            // NAPA section
             const napaTitle = document.querySelector('.napa-title');
             if (napaTitle) napaTitle.textContent = t.napaTitle;
             const napaDescText = document.querySelector('.napa-desc-text');
             if (napaDescText) napaDescText.textContent = t.napaDesc;
             
-            // Zingatia section
             const zingatiaTitle = document.querySelector('.zingatia-title');
             if (zingatiaTitle) zingatiaTitle.textContent = t.zingatiaTitle;
             const zingatiaDescText = document.querySelector('.zingatia-desc-text');
             if (zingatiaDescText) zingatiaDescText.textContent = t.zingatiaDesc;
             
-            // Projects page
             const projectsTitle = document.querySelector('.projects-title');
             if (projectsTitle) projectsTitle.textContent = t.projectsTitle;
             const projectsSubtitle = document.querySelector('.projects-subtitle');
@@ -1955,7 +2202,6 @@
             const viewServiceBtn = document.querySelector('.view-service-btn');
             if (viewServiceBtn) viewServiceBtn.textContent = t.viewServiceBtn;
             
-            // News page
             const newsPageTitle = document.querySelector('.news-page-title');
             if (newsPageTitle) newsPageTitle.textContent = t.newsPageTitle;
             const newsPageSubtitle = document.querySelector('.news-page-subtitle');
@@ -1982,12 +2228,6 @@
             const newsFullText3 = document.querySelector('.news-full-text3');
             if (newsFullText3) newsFullText3.textContent = t.newsFull3;
             
-            const moreUpdatesTitle = document.querySelector('.more-updates-title');
-            if (moreUpdatesTitle) moreUpdatesTitle.textContent = t.moreUpdatesTitle;
-            const stayTunedText = document.querySelector('.stay-tuned-text');
-            if (stayTunedText) stayTunedText.textContent = t.stayTunedText;
-            
-            // Services page
             const servicesPageTitle = document.querySelector('.services-page-title');
             if (servicesPageTitle) servicesPageTitle.textContent = t.servicesPageTitle;
             const servicesPageSubtitle = document.querySelector('.services-page-subtitle');
@@ -2011,7 +2251,6 @@
             const learnMoreCollege = document.querySelector('.learn-more-college');
             if (learnMoreCollege) learnMoreCollege.textContent = t.learnMoreCollege;
             
-            // FAQ
             const faqTitle = document.querySelector('.faq-title');
             if (faqTitle) faqTitle.textContent = t.faqTitle;
             
@@ -2022,7 +2261,6 @@
             const whatsappBtnText = document.querySelector('.whatsapp-btn-text');
             if (whatsappBtnText) whatsappBtnText.textContent = t.whatsappBtnText;
             
-            // Publications page
             const publicationsTitle = document.querySelector('.publications-title');
             if (publicationsTitle) publicationsTitle.textContent = t.publicationsTitle;
             const publicationsSubtitle = document.querySelector('.publications-subtitle');
@@ -2050,7 +2288,6 @@
             const contactUsBtn = document.querySelector('.contact-us-btn');
             if (contactUsBtn) contactUsBtn.textContent = t.contactUsBtn;
             
-            // Footer
             const contactUsFooter = document.querySelector('.contact-us-footer');
             if (contactUsFooter) contactUsFooter.textContent = t.contactUsFooter;
             const locationFooter = document.querySelector('.location-footer');
@@ -2103,7 +2340,7 @@
         if (skipBtn) skipBtn.onclick = skipWelcome;
 
         function navigateTo(pageName) {
-            const validPages = ['home', 'projects', 'news', 'services', 'publications'];
+            const validPages = ['home', 'projects', 'news', 'services', 'publications', 'profile'];
             if (!validPages.includes(pageName)) pageName = 'home';
             navLinks.forEach(function (link) {
                 link.classList.remove('active');
@@ -2155,7 +2392,7 @@
         const langSwitchBtn = document.getElementById('langSwitchBtn');
         if (langSwitchBtn) langSwitchBtn.addEventListener('click', switchLanguage);
 
-        // ========== CHATBOT (FIXED - opens and works properly) ==========
+        // ========== CHATBOT ==========
         (function() {
             const ready = function(fn) {
                 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fn);
@@ -2311,7 +2548,6 @@
                 if (chatbotSendBtn) chatbotSendBtn.addEventListener('click', sendManualMessage);
                 if (chatbotInput) chatbotInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendManualMessage(); });
                 
-                // Open/Close chatbot - FIXED
                 if (chatbotFloatBtn) {
                     chatbotFloatBtn.addEventListener('click', function(e) {
                         e.stopPropagation();
@@ -2329,7 +2565,6 @@
                     });
                 }
                 
-                // Close when clicking outside
                 document.addEventListener('click', function(e) {
                     if (chatbotModal && chatbotModal.classList.contains('open')) {
                         if (!chatbotModal.contains(e.target) && !chatbotFloatBtn.contains(e.target)) {
@@ -2338,14 +2573,12 @@
                     }
                 });
                 
-                // Initialize chatbot - set active tab and quick replies without duplicate message
                 activeCategory = 'birth';
                 tabButtons.forEach(btn => {
                     if (btn.dataset.category === 'birth') btn.classList.add('active');
                     else btn.classList.remove('active');
                 });
                 updateQuickReplies('birth');
-                // Do NOT add initial main message - keep the welcome message only
             });
         })();
     </script>
