@@ -517,8 +517,8 @@
 
         .side-divider .right {
             display: flex;
-            align-items: center;
-            justify-content: center;
+            flex-direction: column;
+            gap: 16px;
         }
 
         .right-placeholder {
@@ -1288,35 +1288,6 @@
         }
 
         /* ==========================================
-           RESPONSIVE
-           ========================================== */
-        @media (max-width: 768px) {
-            .welcome-brand { font-size: 2rem; }
-            .welcome-image-container { width: 180px; height: 180px; }
-            .welcome-subtitle { font-size: 1rem; }
-            .card-grid { grid-template-columns: 1fr; }
-            .side-divider { grid-template-columns: 1fr; }
-            .footer-grid { grid-template-columns: 1fr; gap: 20px; }
-            .page-content { padding: 64px 14px 0; }
-            .section-card { padding: 22px 16px; }
-            .project-card { flex-direction: column; }
-            .whatsapp-float { width: 50px; height: 50px; font-size: 24px; bottom: 16px; right: 16px; }
-            .skip-btn { bottom: 20px; right: 20px; font-size: 12px; padding: 6px 12px; }
-            .chatbot-float { bottom: 16px; left: 16px; width: 48px; height: 48px; font-size: 24px; }
-            .chatbot-modal { left: 12px; right: 12px; width: auto; bottom: 75px; }
-            .chatbot-container { height: 450px; }
-            .message-bubble { max-width: 90%; }
-            .tab-btn { padding: 8px 5px; font-size: 10px; }
-            .quick-reply-btn { padding: 4px 10px; font-size: 10px; }
-        }
-
-        @media (max-width: 400px) {
-            .welcome-brand { font-size: 1.5rem; }
-            .welcome-image-container { width: 140px; height: 140px; }
-            .nav-inner a { padding: 12px 14px; font-size: 13px; }
-            .nav-brand-small { font-size: 12px; padding: 12px 12px 12px 0; }
-        }
-                /* ==========================================
            VIDEO CARD FOR NEWS PAGE
            ========================================== */
         .video-card {
@@ -1343,7 +1314,7 @@
 
         .news-video {
             width: 100%;
-            height:250px;
+            height: 250px;
             display: block;
             cursor: pointer;
         }
@@ -1352,7 +1323,6 @@
             outline: none;
         }
 
-        /* Custom video styling */
         .news-video::-webkit-media-controls-panel {
             background: rgba(0,0,0,0.7);
         }
@@ -1379,12 +1349,23 @@
             color: var(--clr-primary);
             margin-right: 6px;
         }
+
+        /* ==========================================
+           NEWS IMAGE - CHINI YA VIDEO
+           ========================================== */
         .news-image {
             width: 100%;
             border-radius: var(--radius-lg);
             overflow: hidden;
-            margin-top: 16px;
             box-shadow: var(--shadow-sm);
+            border: 1px solid var(--clr-border);
+            transition: all var(--transition);
+            cursor: pointer;
+        }
+
+        .news-image:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
         }
 
         .news-image img {
@@ -1400,13 +1381,42 @@
             transform: scale(1.02);
         }
 
-        /* Responsive */
+        /* ==========================================
+           RESPONSIVE
+           ========================================== */
         @media (max-width: 768px) {
-            .video-caption p {
-                font-size: 11px;
+            .welcome-brand { font-size: 2rem; }
+            .welcome-image-container { width: 180px; height: 180px; }
+            .welcome-subtitle { font-size: 1rem; }
+            .card-grid { grid-template-columns: 1fr; }
+            .side-divider { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; gap: 20px; }
+            .page-content { padding: 64px 14px 0; }
+            .section-card { padding: 22px 16px; }
+            .project-card { flex-direction: column; }
+            .whatsapp-float { width: 50px; height: 50px; font-size: 24px; bottom: 16px; right: 16px; }
+            .skip-btn { bottom: 20px; right: 20px; font-size: 12px; padding: 6px 12px; }
+            .chatbot-float { bottom: 16px; left: 16px; width: 48px; height: 48px; font-size: 24px; }
+            .chatbot-modal { left: 12px; right: 12px; width: auto; bottom: 75px; }
+            .chatbot-container { height: 450px; }
+            .message-bubble { max-width: 90%; }
+            .tab-btn { padding: 8px 5px; font-size: 10px; }
+            .quick-reply-btn { padding: 4px 10px; font-size: 10px; }
+            .side-divider .right {
+                flex-direction: column;
             }
-            .video-caption {
-                padding: 8px 12px;
+            .news-image img {
+                height: 180px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .welcome-brand { font-size: 1.5rem; }
+            .welcome-image-container { width: 140px; height: 140px; }
+            .nav-inner a { padding: 12px 14px; font-size: 13px; }
+            .nav-brand-small { font-size: 12px; padding: 12px 12px 12px 0; }
+            .news-image img {
+                height: 150px;
             }
         }
     </style>
@@ -1600,9 +1610,10 @@
                                 <p><i class="fas fa-play-circle"></i> <span class="video-caption-text">MUDHIHIRJZ Tech - Huduma zetu kwa urahisi</span></p>
                             </div>
                         </div>
-                       <!-- <div class="news-image" onclick="navigateTo('news')">
+                        <!-- NEWS IMAGE - SASA IKO CHINI YA VIDEO -->
+                        <div class="news-image" onclick="navigateTo('news')">
                             <img src="images/news.jpg" alt="News Image">
-                        </div> -->
+                        </div>
                     </div>
                 </div>
             </div>
