@@ -1381,9 +1381,23 @@
         }
         .news-image {
             width: 100%;
-            height:250px;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            margin-top: 16px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .news-image img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
             display: block;
-            cursor: pointer;
+            border-radius: var(--radius-lg);
+            transition: transform var(--transition);
+        }
+
+        .news-image:hover img {
+            transform: scale(1.02);
         }
 
         /* Responsive */
