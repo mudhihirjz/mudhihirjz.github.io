@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title>Welcome | Innovation</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Segoe UI', 'Poppins', system-ui, -apple-system, sans-serif;
+    }
+
+    /* main container fills screen, relative for absolute children */
+    .container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ----- animated sea background ----- */
+    .background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    /* sunset sky static image (via gradient that mimics sunset over sea) */
+    .sky {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 60%; /* sky occupies upper part */
+      background: linear-gradient(180deg, 
+        #1a0f2e 0%, 
+        #4a1942 10%, 
+        #c84b31 35%, 
+        #f4a261 55%, 
+        #f9c74f 70%, 
+        #ffd166 85%, 
+        #f4a261 100%);
+      /* this creates a rich sunset gradient resembling a photo over sea */
+    }
+
+    /* sun element to enhance sunset feel */
+    .sun {
+      position: absolute;
+      bottom: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 100px;
+      background: radial-gradient(circle, #fff7b0 10%, #f9a826 70%, #e76f51 100%);
+      border-radius: 50%;
+      box-shadow: 0 0 80px #ffb347, 0 0 120px #ff9f1c;
+      opacity: 0.9;
+      z-index: 1;
+    }
+
+    /* ocean animated layer */
+    .ocean {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 45%; /* sea covers lower portion */
+      background: linear-gradient(0deg, 
+        #0b3d4e 0%, 
+        #0e4b5c 20%, 
+        #1b6b7a 45%, 
+        #2a9d8f 70%, 
+        #48b5a0 100%);
+      z-index: 2;
+      overflow: hidden;
+    }
+
+    /* animated wave shapes using pseudo-elements and separate divs */
+    .wave {
+      position: absolute;
+      bottom: 0;
+      left: -50%;
+      width: 200%;
+      height: 100%;
+      background: repeat-x;
+      animation: moveWave 8s infinite linear;
+      opacity: 0.7;
+    }
+
+    .wave1 {
+      background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.25) 0%, transparent 70%);
+      background-size: 120px 60px;
+      height: 50%;
+      bottom: 10%;
+      animation: moveWave 7s infinite linear;
+      opacity: 0.4;
+    }
+
+    .wave2 {
+      background: radial-gradient(ellipse at center, rgba(173, 216, 230, 0.4) 0%, rgba(70, 130, 150, 0.2) 70%);
+      background-size: 160px 80px;
+      height: 65%;
+      bottom: 5%;
+      animation: moveWave 11s infinite linear reverse;
+      opacity: 0.55;
+    }
+
+    .wave3 {
+      background: radial-gradient(ellipse at center, rgba(255, 255, 240, 0.35) 0%, transparent 70%);
+      background-size: 100px 50px;
+      height: 40%;
+      bottom: 20%;
+      animation: moveWave 5s infinite linear;
+      opacity: 0.5;
+    }
+
+    @keyframes moveWave {
+      0% {
+        transform: translateX(0) scaleY(1);
+      }
+      50% {
+        transform: translateX(25%) scaleY(0.9);
+      }
+      100% {
+        transform: translateX(50%) scaleY(1);
+      }
+    }
+
+    /* subtle shimmer on water */
+    .shimmer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(transparent 0px, rgba(255,255,200,0.1) 2px, transparent 4px);
+      animation: shimmerMove 3s infinite linear;
+      z-index: 3;
+    }
+
+    @keyframes shimmerMove {
+      0% { opacity: 0.3; transform: translateY(0); }
+      50% { opacity: 0.6; transform: translateY(-2px); }
+      100% { opacity: 0.3; transform: translateY(0); }
+    }
+
+    /* ----- text overlay with falling letters ----- */
+    .text-stage {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none; /* allow clicks through to background if needed */
+    }
+
+    .message-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 0.2em;
+      background: rgba(10, 15, 30, 0.5);
+      backdrop-filter: blur(6px);
+      padding: 1.2rem 2rem;
+      border-radius: 60px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 200, 0.3);
+      max-width: 90vw;
+    }
+
+    .word {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .letter {
+      display: inline-block;
+      font-weight: 800;
+      color: #fff7e6;
+      text-shadow: 0 0 15px #ffbb2e, 0 0 30px #e07b39, 0 4px 8px rgba(0,0,0,0.6);
+      font-size: clamp(2.2rem, 8vw, 5rem);
+      letter-spacing: 0.05em;
+      animation: fallIn 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      opacity: 0;
+      transform: translateY(-80px) rotate(10deg);
+      margin: 0 0.02em;
+    }
+
+    /* each letter gets delayed via inline style or class, we set delay dynamically using js */
+    @keyframes fallIn {
+      0% {
+        opacity: 0;
+        transform: translateY(-90px) rotate(-5deg) scale(0.8);
+      }
+      70% {
+        opacity: 1;
+        transform: translateY(5px) rotate(0.5deg) scale(1.02);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) rotate(0deg) scale(1);
+      }
+    }
+
+    /* space between words handled by margin */
+    .space {
+      display: inline-block;
+      width: 0.4em;
+    }
+
+    /* ----- footer always at bottom ----- */
+    .footer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(12px);
+      color: #e0e0e0;
+      font-size: 0.9rem;
+      padding: 0.7rem 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 20;
+      border-top: 1px solid rgba(255, 215, 150, 0.4);
+      box-shadow: 0 -4px 15px rgba(0,0,0,0.5);
+      letter-spacing: 0.4px;
+      font-weight: 500;
+    }
+
+    .footer-center {
+      text-align: center;
+      flex: 1;
+      font-size: clamp(0.75rem, 2.5vw, 0.95rem);
+      white-space: nowrap;
+    }
+
+    .footer-right {
+      text-align: right;
+      font-size: 0.8rem;
+      opacity: 0.85;
+      font-feature-settings: "tnum";
+      margin-left: 1rem;
+    }
+
+    /* responsive adjustments */
+    @media (max-width: 600px) {
+      .message-container {
+        padding: 0.8rem 1.2rem;
+        border-radius: 40px;
+      }
+      .footer {
+        padding: 0.5rem 0.8rem;
+      }
+    }
+
+    /* automatic redirect hint (optional subtle) */
+    .redirect-note {
+      position: absolute;
+      top: 20px;
+      right: 25px;
+      color: rgba(255,255,220,0.9);
+      font-size: 0.8rem;
+      background: rgba(0,0,0,0.5);
+      padding: 0.3rem 0.9rem;
+      border-radius: 20px;
+      z-index: 25;
+      backdrop-filter: blur(4px);
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Background: sunset + sea animation -->
+    <div class="background">
+      <div class="sky"></div>
+      <div class="sun"></div>
+      <div class="ocean">
+        <div class="wave wave1"></div>
+        <div class="wave wave2"></div>
+        <div class="wave wave3"></div>
+        <div class="shimmer"></div>
+      </div>
+    </div>
+
+    <!-- Falling letters message stage -->
+    <div class="text-stage" id="textStage">
+      <div class="message-container" id="messageContainer">
+        <!-- Words will be dynamically inserted by JavaScript to control letter delays -->
+      </div>
+    </div>
+
+    <!-- Optional subtle redirect indicator (auto-redirect to system) -->
+    <div class="redirect-note" id="redirectNote">⏳ redirecting to system...</div>
+
+    <!-- Footer fixed at bottom -->
+    <div class="footer">
+      <div></div> <!-- empty left spacer for flex alignment -->
+      <div class="footer-center">&copy; 2026 Powered by MudhihirjzTech</div>
+      <div class="footer-right">v.1.0.1</div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      // ---- configuration ----
+      const fullMessage = "Welcome to the World of Innovation.";
+      // Words separated by space
+      const words = fullMessage.split(" ");
+      
+      const container = document.getElementById('messageContainer');
+      if (!container) return;
+
+      // Clear any existing content
+      container.innerHTML = '';
+
+      // We'll build spans for each letter, with incremental animation delay.
+      let globalLetterIndex = 0;
+      
+      // Loop through words
+      words.forEach((word, wordIndex) => {
+        // Create a word wrapper span
+        const wordSpan = document.createElement('span');
+        wordSpan.className = 'word';
+        
+        // Process each character in the word
+        for (let char of word) {
+          const letterSpan = document.createElement('span');
+          letterSpan.className = 'letter';
+          letterSpan.textContent = char;
+          
+          // Set animation delay based on global letter index (falling sequence)
+          // Each letter drops with 0.08s delay increment for nice cascade
+          const delay = globalLetterIndex * 0.09; // seconds
+          letterSpan.style.animationDelay = `${delay}s`;
+          
+          wordSpan.appendChild(letterSpan);
+          globalLetterIndex++;
+        }
+        
+        container.appendChild(wordSpan);
+        
+        // Add space between words (except after last word)
+        if (wordIndex < words.length - 1) {
+          const spaceSpan = document.createElement('span');
+          spaceSpan.className = 'space';
+          // We can use a non-breaking space or just width; using a space character with styling
+          spaceSpan.innerHTML = '&nbsp;';
+          container.appendChild(spaceSpan);
+        }
+      });
+
+      // ----- Auto redirect to system (simulated) -----
+      // According to requirement: "auto-redirect to...(system)"
+      // We'll implement a redirect after a few seconds, e.g., 6 seconds after page load.
+      // The placeholder system URL can be adjusted; using 'system.html' or a relative path.
+      // For demonstration, we redirect to a dummy system page or can be '#'. 
+      // Adjust target as needed.
+      const REDIRECT_DELAY = 7000; // 7 seconds to enjoy animation
+      const redirectTarget = "system.html"; // Change to your actual system page or URL
+      
+      setTimeout(() => {
+        // Update note before redirect
+        const note = document.getElementById('redirectNote');
+        if (note) {
+          note.textContent = '🔁 entering system...';
+        }
+        // Perform redirect
+        window.location.href = redirectTarget;
+      }, REDIRECT_DELAY);
+
+      // Optional: show countdown or dynamic note (not required but nice)
+      const noteElement = document.getElementById('redirectNote');
+      if (noteElement) {
+        let secondsLeft = Math.floor(REDIRECT_DELAY / 1000);
+        const interval = setInterval(() => {
+          secondsLeft--;
+          if (secondsLeft > 0) {
+            noteElement.textContent = `⏳ redirecting in ${secondsLeft}s...`;
+          } else {
+            noteElement.textContent = '🔁 entering system...';
+            clearInterval(interval);
+          }
+        }, 1000);
+      }
+
+      // Ensure that after animation all letters remain fully visible.
+      // Also handle if some letters already passed delay, they stay.
+      // CSS animation-fill-mode: forwards keeps final state.
+
+      // Additional: re-trigger or no need.
+      console.log('Welcome page ready. Auto-redirect to system after', REDIRECT_DELAY/1000, 'seconds.');
+    })();
+  </script>
+</body>
+</html>
