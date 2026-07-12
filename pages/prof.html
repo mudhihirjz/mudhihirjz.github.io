@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
   <title>Profile | MudhihirjzTech</title>
-  <!-- Font Awesome 6 for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
     * {
@@ -15,21 +14,40 @@
 
     body {
       font-family: 'Segoe UI', 'Poppins', system-ui, -apple-system, sans-serif;
-      background: linear-gradient(145deg, #f5f0e7 0%, #e8dcc8 100%);
+      background: url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat fixed;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       color: #2e241f;
       line-height: 1.5;
+      position: relative;
     }
 
-    /* Main content grows to push footer down */
+    /* overlay ya asubuhi yenye mwanga */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, 
+        rgba(255, 180, 100, 0.15) 0%, 
+        rgba(255, 200, 150, 0.1) 30%, 
+        rgba(255, 255, 255, 0.15) 60%, 
+        rgba(200, 180, 160, 0.2) 100%);
+      z-index: 0;
+      pointer-events: none;
+    }
+
     .main-content {
       flex: 1 0 auto;
       width: 100%;
       max-width: 900px;
       margin: 0 auto;
       padding: 1.5rem 1.2rem 2rem;
+      position: relative;
+      z-index: 1;
     }
 
     /* ----- header section ----- */
@@ -38,13 +56,13 @@
       flex-direction: row;
       align-items: center;
       gap: 1.8rem;
-      background: rgba(255, 248, 240, 0.8);
-      backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(15px);
       border-radius: 2.5rem;
       padding: 1.8rem 2rem;
       margin-bottom: 2.5rem;
-      box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1), 0 5px 12px rgba(100, 70, 40, 0.15);
-      border: 1px solid rgba(210, 180, 140, 0.5);
+      box-shadow: 0 20px 35px rgba(0, 0, 0, 0.08), 0 5px 12px rgba(100, 70, 40, 0.1);
+      border: 1px solid rgba(255, 200, 150, 0.4);
       flex-wrap: wrap;
     }
 
@@ -53,9 +71,9 @@
       height: 110px;
       border-radius: 50%;
       object-fit: cover;
-      border: 4px solid #c07a4b;
-      box-shadow: 0 8px 18px rgba(160, 100, 50, 0.4);
-      background: #d9b382;
+      border: 4px solid #d4956b;
+      box-shadow: 0 8px 18px rgba(160, 100, 50, 0.3);
+      background: #e8c4a0;
       flex-shrink: 0;
     }
 
@@ -66,14 +84,14 @@
     .profile-info h1 {
       font-size: clamp(1.8rem, 5vw, 2.4rem);
       font-weight: 700;
-      color: #4a3724;
+      color: #3d2b1a;
       margin-bottom: 0.3rem;
       letter-spacing: -0.3px;
     }
 
     .profile-info .title {
       font-size: 1.1rem;
-      color: #8b5e3c;
+      color: #7a5230;
       font-weight: 500;
       margin-bottom: 0.6rem;
       display: flex;
@@ -82,14 +100,14 @@
     }
 
     .profile-info .title i {
-      color: #b45f2a;
+      color: #c47a3a;
     }
 
     .short-bio {
-      color: #4d3e33;
+      color: #4a3825;
       font-size: 0.95rem;
       line-height: 1.6;
-      background: rgba(230, 210, 180, 0.3);
+      background: rgba(255, 220, 180, 0.3);
       padding: 0.5rem 0.8rem;
       border-radius: 1rem;
       margin-top: 0.3rem;
@@ -103,22 +121,24 @@
     .timeline-title {
       font-size: 1.6rem;
       font-weight: 650;
-      color: #5c3e2b;
+      color: #4a2e18;
       margin-bottom: 1.8rem;
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      border-left: 6px solid #b9724a;
+      border-left: 6px solid #c47a3a;
       padding-left: 1.2rem;
+      background: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(5px);
+      border-radius: 0 1rem 1rem 0;
+      padding: 0.5rem 1.2rem;
     }
 
-    /* Timeline container with central vertical line */
     .timeline {
       position: relative;
       padding: 1rem 0;
     }
 
-    /* Central vertical line */
     .timeline::before {
       content: '';
       position: absolute;
@@ -127,66 +147,60 @@
       top: 0;
       bottom: 0;
       width: 3px;
-      background: linear-gradient(180deg, #c28a55, #8b5a3c, #c28a55);
+      background: linear-gradient(180deg, #d4956b, #a06840, #d4956b);
       border-radius: 4px;
       z-index: 0;
     }
 
-    /* Each timeline item */
     .timeline-item {
       position: relative;
       width: 45%;
       margin-bottom: 2.5rem;
-      background: #fefaf2;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
       border-radius: 1.5rem;
       padding: 1.2rem 1.4rem;
-      box-shadow: 0 6px 16px rgba(120, 80, 40, 0.12);
-      border: 1px solid #e7cfb0;
+      box-shadow: 0 6px 16px rgba(120, 80, 40, 0.1);
+      border: 1px solid rgba(210, 170, 120, 0.5);
       transition: transform 0.2s;
       z-index: 1;
     }
 
     .timeline-item:hover {
       transform: translateY(-3px);
-      box-shadow: 0 12px 22px rgba(140, 90, 40, 0.18);
+      box-shadow: 0 12px 22px rgba(140, 90, 40, 0.15);
     }
 
-    /* Right side items (odd: 1st, 3rd, 5th...) */
     .timeline-item.right {
       margin-left: auto;
       margin-right: 0;
     }
 
-    /* Left side items (even: 2nd, 4th, 6th...) */
     .timeline-item.left {
       margin-left: 0;
       margin-right: auto;
     }
 
-    /* Dots on the central line */
     .timeline-dot {
       position: absolute;
       top: 1.5rem;
       width: 16px;
       height: 16px;
-      background: #b55b2c;
+      background: #d4956b;
       border-radius: 50%;
-      border: 3px solid #f7e5d0;
-      box-shadow: 0 0 0 4px rgba(181, 91, 44, 0.2);
+      border: 3px solid #fce4c8;
+      box-shadow: 0 0 0 4px rgba(180, 100, 40, 0.2);
       z-index: 2;
     }
 
-    /* Dot position for right items (left side of the card, near line) */
     .timeline-item.right .timeline-dot {
       left: -2.5rem;
     }
 
-    /* Dot position for left items (right side of the card, near line) */
     .timeline-item.left .timeline-dot {
       right: -2.5rem;
     }
 
-    /* Connecting lines from dot to card (optional subtle) */
     .timeline-item.right::after {
       content: '';
       position: absolute;
@@ -194,7 +208,7 @@
       left: -1.4rem;
       width: 1.4rem;
       height: 2px;
-      background: #c28a55;
+      background: #d4956b;
       z-index: 0;
     }
 
@@ -205,15 +219,15 @@
       right: -1.4rem;
       width: 1.4rem;
       height: 2px;
-      background: #c28a55;
+      background: #d4956b;
       z-index: 0;
     }
 
     .year-range {
       font-weight: 700;
       font-size: 1rem;
-      color: #7b4a2c;
-      background: #f3ddc4;
+      color: #6b3f20;
+      background: #fce4c8;
       display: inline-block;
       padding: 0.2rem 1rem;
       border-radius: 20px;
@@ -223,7 +237,7 @@
 
     .edu-detail {
       font-size: 0.98rem;
-      color: #3e3329;
+      color: #3a2a1a;
       display: flex;
       flex-wrap: wrap;
       align-items: baseline;
@@ -231,29 +245,30 @@
     }
 
     .edu-detail strong {
-      color: #4f3320;
+      color: #4a2e18;
       font-weight: 700;
       font-size: 1.05rem;
     }
 
     .edu-detail i {
-      color: #b3703c;
+      color: #c47a3a;
       margin-right: 0.2rem;
     }
 
-    /* ----- contact buttons (phone & whatsapp) ----- */
+    /* ----- contact buttons (IMEPUNGUZWA SIZE) ----- */
     .contact-card {
-      background: #faf3e9;
-      border-radius: 2rem;
-      padding: 1.8rem 1.5rem;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      border-radius: 1.5rem;
+      padding: 1.2rem 1rem;
       margin: 2.2rem 0 1.8rem;
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       justify-content: center;
-      gap: 2rem;
-      box-shadow: 0 10px 20px rgba(130, 90, 50, 0.15);
-      border: 1px solid #ddc3a3;
+      gap: 1.2rem;
+      box-shadow: 0 8px 16px rgba(130, 90, 50, 0.12);
+      border: 1px solid rgba(210, 170, 120, 0.4);
     }
 
     .contact-btn {
@@ -264,16 +279,17 @@
       font-weight: 600;
       transition: 0.2s;
       background: white;
-      padding: 1rem 2.2rem;
-      border-radius: 2.5rem;
-      box-shadow: 0 5px 12px rgba(0,0,0,0.08);
-      min-width: 140px;
-      border: 1px solid #cfb594;
+      padding: 0.7rem 1.5rem;
+      border-radius: 2rem;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+      min-width: 110px;
+      border: 1px solid #d4b896;
+      font-size: 0.85rem;
     }
 
     .contact-btn i {
-      font-size: 2rem;
-      margin-bottom: 0.4rem;
+      font-size: 1.4rem;
+      margin-bottom: 0.2rem;
     }
 
     .phone-btn {
@@ -283,7 +299,7 @@
       color: #2c5530;
     }
     .phone-btn:hover {
-      background: #e6f0e3;
+      background: #eaf4e8;
       border-color: #2c5530;
     }
 
@@ -294,29 +310,32 @@
       color: #25D366;
     }
     .whatsapp-btn:hover {
-      background: #dcf8c6;
+      background: #e0f5e0;
       border-color: #25D366;
     }
 
     .contact-label {
-      font-size: 0.9rem;
-      opacity: 0.85;
+      font-size: 0.75rem;
+      opacity: 0.8;
+      margin-top: 0.1rem;
     }
 
-    /* ----- footer (same style, added left icons) ----- */
+    /* ----- footer ----- */
     .footer {
-      background: rgba(20, 15, 10, 0.85);
+      background: rgba(20, 15, 10, 0.8);
       backdrop-filter: blur(14px);
       color: #e0d3c2;
-      padding: 0.8rem 1.5rem;
+      padding: 0.7rem 1.5rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
-      border-top: 2px solid #b79268;
+      border-top: 2px solid #c47a3a;
       font-size: 0.9rem;
       margin-top: auto;
       width: 100%;
+      position: relative;
+      z-index: 1;
     }
 
     .footer-left {
@@ -327,7 +346,7 @@
 
     .footer-left a {
       color: #e7d7bf;
-      font-size: 1.4rem;
+      font-size: 1.3rem;
       transition: color 0.2s, transform 0.2s;
     }
 
@@ -353,14 +372,13 @@
       margin-left: 0.8rem;
     }
 
-    /* Responsive: on small screens, stack items full width and left-aligned */
+    /* Responsive */
     @media (max-width: 650px) {
       .profile-header {
         flex-direction: column;
         text-align: center;
       }
       
-      /* Override zigzag for mobile: all items full width, left side */
       .timeline::before {
         left: 1.5rem;
       }
@@ -389,7 +407,13 @@
       }
       
       .contact-card {
-        gap: 1.2rem;
+        gap: 0.8rem;
+        padding: 1rem 0.8rem;
+      }
+      
+      .contact-btn {
+        padding: 0.6rem 1.2rem;
+        min-width: 100px;
       }
       
       .footer {
@@ -402,22 +426,26 @@
       }
     }
 
-    /* Entry note */
     .entry-note {
       font-size: 0.8rem;
-      color: #6b5a47;
+      color: #5a3e28;
       margin-bottom: 0.6rem;
       text-align: right;
       opacity: 0.8;
+      background: rgba(255, 255, 255, 0.5);
+      display: inline-block;
+      padding: 0.2rem 0.8rem;
+      border-radius: 1rem;
+      float: right;
     }
   </style>
 </head>
 <body>
   <div class="main-content">
-    <!-- subtle note that this page accessed after welcome -->
     <div class="entry-note"><i class="fas fa-arrow-right"></i> from welcome page</div>
+    <div style="clear: both;"></div>
 
-    <!-- Header: picha na maelezo machache -->
+    <!-- Header -->
     <header class="profile-header">
       <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='45' r='30' fill='%23b08968'/%3E%3Ccircle cx='35' cy='38' r='4' fill='%23332'/%3E%3Ccircle cx='65' cy='38' r='4' fill='%23332'/%3E%3Cpath d='M40 55 Q50 68,60 55' stroke='%23442' stroke-width='4' fill='none'/%3E%3Crect x='30' y='70' width='40' height='25' fill='%234a3728' rx='5'/%3E%3C/svg%3E"
            alt="Profile silhouette" class="profile-image">
@@ -433,13 +461,12 @@
       </div>
     </header>
 
-    <!-- Educational timeline (zigzag: right, left, right, left...) -->
+    <!-- Educational timeline (zigzag) -->
     <section class="timeline-section">
       <h2 class="timeline-title">
         <i class="fas fa-graduation-cap"></i> Educational Journey
       </h2>
       <div class="timeline">
-        <!-- Item 1: 2025 - current (RIGHT) -->
         <div class="timeline-item right">
           <div class="timeline-dot"></div>
           <span class="year-range"><i class="far fa-calendar-alt"></i> 2025 – current</span>
@@ -450,7 +477,6 @@
           </div>
         </div>
 
-        <!-- Item 2: 2023 - 2025 (LEFT) -->
         <div class="timeline-item left">
           <div class="timeline-dot"></div>
           <span class="year-range"><i class="far fa-calendar-alt"></i> 2023 – 2025</span>
@@ -461,7 +487,6 @@
           </div>
         </div>
 
-        <!-- Item 3: 2020 - 2023 (RIGHT) -->
         <div class="timeline-item right">
           <div class="timeline-dot"></div>
           <span class="year-range"><i class="far fa-calendar-alt"></i> 2020 – 2023</span>
@@ -472,7 +497,6 @@
           </div>
         </div>
 
-        <!-- Item 4: 2018 - 2020 (LEFT) - additional for better zigzag demo -->
         <div class="timeline-item left">
           <div class="timeline-dot"></div>
           <span class="year-range"><i class="far fa-calendar-alt"></i> 2018 – 2020</span>
@@ -485,16 +509,14 @@
       </div>
     </section>
 
-    <!-- Contact buttons: simu ya kawaida na whatsapp -->
+    <!-- Contact buttons (size imepunguzwa) -->
     <div class="contact-card">
-      <!-- phone call button -->
       <a href="tel:+255712345678" class="contact-btn phone-btn">
         <i class="fas fa-phone-alt"></i>
         <span>Call</span>
         <span class="contact-label">+255 712 345 678</span>
       </a>
 
-      <!-- whatsapp button -->
       <a href="https://wa.me/255712345678" target="_blank" rel="noopener noreferrer" class="contact-btn whatsapp-btn">
         <i class="fab fa-whatsapp"></i>
         <span>WhatsApp</span>
@@ -503,7 +525,7 @@
     </div>
   </div>
 
-  <!-- Footer: same style, copyright center, version right, icons left -->
+  <!-- Footer -->
   <footer class="footer">
     <div class="footer-left">
       <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
@@ -517,18 +539,5 @@
       v.1.0.1
     </div>
   </footer>
-
-  <!-- Script for welcome page flow -->
-  <script>
-    (function() {
-      console.log('Profile page with zigzag timeline loaded.');
-      // Optional: enforce coming from welcome page
-      if (!sessionStorage.getItem('visitedWelcome')) {
-        // Uncomment below to force redirect to welcome page
-        // window.location.href = 'welcome.html'; // adjust filename
-      }
-      sessionStorage.setItem('visitedWelcome', 'true');
-    })();
-  </script>
 </body>
 </html>
