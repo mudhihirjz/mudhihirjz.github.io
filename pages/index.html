@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title>Welcome | Innovation</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Segoe UI', 'Poppins', system-ui, -apple-system, sans-serif;
+    }
+
+    .container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ----- background image: sunset over sea ----- */
+    .background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      overflow: hidden;
+      background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+    }
+
+    /* overlay nyepesi kusaidia readability */
+    .background::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, 
+        rgba(0, 0, 0, 0.15) 0%, 
+        rgba(0, 0, 0, 0.08) 40%, 
+        rgba(0, 0, 0, 0.2) 80%, 
+        rgba(0, 0, 0, 0.35) 100%);
+      z-index: 1;
+    }
+
+    /* ----- text overlay with falling letters ----- */
+    .text-stage {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .message-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 0.2em;
+      background: rgba(10, 15, 30, 0.35);
+      backdrop-filter: blur(8px);
+      padding: 1.2rem 2rem;
+      border-radius: 60px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 200, 0.3);
+      max-width: 90vw;
+    }
+
+    .word {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .letter {
+      display: inline-block;
+      font-weight: 800;
+      color: #fff7e6;
+      text-shadow: 0 0 20px #ffbb2e, 0 0 40px #e07b39, 0 4px 12px rgba(0,0,0,0.7);
+      font-size: clamp(2.2rem, 8vw, 5rem);
+      letter-spacing: 0.05em;
+      animation: fallIn 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      opacity: 0;
+      transform: translateY(-80px) rotate(10deg);
+      margin: 0 0.02em;
+    }
+
+    @keyframes fallIn {
+      0% {
+        opacity: 0;
+        transform: translateY(-90px) rotate(-5deg) scale(0.8);
+      }
+      70% {
+        opacity: 1;
+        transform: translateY(5px) rotate(0.5deg) scale(1.02);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) rotate(0deg) scale(1);
+      }
+    }
+
+    .space {
+      display: inline-block;
+      width: 0.4em;
+    }
+
+    /* ----- footer ----- */
+    .footer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(12px);
+      color: #e0e0e0;
+      font-size: 0.9rem;
+      padding: 0.7rem 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 20;
+      border-top: 1px solid rgba(255, 215, 150, 0.4);
+      box-shadow: 0 -4px 15px rgba(0,0,0,0.5);
+      letter-spacing: 0.4px;
+      font-weight: 500;
+    }
+
+    .footer-center {
+      text-align: center;
+      flex: 1;
+      font-size: clamp(0.75rem, 2.5vw, 0.95rem);
+      white-space: nowrap;
+    }
+
+    .footer-right {
+      text-align: right;
+      font-size: 0.8rem;
+      opacity: 0.85;
+      font-feature-settings: "tnum";
+      margin-left: 1rem;
+    }
+
+    @media (max-width: 600px) {
+      .message-container {
+        padding: 0.8rem 1.2rem;
+        border-radius: 40px;
+      }
+      .footer {
+        padding: 0.5rem 0.8rem;
+      }
+    }
+
+    .redirect-note {
+      position: absolute;
+      top: 20px;
+      right: 25px;
+      color: rgba(255,255,220,0.9);
+      font-size: 0.8rem;
+      background: rgba(0,0,0,0.5);
+      padding: 0.3rem 0.9rem;
+      border-radius: 20px;
+      z-index: 25;
+      backdrop-filter: blur(4px);
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Background: sunset image -->
+    <div class="background"></div>
+
+    <!-- Falling letters message -->
+    <div class="text-stage" id="textStage">
+      <div class="message-container" id="messageContainer"></div>
+    </div>
+
+    <div class="redirect-note" id="redirectNote">⏳ redirecting to profile...</div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div></div>
+      <div class="footer-center">&copy; 2026 Powered by MudhihirjzTech</div>
+      <div class="footer-right">v.1.0.1</div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      const fullMessage = "Welcome to the World of Innovation.";
+      const words = fullMessage.split(" ");
+      const container = document.getElementById('messageContainer');
+      if (!container) return;
+
+      container.innerHTML = '';
+      let globalLetterIndex = 0;
+
+      words.forEach((word, wordIndex) => {
+        const wordSpan = document.createElement('span');
+        wordSpan.className = 'word';
+
+        for (let char of word) {
+          const letterSpan = document.createElement('span');
+          letterSpan.className = 'letter';
+          letterSpan.textContent = char;
+          const delay = globalLetterIndex * 0.09;
+          letterSpan.style.animationDelay = `${delay}s`;
+          wordSpan.appendChild(letterSpan);
+          globalLetterIndex++;
+        }
+
+        container.appendChild(wordSpan);
+
+        if (wordIndex < words.length - 1) {
+          const spaceSpan = document.createElement('span');
+          spaceSpan.className = 'space';
+          spaceSpan.innerHTML = '&nbsp;';
+          container.appendChild(spaceSpan);
+        }
+      });
+
+      const REDIRECT_DELAY = 7000;
+      const redirectTarget = "prof.html";
+
+      setTimeout(() => {
+        const note = document.getElementById('redirectNote');
+        if (note) note.textContent = '🔁 entering profile...';
+        window.location.href = 'pages/prof.html';
+      }, REDIRECT_DELAY);
+
+      const noteElement = document.getElementById('redirectNote');
+      if (noteElement) {
+        let secondsLeft = Math.floor(REDIRECT_DELAY / 1000);
+        const interval = setInterval(() => {
+          secondsLeft--;
+          if (secondsLeft > 0) {
+            noteElement.textContent = `⏳ redirecting in ${secondsLeft}s...`;
+          } else {
+            noteElement.textContent = '🔁 entering profile...';
+            clearInterval(interval);
+          }
+        }, 1000);
+      }
+    })();
+  </script>
+</body>
+</html>
