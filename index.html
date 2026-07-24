@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
   <title>Mtindo | Login Dropdown Popup</title>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
   <!-- Font Awesome 6 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
@@ -184,6 +185,20 @@
       background: #f8f9fa;
       box-shadow: 0 4px 16px rgba(0,0,0,0.12);
       border-color: #b8c0ca;
+    }
+
+    .google-login-wrapper {
+      margin-bottom: 16px;
+    }
+
+    .g_id_signin {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .g_id_signin > div {
+      width: 100% !important;
     }
 
     .divider {
@@ -821,10 +836,21 @@
     <p class="subtitle">Ingia kwa kutumia akaunti yako ya Google</p>
     
     <!-- Google Login Button -->
-    <button class="google-login-btn" id="googleLoginBtn">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google G">
-      Endelea na Google
-    </button>
+    <div class="google-login-wrapper">
+      <div id="g_id_onload"
+           data-client_id="YOUR_GOOGLE_CLIENT_ID"
+           data-context="signin"
+           data-ux_mode="popup"
+           data-callback="handleGoogleLogin"
+           data-auto_prompt="false"></div>
+      <div class="g_id_signin"
+           data-type="standard"
+           data-shape="rectangular"
+           data-theme="outline"
+           data-text="signin_with"
+           data-size="large"
+           data-logo_alignment="left"></div>
+    </div>
 
     <div class="divider"><span>au</span></div>
     <a href="#" class="email-login-link" id="emailLoginLink">Ingia kwa nenosiri</a>
@@ -1000,16 +1026,39 @@
       });
 
       // Google login handler
-      googleLoginBtn.addEventListener('click', function() {
-        alert('🔐 Inaunganisha na Google...\n(Hapa utaunganisha Google OAuth halisi)');
-        
-        // Simulate successful login
-        closePopup();
-        loginBtn.innerHTML = '<i class="fas fa-check-circle"></i> Karibu!';
-        loginBtn.style.background = '#f4c542';
-        loginBtn.style.color = '#0a0a1a';
-        loginBtn.style.borderColor = '#f4c542';
-      });
+      window.handleGoogleLogin = function(response) {
+        if (!response || !response.credential) {
+          console.error('Google login failed: missing credential.');
+          alert('❌ Google login ilishindikana. Tafadhali jaribu tena.');
+          return;
+        }
+
+        try {
+          const token = response.credential;
+          const payload = JSON.parse(decodeURIComponent(escape(atob(token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')))));
+
+          const userName = payload.name || 'Mtumiaji';
+          const userEmail = payload.email || '';
+          const userPicture = payload.picture || '';
+
+          closePopup();
+
+          if (userPicture) {
+            loginBtn.innerHTML = `<img src="${userPicture}" alt="${userName}" style="width:22px;height:22px;border-radius:50%;object-fit:cover;"> ${userName}`;
+          } else {
+            loginBtn.innerHTML = `<i class="fas fa-user-circle"></i> ${userName}`;
+          }
+
+          loginBtn.style.background = '#f4c542';
+          loginBtn.style.color = '#0a0a1a';
+          loginBtn.style.borderColor = '#f4c542';
+
+          alert(`✅ Karibu ${userName}!\n📧 ${userEmail}\n\nUmeingia kwa mafanikio!`);
+        } catch (error) {
+          console.error('Error decoding Google token:', error);
+          alert('❌ Hitilafu katika kuingia na Google. Tafadhali jaribu tena.');
+        }
+      };
 
       // Email login fallback
       emailLoginLink.addEventListener('click', function(e) {
