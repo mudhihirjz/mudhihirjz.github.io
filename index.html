@@ -35,6 +35,18 @@
       background: #1a1a28;
     }
 
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+
     .content-scrollable {
       flex: 1 1 auto;
       display: flex;
@@ -159,6 +171,13 @@
       cursor: pointer;
       transition: all 0.3s;
       box-shadow: 0 8px 22px rgba(0,0,0,0.6);
+      padding: 0; /* Button reset */
+      outline: none;
+    }
+
+    .slider-arrow:focus-visible {
+      outline: 3px solid #ff8c42;
+      outline-offset: 4px;
     }
 
     .slider-arrow:hover {
@@ -189,6 +208,12 @@
       border: 2px solid rgba(255,255,255,0.4);
       cursor: pointer;
       transition: all 0.3s;
+      padding: 0;
+    }
+
+    .dot:focus-visible {
+      outline: 2px solid #ff8c42;
+      outline-offset: 3px;
     }
 
     .dot.active {
@@ -436,7 +461,88 @@
       gap: 0.4rem;
     }
 
-    /* ----- WIDE TAB BELOW CARDS with border-radius 6px ----- */
+    /* ===== NEW 9-BUTTON TAB (attached to footer) ===== */
+    .bottom-nav-tab {
+      width: 100%;
+      background: #12121f;
+      border-top: 3px solid #ff8c42;
+      border-bottom: 3px solid #ff8c42;
+      padding: 0.8rem 1.5rem;
+      flex-shrink: 0;
+      overflow-x: auto;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      position: relative;
+    }
+
+    .bottom-nav-tab::-webkit-scrollbar {
+      display: none;
+    }
+
+    .nav-buttons-row {
+      display: flex;
+      gap: 1.2rem;
+      justify-content: space-between;
+      align-items: center;
+      min-width: max-content;
+      padding: 0.2rem 0;
+    }
+
+    .nav-btn {
+      flex: 0 0 auto;
+      background: rgba(255, 140, 66, 0.12);
+      border: 1px solid rgba(255, 140, 66, 0.25);
+      color: #e0dce8;
+      padding: 0.7rem 1.4rem;
+      border-radius: 2.5rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      white-space: nowrap;
+      background: rgba(255,255,255,0.04);
+      backdrop-filter: blur(4px);
+      letter-spacing: 0.3px;
+    }
+
+    .nav-btn i {
+      font-size: 1rem;
+      color: #ff8c42;
+    }
+
+    .nav-btn:hover {
+      background: #ff8c42;
+      color: #0a0a10;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(255, 140, 66, 0.4);
+      border-color: #ff8c42;
+    }
+
+    .nav-btn:hover i {
+      color: #0a0a10;
+    }
+
+    .nav-btn:active {
+      transform: scale(0.94);
+    }
+
+    /* special active state for demo — first button */
+    .nav-btn.active-btn {
+      background: #ff8c42;
+      color: #0a0a10;
+      border-color: #ff8c42;
+      box-shadow: 0 4px 16px rgba(255, 140, 66, 0.5);
+    }
+
+    .nav-btn.active-btn i {
+      color: #0a0a10;
+    }
+
+    /* ----- WIDE TAB BELOW CARDS (kept as is) ----- */
     .bottom-wide-tab {
       background: linear-gradient(90deg, #ff8c42, #ffb347, #ff8c42);
       height: 90px;
@@ -557,7 +663,7 @@
       margin: 0 0.3rem;
     }
 
-    /* Responsive */
+    /* ===== RESPONSIVE ===== */
     @media (max-width: 1000px) {
       .cards-section {
         gap: 60px;
@@ -594,19 +700,66 @@
       .slide-content {
         padding: 2rem 1.5rem;
       }
+
+      /* responsive nav buttons: smaller gap & padding */
+      .nav-buttons-row {
+        gap: 0.8rem;
+      }
+      .nav-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.75rem;
+        gap: 0.4rem;
+        border-radius: 2rem;
+      }
+      .nav-btn i {
+        font-size: 0.8rem;
+      }
     }
 
-    @media (max-width: 500px) {
+    @media (max-width: 550px) {
       .bottom-wide-tab {
         height: auto;
         padding: 1rem;
         gap: 1rem;
+        flex-direction: column;
+      }
+      .bottom-wide-tab span {
+        font-size: 0.9rem;
+        padding: 0.4rem 1.2rem;
+      }
+
+      /* even tighter for tiny screens */
+      .nav-buttons-row {
+        gap: 0.5rem;
+      }
+      .nav-btn {
+        padding: 0.4rem 0.7rem;
+        font-size: 0.65rem;
+        gap: 0.3rem;
+        border-radius: 1.6rem;
+      }
+      .nav-btn i {
+        font-size: 0.7rem;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .nav-btn {
+        padding: 0.3rem 0.5rem;
+        font-size: 0.55rem;
+      }
+      .nav-btn i {
+        font-size: 0.6rem;
+      }
+      .bottom-nav-tab {
+        padding: 0.5rem 0.8rem;
       }
     }
   </style>
 </head>
 <body>
   <div class="main-wrapper">
+    <h1 class="sr-only">FluxSlider | Full Screen Experience with Flip Cards</h1>
     <div class="content-scrollable">
       <!-- HERO SLIDER -->
       <div class="hero-slider" id="heroSlider" aria-label="Image slider" tabindex="0">
@@ -644,10 +797,9 @@
             </div>
           </div>
         </div>
-        <div class="slider-arrow prev-arrow" id="prevArrow"><i class="fas fa-chevron-left"></i></div>
-        <div class="slider-arrow next-arrow" id="nextArrow"><i class="fas fa-chevron-right"></i></div>
+        <button class="slider-arrow prev-arrow" id="prevArrow" aria-label="Previous slide"><i class="fas fa-chevron-left"></i></button>
+        <button class="slider-arrow next-arrow" id="nextArrow" aria-label="Next slide"><i class="fas fa-chevron-right"></i></button>
         <div class="dots-container" id="dotsContainer"></div>
-        <!--<div class="key-hint"><i class="fas fa-keyboard"></i> ← → arrows</div>-->
       </div>
 
       <!-- SLIDING TEXT BANNER -->
@@ -730,8 +882,22 @@
       <!-- WIDE TAB BELOW CARDS -->
       <div class="bottom-wide-tab">
         <span><i class="fas fa-check-circle"></i> Trusted by 10k+ explorers</span>
-        <!--<span><i class="fas fa-star"></i> 4.9 average rating</span>-->
         <span><i class="fas fa-headset"></i> 24/7 support</span>
+      </div>
+    </div>
+
+    <!-- ===== NEW 9-BUTTON NAV TAB — attached to footer ===== -->
+    <div class="bottom-nav-tab">
+      <div class="nav-buttons-row">
+        <button class="nav-btn active-btn"><i class="fas fa-home"></i> Home</button>
+        <button class="nav-btn"><i class="fas fa-fire"></i> Trending</button>
+        <button class="nav-btn"><i class="fas fa-star"></i> Popular</button>
+        <button class="nav-btn"><i class="fas fa-video"></i> Media</button>
+        <button class="nav-btn"><i class="fas fa-users"></i> Community</button>
+        <button class="nav-btn"><i class="fas fa-shopping-bag"></i> Shop</button>
+        <button class="nav-btn"><i class="fas fa-bell"></i> Alerts</button>
+        <button class="nav-btn"><i class="fas fa-cog"></i> Settings</button>
+        <button class="nav-btn"><i class="fas fa-question-circle"></i> Help</button>
       </div>
     </div>
 
@@ -780,9 +946,13 @@
       function createDots() {
         dotsContainer.innerHTML = '';
         for (let i = 0; i < totalSlides; i++) {
-          const dot = document.createElement('div');
+          const dot = document.createElement('button');
           dot.classList.add('dot');
-          if (i === 0) dot.classList.add('active');
+          dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+          if (i === 0) {
+            dot.classList.add('active');
+            dot.setAttribute('aria-current', 'true');
+          }
           dot.setAttribute('data-index', i);
           dot.addEventListener('click', () => {
             goToSlide(i);
@@ -795,7 +965,13 @@
       function updateDots(index) {
         const dots = document.querySelectorAll('.dot');
         dots.forEach((dot, i) => {
-          dot.classList.toggle('active', i === index);
+          const isActive = i === index;
+          dot.classList.toggle('active', isActive);
+          if (isActive) {
+            dot.setAttribute('aria-current', 'true');
+          } else {
+            dot.removeAttribute('aria-current');
+          }
         });
       }
 
@@ -834,20 +1010,19 @@
       });
 
       heroSlider.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowLeft') { e.preventDefault(); prevSlide(); resetAutoSlideTimer(); }
-        else if (e.key === 'ArrowRight') { e.preventDefault(); nextSlide(); resetAutoSlideTimer(); }
-      });
-
-      window.addEventListener('keydown', (e) => {
-        const tag = document.activeElement?.tagName;
-        if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
-        if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+        if (e.key === 'ArrowLeft') {
           e.preventDefault();
-          if (e.key === 'ArrowLeft') prevSlide();
-          else nextSlide();
+          prevSlide();
+          resetAutoSlideTimer();
+        }
+        else if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          nextSlide();
           resetAutoSlideTimer();
         }
       });
+
+      // Removed global window arrow key interception to prevent breaking site navigation.
 
       heroSlider.addEventListener('mouseenter', stopAutoSlide);
       heroSlider.addEventListener('mouseleave', startAutoSlide);
@@ -875,22 +1050,40 @@
       const flipCards = document.querySelectorAll('.flip-card');
       
       flipCards.forEach(card => {
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('role', 'button');
+        card.setAttribute('aria-expanded', 'false');
         card.addEventListener('click', function(e) {
-          // Prevent flipping when clicking on actual links inside
           if (e.target.closest('a')) return;
-          this.classList.toggle('flipped');
+          const isFlipped = this.classList.toggle('flipped');
+          this.setAttribute('aria-expanded', isFlipped ? 'true' : 'false');
         });
       });
 
-      // Optional: keyboard accessibility for flip cards
       flipCards.forEach(card => {
-        card.setAttribute('tabindex', '0');
         card.addEventListener('keydown', function(e) {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
             if (e.target.closest('a')) return;
-            this.classList.toggle('flipped');
+            const isFlipped = this.classList.toggle('flipped');
+            this.setAttribute('aria-expanded', isFlipped ? 'true' : 'false');
           }
+        });
+      });
+
+      // ----- Dynamic Footer Year -----
+      const footerYear = document.querySelector('.footer-bottom span');
+      if (footerYear) {
+        const currentYear = new Date().getFullYear();
+        footerYear.innerHTML = footerYear.innerHTML.replace('2025', currentYear);
+      }
+
+      // ----- 9-Button Nav: active state toggle (demo) -----
+      const navBtns = document.querySelectorAll('.nav-btn');
+      navBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          navBtns.forEach(b => b.classList.remove('active-btn'));
+          this.classList.add('active-btn');
         });
       });
     })();
