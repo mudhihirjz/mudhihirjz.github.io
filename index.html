@@ -394,6 +394,17 @@
       display: inline-block;
     }
 
+    .card-image, .card-back-image {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 1rem;
+      margin-bottom: 1rem;
+      display: block;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.45);
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+
     .flip-card-front h3 {
       font-size: 2rem;
       font-weight: 700;
@@ -829,51 +840,51 @@
           <div class="flip-card-inner">
             <div class="flip-card-front">
               <div class="card-icon"><i class="fas fa-compass"></i></div>
-              <h3>Kila kona ya nchi</h3>
-              <p>picha ya ramani ya tanzania.</p>
-              <span class="card-link">Click to flip <i class="fas fa-arrow-right"></i></span>
+              <h3>Explore Regions</h3>
+              <img class="card-image" src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1200&q=80" alt="scenic landscape representing regions">
+              <a class="card-link" href="pages/trending.html">See trending regions <i class="fas fa-arrow-right"></i></a>
             </div>
             <div class="flip-card-back">
               <div class="back-icon"><i class="fas fa-mountain"></i></div>
-              <h3>Mpaka mlangoni kwako</h3>
-              <p>picha ya carier barabarani(magari ya mizigo), delivery bikes</p>
-              <span class="flip-hint"><i class="fas fa-undo"></i> Click to return</span>
+              <h3>Destination Details</h3>
+              <img class="card-back-image" src="https://images.unsplash.com/photo-1508873886565-28f9f6f6b5e2?auto=format&fit=crop&w=1200&q=80" alt="delivery vehicles and roads">
+              <span class="flip-hint"><i class="fas fa-undo"></i> Click or press Esc to return</span>
             </div>
           </div>
         </div>
 
-        <!-- Card 2: Premium (middle floating) -->
+        <!-- Card 2: Featured Product -->
         <div class="flip-card middle-float" id="flipCard2">
           <div class="flip-card-inner">
             <div class="flip-card-front">
-              <div class="card-icon"><i class="fas fa-crown"></i></div>
-              <h3>Surprise</h3>
-              <p>SURPRISE KWA WATEJA WETU(emoji chini yake ya shangwe)</p>
-              <span class="card-link">Click to flip <i class="fas fa-arrow-right"></i></span>
+              <div class="card-icon"><i class="fas fa-gift"></i></div>
+              <h3>Featured Product</h3>
+              <img class="card-image" src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1200&q=80" alt="featured product image">
+              <a class="card-link" href="pages/shop.html">Shop now <i class="fas fa-arrow-right"></i></a>
             </div>
             <div class="flip-card-back">
               <div class="back-icon"><i class="fas fa-gem"></i></div>
-              <h3>New Product</h3>
-              <p>Hapa itakaa moja ya posts(new bidhaa)</p>
-              <span class="flip-hint"><i class="fas fa-undo"></i> Click to return</span>
+              <h3>Special Offer</h3>
+              <img class="card-back-image" src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=1200&q=80" alt="product closeup">
+              <span class="flip-hint"><i class="fas fa-undo"></i> Click or press Esc to return</span>
             </div>
           </div>
         </div>
 
-        <!-- Card 3: Wellness -->
+        <!-- Card 3: Community & Locations -->
         <div class="flip-card" id="flipCard3">
           <div class="flip-card-inner">
             <div class="flip-card-front">
-              <div class="card-icon"><i class="fas fa-leaf"></i></div>
-              <h3>Trusted Company</h3>
-              <p>Huduma rafiki, ulipo tupo, tumekufikia</p>
-              <span class="card-link">Click to flip <i class="fas fa-arrow-right"></i></span>
+              <div class="card-icon"><i class="fas fa-users"></i></div>
+              <h3>Our Community</h3>
+              <img class="card-image" src="https://images.unsplash.com/photo-1532074205216-d0e1f489c85f?auto=format&fit=crop&w=1200&q=80" alt="community group photo">
+              <a class="card-link" href="pages/community.html">Join the community <i class="fas fa-arrow-right"></i></a>
             </div>
             <div class="flip-card-back">
-              <div class="back-icon"><i class="fas fa-spa"></i></div>
-              <h3>Closer to You</h3>
-              <p>picha za majiji, na location emojis</p>
-              <span class="flip-hint"><i class="fas fa-undo"></i> Click to return</span>
+              <div class="back-icon"><i class="fas fa-map-marker-alt"></i></div>
+              <h3>Nearby Locations</h3>
+              <img class="card-back-image" src="https://images.unsplash.com/photo-1508057198894-247b23fe5ade?auto=format&fit=crop&w=1200&q=80" alt="city skyline and map markers">
+              <span class="flip-hint"><i class="fas fa-undo"></i> Click or press Esc to return</span>
             </div>
           </div>
         </div>
@@ -888,16 +899,15 @@
 
     <!-- ===== NEW 9-BUTTON NAV TAB — attached to footer ===== -->
     <div class="bottom-nav-tab">
-      <div class="nav-buttons-row">
-        <button class="nav-btn active-btn"><i class="fas fa-home"></i> Home</button>
-        <button class="nav-btn"><a href="pages/trending.html"><i class="fas fa-fire"></i> Trending</a></button>
-        <button class="nav-btn"><a href="pages/popular.html"><i class="fas fa-star"></i> Popular</a></button>
-        <button class="nav-btn"><a href="pages/media.html"><i class="fas fa-video"></i> Media</a></button>
-        <button class="nav-btn"><a href="pages/community.html"><i class="fas fa-users"></i> Community</a></button>
-        <button class="nav-btn"><a href="pages/shop.html"><i class="fas fa-shopping-bag"></i> Shop</a></button>
-        <button class="nav-btn"><a href="pages/alerts.html"><i class="fas fa-bell"></i> Alerts</a></button>
-        <button class="nav-btn"><a href="pages/cart.html"><i class="fas fa-cog"></i> Cart</a></button>
-        <button class="nav-btn"><i class="fas fa-question-circle"></i> Help</button>
+        <div class="nav-buttons-row">
+        <a class="nav-btn active-btn" href="index.html"><i class="fas fa-home"></i> Home</a>
+        <a class="nav-btn" href="pages/trending.html"><i class="fas fa-fire"></i> Trending</a>
+        <a class="nav-btn" href="pages/popular.html"><i class="fas fa-star"></i> Popular</a>
+        <a class="nav-btn" href="pages/media.html"><i class="fas fa-video"></i> Media</a>
+        <a class="nav-btn" href="pages/community.html"><i class="fas fa-users"></i> Community</a>
+        <a class="nav-btn" href="pages/shop.html"><i class="fas fa-shopping-bag"></i> Shop</a>
+        <a class="nav-btn" href="pages/cart.html"><i class="fas fa-shopping-cart"></i> Cart</a>
+        <a class="nav-btn" href="pages/help.html"><i class="fas fa-question-circle"></i> Help</a>
       </div>
     </div>
 
@@ -908,10 +918,10 @@
           <h4>NEW CLASS</h4>
         </div>
         <div class="footer-links">
-          <a href="#"><i class="fas fa-info-circle"></i> About</a>
-          <a href="#"><i class="fas fa-envelope"></i> Contact</a>
-          <a href="#"><i class="fas fa-shield-alt"></i> Privacy</a>
-          <a href="#"><i class="fas fa-file-contract"></i> Terms</a>
+          <a href="pages/community.html"><i class="fas fa-info-circle"></i> About</a>
+          <a href="pages/help.html"><i class="fas fa-envelope"></i> Contact</a>
+          <a href="pages/help.html"><i class="fas fa-shield-alt"></i> Privacy</a>
+          <a href="pages/help.html"><i class="fas fa-file-contract"></i> Terms</a>
         </div>
         <div class="footer-social">
           <a href="https://wa.me/255671533265"><i class="fab fa-whatsapp"></i></a>
@@ -1069,6 +1079,18 @@
             this.setAttribute('aria-expanded', isFlipped ? 'true' : 'false');
           }
         });
+      });
+
+      // Close any flipped card on Escape
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' || e.key === 'Esc') {
+          flipCards.forEach(card => {
+            if (card.classList.contains('flipped')) {
+              card.classList.remove('flipped');
+              card.setAttribute('aria-expanded', 'false');
+            }
+          });
+        }
       });
 
       // ----- Dynamic Footer Year -----
