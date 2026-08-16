@@ -1,0 +1,2290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Admin · New Class</title>
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0f0f17;
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+            color: #f0f0f0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ===== LOGIN PAGE ===== */
+        .login-page {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #0f0f17 0%, #1a1a2e 100%);
+        }
+
+        .login-box {
+            background: #1a1a28;
+            border-radius: 2.5rem;
+            padding: 3rem 2.5rem;
+            max-width: 420px;
+            width: 100%;
+            border: 1px solid rgba(255, 140, 66, 0.15);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+        }
+
+        .login-box .logo {
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #ff8c42, #ffb347);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.3rem;
+        }
+
+        .login-box .subtitle {
+            text-align: center;
+            color: #8888a0;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
+
+        .login-box .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .login-box .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: #b0b0c8;
+            margin-bottom: 0.3rem;
+        }
+
+        .login-box .form-group input {
+            width: 100%;
+            padding: 0.8rem 1.2rem;
+            border-radius: 1.5rem;
+            border: 1px solid rgba(255, 140, 66, 0.15);
+            background: #252536;
+            color: #f0f0f0;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        .login-box .form-group input:focus {
+            border-color: #ff8c42;
+            box-shadow: 0 0 0 3px rgba(255, 140, 66, 0.15);
+        }
+
+        .login-box .login-btn {
+            width: 100%;
+            padding: 0.9rem;
+            border: none;
+            border-radius: 2rem;
+            background: #ff8c42;
+            color: #0a0a10;
+            font-weight: 700;
+            font-size: 1.05rem;
+            cursor: pointer;
+            transition: 0.25s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+        }
+
+        .login-box .login-btn:hover {
+            background: #ffaa5e;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 140, 66, 0.3);
+        }
+
+        .login-box .toggle-auth {
+            text-align: center;
+            margin-top: 1.2rem;
+            color: #8888a0;
+            font-size: 0.9rem;
+        }
+
+        .login-box .toggle-auth a {
+            color: #ff8c42;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .login-box .toggle-auth a:hover {
+            text-decoration: underline;
+        }
+
+        .login-box .error-msg {
+            background: rgba(255, 59, 48, 0.1);
+            border: 1px solid rgba(255, 59, 48, 0.2);
+            color: #ff3b30;
+            padding: 0.6rem 1rem;
+            border-radius: 1rem;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .login-box .error-msg.show {
+            display: block;
+        }
+
+        /* ===== ADMIN DASHBOARD ===== */
+        .admin-dashboard {
+            display: none;
+            min-height: 100vh;
+        }
+
+        .admin-dashboard.active {
+            display: flex;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 260px;
+            background: #12121f;
+            border-right: 1px solid rgba(255, 140, 66, 0.1);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .sidebar .sidebar-brand {
+            padding: 1.5rem 1.5rem 1rem 1.5rem;
+            font-size: 1.4rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #ff8c42, #ffb347);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .sidebar .sidebar-brand i {
+            -webkit-text-fill-color: #ff8c42;
+            font-size: 1.4rem;
+        }
+
+        .sidebar .sidebar-nav {
+            padding: 1rem 0.8rem;
+            flex: 1;
+        }
+
+        .sidebar .sidebar-nav .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.7rem 1.2rem;
+            border-radius: 1.2rem;
+            color: #8888a0;
+            text-decoration: none;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-bottom: 0.2rem;
+            font-weight: 500;
+        }
+
+        .sidebar .sidebar-nav .nav-item:hover {
+            background: rgba(255, 140, 66, 0.08);
+            color: #f0f0f0;
+        }
+
+        .sidebar .sidebar-nav .nav-item.active {
+            background: rgba(255, 140, 66, 0.12);
+            color: #ff8c42;
+            border: 1px solid rgba(255, 140, 66, 0.15);
+        }
+
+        .sidebar .sidebar-nav .nav-item i {
+            width: 22px;
+            text-align: center;
+            font-size: 1.05rem;
+        }
+
+        .sidebar .sidebar-nav .nav-item .badge {
+            margin-left: auto;
+            background: rgba(255, 140, 66, 0.15);
+            color: #ff8c42;
+            font-size: 0.7rem;
+            padding: 0.1rem 0.6rem;
+            border-radius: 1rem;
+            font-weight: 700;
+        }
+
+        .sidebar .sidebar-footer {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .sidebar .sidebar-footer .logout-btn {
+            width: 100%;
+            padding: 0.6rem;
+            border: 1px solid rgba(255, 59, 48, 0.2);
+            border-radius: 1.5rem;
+            background: rgba(255, 59, 48, 0.06);
+            color: #ff3b30;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .sidebar .sidebar-footer .logout-btn:hover {
+            background: rgba(255, 59, 48, 0.12);
+            border-color: rgba(255, 59, 48, 0.3);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 2rem 2rem 3rem 2rem;
+            overflow-y: auto;
+            background: #0f0f17;
+        }
+
+        .main-content .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .main-content .page-header h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #f0e6ff;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .main-content .page-header h2 i {
+            color: #ff8c42;
+        }
+
+        .main-content .page-header .header-actions {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .main-content .page-header .header-actions .btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: 2rem;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .main-content .page-header .header-actions .btn-primary {
+            background: #ff8c42;
+            color: #0a0a10;
+        }
+
+        .main-content .page-header .header-actions .btn-primary:hover {
+            background: #ffaa5e;
+            transform: translateY(-2px);
+        }
+
+        .main-content .page-header .header-actions .btn-danger {
+            background: rgba(255, 59, 48, 0.12);
+            color: #ff3b30;
+            border: 1px solid rgba(255, 59, 48, 0.15);
+        }
+
+        .main-content .page-header .header-actions .btn-danger:hover {
+            background: rgba(255, 59, 48, 0.2);
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: #1a1a28;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .stat-card .stat-number {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #ff8c42;
+        }
+
+        .stat-card .stat-label {
+            font-size: 0.85rem;
+            color: #8888a0;
+        }
+
+        .stat-card .stat-icon {
+            float: right;
+            font-size: 2rem;
+            color: rgba(255, 140, 66, 0.15);
+        }
+
+        /* Tables */
+        .table-container {
+            background: #1a1a28;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            overflow-x: auto;
+        }
+
+        .table-container table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        .table-container table th {
+            text-align: left;
+            padding: 0.7rem 0.5rem;
+            color: #8888a0;
+            font-weight: 600;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .table-container table td {
+            padding: 0.7rem 0.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            color: #d0d0e0;
+        }
+
+        .table-container table td .actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .table-container table td .actions button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 0.5rem;
+            transition: 0.2s;
+        }
+
+        .table-container table td .actions .edit-btn {
+            color: #2d8cff;
+        }
+
+        .table-container table td .actions .edit-btn:hover {
+            background: rgba(45, 140, 255, 0.1);
+        }
+
+        .table-container table td .actions .delete-btn {
+            color: #ff3b30;
+        }
+
+        .table-container table td .actions .delete-btn:hover {
+            background: rgba(255, 59, 48, 0.1);
+        }
+
+        .table-container .empty-state {
+            text-align: center;
+            padding: 2rem 0;
+            color: #66667a;
+        }
+
+        .table-container .empty-state i {
+            font-size: 2.5rem;
+            color: #33334a;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-box {
+            background: #1e1e30;
+            border-radius: 2rem;
+            padding: 2rem;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid rgba(255, 140, 66, 0.15);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8);
+        }
+
+        .modal-box .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-box .modal-header h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #f0e6ff;
+        }
+
+        .modal-box .modal-header .close-modal {
+            background: none;
+            border: none;
+            color: #8888a0;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.2rem 0.5rem;
+            border-radius: 0.5rem;
+            transition: 0.2s;
+        }
+
+        .modal-box .modal-header .close-modal:hover {
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .modal-box .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .modal-box .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: #b0b0c8;
+            margin-bottom: 0.2rem;
+        }
+
+        .modal-box .form-group input,
+        .modal-box .form-group select,
+        .modal-box .form-group textarea {
+            width: 100%;
+            padding: 0.7rem 1rem;
+            border-radius: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            background: #252536;
+            color: #f0f0f0;
+            font-size: 0.95rem;
+            outline: none;
+            transition: 0.2s;
+            font-family: inherit;
+        }
+
+        .modal-box .form-group textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        /* small helper text shown under inputs */
+        .help-text {
+            color: #9b9bb0;
+            font-size: 0.8rem;
+            margin-top: 0.25rem;
+            display: block;
+        }
+
+        /* short help line shown in modal header area */
+        .modal-help {
+            color: #bdbdd0;
+            font-size: 0.9rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .modal-box .form-group input:focus,
+        .modal-box .form-group select:focus,
+        .modal-box .form-group textarea:focus {
+            border-color: #ff8c42;
+            box-shadow: 0 0 0 3px rgba(255, 140, 66, 0.1);
+        }
+
+        .modal-box .form-group select option {
+            background: #252536;
+        }
+
+        .modal-box .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .modal-box .modal-actions {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 1.5rem;
+        }
+
+        .modal-box .modal-actions button {
+            flex: 1;
+            padding: 0.7rem;
+            border-radius: 1.5rem;
+            border: none;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .modal-box .modal-actions .cancel-btn {
+            background: rgba(255, 255, 255, 0.04);
+            color: #b0b0c8;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .modal-box .modal-actions .cancel-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .modal-box .modal-actions .save-btn {
+            background: #ff8c42;
+            color: #0a0a10;
+        }
+
+        .modal-box .modal-actions .save-btn:hover {
+            background: #ffaa5e;
+        }
+
+        /* Toast */
+        .custom-toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1e1e30;
+            color: #f0f0f0;
+            padding: 0.8rem 2rem;
+            border-radius: 2rem;
+            border: 1px solid rgba(255, 140, 66, 0.3);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+            font-weight: 600;
+            font-size: 0.95rem;
+            z-index: 99999;
+            backdrop-filter: blur(12px);
+            max-width: 90%;
+            text-align: center;
+            animation: slideUp 0.4s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 820px) {
+            .sidebar {
+                width: 60px;
+                padding: 0;
+            }
+            .sidebar .sidebar-brand span {
+                display: none;
+            }
+            .sidebar .sidebar-brand i {
+                font-size: 1.6rem;
+            }
+            .sidebar .sidebar-brand {
+                justify-content: center;
+                padding: 1rem;
+            }
+            .sidebar .sidebar-nav .nav-item span {
+                display: none;
+            }
+            .sidebar .sidebar-nav .nav-item {
+                justify-content: center;
+                padding: 0.7rem;
+            }
+            .sidebar .sidebar-nav .nav-item .badge {
+                display: none;
+            }
+            .sidebar .sidebar-footer .logout-btn span {
+                display: none;
+            }
+            .sidebar .sidebar-footer .logout-btn {
+                justify-content: center;
+                padding: 0.6rem;
+            }
+            .main-content {
+                padding: 1.2rem 1rem 2rem 1rem;
+            }
+            .login-box {
+                padding: 2rem 1.5rem;
+            }
+            .modal-box {
+                padding: 1.5rem;
+                margin: 1rem;
+            }
+            .modal-box .form-row {
+                grid-template-columns: 1fr;
+            }
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 500px) {
+            .sidebar {
+                width: 50px;
+            }
+            .main-content .page-header h2 {
+                font-size: 1.3rem;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 0.8rem;
+            }
+            .stat-card {
+                padding: 1rem;
+            }
+            .stat-card .stat-number {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== LOGIN PAGE ===== -->
+    <div class="login-page" id="loginPage">
+        <div class="login-box">
+            <div class="logo"><i class="fas fa-crown"></i> NEW CLASS</div>
+            <div class="subtitle">Admin Dashboard</div>
+
+            <div class="error-msg" id="loginError">Invalid email or password</div>
+
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" id="loginEmail" placeholder="admin@newclass.com" value="admin@newclass.com" />
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="loginPassword" placeholder="••••••••" value="admin123" />
+            </div>
+
+            <button class="login-btn" id="loginBtn"><i class="fas fa-sign-in-alt"></i> Login</button>
+
+            <div class="toggle-auth">
+                Don't have an account? <a id="showRegister">Register</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== ADMIN DASHBOARD ===== -->
+    <div class="admin-dashboard" id="adminDashboard">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-brand">
+                <i class="fas fa-crown"></i>
+                <span>New Class</span>
+            </div>
+            <div class="sidebar-nav">
+                <div class="nav-item active" data-page="dashboard"><i class="fas fa-chart-pie"></i> <span>Dashboard</span></div>
+                <div class="nav-item" data-page="products"><i class="fas fa-box"></i> <span>Products</span> <span class="badge" id="productCount">0</span></div>
+                <div class="nav-item" data-page="slider"><i class="fas fa-images"></i> <span>Slider</span> <span class="badge" id="sliderCount">0</span></div>
+                <div class="nav-item" data-page="flipcards"><i class="fas fa-layer-group"></i> <span>Flip Cards</span></div>
+                <div class="nav-item" data-page="banner"><i class="fas fa-bullhorn"></i> <span>Banner</span></div>
+                <div class="nav-item" data-page="branches"><i class="fas fa-store"></i> <span>Branches</span> <span class="badge" id="branchCount">0</span></div>
+                <div class="nav-item" data-page="media"><i class="fas fa-photo-video"></i> <span>Media</span> <span class="badge" id="mediaCount">0</span></div>
+                <div class="nav-item" data-page="popular"><i class="fas fa-fire"></i> <span>Popular</span> <span class="badge" id="popularCount">0</span></div>
+                <div class="nav-item" data-page="community"><i class="fas fa-users"></i> <span>Community</span></div>
+                <div class="nav-item" data-page="faq"><i class="fas fa-question-circle"></i> <span>FAQ</span> <span class="badge" id="faqCount">0</span></div>
+            </div>
+            <div class="sidebar-footer">
+                <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content" id="mainContent">
+            <!-- Content rendered by JS -->
+        </div>
+    </div>
+
+    <!-- ===== MODAL ===== -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3 id="modalTitle">Add New</h3>
+                <button class="close-modal" id="closeModalBtn"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-help" id="modalHelp">Fields marked with * are required. Use full URLs for image/file fields.</div>
+            <div id="modalBody">
+                <!-- Rendered by JS -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            // ============================================================
+            // 1. DATA STORE (LocalStorage)
+            // ============================================================
+            function getStore(key, defaultValue) {
+                try {
+                    const data = localStorage.getItem('admin_' + key);
+                    return data ? JSON.parse(data) : defaultValue;
+                } catch (e) {
+                    return defaultValue;
+                }
+            }
+
+            function setStore(key, value) {
+                localStorage.setItem('admin_' + key, JSON.stringify(value));
+            }
+
+            // ----- Default Data -----
+            const defaultProducts = [
+                { id: 1, name: "Rustic Wall Clock", category: "Decor", price: "45.00", image: "https://images.unsplash.com/photo-1563861826100-9cb868fdbe1c?q=80&w=2070&auto=format&fit=crop",
+                badge: "new" },
+                { id: 2, name: "Ceramic Vase Set", category: "Decor", price: "32.50", image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=2058&auto=format&fit=crop",
+                    badge: "sale" },
+                { id: 3, name: "Santal & Wood", category: "Perfume", price: "68.00", image: "https://images.unsplash.com/photo-1594035910387-fea47794261f?q=80&w=2069&auto=format&fit=crop",
+                    badge: "popular" },
+            ];
+
+            const defaultSlides = [
+                { id: 1, title: "Mountain Wilderness", description: "Explore breathtaking alpine landscapes.", buttonText: "Discover",
+                    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2070&auto=format&fit=crop" },
+                { id: 2, title: "Coastal Sunsets", description: "Golden horizons and calming ocean waves.",
+                    buttonText: "View more",
+                    image: "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?q=80&w=1932&auto=format&fit=crop" },
+                { id: 3, title: "Forest Retreat", description: "Find peace among ancient trees.", buttonText: "Explore",
+                    image: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=1974&auto=format&fit=crop" },
+            ];
+
+            const defaultBranches = [
+                { id: 1, name: "New Class HQ", location: "Dar es Salaam", address: "Mikocheni Area, Plot #45",
+                    phone: "+255 712 345 678" },
+                { id: 2, name: "New Class Mlimani", location: "Dar es Salaam", address: "Mlimani City Mall, 2nd Floor",
+                    phone: "+255 712 345 679" },
+                { id: 3, name: "New Class Arusha", location: "Arusha", address: "Clock Tower Area, Shop #12",
+                    phone: "+255 712 345 680" },
+            ];
+
+            const defaultMedia = [
+                { id: 1, type: "image", title: "Mountain Sunset", description: "Golden hour over alpine peaks.",
+                    file: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2070&auto=format&fit=crop" },
+                { id: 2, type: "image", title: "Ocean Waves", description: "Calming blue waves at sunrise.",
+                    file: "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?q=80&w=1932&auto=format&fit=crop" },
+                { id: 3, type: "video", title: "Nature 4K", description: "Soothing nature footage.",
+                    file: "https://img.youtube.com/vi/tgbNymZ7vqY/maxresdefault.jpg", videoId: "tgbNymZ7vqY" },
+            ];
+
+            const defaultPopular = [
+                { id: 1, productId: 3, sales: 342, rating: 4.9 },
+                { id: 2, productId: 1, sales: 287, rating: 4.7 },
+            ];
+
+            const defaultFAQ = [
+                { id: 1, question: "How do I place an order?", answer: "Browse products, add to cart, and checkout." },
+                { id: 2, question: "How long does delivery take?",
+                answer: "Delivery takes 2-5 business days depending on location." },
+                { id: 3, question: "Can I return a product?",
+                answer: "Yes, we accept returns within 7 days of delivery." },
+            ];
+
+            const defaultFlipCards = [
+                { id: 1, icon: "fa-compass", title: "Explore Regions", frontImage: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1200&q=80",
+                    frontText: "See trending regions", link: "pages/trending.html", backTitle: "Destination Details",
+                    backImage: "https://images.unsplash.com/photo-1508873886565-28f9f6f6b5e2?auto=format&fit=crop&w=1200&q=80" },
+                { id: 2, icon: "fa-gift", title: "Featured Product", frontImage: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1200&q=80",
+                    frontText: "Shop now", link: "pages/shop.html", backTitle: "Special Offer",
+                    backImage: "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=1200&q=80" },
+                { id: 3, icon: "fa-users", title: "Our Community", frontImage: "https://images.unsplash.com/photo-1532074205216-d0e1f489c85f?auto=format&fit=crop&w=1200&q=80",
+                    frontText: "Join the community", link: "pages/community.html", backTitle: "Nearby Locations",
+                    backImage: "https://images.unsplash.com/photo-1508057198894-247b23fe5ade?auto=format&fit=crop&w=1200&q=80" },
+            ];
+
+            const defaultTicker = ["Free class", "New class", "New arrivals weekly", "Limited drops", "Secure checkout"];
+            const defaultCommunity = {
+                aboutText: "New Class ni muunganiko wa maduka kadhaa yanayojulikana kwa ubora na uhakika. Tunaamini katika kuwaletea wateja wetu bidhaa bora zaidi kutoka sehemu mbalimbali za dunia.",
+                stats: { branches: "12+", customers: "15K+", regions: "8", rating: "4.9" },
+                values: [
+                    { icon: "fa-star", title: "Quality", desc: "Bidhaa zetu zote ni za ubora wa juu" },
+                    { icon: "fa-handshake", title: "Trust", desc: "Uaminifu ni msingi wa biashara yetu" },
+                    { icon: "fa-heart", title: "Community", desc: "Tunathamini kila mnunuzi kama sehemu ya familia" },
+                    { icon: "fa-leaf", title: "Sustainability", desc: "Tunajali mazingira katika kila hatua" },
+                ],
+                regions: ["Dar es Salaam", "Arusha", "Mwanza", "Mbeya", "Morogoro", "Tanga", "Dodoma", "Zanzibar"]
+            };
+
+            // ----- Initialize stores -----
+            let products = getStore('products', defaultProducts);
+            let slides = getStore('slides', defaultSlides);
+            let branches = getStore('branches', defaultBranches);
+            let mediaItems = getStore('media', defaultMedia);
+            let popularItems = getStore('popular', defaultPopular);
+            let faqItems = getStore('faq', defaultFAQ);
+            let flipCards = getStore('flipcards', defaultFlipCards);
+            let tickerItems = getStore('ticker', defaultTicker);
+            let communityData = getStore('community', defaultCommunity);
+            let nextId = getStore('nextId', 100);
+
+            function getNextId() {
+                nextId++;
+                setStore('nextId', nextId);
+                return nextId;
+            }
+
+            // ============================================================
+            // 2. AUTH SYSTEM
+            // ============================================================
+            const ADMIN_CREDENTIALS = {
+                email: 'admin@newclass.com',
+                password: 'admin123'
+            };
+
+            let isLoggedIn = false;
+
+            function checkAuth() {
+                const session = localStorage.getItem('admin_session');
+                if (session === 'true') {
+                    isLoggedIn = true;
+                    showDashboard();
+                } else {
+                    showLogin();
+                }
+            }
+
+            function showLogin() {
+                document.getElementById('loginPage').style.display = 'flex';
+                document.getElementById('adminDashboard').classList.remove('active');
+            }
+
+            function showDashboard() {
+                document.getElementById('loginPage').style.display = 'none';
+                document.getElementById('adminDashboard').classList.add('active');
+                isLoggedIn = true;
+                renderPage('dashboard');
+            }
+
+            // Login
+            document.getElementById('loginBtn').addEventListener('click', function() {
+                const email = document.getElementById('loginEmail').value.trim();
+                const password = document.getElementById('loginPassword').value.trim();
+                const errorEl = document.getElementById('loginError');
+
+                if (email === ADMIN_CREDENTIALS.email && password === ADMIN_CREDENTIALS.password) {
+                    localStorage.setItem('admin_session', 'true');
+                    errorEl.classList.remove('show');
+                    showDashboard();
+                    showToast('Welcome back, Admin!');
+                } else {
+                    errorEl.textContent = 'Invalid email or password. Try admin@newclass.com / admin123';
+                    errorEl.classList.add('show');
+                }
+            });
+
+            // Register (simple - just creates account)
+            document.getElementById('showRegister').addEventListener('click', function() {
+                const email = prompt('Enter admin email:', 'admin@newclass.com');
+                if (email) {
+                    const password = prompt('Enter admin password:', 'admin123');
+                    if (password) {
+                        // In real app, save to backend. For now, just update credentials
+                        ADMIN_CREDENTIALS.email = email;
+                        ADMIN_CREDENTIALS.password = password;
+                        localStorage.setItem('admin_session', 'true');
+                        showDashboard();
+                        showToast('Account created! Welcome Admin.');
+                    }
+                }
+            });
+
+            // Enter key on login
+            document.getElementById('loginPassword').addEventListener('keyup', function(e) {
+                if (e.key === 'Enter') document.getElementById('loginBtn').click();
+            });
+            document.getElementById('loginEmail').addEventListener('keyup', function(e) {
+                if (e.key === 'Enter') document.getElementById('loginBtn').click();
+            });
+
+            // Logout
+            document.getElementById('logoutBtn').addEventListener('click', function() {
+                if (confirm('Are you sure you want to logout?')) {
+                    localStorage.removeItem('admin_session');
+                    isLoggedIn = false;
+                    showLogin();
+                    showToast('Logged out successfully');
+                }
+            });
+
+            // ============================================================
+            // 3. NAVIGATION
+            // ============================================================
+            const navItems = document.querySelectorAll('.nav-item');
+            const mainContent = document.getElementById('mainContent');
+
+            navItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    navItems.forEach(n => n.classList.remove('active'));
+                    this.classList.add('active');
+                    const page = this.dataset.page;
+                    renderPage(page);
+                });
+            });
+
+            // Add accessible tooltips on sidebar items (useful when sidebar is collapsed)
+            navItems.forEach(item => {
+                try {
+                    const span = item.querySelector('span');
+                    if (span && span.textContent) item.setAttribute('title', span.textContent.trim());
+                } catch (e) { /* ignore */ }
+            });
+
+            // ============================================================
+            // 4. PAGE RENDERER
+            // ============================================================
+            function renderPage(page) {
+                switch (page) {
+                    case 'dashboard':
+                        renderDashboard();
+                        break;
+                    case 'products':
+                        renderProducts();
+                        break;
+                    case 'slider':
+                        renderSlider();
+                        break;
+                    case 'flipcards':
+                        renderFlipCards();
+                        break;
+                    case 'banner':
+                        renderBanner();
+                        break;
+                    case 'branches':
+                        renderBranches();
+                        break;
+                    case 'media':
+                        renderMedia();
+                        break;
+                    case 'popular':
+                        renderPopular();
+                        break;
+                    case 'community':
+                        renderCommunity();
+                        break;
+                    case 'faq':
+                        renderFAQ();
+                        break;
+                    default:
+                        renderDashboard();
+                }
+                updateBadges();
+            }
+
+            // ============================================================
+            // 5. DASHBOARD
+            // ============================================================
+            function renderDashboard() {
+                const totalProducts = products.length;
+                const totalSlides = slides.length;
+                const totalBranches = branches.length;
+                const totalMedia = mediaItems.length;
+                const totalFAQ = faqItems.length;
+                const totalPopular = popularItems.length;
+
+                mainContent.innerHTML = `
+                    <div class="page-header">
+                        <h2><i class="fas fa-chart-pie"></i> Dashboard</h2>
+                        <span style="color:#8888a0; font-size:0.9rem;">Welcome back, Admin</span>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon"><i class="fas fa-box"></i></div>
+                            <div class="stat-number">${totalProducts}</div>
+                            <div class="stat-label">Products</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon"><i class="fas fa-images"></i></div>
+                            <div class="stat-number">${totalSlides}</div>
+                            <div class="stat-label">Slider Slides</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon"><i class="fas fa-store"></i></div>
+                            <div class="stat-number">${totalBranches}</div>
+                            <div class="stat-label">Branches</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon"><i class="fas fa-photo-video"></i></div>
+                            <div class="stat-number">${totalMedia}</div>
+                            <div class="stat-label">Media Items</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon"><i class="fas fa-fire"></i></div>
+                            <div class="stat-number">${totalPopular}</div>
+                            <div class="stat-label">Popular Items</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon"><i class="fas fa-question-circle"></i></div>
+                            <div class="stat-number">${totalFAQ}</div>
+                            <div class="stat-label">FAQ Questions</div>
+                        </div>
+                    </div>
+                    <div style="background:#1a1a28; border-radius:1.5rem; padding:1.5rem; border:1px solid rgba(255,255,255,0.04);">
+                        <h4 style="color:#f0e6ff; margin-bottom:0.5rem;"><i class="fas fa-info-circle" style="color:#ff8c42;"></i> Quick Tips</h4>
+                        <ul style="color:#8888a0; line-height:2; list-style:none; padding:0;">
+                            <li>📦 <strong>Products</strong> - Manage all your products (add, edit, delete)</li>
+                            <li>🎬 <strong>Slider</strong> - Control the hero slider images and text</li>
+                            <li>🏢 <strong>Branches</strong> - Add or update branch locations</li>
+                            <li>🎨 <strong>Media</strong> - Upload and manage images, videos, audio</li>
+                            <li>🔥 <strong>Popular</strong> - Mark products as popular with sales data</li>
+                            <li>❓ <strong>FAQ</strong> - Manage frequently asked questions</li>
+                        </ul>
+                    </div>
+                `;
+            }
+
+            // ============================================================
+            // 6. PRODUCTS MANAGEMENT
+            // ============================================================
+            function renderProducts() {
+                let html = `
+                    <div class="page-header">
+                        <h2><i class="fas fa-box"></i> Products</h2>
+                        <div class="header-actions">
+                            <button class="btn btn-primary" onclick="openProductModal()"><i class="fas fa-plus"></i> Add Product</button>
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Image</th>
+                                    <th>Name</th>
+                                    <th>Category</th>
+                                    <th>Price</th>
+                                    <th>Badge</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                `;
+
+                if (products.length === 0) {
+                    html += `
+                        <tr>
+                            <td colspan="7">
+                                <div class="empty-state">
+                                    <i class="fas fa-box"></i>
+                                    No products yet. Add your first product!
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                } else {
+                    products.forEach(p => {
+                        html += `
+                            <tr>
+                                <td>#${p.id}</td>
+                                <td><img src="${p.image}" style="width:50px; height:50px; object-fit:cover; border-radius:0.5rem;" /></td>
+                                <td>${p.name}</td>
+                                <td>${p.category}</td>
+                                <td>$${p.price}</td>
+                                <td>${p.badge || '-'}</td>
+                                <td>
+                                    <div class="actions">
+                                        <button class="edit-btn" title="Edit product" aria-label="Edit product #${p.id}" onclick="openProductModal(${p.id})"><i class="fas fa-edit"></i></button>
+                                        <button class="delete-btn" title="Delete product" aria-label="Delete product #${p.id}" onclick="deleteProduct(${p.id})"><i class="fas fa-trash"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        `;
+                    });
+                }
+
+                html += `</tbody></table></div>`;
+                mainContent.innerHTML = html;
+            }
+
+            window.openProductModal = function(id) {
+                const isEdit = !!id;
+                const product = isEdit ? products.find(p => p.id === id) : { id: 0, name: '', category: 'Decor', price: '',
+                    image: '', badge: '' };
+                const title = isEdit ? 'Edit Product' : 'Add New Product';
+
+                document.getElementById('modalTitle').textContent = title;
+                document.getElementById('modalBody').innerHTML = `
+                    <div class="form-group">
+                        <label>Product Name</label>
+                        <input type="text" id="pName" value="${isEdit ? product.name : ''}" placeholder="e.g. Rustic Wall Clock" />
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Category</label>
+                            <select id="pCategory">
+                                <option value="Decor" ${isEdit && product.category === 'Decor' ? 'selected' : ''}>Decor</option>
+                                <option value="Perfume" ${isEdit && product.category === 'Perfume' ? 'selected' : ''}>Perfume</option>
+                                <option value="Clothing" ${isEdit && product.category === 'Clothing' ? 'selected' : ''}>Clothing</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Price ($)</label>
+                            <input type="number" id="pPrice" value="${isEdit ? product.price : ''}" placeholder="45.00" step="0.01" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Image URL</label>
+                        <input type="text" id="pImage" value="${isEdit ? product.image : ''}" placeholder="https://images.unsplash.com/..." />
+                        <small class="help-text">Use a full HTTPS image URL (recommended: Unsplash). Images should be at least 800×600 for best display.</small>
+                    </div>
+                    <div class="form-group">
+                        <label>Badge (optional)</label>
+                        <select id="pBadge">
+                            <option value="">None</option>
+                            <option value="new" ${isEdit && product.badge === 'new' ? 'selected' : ''}>New</option>
+                            <option value="sale" ${isEdit && product.badge === 'sale' ? 'selected' : ''}>Sale</option>
+                            <option value="popular" ${isEdit && product.badge === 'popular' ? 'selected' : ''}>Popular</option>
+                            <option value="trending" ${isEdit && product.badge === 'trending' ? 'selected' : ''}>Trending</option>
+                            <option value="luxury" ${isEdit && product.badge === 'luxury' ? 'selected' : ''}>Luxury</option>
+                        </select>
+                    </div>
+                    <div class="modal-actions">
+                        <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+                        <button class="save-btn" onclick="saveProduct(${isEdit ? id : 0})">Save Changes</button>
+                    </div>
+                `;
+                document.getElementById('modalOverlay').classList.add('active');
+            };
+
+            window.saveProduct = function(id) {
+                const name = document.getElementById('pName').value.trim();
+                const category = document.getElementById('pCategory').value;
+                const price = document.getElementById('pPrice').value.trim();
+                const image = document.getElementById('pImage').value.trim();
+                const badge = document.getElementById('pBadge').value;
+
+                if (!name || !price || !image) {
+                    showToast('Please fill in all required fields');
+                    return;
+                }
+
+                if (id > 0) {
+                    // Edit
+                    const index = products.findIndex(p => p.id === id);
+                    if (index !== -1) {
+                        products[index] = { ...products[index], name, category, price, image, badge };
+                        setStore('products', products);
+                        showToast('Product updated successfully!');
+                    }
+                } else {
+                    // Add
+                    const newProduct = { id: getNextId(), name, category, price, image, badge };
+                    products.push(newProduct);
+                    setStore('products', products);
+                    showToast('Product added successfully!');
+                }
+
+                closeModal();
+                renderPage('products');
+            };
+
+            window.deleteProduct = function(id) {
+                if (confirm('Delete this product?')) {
+                    products = products.filter(p => p.id !== id);
+                    setStore('products', products);
+                    renderPage('products');
+                    showToast('Product deleted!');
+                }
+            };
+
+            // ============================================================
+            // 7. SLIDER MANAGEMENT
+            // ============================================================
+            function renderSlider() {
+                let html = `
+                    <div class="page-header">
+                        <h2><i class="fas fa-images"></i> Slider</h2>
+                        <div class="header-actions">
+                            <button class="btn btn-primary" onclick="openSlideModal()"><i class="fas fa-plus"></i> Add Slide</button>
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Image</th>
+                                    <th>Title</th>
+                                    <th>Description</th>
+                                    <th>Button</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                `;
+
+                if (slides.length === 0) {
+                    html += `
+                        <tr>
+                            <td colspan="6">
+                                <div class="empty-state">
+                                    <i class="fas fa-images"></i>
+                                    No slides yet. Add your first slide!
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                } else {
+                    slides.forEach(s => {
+                        html += `
+                            <tr>
+                                <td>#${s.id}</td>
+                                <td><img src="${s.image}" style="width:80px; height:50px; object-fit:cover; border-radius:0.5rem;" /></td>
+                                <td>${s.title}</td>
+                                <td>${s.description.substring(0, 40)}${s.description.length > 40 ? '...' : ''}</td>
+                                <td>${s.buttonText}</td>
+                                <td>
+                                    <div class="actions">
+                                        <button class="edit-btn" onclick="openSlideModal(${s.id})"><i class="fas fa-edit"></i></button>
+                                        <button class="edit-btn" title="Edit slide" aria-label="Edit slide #${s.id}" onclick="openSlideModal(${s.id})"><i class="fas fa-edit"></i></button>
+                                        <button class="delete-btn" title="Delete slide" aria-label="Delete slide #${s.id}" onclick="deleteSlide(${s.id})"><i class="fas fa-trash"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        `;
+                    });
+                }
+
+                html += `</tbody></table></div>`;
+                mainContent.innerHTML = html;
+            }
+
+            window.openSlideModal = function(id) {
+                const isEdit = !!id;
+                const slide = isEdit ? slides.find(s => s.id === id) : { id: 0, title: '', description: '', buttonText: '',
+                    image: '' };
+                const title = isEdit ? 'Edit Slide' : 'Add New Slide';
+
+                document.getElementById('modalTitle').textContent = title;
+                document.getElementById('modalBody').innerHTML = `
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input type="text" id="sTitle" value="${isEdit ? slide.title : ''}" placeholder="Mountain Wilderness" />
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="sDescription" rows="2" placeholder="Explore breathtaking alpine landscapes...">${isEdit ? slide.description : ''}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Button Text</label>
+                        <input type="text" id="sButton" value="${isEdit ? slide.buttonText : ''}" placeholder="Discover" />
+                    </div>
+                    <div class="form-group">
+                        <label>Image URL</label>
+                        <input type="text" id="sImage" value="${isEdit ? slide.image : ''}" placeholder="https://images.unsplash.com/..." />
+                        <small class="help-text">Recommended: use full HTTPS URL. Image will be used for the hero slider.</small>
+                    </div>
+                    <div class="modal-actions">
+                        <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+                        <button class="save-btn" onclick="saveSlide(${isEdit ? id : 0})">Save Changes</button>
+                    </div>
+                `;
+                document.getElementById('modalOverlay').classList.add('active');
+            };
+
+            window.saveSlide = function(id) {
+                const title = document.getElementById('sTitle').value.trim();
+                const description = document.getElementById('sDescription').value.trim();
+                const buttonText = document.getElementById('sButton').value.trim();
+                const image = document.getElementById('sImage').value.trim();
+
+                if (!title || !image) {
+                    showToast('Please fill in title and image URL');
+                    return;
+                }
+
+                if (id > 0) {
+                    const index = slides.findIndex(s => s.id === id);
+                    if (index !== -1) {
+                        slides[index] = { ...slides[index], title, description, buttonText, image };
+                        setStore('slides', slides);
+                        showToast('Slide updated!');
+                    }
+                } else {
+                    slides.push({ id: getNextId(), title, description, buttonText, image });
+                    setStore('slides', slides);
+                    showToast('Slide added!');
+                }
+
+                closeModal();
+                renderPage('slider');
+            };
+
+            window.deleteSlide = function(id) {
+                if (confirm('Delete this slide?')) {
+                    slides = slides.filter(s => s.id !== id);
+                    setStore('slides', slides);
+                    renderPage('slider');
+                    showToast('Slide deleted!');
+                }
+            };
+
+            // ============================================================
+            // 8. FLIP CARDS MANAGEMENT
+            // ============================================================
+            function renderFlipCards() {
+                let html = `
+                    <div class="page-header">
+                        <h2><i class="fas fa-layer-group"></i> Flip Cards</h2>
+                        <div class="header-actions">
+                            <button class="btn btn-primary" onclick="openFlipCardModal()"><i class="fas fa-plus"></i> Add Card</button>
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Icon</th>
+                                    <th>Title</th>
+                                    <th>Front Image</th>
+                                    <th>Link</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                `;
+
+                if (flipCards.length === 0) {
+                    html += `
+                        <tr>
+                            <td colspan="6">
+                                <div class="empty-state">
+                                    <i class="fas fa-layer-group"></i>
+                                    No flip cards yet.
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                } else {
+                    flipCards.forEach(c => {
+                        html += `
+                            <tr>
+                                <td>#${c.id}</td>
+                                <td><i class="fas ${c.icon}" style="color:#ff8c42; font-size:1.2rem;"></i></td>
+                                <td>${c.title}</td>
+                                <td><img src="${c.frontImage}" style="width:60px; height:40px; object-fit:cover; border-radius:0.3rem;" /></td>
+                                <td>${c.link}</td>
+                                <td>
+                                    <div class="actions">
+                                        <button class="edit-btn" onclick="openFlipCardModal(${c.id})"><i class="fas fa-edit"></i></button>
+                                        <button class="edit-btn" title="Edit card" aria-label="Edit flip card #${c.id}" onclick="openFlipCardModal(${c.id})"><i class="fas fa-edit"></i></button>
+                                        <button class="delete-btn" title="Delete card" aria-label="Delete flip card #${c.id}" onclick="deleteFlipCard(${c.id})"><i class="fas fa-trash"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        `;
+                    });
+                }
+
+                html += `</tbody></table></div>`;
+                mainContent.innerHTML = html;
+            }
+
+            window.openFlipCardModal = function(id) {
+                const isEdit = !!id;
+                const card = isEdit ? flipCards.find(c => c.id === id) : { id: 0, icon: 'fa-compass', title: '',
+                    frontImage: '', frontText: '', link: '', backTitle: '', backImage: '' };
+                const title = isEdit ? 'Edit Flip Card' : 'Add New Flip Card';
+
+                document.getElementById('modalTitle').textContent = title;
+                document.getElementById('modalBody').innerHTML = `
+                    <div class="form-group">
+                        <label>Icon (FontAwesome class)</label>
+                        <input type="text" id="fcIcon" value="${isEdit ? card.icon : ''}" placeholder="fa-compass" />
+                    </div>
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input type="text" id="fcTitle" value="${isEdit ? card.title : ''}" placeholder="Explore Regions" />
+                    </div>
+                    <div class="form-group">
+                        <label>Front Image URL</label>
+                        <input type="text" id="fcFrontImage" value="${isEdit ? card.frontImage : ''}" placeholder="https://images.unsplash.com/..." />
+                        <small class="help-text">Used on the front face of the card. Use full HTTPS URL.</small>
+                    </div>
+                    <div class="form-group">
+                        <label>Front Text (link text)</label>
+                        <input type="text" id="fcFrontText" value="${isEdit ? card.frontText : ''}" placeholder="See trending regions" />
+                    </div>
+                    <div class="form-group">
+                        <label>Link URL</label>
+                        <input type="text" id="fcLink" value="${isEdit ? card.link : ''}" placeholder="pages/trending.html" />
+                    </div>
+                    <div class="form-group">
+                        <label>Back Title</label>
+                        <input type="text" id="fcBackTitle" value="${isEdit ? card.backTitle : ''}" placeholder="Destination Details" />
+                    </div>
+                    <div class="form-group">
+                        <label>Back Image URL</label>
+                        <input type="text" id="fcBackImage" value="${isEdit ? card.backImage : ''}" placeholder="https://images.unsplash.com/..." />
+                        <small class="help-text">Optional: image shown when card is flipped.</small>
+                    </div>
+                    <div class="modal-actions">
+                        <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+                        <button class="save-btn" onclick="saveFlipCard(${isEdit ? id : 0})">Save Changes</button>
+                    </div>
+                `;
+                document.getElementById('modalOverlay').classList.add('active');
+            };
+
+            window.saveFlipCard = function(id) {
+                const icon = document.getElementById('fcIcon').value.trim() || 'fa-compass';
+                const title = document.getElementById('fcTitle').value.trim();
+                const frontImage = document.getElementById('fcFrontImage').value.trim();
+                const frontText = document.getElementById('fcFrontText').value.trim();
+                const link = document.getElementById('fcLink').value.trim();
+                const backTitle = document.getElementById('fcBackTitle').value.trim();
+                const backImage = document.getElementById('fcBackImage').value.trim();
+
+                if (!title || !frontImage) {
+                    showToast('Please fill in title and front image');
+                    return;
+                }
+
+                if (id > 0) {
+                    const index = flipCards.findIndex(c => c.id === id);
+                    if (index !== -1) {
+                        flipCards[index] = { ...flipCards[index], icon, title, frontImage, frontText, link, backTitle,
+                            backImage };
+                        setStore('flipcards', flipCards);
+                        showToast('Flip card updated!');
+                    }
+                } else {
+                    flipCards.push({ id: getNextId(), icon, title, frontImage, frontText, link, backTitle, backImage });
+                    setStore('flipcards', flipCards);
+                    showToast('Flip card added!');
+                }
+
+                closeModal();
+                renderPage('flipcards');
+            };
+
+            window.deleteFlipCard = function(id) {
+                if (confirm('Delete this flip card?')) {
+                    flipCards = flipCards.filter(c => c.id !== id);
+                    setStore('flipcards', flipCards);
+                    renderPage('flipcards');
+                    showToast('Flip card deleted!');
+                }
+            };
+
+            // ============================================================
+            // 9. BANNER (TICKER) MANAGEMENT
+            // ============================================================
+            function renderBanner() {
+                const tickerText = tickerItems.join(' · ');
+
+                let html = `
+                    <div class="page-header">
+                        <h2><i class="fas fa-bullhorn"></i> Banner / Ticker</h2>
+                    </div>
+                    <div style="background:#1a1a28; border-radius:1.5rem; padding:1.5rem; border:1px solid rgba(255,255,255,0.04);">
+                        <div class="form-group">
+                            <label>Ticker Text (separate items with a comma or pipe)</label>
+                            <textarea id="tickerInput" rows="3" placeholder="Free class, New class, New arrivals weekly">${tickerItems.join(', ')}</textarea>
+                            <small style="color:#66667a; display:block; margin-top:0.3rem;">Example: Free class, New class, New arrivals weekly, Limited drops</small>
+                        </div>
+                        <button class="btn btn-primary" onclick="saveTicker()"><i class="fas fa-save"></i> Save Banner</button>
+                        <div style="margin-top:1.5rem; padding:1rem; background:#252536; border-radius:1rem;">
+                            <strong style="color:#8888a0;">Preview:</strong>
+                            <div style="background:#ff8c42; padding:0.8rem 1rem; border-radius:0.8rem; margin-top:0.5rem; color:#0a0a10; font-weight:700; overflow-x:auto; white-space:nowrap;">
+                                ${tickerText}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                mainContent.innerHTML = html;
+            }
+
+            window.saveTicker = function() {
+                const input = document.getElementById('tickerInput').value;
+                const items = input.split(/[,|]\s*/).map(s => s.trim()).filter(s => s);
+                if (items.length === 0) {
+                    showToast('Please add at least one item');
+                    return;
+                }
+                tickerItems = items;
+                setStore('ticker', tickerItems);
+                showToast('Banner updated!');
+                renderBanner();
+            };
+
+            // ============================================================
+            // 10. BRANCHES MANAGEMENT
+            // ============================================================
+            function renderBranches() {
+                let html = `
+                    <div class="page-header">
+                        <h2><i class="fas fa-store"></i> Branches</h2>
+                        <div class="header-actions">
+                            <button class="btn btn-primary" onclick="openBranchModal()"><i class="fas fa-plus"></i> Add Branch</button>
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Location</th>
+                                    <th>Address</th>
+                                    <th>Phone</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                `;
+
+                if (branches.length === 0) {
+                    html += `
+                        <tr>
+                            <td colspan="6">
+                                <div class="empty-state">
+                                    <i class="fas fa-store"></i>
+                                    No branches yet.
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                } else {
+                    branches.forEach(b => {
+                        html += `
+                            <tr>
+                                <td>#${b.id}</td>
+                                <td>${b.name}</td>
+                                <td>${b.location}</td>
+                                <td>${b.address}</td>
+                                <td>${b.phone}</td>
+                                <td>
+                                    <div class="actions">
+                                        <button class="edit-btn" onclick="openBranchModal(${b.id})"><i class="fas fa-edit"></i></button>
+                                            <button class="edit-btn" title="Edit branch" aria-label="Edit branch #${b.id}" onclick="openBranchModal(${b.id})"><i class="fas fa-edit"></i></button>
+                                            <button class="delete-btn" title="Delete branch" aria-label="Delete branch #${b.id}" onclick="deleteBranch(${b.id})"><i class="fas fa-trash"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        `;
+                    });
+                }
+
+                html += `</tbody></table></div>`;
+                mainContent.innerHTML = html;
+            }
+
+            window.openBranchModal = function(id) {
+                const isEdit = !!id;
+                const branch = isEdit ? branches.find(b => b.id === id) : { id: 0, name: '', location: '', address: '',
+                    phone: '' };
+                const title = isEdit ? 'Edit Branch' : 'Add New Branch';
+
+                document.getElementById('modalTitle').textContent = title;
+                document.getElementById('modalBody').innerHTML = `
+                    <div class="form-group">
+                        <label>Branch Name</label>
+                        <input type="text" id="bName" value="${isEdit ? branch.name : ''}" placeholder="New Class HQ" />
+                    </div>
+                    <div class="form-group">
+                        <label>Location (City/Region)</label>
+                        <input type="text" id="bLocation" value="${isEdit ? branch.location : ''}" placeholder="Dar es Salaam" />
+                    </div>
+                    <div class="form-group">
+                        <label>Address</label>
+                        <input type="text" id="bAddress" value="${isEdit ? branch.address : ''}" placeholder="Mikocheni Area, Plot #45" />
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="text" id="bPhone" value="${isEdit ? branch.phone : ''}" placeholder="+255 712 345 678" />
+                    </div>
+                    <div class="modal-actions">
+                        <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+                        <button class="save-btn" onclick="saveBranch(${isEdit ? id : 0})">Save Changes</button>
+                    </div>
+                `;
+                document.getElementById('modalOverlay').classList.add('active');
+            };
+
+            window.saveBranch = function(id) {
+                const name = document.getElementById('bName').value.trim();
+                const location = document.getElementById('bLocation').value.trim();
+                const address = document.getElementById('bAddress').value.trim();
+                const phone = document.getElementById('bPhone').value.trim();
+
+                if (!name || !location) {
+                    showToast('Please fill in name and location');
+                    return;
+                }
+
+                if (id > 0) {
+                    const index = branches.findIndex(b => b.id === id);
+                    if (index !== -1) {
+                        branches[index] = { ...branches[index], name, location, address, phone };
+                        setStore('branches', branches);
+                        showToast('Branch updated!');
+                    }
+                } else {
+                    branches.push({ id: getNextId(), name, location, address, phone });
+                    setStore('branches', branches);
+                    showToast('Branch added!');
+                }
+
+                closeModal();
+                renderPage('branches');
+            };
+
+            window.deleteBranch = function(id) {
+                if (confirm('Delete this branch?')) {
+                    branches = branches.filter(b => b.id !== id);
+                    setStore('branches', branches);
+                    renderPage('branches');
+                    showToast('Branch deleted!');
+                }
+            };
+
+            // ============================================================
+            // 11. MEDIA MANAGEMENT
+            // ============================================================
+            function renderMedia() {
+                let html = `
+                    <div class="page-header">
+                        <h2><i class="fas fa-photo-video"></i> Media</h2>
+                        <div class="header-actions">
+                            <button class="btn btn-primary" onclick="openMediaModal()"><i class="fas fa-plus"></i> Add Media</button>
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Type</th>
+                                    <th>Title</th>
+                                    <th>Description</th>
+                                    <th>Preview</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                `;
+
+                if (mediaItems.length === 0) {
+                    html += `
+                        <tr>
+                            <td colspan="6">
+                                <div class="empty-state">
+                                    <i class="fas fa-photo-video"></i>
+                                    No media items yet.
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                } else {
+                    mediaItems.forEach(m => {
+                        const isImage = m.type === 'image';
+                        const preview = isImage ?
+                            `<img src="${m.file}" style="width:60px; height:40px; object-fit:cover; border-radius:0.3rem;" />` :
+                            `<span style="color:#ff8c42;"><i class="fas fa-${m.type === 'video' ? 'video' : 'music'}"></i> ${m.type}</span>`;
+                        html += `
+                            <tr>
+                                <td>#${m.id}</td>
+                                <td><span style="text-transform:capitalize;">${m.type}</span></td>
+                                <td>${m.title}</td>
+                                <td>${m.description.substring(0, 30)}${m.description.length > 30 ? '...' : ''}</td>
+                                <td>${preview}</td>
+                                <td>
+                                    <div class="actions">
+                                        <button class="edit-btn" onclick="openMediaModal(${m.id})"><i class="fas fa-edit"></i></button>
+                                            <button class="edit-btn" title="Edit media" aria-label="Edit media #${m.id}" onclick="openMediaModal(${m.id})"><i class="fas fa-edit"></i></button>
+                                            <button class="delete-btn" title="Delete media" aria-label="Delete media #${m.id}" onclick="deleteMedia(${m.id})"><i class="fas fa-trash"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        `;
+                    });
+                }
+
+                html += `</tbody></table></div>`;
+                mainContent.innerHTML = html;
+            }
+
+            window.openMediaModal = function(id) {
+                const isEdit = !!id;
+                const media = isEdit ? mediaItems.find(m => m.id === id) : { id: 0, type: 'image', title: '',
+                    description: '', file: '' };
+                const title = isEdit ? 'Edit Media' : 'Add New Media';
+
+                document.getElementById('modalTitle').textContent = title;
+                document.getElementById('modalBody').innerHTML = `
+                    <div class="form-group">
+                        <label>Media Type</label>
+                        <select id="mType">
+                            <option value="image" ${isEdit && media.type === 'image' ? 'selected' : ''}>Image</option>
+                            <option value="video" ${isEdit && media.type === 'video' ? 'selected' : ''}>Video</option>
+                            <option value="audio" ${isEdit && media.type === 'audio' ? 'selected' : ''}>Audio</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input type="text" id="mTitle" value="${isEdit ? media.title : ''}" placeholder="Mountain Sunset" />
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="mDescription" rows="2" placeholder="Golden hour over alpine peaks...">${isEdit ? media.description : ''}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>File URL</label>
+                        <input type="text" id="mFile" value="${isEdit ? media.file : ''}" placeholder="https://images.unsplash.com/..." />
+                        <small class="help-text">Use a full HTTPS URL for images or a YouTube thumbnail link for videos.</small>
+                    </div>
+                    <div class="modal-actions">
+                        <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+                        <button class="save-btn" onclick="saveMedia(${isEdit ? id : 0})">Save Changes</button>
+                    </div>
+                `;
+                document.getElementById('modalOverlay').classList.add('active');
+            };
+
+            window.saveMedia = function(id) {
+                const type = document.getElementById('mType').value;
+                const title = document.getElementById('mTitle').value.trim();
+                const description = document.getElementById('mDescription').value.trim();
+                const file = document.getElementById('mFile').value.trim();
+
+                if (!title || !file) {
+                    showToast('Please fill in title and file URL');
+                    return;
+                }
+
+                if (id > 0) {
+                    const index = mediaItems.findIndex(m => m.id === id);
+                    if (index !== -1) {
+                        mediaItems[index] = { ...mediaItems[index], type, title, description, file };
+                        setStore('media', mediaItems);
+                        showToast('Media updated!');
+                    }
+                } else {
+                    mediaItems.push({ id: getNextId(), type, title, description, file });
+                    setStore('media', mediaItems);
+                    showToast('Media added!');
+                }
+
+                closeModal();
+                renderPage('media');
+            };
+
+            window.deleteMedia = function(id) {
+                if (confirm('Delete this media item?')) {
+                    mediaItems = mediaItems.filter(m => m.id !== id);
+                    setStore('media', mediaItems);
+                    renderPage('media');
+                    showToast('Media deleted!');
+                }
+            };
+
+            // ============================================================
+            // 12. POPULAR MANAGEMENT
+            // ============================================================
+            function renderPopular() {
+                const productMap = {};
+                products.forEach(p => productMap[p.id] = p);
+
+                let html = `
+                    <div class="page-header">
+                        <h2><i class="fas fa-fire"></i> Popular Products</h2>
+                        <div class="header-actions">
+                            <button class="btn btn-primary" onclick="openPopularModal()"><i class="fas fa-plus"></i> Add Popular</button>
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Product</th>
+                                    <th>Sales</th>
+                                    <th>Rating</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                `;
+
+                if (popularItems.length === 0) {
+                    html += `
+                        <tr>
+                            <td colspan="5">
+                                <div class="empty-state">
+                                    <i class="fas fa-fire"></i>
+                                    No popular products yet.
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                } else {
+                    popularItems.forEach(p => {
+                        const product = productMap[p.productId];
+                        html += `
+                            <tr>
+                                <td>#${p.id}</td>
+                                <td>${product ? product.name : 'Unknown (#' + p.productId + ')'}</td>
+                                <td>${p.sales}</td>
+                                <td>${p.rating}</td>
+                                <td>
+                                    <div class="actions">
+                                        <button class="edit-btn" onclick="openPopularModal(${p.id})"><i class="fas fa-edit"></i></button>
+                                            <button class="edit-btn" title="Edit popular item" aria-label="Edit popular item #${p.id}" onclick="openPopularModal(${p.id})"><i class="fas fa-edit"></i></button>
+                                            <button class="delete-btn" title="Delete popular item" aria-label="Delete popular item #${p.id}" onclick="deletePopular(${p.id})"><i class="fas fa-trash"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        `;
+                    });
+                }
+
+                html += `</tbody></table></div>`;
+                mainContent.innerHTML = html;
+            }
+
+            window.openPopularModal = function(id) {
+                const isEdit = !!id;
+                const item = isEdit ? popularItems.find(p => p.id === id) : { id: 0, productId: '', sales: 0, rating: 4.0 };
+                const title = isEdit ? 'Edit Popular Item' : 'Add Popular Item';
+
+                // Build product options
+                let productOptions = '';
+                products.forEach(p => {
+                    const selected = isEdit && item.productId == p.id ? 'selected' : '';
+                    productOptions += `<option value="${p.id}" ${selected}>${p.name} (#${p.id})</option>`;
+                });
+
+                document.getElementById('modalTitle').textContent = title;
+                document.getElementById('modalBody').innerHTML = `
+                    <div class="form-group">
+                        <label>Product</label>
+                        <select id="popProduct">
+                            ${productOptions}
+                            ${!isEdit ? '<option value="">-- Select Product --</option>' : ''}
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Sales Count</label>
+                            <input type="number" id="popSales" value="${isEdit ? item.sales : ''}" placeholder="342" />
+                        </div>
+                        <div class="form-group">
+                            <label>Rating (1-5)</label>
+                            <input type="number" id="popRating" value="${isEdit ? item.rating : '4.5'}" step="0.1" min="1" max="5" placeholder="4.9" />
+                        </div>
+                    </div>
+                    <div class="modal-actions">
+                        <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+                        <button class="save-btn" onclick="savePopular(${isEdit ? id : 0})">Save Changes</button>
+                    </div>
+                `;
+                document.getElementById('modalOverlay').classList.add('active');
+            };
+
+            window.savePopular = function(id) {
+                const productId = parseInt(document.getElementById('popProduct').value);
+                const sales = parseInt(document.getElementById('popSales').value) || 0;
+                const rating = parseFloat(document.getElementById('popRating').value) || 4.0;
+
+                if (!productId) {
+                    showToast('Please select a product');
+                    return;
+                }
+
+                if (id > 0) {
+                    const index = popularItems.findIndex(p => p.id === id);
+                    if (index !== -1) {
+                        popularItems[index] = { ...popularItems[index], productId, sales, rating };
+                        setStore('popular', popularItems);
+                        showToast('Popular item updated!');
+                    }
+                } else {
+                    popularItems.push({ id: getNextId(), productId, sales, rating });
+                    setStore('popular', popularItems);
+                    showToast('Popular item added!');
+                }
+
+                closeModal();
+                renderPage('popular');
+            };
+
+            window.deletePopular = function(id) {
+                if (confirm('Delete this popular item?')) {
+                    popularItems = popularItems.filter(p => p.id !== id);
+                    setStore('popular', popularItems);
+                    renderPage('popular');
+                    showToast('Popular item deleted!');
+                }
+            };
+
+            // ============================================================
+            // 13. COMMUNITY MANAGEMENT
+            // ============================================================
+            function renderCommunity() {
+                const data = communityData;
+                let html = `
+                    <div class="page-header">
+                        <h2><i class="fas fa-users"></i> Community</h2>
+                    </div>
+                    <div style="background:#1a1a28; border-radius:1.5rem; padding:1.5rem; border:1px solid rgba(255,255,255,0.04);">
+                        <h4 style="color:#f0e6ff; margin-bottom:1rem;"><i class="fas fa-info-circle" style="color:#ff8c42;"></i> About Us Text</h4>
+                        <div class="form-group">
+                            <textarea id="aboutText" rows="4" style="width:100%; padding:0.8rem 1rem; border-radius:1rem; border:1px solid rgba(255,255,255,0.06); background:#252536; color:#f0f0f0; font-size:0.95rem; font-family:inherit;">${data.aboutText}</textarea>
+                        </div>
+
+                        <h4 style="color:#f0e6ff; margin:1.5rem 0 0.5rem 0;"><i class="fas fa-chart-bar" style="color:#ff8c42;"></i> Stats</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Branches</label>
+                                <input type="text" id="statBranches" value="${data.stats.branches}" placeholder="12+" />
+                            </div>
+                            <div class="form-group">
+                                <label>Customers</label>
+                                <input type="text" id="statCustomers" value="${data.stats.customers}" placeholder="15K+" />
+                            </div>
+                            <div class="form-group">
+                                <label>Regions</label>
+                                <input type="text" id="statRegions" value="${data.stats.regions}" placeholder="8" />
+                            </div>
+                            <div class="form-group">
+                                <label>Rating</label>
+                                <input type="text" id="statRating" value="${data.stats.rating}" placeholder="4.9" />
+                            </div>
+                        </div>
+
+                        <h4 style="color:#f0e6ff; margin:1.5rem 0 0.5rem 0;"><i class="fas fa-gem" style="color:#ff8c42;"></i> Values</h4>
+                        <div id="valuesContainer">
+                            ${data.values.map((v, i) => `
+                                <div style="display:flex; gap:0.5rem; margin-bottom:0.5rem; align-items:center; background:#252536; padding:0.5rem 1rem; border-radius:1rem;">
+                                    <input type="text" value="${v.icon}" placeholder="fa-star" style="flex:0 0 100px; padding:0.4rem 0.6rem; border-radius:0.5rem; border:1px solid rgba(255,255,255,0.06); background:#1a1a28; color:#f0f0f0;" />
+                                    <input type="text" value="${v.title}" placeholder="Title" style="flex:1; padding:0.4rem 0.6rem; border-radius:0.5rem; border:1px solid rgba(255,255,255,0.06); background:#1a1a28; color:#f0f0f0;" />
+                                    <input type="text" value="${v.desc}" placeholder="Description" style="flex:2; padding:0.4rem 0.6rem; border-radius:0.5rem; border:1px solid rgba(255,255,255,0.06); background:#1a1a28; color:#f0f0f0;" />
+                                    <button onclick="removeValue(${i})" style="background:rgba(255,59,48,0.1); border:none; color:#ff3b30; padding:0.3rem 0.8rem; border-radius:0.5rem; cursor:pointer;"><i class="fas fa-times"></i></button>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <button class="btn btn-primary" onclick="addValue()" style="padding:0.4rem 1rem; border-radius:1rem; border:none; background:rgba(255,140,66,0.15); color:#ff8c42; cursor:pointer;"><i class="fas fa-plus"></i> Add Value</button>
+
+                        <h4 style="color:#f0e6ff; margin:1.5rem 0 0.5rem 0;"><i class="fas fa-map" style="color:#ff8c42;"></i> Regions</h4>
+                        <div class="form-group">
+                            <textarea id="regionsInput" rows="3" style="width:100%; padding:0.8rem 1rem; border-radius:1rem; border:1px solid rgba(255,255,255,0.06); background:#252536; color:#f0f0f0; font-size:0.95rem; font-family:inherit;">${data.regions.join(', ')}</textarea>
+                            <small style="color:#66667a;">Separate regions with commas</small>
+                        </div>
+
+                        <button class="btn btn-primary" onclick="saveCommunity()" style="margin-top:1rem; padding:0.8rem 2rem; border-radius:2rem; border:none; background:#ff8c42; color:#0a0a10; font-weight:700; cursor:pointer;"><i class="fas fa-save"></i> Save Community Settings</button>
+                    </div>
+                `;
+                mainContent.innerHTML = html;
+            }
+
+            window.addValue = function() {
+                const container = document.getElementById('valuesContainer');
+                const index = communityData.values.length;
+                const div = document.createElement('div');
+                div.style.cssText =
+                    'display:flex; gap:0.5rem; margin-bottom:0.5rem; align-items:center; background:#252536; padding:0.5rem 1rem; border-radius:1rem;';
+                div.innerHTML = `
+                    <input type="text" placeholder="fa-star" style="flex:0 0 100px; padding:0.4rem 0.6rem; border-radius:0.5rem; border:1px solid rgba(255,255,255,0.06); background:#1a1a28; color:#f0f0f0;" />
+                    <input type="text" placeholder="Title" style="flex:1; padding:0.4rem 0.6rem; border-radius:0.5rem; border:1px solid rgba(255,255,255,0.06); background:#1a1a28; color:#f0f0f0;" />
+                    <input type="text" placeholder="Description" style="flex:2; padding:0.4rem 0.6rem; border-radius:0.5rem; border:1px solid rgba(255,255,255,0.06); background:#1a1a28; color:#f0f0f0;" />
+                    <button onclick="this.parentElement.remove()" style="background:rgba(255,59,48,0.1); border:none; color:#ff3b30; padding:0.3rem 0.8rem; border-radius:0.5rem; cursor:pointer;"><i class="fas fa-times"></i></button>
+                `;
+                container.appendChild(div);
+            };
+
+            window.removeValue = function(index) {
+                communityData.values.splice(index, 1);
+                renderCommunity();
+            };
+
+            window.saveCommunity = function() {
+                const aboutText = document.getElementById('aboutText').value.trim();
+                const branches = document.getElementById('statBranches').value.trim();
+                const customers = document.getElementById('statCustomers').value.trim();
+                const regions = document.getElementById('statRegions').value.trim();
+                const rating = document.getElementById('statRating').value.trim();
+
+                // Collect values from the DOM
+                const valueElements = document.querySelectorAll('#valuesContainer > div');
+                const values = [];
+                valueElements.forEach(el => {
+                    const inputs = el.querySelectorAll('input');
+                    if (inputs.length === 3) {
+                        values.push({ icon: inputs[0].value.trim() || 'fa-star', title: inputs[1].value.trim(),
+                            desc: inputs[2].value.trim() });
+                    }
+                });
+
+                const regionsInput = document.getElementById('regionsInput').value;
+                const regionList = regionsInput.split(/[,|]\s*/).map(s => s.trim()).filter(s => s);
+
+                communityData = {
+                    aboutText,
+                    stats: { branches, customers, regions, rating },
+                    values,
+                    regions: regionList
+                };
+
+                setStore('community', communityData);
+                showToast('Community settings saved!');
+                renderCommunity();
+            };
+
+            // ============================================================
+            // 14. FAQ MANAGEMENT
+            // ============================================================
+            function renderFAQ() {
+                let html = `
+                    <div class="page-header">
+                        <h2><i class="fas fa-question-circle"></i> FAQ</h2>
+                        <div class="header-actions">
+                            <button class="btn btn-primary" onclick="openFAQModal()"><i class="fas fa-plus"></i> Add FAQ</button>
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Question</th>
+                                    <th>Answer</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                `;
+
+                if (faqItems.length === 0) {
+                    html += `
+                        <tr>
+                            <td colspan="4">
+                                <div class="empty-state">
+                                    <i class="fas fa-question-circle"></i>
+                                    No FAQ items yet.
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                } else {
+                    faqItems.forEach(f => {
+                        html += `
+                            <tr>
+                                <td>#${f.id}</td>
+                                <td>${f.question}</td>
+                                <td>${f.answer.substring(0, 50)}${f.answer.length > 50 ? '...' : ''}</td>
+                                <td>
+                                    <div class="actions">
+                                        <button class="edit-btn" onclick="openFAQModal(${f.id})"><i class="fas fa-edit"></i></button>
+                                            <button class="edit-btn" title="Edit FAQ" aria-label="Edit FAQ #${f.id}" onclick="openFAQModal(${f.id})"><i class="fas fa-edit"></i></button>
+                                            <button class="delete-btn" title="Delete FAQ" aria-label="Delete FAQ #${f.id}" onclick="deleteFAQ(${f.id})"><i class="fas fa-trash"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        `;
+                    });
+                }
+
+                html += `</tbody></table></div>`;
+                mainContent.innerHTML = html;
+            }
+
+            window.openFAQModal = function(id) {
+                const isEdit = !!id;
+                const faq = isEdit ? faqItems.find(f => f.id === id) : { id: 0, question: '', answer: '' };
+                const title = isEdit ? 'Edit FAQ' : 'Add New FAQ';
+
+                document.getElementById('modalTitle').textContent = title;
+                document.getElementById('modalBody').innerHTML = `
+                    <div class="form-group">
+                        <label>Question</label>
+                        <input type="text" id="fqQuestion" value="${isEdit ? faq.question : ''}" placeholder="How do I place an order?" />
+                    </div>
+                    <div class="form-group">
+                        <label>Answer</label>
+                        <textarea id="fqAnswer" rows="3" placeholder="Browse products, add to cart, and checkout.">${isEdit ? faq.answer : ''}</textarea>
+                    </div>
+                    <div class="modal-actions">
+                        <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+                        <button class="save-btn" onclick="saveFAQ(${isEdit ? id : 0})">Save Changes</button>
+                    </div>
+                `;
+                document.getElementById('modalOverlay').classList.add('active');
+            };
+
+            window.saveFAQ = function(id) {
+                const question = document.getElementById('fqQuestion').value.trim();
+                const answer = document.getElementById('fqAnswer').value.trim();
+
+                if (!question || !answer) {
+                    showToast('Please fill in both question and answer');
+                    return;
+                }
+
+                if (id > 0) {
+                    const index = faqItems.findIndex(f => f.id === id);
+                    if (index !== -1) {
+                        faqItems[index] = { ...faqItems[index], question, answer };
+                        setStore('faq', faqItems);
+                        showToast('FAQ updated!');
+                    }
+                } else {
+                    faqItems.push({ id: getNextId(), question, answer });
+                    setStore('faq', faqItems);
+                    showToast('FAQ added!');
+                }
+
+                closeModal();
+                renderPage('faq');
+            };
+
+            window.deleteFAQ = function(id) {
+                if (confirm('Delete this FAQ?')) {
+                    faqItems = faqItems.filter(f => f.id !== id);
+                    setStore('faq', faqItems);
+                    renderPage('faq');
+                    showToast('FAQ deleted!');
+                }
+            };
+
+            // ============================================================
+            // 15. UTILITY FUNCTIONS
+            // ============================================================
+            window.closeModal = function() {
+                document.getElementById('modalOverlay').classList.remove('active');
+            };
+
+            document.getElementById('closeModalBtn').addEventListener('click', closeModal);
+            document.getElementById('modalOverlay').addEventListener('click', function(e) {
+                if (e.target === this) closeModal();
+            });
+
+            // Close modal on Escape
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') closeModal();
+            });
+
+            function updateBadges() {
+                document.getElementById('productCount').textContent = products.length;
+                document.getElementById('sliderCount').textContent = slides.length;
+                document.getElementById('branchCount').textContent = branches.length;
+                document.getElementById('mediaCount').textContent = mediaItems.length;
+                document.getElementById('popularCount').textContent = popularItems.length;
+                document.getElementById('faqCount').textContent = faqItems.length;
+            }
+
+            function showToast(message) {
+                const existing = document.querySelector('.custom-toast');
+                if (existing) existing.remove();
+
+                const toast = document.createElement('div');
+                toast.className = 'custom-toast';
+                toast.textContent = message;
+                document.body.appendChild(toast);
+
+                setTimeout(() => {
+                    toast.style.opacity = '0';
+                    toast.style.transition = 'opacity 0.4s ease';
+                    setTimeout(() => toast.remove(), 400);
+                }, 3000);
+            }
+
+            // ============================================================
+            // 16. INIT
+            // ============================================================
+            // Make functions globally accessible
+            window.products = products;
+            window.slides = slides;
+            window.branches = branches;
+            window.mediaItems = mediaItems;
+            window.popularItems = popularItems;
+            window.faqItems = faqItems;
+            window.flipCards = flipCards;
+            window.tickerItems = tickerItems;
+            window.communityData = communityData;
+
+            // Save stores when updated
+            const originalSetStore = setStore;
+            window.setStore = function(key, value) {
+                originalSetStore(key, value);
+                // Update global references
+                if (key === 'products') products = value;
+                if (key === 'slides') slides = value;
+                if (key === 'branches') branches = value;
+                if (key === 'media') mediaItems = value;
+                if (key === 'popular') popularItems = value;
+                if (key === 'faq') faqItems = value;
+                if (key === 'flipcards') flipCards = value;
+                if (key === 'ticker') tickerItems = value;
+                if (key === 'community') communityData = value;
+            };
+
+            // Check auth on load
+            checkAuth();
+
+            console.log('Admin Dashboard loaded successfully!');
+            console.log('Data stores initialized with LocalStorage.');
+            console.log('Products:', products.length);
+            console.log('Slides:', slides.length);
+            console.log('Branches:', branches.length);
+        })();
+    </script>
+</body>
+</html>
