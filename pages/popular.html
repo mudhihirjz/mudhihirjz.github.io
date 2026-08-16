@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Popular · New Class</title>
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #0f0f17;
+      font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+      color: #f0f0f0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* header */
+    .popular-header {
+      background: #12121f;
+      padding: 1.2rem 2rem;
+      border-bottom: 3px solid #ff8c42;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .popular-header .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .popular-header .logo-area h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(to right, #ff8c42, #ffb347);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.5px;
+    }
+
+    .back-home {
+      background: rgba(255, 140, 66, 0.15);
+      border: 1px solid #ff8c42;
+      color: #ff8c42;
+      padding: 0.5rem 1.2rem;
+      border-radius: 2rem;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      transition: 0.25s ease;
+      font-size: 0.95rem;
+    }
+
+    .back-home:hover {
+      background: #ff8c42;
+      color: #0a0a10;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(255, 140, 66, 0.4);
+    }
+
+    .stats-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255, 140, 66, 0.12);
+      padding: 0.4rem 1.2rem;
+      border-radius: 2rem;
+      border: 1px solid rgba(255, 140, 66, 0.2);
+      font-size: 0.9rem;
+      color: #ff8c42;
+    }
+
+    .stats-badge i {
+      font-size: 1rem;
+    }
+
+    /* filter bar */
+    .popular-toolbar {
+      background: #1a1a28;
+      padding: 1rem 2rem;
+      border-bottom: 1px solid rgba(255, 140, 66, 0.2);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .filter-buttons {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 140, 66, 0.2);
+      color: #b0b0c8;
+      padding: 0.4rem 1.2rem;
+      border-radius: 2rem;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .filter-btn.active-filter {
+      background: #ff8c42;
+      color: #0a0a10;
+      border-color: #ff8c42;
+    }
+
+    .filter-btn:hover {
+      background: #ff8c42;
+      color: #0a0a10;
+    }
+
+    .sort-select {
+      background: #252536;
+      border: 1px solid rgba(255, 140, 66, 0.2);
+      color: #f0f0f0;
+      padding: 0.4rem 1.2rem;
+      border-radius: 2rem;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .sort-select option {
+      background: #1a1a28;
+    }
+
+    /* grid */
+    .popular-grid-container {
+      padding: 2rem 2rem 3rem 2rem;
+      flex: 1;
+      max-width: 1440px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .popular-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    /* product card - popular style */
+    .popular-card {
+      background: #1e1e30;
+      border-radius: 2rem;
+      overflow: hidden;
+      border: 1px solid rgba(255, 140, 66, 0.15);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+      position: relative;
+    }
+
+    .popular-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(255, 140, 66, 0.25);
+      border-color: rgba(255, 140, 66, 0.4);
+    }
+
+    .popular-card .popular-badge {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background: #ff8c42;
+      color: #0a0a10;
+      padding: 0.3rem 1.2rem;
+      border-radius: 2rem;
+      font-weight: 700;
+      font-size: 0.8rem;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      box-shadow: 0 4px 15px rgba(255, 140, 66, 0.4);
+    }
+
+    .popular-card .popular-badge i {
+      font-size: 0.9rem;
+    }
+
+    .popular-card .rank-number {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      color: #ff8c42;
+      font-weight: 800;
+      font-size: 1.2rem;
+      padding: 0.3rem 0.9rem;
+      border-radius: 2rem;
+      border: 1px solid rgba(255, 140, 66, 0.3);
+      z-index: 2;
+    }
+
+    .product-image {
+      height: 240px;
+      background-size: cover;
+      background-position: center;
+      background-color: #2a2a3e;
+      position: relative;
+    }
+
+    .product-image .sales-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.8));
+      padding: 1rem 1.2rem 0.8rem 1.2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .product-image .sales-overlay .sales-count {
+      background: rgba(255, 140, 66, 0.85);
+      padding: 0.2rem 1rem;
+      border-radius: 2rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #0a0a10;
+    }
+
+    .product-image .sales-overlay .rating {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      color: #ffd93d;
+      font-weight: 700;
+      font-size: 0.9rem;
+      background: rgba(0,0,0,0.5);
+      padding: 0.2rem 0.8rem;
+      border-radius: 2rem;
+      backdrop-filter: blur(4px);
+    }
+
+    .product-info {
+      padding: 1.2rem 1.2rem 1rem 1.2rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-info .product-name {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.2rem;
+      color: #f0e6ff;
+    }
+
+    .product-info .product-category {
+      font-size: 0.8rem;
+      color: #8888a0;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .product-info .product-price {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #ff8c42;
+      margin: 0.3rem 0 0.8rem 0;
+    }
+
+    .product-info .product-price .original-price {
+      font-size: 0.9rem;
+      color: #77778f;
+      text-decoration: line-through;
+      margin-left: 0.5rem;
+      font-weight: 400;
+    }
+
+    /* social actions */
+    .social-actions {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin-top: auto;
+    }
+
+    .social-btn {
+      flex: 1 0 auto;
+      min-width: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      padding: 0.5rem 0.8rem;
+      border-radius: 2.5rem;
+      border: none;
+      font-weight: 600;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      color: #f0f0f0;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .social-btn i {
+      font-size: 1rem;
+    }
+
+    .social-btn.whatsapp {
+      background: #25d366;
+      color: #0a0a10;
+      border-color: #25d366;
+    }
+    .social-btn.whatsapp:hover {
+      background: #20b85a;
+      transform: scale(1.04);
+    }
+
+    .social-btn.instagram {
+      background: #d62976;
+      color: white;
+      border-color: #d62976;
+    }
+    .social-btn.instagram:hover {
+      background: #c01e66;
+      transform: scale(1.04);
+    }
+
+    .social-btn.facebook {
+      background: #1877f2;
+      color: white;
+      border-color: #1877f2;
+    }
+    .social-btn.facebook:hover {
+      background: #0e6bd4;
+      transform: scale(1.04);
+    }
+
+    .social-btn.buy-btn {
+      background: #ff8c42;
+      color: #0a0a10;
+      border-color: #ff8c42;
+      font-weight: 700;
+    }
+    .social-btn.buy-btn:hover {
+      background: #ffaa5e;
+      transform: scale(1.04);
+    }
+
+    .no-results {
+      text-align: center;
+      padding: 3rem 0;
+      color: #aaaac0;
+      font-size: 1.2rem;
+      grid-column: 1 / -1;
+    }
+
+    /* responsive */
+    @media (max-width: 768px) {
+      .popular-header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem 1.5rem;
+      }
+      .popular-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 1rem 1.5rem;
+      }
+      .popular-grid-container {
+        padding: 1.5rem 1rem 2rem 1rem;
+      }
+      .popular-grid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 1.5rem;
+      }
+      .product-image {
+        height: 190px;
+      }
+      .social-btn {
+        font-size: 0.7rem;
+        padding: 0.4rem 0.6rem;
+        min-width: 40px;
+      }
+      .social-btn i {
+        font-size: 0.85rem;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .popular-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+      .product-image {
+        height: 150px;
+      }
+      .product-info .product-name {
+        font-size: 1rem;
+      }
+      .product-info .product-price {
+        font-size: 1.1rem;
+      }
+      .social-actions {
+        gap: 0.4rem;
+      }
+      .social-btn {
+        font-size: 0.6rem;
+        padding: 0.3rem 0.4rem;
+        min-width: 34px;
+      }
+      .social-btn i {
+        font-size: 0.7rem;
+      }
+      .popular-card .popular-badge {
+        font-size: 0.65rem;
+        padding: 0.2rem 0.8rem;
+      }
+      .popular-card .rank-number {
+        font-size: 0.9rem;
+        padding: 0.2rem 0.6rem;
+      }
+      .filter-btn {
+        font-size: 0.7rem;
+        padding: 0.2rem 0.8rem;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .popular-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .footer-note {
+      background: #0f0f1a;
+      padding: 1rem 2rem;
+      text-align: center;
+      border-top: 1px solid rgba(255, 140, 66, 0.15);
+      font-size: 0.85rem;
+      color: #77778f;
+      margin-top: auto;
+    }
+    .footer-note i {
+      color: #ff8c42;
+    }
+  </style>
+</head>
+<body>
+  <!-- header -->
+  <header class="popular-header">
+    <div class="logo-area">
+      <h2><i class="fas fa-fire" style="background:transparent; -webkit-text-fill-color:#ff8c42; margin-right:0.3rem;"></i> Popular</h2>
+      <a href="#" class="back-home" onclick="window.history.back(); return false;">
+        <i class="fas fa-arrow-left"></i> Back
+      </a>
+    </div>
+    <div class="stats-badge">
+      <i class="fas fa-shopping-cart"></i> 1.2k+ sold this week
+    </div>
+  </header>
+
+  <!-- toolbar -->
+  <div class="popular-toolbar">
+    <div class="filter-buttons" id="filterButtons">
+      <button class="filter-btn active-filter" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="decor">Decor</button>
+      <button class="filter-btn" data-filter="perfume">Perfume</button>
+      <button class="filter-btn" data-filter="clothing">Clothing</button>
+    </div>
+    <select class="sort-select" id="sortSelect">
+      <option value="popular">🔥 Most Popular</option>
+      <option value="sales">📈 Most Sold</option>
+      <option value="price-low">💰 Price: Low to High</option>
+      <option value="price-high">💰 Price: High to Low</option>
+    </select>
+  </div>
+
+  <!-- grid -->
+  <div class="popular-grid-container">
+    <div class="popular-grid" id="popularGrid"></div>
+  </div>
+
+  <div class="footer-note">
+    <i class="fas fa-fire"></i>  trending now · bestsellers from our community
+  </div>
+
+  <script>
+    (function() {
+      // ----- popular products data (with sales & rating) -----
+      const popularProducts = [
+        { id: 1, name: "Santal & Wood", category: "perfume", price: 68, originalPrice: 89, sales: 342, rating: 4.9, image: "https://images.unsplash.com/photo-1594035910387-fea47794261f?q=80&w=2069&auto=format&fit=crop", badge: "🔥 Bestseller" },
+        { id: 2, name: "Rustic Wall Clock", category: "decor", price: 45, originalPrice: 65, sales: 287, rating: 4.7, image: "https://images.unsplash.com/photo-1563861826100-9cb868fdbe1c?q=80&w=2070&auto=format&fit=crop", badge: "⭐ Top Rated" },
+        { id: 3, name: "Oversized Denim Jacket", category: "clothing", price: 79, originalPrice: 110, sales: 215, rating: 4.8, image: "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?q=80&w=2070&auto=format&fit=crop", badge: "🔥 Trending" },
+        { id: 4, name: "Oud Noir", category: "perfume", price: 89, originalPrice: 120, sales: 198, rating: 4.6, image: "https://images.unsplash.com/photo-1585386959984-a4155224a1ad?q=80&w=2070&auto=format&fit=crop", badge: "💎 Luxury" },
+        { id: 5, name: "Ceramic Vase Set", category: "decor", price: 32.50, originalPrice: 48, sales: 176, rating: 4.5, image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=2058&auto=format&fit=crop", badge: "⭐ Popular" },
+        { id: 6, name: "Linen Blend Shirt", category: "clothing", price: 42, originalPrice: 60, sales: 154, rating: 4.4, image: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?q=80&w=2076&auto=format&fit=crop", badge: "👕 Classic" },
+        { id: 7, name: "Citrus Bloom", category: "perfume", price: 55, originalPrice: 75, sales: 143, rating: 4.3, image: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?q=80&w=2036&auto=format&fit=crop", badge: "🌸 Fresh" },
+        { id: 8, name: "Macrame Wall Hanging", category: "decor", price: 28, originalPrice: 40, sales: 128, rating: 4.2, image: "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?q=80&w=2015&auto=format&fit=crop", badge: "🌿 Boho" },
+        { id: 9, name: "Cashmere Scarf", category: "clothing", price: 38.50, originalPrice: 55, sales: 112, rating: 4.1, image: "https://images.unsplash.com/photo-1601924994987-69e26d50dc26?q=80&w=2070&auto=format&fit=crop", badge: "🧣 Winter" },
+        { id: 10, name: "Geometric Candle Holder", category: "decor", price: 22, originalPrice: 32, sales: 98, rating: 4.0, image: "https://images.unsplash.com/photo-1608042314453-ae338d80c427?q=80&w=2070&auto=format&fit=crop", badge: "🕯️ Modern" },
+        { id: 11, name: "Mystic Amber", category: "perfume", price: 74, originalPrice: 95, sales: 87, rating: 4.2, image: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?q=80&w=2036&auto=format&fit=crop", badge: "✨ New" },
+        { id: 12, name: "Velvet Throw Pillow", category: "decor", price: 34, originalPrice: 46, sales: 76, rating: 4.0, image: "https://images.unsplash.com/photo-1584100936595-c0654b55a2e6?q=80&w=2011&auto=format&fit=crop", badge: "🛋️ Cozy" }
+      ];
+
+      const grid = document.getElementById('popularGrid');
+      let currentFilter = 'all';
+      let currentSort = 'popular';
+
+      // helper: get share url
+      function getProductUrl(product) {
+        return `https://newclass.com/popular/${product.id}-${product.name.replace(/\s+/g, '-').toLowerCase()}`;
+      }
+
+      // render function
+      function renderPopular() {
+        // filter
+        let filtered = popularProducts.filter(p => {
+          if (currentFilter === 'all') return true;
+          return p.category === currentFilter;
+        });
+
+        // sort
+        if (currentSort === 'popular') {
+          filtered.sort((a, b) => b.rating - a.rating);
+        } else if (currentSort === 'sales') {
+          filtered.sort((a, b) => b.sales - a.sales);
+        } else if (currentSort === 'price-low') {
+          filtered.sort((a, b) => a.price - b.price);
+        } else if (currentSort === 'price-high') {
+          filtered.sort((a, b) => b.price - a.price);
+        }
+
+        if (filtered.length === 0) {
+          grid.innerHTML = `<div class="no-results"><i class="fas fa-search" style="font-size:2rem; opacity:0.5; display:block; margin-bottom:1rem;"></i> No popular products found</div>`;
+          return;
+        }
+
+        let html = '';
+        filtered.forEach((product, index) => {
+          const productUrl = getProductUrl(product);
+          const shareText = `Check out "${product.name}" on New Class!`;
+
+          // rank number (global rank)
+          const rank = index + 1;
+
+          html += `
+            <div class="popular-card" data-id="${product.id}">
+              <div class="popular-badge"><i class="fas fa-fire"></i> ${product.badge || 'Popular'}</div>
+              <div class="rank-number">#${rank}</div>
+              <div class="product-image" style="background-image: url('${product.image}');">
+                <div class="sales-overlay">
+                  <span class="sales-count"><i class="fas fa-shopping-cart"></i> ${product.sales} sold</span>
+                  <span class="rating"><i class="fas fa-star"></i> ${product.rating}</span>
+                </div>
+              </div>
+              <div class="product-info">
+                <div class="product-name">${product.name}</div>
+                <div class="product-category"><i class="fas fa-tag"></i> ${product.category.charAt(0).toUpperCase() + product.category.slice(1)}</div>
+                <div class="product-price">
+                  $${product.price.toFixed(2)}
+                  <span class="original-price">$${product.originalPrice.toFixed(2)}</span>
+                </div>
+                <div class="social-actions">
+                  <a href="https://wa.me/?text=${encodeURIComponent(shareText + ' ' + productUrl)}" target="_blank" class="social-btn whatsapp">
+                    <i class="fab fa-whatsapp"></i> <span class="btn-label">WhatsApp</span>
+                  </a>
+                  <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(productUrl)}" target="_blank" class="social-btn facebook">
+                    <i class="fab fa-facebook-f"></i> <span class="btn-label">Facebook</span>
+                  </a>
+                  <a href="#" onclick="alert('Copy this link to share on Instagram: ${productUrl}'); return false;" class="social-btn instagram">
+                    <i class="fab fa-instagram"></i> <span class="btn-label">Instagram</span>
+                  </a>
+                  <button class="social-btn buy-btn" onclick="alert('Added to cart: ${product.name}');">
+                    <i class="fas fa-shopping-bag"></i> <span class="btn-label">Buy</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          `;
+        });
+
+        grid.innerHTML = html;
+      }
+
+      // filter buttons
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          filterBtns.forEach(b => b.classList.remove('active-filter'));
+          this.classList.add('active-filter');
+          currentFilter = this.dataset.filter;
+          renderPopular();
+        });
+      });
+
+      // sort select
+      const sortSelect = document.getElementById('sortSelect');
+      sortSelect.addEventListener('change', function() {
+        currentSort = this.value;
+        renderPopular();
+      });
+
+      // initial render
+      renderPopular();
+
+      // responsive: hide label on small screens
+      function adjustLabels() {
+        const labels = document.querySelectorAll('.btn-label');
+        const isSmall = window.innerWidth < 500;
+        labels.forEach(label => {
+          label.style.display = isSmall ? 'none' : 'inline';
+        });
+      }
+      window.addEventListener('resize', adjustLabels);
+      adjustLabels();
+
+      console.log('Popular page loaded with trending products.');
+    })();
+  </script>
+</body>
+</html>
