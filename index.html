@@ -324,7 +324,10 @@
       perspective: 1200px;
       cursor: pointer;
       display: block;
-      overflow: hidden; /* ensure contents (links/images) stay inside rounded card */
+      position: relative;
+      overflow: visible;
+      transform-style: preserve-3d;
+      -webkit-transform-style: preserve-3d;
     }
 
     .flip-card.middle-float {
@@ -339,17 +342,21 @@
       text-align: left;
       transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
       transform-style: preserve-3d;
+      -webkit-transform-style: preserve-3d;
+      transform: rotateY(0deg);
+      -webkit-transform: rotateY(0deg);
     }
 
     .flip-card.flipped .flip-card-inner {
       transform: rotateY(180deg);
+      -webkit-transform: rotateY(180deg);
     }
 
     .flip-card-front, .flip-card-back {
       position: absolute;
-      width: 100%;
-      height: 100%;
+      inset: 0;
       backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
       border-radius: 2.5rem;
       padding: 2.5rem 2rem;
       display: flex;
@@ -713,7 +720,7 @@
         height: auto;
         min-height: 0;
       }
-      .flip-card-inner { position: relative; transform: none !important; }
+      .flip-card-inner { position: relative; transform: rotateY(0deg); }
       .flip-card-front, .flip-card-back { position: relative; width: 100%; height: auto; transform: none; }
       .flip-card-back { display: none; } /* hide back face on small screens for simpler UX */
       .footer-top-row {
