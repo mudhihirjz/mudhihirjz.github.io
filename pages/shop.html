@@ -7,25 +7,42 @@
   <!-- Font Awesome 6 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
-    /* (kept same styling as before for brevity) */
     *{margin:0;padding:0;box-sizing:border-box}
     body{background:#0f0f17;font-family:'Segoe UI',Roboto,system-ui,sans-serif;color:#f0f0f0;min-height:100vh;display:flex;flex-direction:column}
-    .shop-header{background:#12121f;padding:1.2rem 2rem;border-bottom:3px solid #ff8c42;display:flex;align-items:center;justify-content:space-between}
-    .shop-header h2{font-size:1.6rem;background:linear-gradient(90deg,#ff8c42,#ffb347);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-    .back-home{background:rgba(255,140,66,0.12);border:1px solid rgba(255,140,66,0.25);color:#e0dce8;padding:.5rem 1rem;border-radius:1.6rem;text-decoration:none}
-    .search-wrapper{padding:1.2rem 2rem;background:#1a1a28;border-bottom:1px solid rgba(255,140,66,0.08)}
-    .search-bar{max-width:700px;margin:0 auto;display:flex;background:#252536;border-radius:3rem;border:1px solid rgba(255,140,66,0.2);overflow:hidden}
-    .search-bar input{flex:1;padding:.9rem 1.2rem;background:transparent;border:none;color:#f0f0f0}
-    .search-bar button{background:#ff8c42;border:none;padding:0 1.2rem;color:#0a0a10;font-weight:700}
-    .shop-grid-container{padding:2rem;max-width:1200px;margin:0 auto;width:100%}
-    .product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.6rem}
-    .product-card{background:#1e1e30;border-radius:1rem;overflow:hidden;border:1px solid rgba(255,140,66,0.08);display:flex;flex-direction:column}
-    .product-image{height:200px;background-size:cover;background-position:center}
-    .product-info{padding:1rem;display:flex;flex-direction:column;gap:.6rem}
-    .price{color:#ff8c42;font-weight:700}
-    .social-actions{margin-top:auto;display:flex;gap:.5rem}
-    .social-btn{flex:1;padding:.6rem;border-radius:.6rem;border:none;background:rgba(255,255,255,0.04);color:#fff}
-    .shop-footer-note{padding:1rem 2rem;text-align:center;color:#777}
+    .shop-header{background:#12121f;padding:1.2rem 2rem;border-bottom:3px solid #ff8c42;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem}
+    .shop-header .logo-area{display:flex;align-items:center;gap:1rem}
+    .shop-header .logo-area h2{font-size:1.8rem;font-weight:700;background:linear-gradient(to right,#ff8c42,#ffb347);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .back-home{background:rgba(255,140,66,0.15);border:1px solid #ff8c42;color:#ff8c42;padding:.5rem 1.2rem;border-radius:2rem;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:.6rem}
+    .back-home:hover{background:#ff8c42;color:#0a0a10;transform:translateY(-2px)}
+
+    .filter-toolbar{background:#1a1a28;padding:1rem 2rem;border-bottom:1px solid rgba(255,140,66,0.15);display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+    .filter-btn{background:rgba(255,255,255,0.04);border:1px solid rgba(255,140,66,0.2);color:#b0b0c8;padding:.4rem 1rem;border-radius:2rem;font-weight:600;cursor:pointer}
+    .filter-btn.active{background:#ff8c42;color:#0a0a10;border-color:#ff8c42}
+
+    .shop-grid-container{padding:2rem 2rem 3rem 2rem;flex:1;max-width:1440px;margin:0 auto;width:100%}
+    .product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:2rem}
+
+    .product-card{background:#1e1e30;border-radius:2rem;overflow:hidden;border:1px solid rgba(255,140,66,0.15);display:flex;flex-direction:column;box-shadow:0 12px 30px rgba(0,0,0,0.5);position:relative}
+    .product-card:hover{transform:translateY(-8px);box-shadow:0 20px 40px rgba(255,140,66,0.25);border-color:rgba(255,140,66,0.4)}
+
+    .product-badge{position:absolute;top:1rem;left:1rem;background:#ff8c42;color:#0a0a10;padding:.3rem 1rem;border-radius:2rem;font-weight:700;font-size:.8rem}
+    .rank-number{position:absolute;top:1rem;right:1rem;background:rgba(0,0,0,0.6);color:#ff8c42;padding:.3rem .9rem;border-radius:2rem}
+
+    .product-image{height:220px;background-size:cover;background-position:center;background-color:#2a2a3e}
+    .product-image .overlay{position:absolute;bottom:0;left:0;right:0;padding:1rem;display:flex;justify-content:space-between;align-items:center}
+
+    .product-info{padding:1.2rem;flex:1;display:flex;flex-direction:column}
+    .product-name{font-size:1.15rem;font-weight:700;color:#f0e6ff}
+    .product-category{color:#8888a0;font-size:.9rem;margin-top:.25rem}
+    .product-price{color:#ff8c42;font-weight:700;font-size:1.2rem;margin-top:.6rem}
+
+    .social-actions{display:flex;gap:.6rem;margin-top:auto}
+    .social-btn{flex:1;min-width:48px;padding:.6rem;border-radius:2.5rem;border:none;font-weight:700;cursor:pointer;background:rgba(255,255,255,0.06);color:#f0f0f0}
+    .social-btn.buy{background:#ff8c42;color:#0a0a10}
+
+    .shop-footer-note{background:#0f0f1a;padding:1rem 2rem;text-align:center;border-top:1px solid rgba(255,140,66,0.12);color:#777}
+
+    @media(max-width:768px){.product-image{height:180px}.product-grid{grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}}
   </style>
 </head>
 <body>
@@ -41,27 +58,40 @@
     </div>
   </div>
 
+  <div class="filter-toolbar">
+    <div style="display:flex;gap:0.6rem;align-items:center">
+      <button class="filter-btn active">All</button>
+      <button class="filter-btn">Decor</button>
+      <button class="filter-btn">Perfume</button>
+      <button class="filter-btn">Clothing</button>
+    </div>
+    <div style="margin-left:auto;display:flex;gap:0.6rem;align-items:center">
+      <a href="select.html" class="back-home">Select multiple</a>
+      <a href="cart.html" class="back-home">View cart</a>
+    </div>
+  </div>
+
   <main class="shop-grid-container">
     <div class="product-grid" id="productGrid"></div>
   </main>
 
-  <div class="shop-footer-note">Browse products and click "Add to cart" to add a single item.</div>
+  <div class="shop-footer-note">Browse products and click "Add to cart" to add a single item. Use "Select multiple" to pick several products at once.</div>
 
   <script>
     (function(){
       const products = [
-        { id: 1, name: 'Rustic Wall Clock', category: 'Decor', price: 45.00, image: 'https://images.unsplash.com/photo-1563861826100-9cb868fdbe1c?q=80&w=2070&auto=format&fit=crop' },
-        { id: 2, name: 'Ceramic Vase Set', category: 'Decor', price: 32.50, image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=2058&auto=format&fit=crop' },
+        { id: 1, name: 'Rustic Wall Clock', category: 'Decor', price: 45.00, image: 'https://images.unsplash.com/photo-1563861826100-9cb868fdbe1c?q=80&w=2070&auto=format&fit=crop', badge: 'new' },
+        { id: 2, name: 'Ceramic Vase Set', category: 'Decor', price: 32.50, image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=2058&auto=format&fit=crop', badge: 'sale' },
         { id: 3, name: 'Macrame Wall Hanging', category: 'Decor', price: 28.00, image: 'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?q=80&w=2015&auto=format&fit=crop' },
-        { id: 4, name: 'Santal & Wood', category: 'Perfume', price: 68.00, image: 'https://images.unsplash.com/photo-1594035910387-fea47794261f?q=80&w=2069&auto=format&fit=crop' },
+        { id: 4, name: 'Santal & Wood', category: 'Perfume', price: 68.00, image: 'https://images.unsplash.com/photo-1594035910387-fea47794261f?q=80&w=2069&auto=format&fit=crop', badge: 'popular' },
         { id: 5, name: 'Citrus Bloom', category: 'Perfume', price: 55.00, image: 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?q=80&w=2036&auto=format&fit=crop' },
-        { id: 6, name: 'Oud Noir', category: 'Perfume', price: 89.00, image: 'https://images.unsplash.com/photo-1585386959984-a4155224a1ad?q=80&w=2070&auto=format&fit=crop' },
+        { id: 6, name: 'Oud Noir', category: 'Perfume', price: 89.00, image: 'https://images.unsplash.com/photo-1585386959984-a4155224a1ad?q=80&w=2070&auto=format&fit=crop', badge: 'luxury' },
         { id: 7, name: 'Linen Blend Shirt', category: 'Clothing', price: 42.00, image: 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?q=80&w=2076&auto=format&fit=crop' },
-        { id: 8, name: 'Oversized Denim Jacket', category: 'Clothing', price: 79.00, image: 'https://images.unsplash.com/photo-1576995853123-5a10305d93c0?q=80&w=2070&auto=format&fit=crop' },
+        { id: 8, name: 'Oversized Denim Jacket', category: 'Clothing', price: 79.00, image: 'https://images.unsplash.com/photo-1576995853123-5a10305d93c0?q=80&w=2070&auto=format&fit=crop', badge: 'trending' },
         { id: 9, name: 'Cashmere Scarf', category: 'Clothing', price: 38.50, image: 'https://images.unsplash.com/photo-1601924994987-69e26d50dc26?q=80&w=2070&auto=format&fit=crop' },
         { id: 10, name: 'Geometric Candle Holder', category: 'Decor', price: 22.00, image: 'https://images.unsplash.com/photo-1608042314453-ae338d80c427?q=80&w=2070&auto=format&fit=crop' },
-        { id: 11, name: 'Velvet Throw Pillow', category: 'Decor', price: 34.00, image: 'https://images.unsplash.com/photo-1584100936595-c0654b55a2e6?q=80&w=2011&auto=format&fit=crop' },
-        { id: 12, name: 'Mystic Amber', category: 'Perfume', price: 74.00, image: 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?q=80&w=2036&auto=format&fit=crop' }
+        { id: 11, name: 'Velvet Throw Pillow', category: 'Decor', price: 34.00, image: 'https://images.unsplash.com/photo-1584100936595-c0654b55a2e6?q=80&w=2011&auto=format&fit=crop', badge: 'sale' },
+        { id: 12, name: 'Mystic Amber', category: 'Perfume', price: 74.00, image: 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?q=80&w=2036&auto=format&fit=crop', badge: 'new' }
       ];
 
       const grid = document.getElementById('productGrid');
@@ -82,20 +112,35 @@
       window.addToCartHandler = addToCart;
 
       function render(list){
-        grid.innerHTML = list.map(p=>`
-          <div class="product-card">
+        if(!grid) return;
+        grid.innerHTML = list.map((p, idx)=>`
+          <div class="product-card" data-id="${p.id}">
+            ${p.badge?`<div class="product-badge">${p.badge}</div>`:''}
             <div class="product-image" style="background-image:url('${p.image}')"></div>
             <div class="product-info">
-              <div style="font-weight:700">${p.name}</div>
-              <div style="color:#aaa">${p.category}</div>
-              <div class="price">$${p.price.toFixed(2)}</div>
+              <div class="product-name">${p.name}</div>
+              <div class="product-category">${p.category}</div>
+              <div class="product-price">$${p.price.toFixed(2)}</div>
               <div class="social-actions">
-                <button class="social-btn" onclick="addToCartHandler(${p.id})">Add to cart</button>
+                <button class="social-btn" onclick="window.open('${getShareLink(p)}','_blank')"><i class="fas fa-share-alt"></i> Share</button>
+                <button class="social-btn buy" onclick="addToCartHandler(${p.id})"><i class="fas fa-cart-plus"></i> Add to cart</button>
               </div>
             </div>
           </div>
         `).join('');
       }
+
+      function getShareLink(p){ const url = `https://newclass.com/product/${p.id}`; return `https://wa.me/?text=${encodeURIComponent(p.name+' '+url)}`; }
+
+      // filter buttons
+      document.querySelectorAll('.filter-btn').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+          document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+          btn.classList.add('active');
+          const cat = btn.textContent.trim();
+          if(cat==='All') render(products); else render(products.filter(x=>x.category.toLowerCase()===cat.toLowerCase()));
+        });
+      });
 
       document.getElementById('searchBtn').addEventListener('click', ()=>{
         const q = document.getElementById('searchInput').value.trim().toLowerCase();
