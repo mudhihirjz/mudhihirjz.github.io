@@ -502,6 +502,17 @@
                 <span class="amount" id="totalAmount">$0.00</span>
             </div>
 
+            <!-- Delivery Info Form -->
+            <div style="margin-bottom:0.6rem;">
+                <h5 style="margin:0 0 0.6rem 0;color:#ddd;font-size:0.95rem;font-weight:700">Delivery Information</h5>
+                <div id="deliveryForm" style="display:flex;flex-direction:column;gap:0.5rem;">
+                    <input id="delName" type="text" placeholder="Full name" style="padding:0.6rem;border-radius:0.6rem;border:1px solid rgba(255,255,255,0.06);background:transparent;color:#f0f0f0;font-weight:600;" />
+                    <input id="delPhone" type="tel" placeholder="Phone number" style="padding:0.6rem;border-radius:0.6rem;border:1px solid rgba(255,255,255,0.06);background:transparent;color:#f0f0f0;font-weight:600;" />
+                    <input id="delAddress" type="text" placeholder="Address (street / house)" style="padding:0.6rem;border-radius:0.6rem;border:1px solid rgba(255,255,255,0.06);background:transparent;color:#f0f0f0;font-weight:600;" />
+                    <input id="delRegion" type="text" placeholder="Region / City" style="padding:0.6rem;border-radius:0.6rem;border:1px solid rgba(255,255,255,0.06);background:transparent;color:#f0f0f0;font-weight:600;" />
+                </div>
+            </div>
+
             <!-- WhatsApp Order Button -->
             <button class="whatsapp-btn" id="whatsappOrderBtn">
                 <i class="fab fa-whatsapp"></i> Order via WhatsApp
@@ -524,33 +535,16 @@
 
     <script>
         (function() {
-            // ----- Sample cart data (simulated) -----
-            let cart = [
-                {
-                    id: 1,
-                    name: "Santal & Wood Perfume",
-                    category: "Perfume",
-                    price: 68.00,
-                    image: "https://images.unsplash.com/photo-1594035910387-fea47794261f?q=80&w=2069&auto=format&fit=crop",
-                    quantity: 1
-                },
-                {
-                    id: 2,
-                    name: "Rustic Wall Clock",
-                    category: "Decor",
-                    price: 45.00,
-                    image: "https://images.unsplash.com/photo-1563861826100-9cb868fdbe1c?q=80&w=2070&auto=format&fit=crop",
-                    quantity: 2
-                },
-                {
-                    id: 3,
-                    name: "Oversized Denim Jacket",
-                    category: "Clothing",
-                    price: 79.00,
-                    image: "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?q=80&w=2070&auto=format&fit=crop",
-                    quantity: 1
-                }
-            ];
+            // ----- Load cart from localStorage -----
+            function loadCart() {
+                try { return JSON.parse(localStorage.getItem('nc_cart') || '[]'); }
+                catch (e) { return []; }
+            }
+            function saveCart(cart) {
+                localStorage.setItem('nc_cart', JSON.stringify(cart));
+            }
+
+            let cart = loadCart();
 
             // DOM refs
             const cartList = document.getElementById('cartItemsList');
@@ -562,6 +556,13 @@
 
             const DELIVERY_FEE = 5.00;
             const WHATSAPP_NUMBER = '255671533265'; // Replace with your actual WhatsApp number
+
+            // Delivery info (persisted)
+            function loadDeliveryInfo() {
+                try { return JSON.parse(localStorage.getItem('nc_delivery') || '{}'); }
+                catch (e) { return {}; }
+            }
+            function saveDeliveryInfo(info) { localStorage.setItem('nc_delivery', JSON.stringify(info)); }
 
             // ----- Render cart -----
             function renderCart() {
@@ -605,6 +606,7 @@
                 });
 
                 cartList.innerHTML = html;
+                saveCart(cart);
                 updateSummary();
                 updateCartCount();
             }
@@ -618,6 +620,7 @@
                     return;
                 }
                 cart[index].quantity = newQty;
+                saveCart(cart);
                 renderCart();
             };
 
@@ -626,6 +629,7 @@
                 if (index < 0 || index >= cart.length) return;
                 if (confirm(`Remove "${cart[index].name}" from your cart?`)) {
                     cart.splice(index, 1);
+                    saveCart(cart);
                     renderCart();
                     showToast('Item removed from cart');
                 }
@@ -658,6 +662,33 @@
                 cartCountEl.textContent = count;
             }
 
+            // ----- Delivery form binding -----
+            const delNameEl = document.getElementById('delName');
+            const delPhoneEl = document.getElementById('delPhone');
+            const delAddressEl = document.getElementById('delAddress');
+            const delRegionEl = document.getElementById('delRegion');
+
+            function populateDeliveryForm() {
+                const info = loadDeliveryInfo();
+                if (info.name) delNameEl.value = info.name;
+                if (info.phone) delPhoneEl.value = info.phone;
+                if (info.address) delAddressEl.value = info.address;
+                if (info.region) delRegionEl.value = info.region;
+            }
+
+            [delNameEl, delPhoneEl, delAddressEl, delRegionEl].forEach(el => {
+                el.addEventListener('input', () => {
+                    saveDeliveryInfo({
+                        name: delNameEl.value.trim(),
+                        phone: delPhoneEl.value.trim(),
+                        address: delAddressEl.value.trim(),
+                        region: delRegionEl.value.trim()
+                    });
+                });
+            });
+
+            populateDeliveryForm();
+
             // ----- Generate WhatsApp message -----
             function generateWhatsAppMessage() {
                 if (cart.length === 0) return '';
@@ -681,12 +712,13 @@
                 message += `🚚 Delivery: $${delivery.toFixed(2)}\n`;
                 message += `💰 TOTAL: $${total.toFixed(2)}\n\n`;
                 message += '━━━━━━━━━━━━━━━━━\n\n';
+                // include filled delivery info if available
+                const delInfo = loadDeliveryInfo();
                 message += '📍 *Delivery Information*\n';
-                message += 'Please provide your delivery address:\n';
-                message += 'Name: \n';
-                message += 'Phone: \n';
-                message += 'Address: \n';
-                message += 'Region: \n\n';
+                message += `Name: ${delInfo.name || ''}\n`;
+                message += `Phone: ${delInfo.phone || ''}\n`;
+                message += `Address: ${delInfo.address || ''}\n`;
+                message += `Region: ${delInfo.region || ''}\n\n`;
                 message += 'Thank you! 🙏';
 
                 return message;
@@ -696,6 +728,13 @@
             whatsappBtn.addEventListener('click', function() {
                 if (cart.length === 0) {
                     showToast('Your cart is empty!');
+                    return;
+                }
+
+                const delInfo = loadDeliveryInfo();
+                if (!delInfo.name || !delInfo.phone) {
+                    showToast('Please enter your name and phone for delivery');
+                    if (!delInfo.name) delNameEl.focus(); else delPhoneEl.focus();
                     return;
                 }
 
