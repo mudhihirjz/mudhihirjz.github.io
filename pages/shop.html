@@ -389,6 +389,11 @@
 
   <!-- product grid -->
   <div class="shop-grid-container">
+    <div style="max-width:1440px;margin:0 auto;padding:0 2rem 0 2rem;display:flex;gap:0.6rem;align-items:center;">
+      <button id="addSelectedBtn" class="back-home" style="background:#ff8c42;border-color:#ff8c42;color:#0a0a10;">Add selected to cart</button>
+      <button id="clearSelectionBtn" class="back-home" style="background:transparent;color:#ff8c42;border-color:rgba(255,255,255,0.06);">Clear selection</button>
+      <a href="cart.html" class="back-home" style="margin-left:auto;">View Cart</a>
+    </div>
     <div class="product-grid" id="productGrid">
       <!-- products injected by JS -->
     </div>
@@ -460,72 +465,101 @@
           html += `
             <div class="product-card" data-id="${p.id}">
               <div class="product-image" style="background-image: url('${p.image}');">
-                ${badgeHtml}
-              </div>
-              <div class="product-info">
-                <h3>${p.name}</h3>
-                <div class="category"><i class="fas fa-tag"></i> ${p.category}</div>
-                <div class="price">$${p.price}</div>
-                <div class="social-actions">
-                  <a href="${waLink}" target="_blank" class="social-btn whatsapp" aria-label="Share on WhatsApp">
-                    <i class="fab fa-whatsapp"></i> <span class="btn-label">WhatsApp</span>
-                  </a>
-                  <a href="${igLink}" target="_blank" class="social-btn instagram" aria-label="Share on Instagram (copy link)" onclick="alert('Copy this link to share on Instagram: ${productUrl}'); return false;">
-                    <i class="fab fa-instagram"></i> <span class="btn-label">Instagram</span>
-                  </a>
-                  <a href="${fbLink}" target="_blank" class="social-btn facebook" aria-label="Share on Facebook">
-                    <i class="fab fa-facebook-f"></i> <span class="btn-label">Facebook</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-          `;
-        });
+                <script>
+                  (function() {
+                    const products = [
+                      { id: 1, name: 'Santal & Wood Perfume', category: 'Perfume', price: 68.00, image: 'https://images.unsplash.com/photo-1594035910387-fea47794261f?q=80&w=2069&auto=format&fit=crop' },
+                      { id: 2, name: 'Rustic Wall Clock', category: 'Decor', price: 45.00, image: 'https://images.unsplash.com/photo-1563861826100-9cb868fdbe1c?q=80&w=2070&auto=format&fit=crop' },
+                      { id: 3, name: 'Oversized Denim Jacket', category: 'Clothing', price: 79.00, image: 'https://images.unsplash.com/photo-1576995853123-5a10305d93c0?q=80&w=2070&auto=format&fit=crop' },
+                      { id: 4, name: 'Handmade Ceramic Mug', category: 'Home', price: 22.00, image: 'https://images.unsplash.com/photo-1508747703725-7191a1f5b9c9?q=80&w=2070&auto=format&fit=crop' }
+                    ];
 
-        grid.innerHTML = html;
-      }
+                    const productGrid = document.getElementById('productGrid');
+                    const addSelectedBtn = document.getElementById('addSelectedBtn');
+                    const clearSelectionBtn = document.getElementById('clearSelectionBtn');
 
-      // initial render
-      renderProducts();
+                    function loadCart() {
+                      try { return JSON.parse(localStorage.getItem('nc_cart') || '[]'); }
+                      catch (e) { return []; }
+                    }
 
-      // search logic
-      const searchInput = document.getElementById('searchInput');
-      const searchBtn = document.getElementById('searchBtn');
+                    function saveCart(cart) { localStorage.setItem('nc_cart', JSON.stringify(cart)); }
 
-      function handleSearch() {
-        const val = searchInput.value;
-        renderProducts(val);
-      }
+                    function addToCart(productId, qty) {
+                      qty = Math.max(1, parseInt(qty) || 1);
+                      const product = products.find(p => p.id === productId);
+                      if (!product) return;
+                      const cart = loadCart();
+                      const existing = cart.find(i => i.id === productId);
+                      if (existing) existing.quantity += qty;
+                      else cart.push(Object.assign({}, product, { quantity: qty }));
+                      saveCart(cart);
+                      showToast(`${product.name} (x${qty}) added to cart`);
+                    }
 
-      searchBtn.addEventListener('click', handleSearch);
-      searchInput.addEventListener('keyup', (e) => {
-        if (e.key === 'Enter') {
-          handleSearch();
-        }
-        // optional live search: uncomment next line if you want instant filter
-        // renderProducts(searchInput.value);
-      });
+                    window.addToCartHandler = function(id, qty) { addToCart(id, qty); };
 
-      // optional: clear on X? not needed
+                    function addSelectedToCart() {
+                      let any = false;
+                      products.forEach(p => {
+                        const sel = document.getElementById('select-' + p.id);
+                        if (sel && sel.checked) {
+                          const qEl = document.getElementById('qty-' + p.id);
+                          const qty = qEl ? parseInt(qEl.value) || 1 : 1;
+                          addToCart(p.id, qty);
+                          any = true;
+                        }
+                      });
+                      if (!any) showToast('No products selected');
+                      else showToast('Selected products added to cart');
+                    }
 
-      // handle responsive label hide on small screens
-      function adjustLabels() {
-        const labels = document.querySelectorAll('.btn-label');
-        const isSmall = window.innerWidth < 500;
-        labels.forEach(label => {
-          label.style.display = isSmall ? 'none' : 'inline';
-        });
-        // also search label
-        const searchLabel = document.querySelector('.search-label');
-        if (searchLabel) {
-          searchLabel.style.display = window.innerWidth < 500 ? 'none' : 'inline';
-        }
-      }
-      window.addEventListener('resize', adjustLabels);
-      adjustLabels();
+                    function clearSelection() {
+                      products.forEach(p => {
+                        const sel = document.getElementById('select-' + p.id);
+                        const qEl = document.getElementById('qty-' + p.id);
+                        if (sel) sel.checked = false;
+                        if (qEl) qEl.value = '1';
+                      });
+                    }
 
-      // small fix: if back button uses history, fine.
-      console.log('Shop page loaded with product grid + social buttons.');
+                    addSelectedBtn.addEventListener('click', addSelectedToCart);
+                    clearSelectionBtn.addEventListener('click', clearSelection);
+
+                    function renderProducts(items) {
+                      productGrid.innerHTML = items.map(p => `
+                        <div class="product-card">
+                          <div class="product-image" style="background-image: url('${p.image}')">
+                            <div class="badge">${p.category}</div>
+                          </div>
+                          <div class="product-info">
+                            <h3>${p.name}</h3>
+                            <div class="category">${p.category}</div>
+                            <div class="price">$${p.price.toFixed(2)}</div>
+                            <div style="display:flex;gap:0.6rem;align-items:center;margin-top:0.6rem;">
+                              <label style="display:flex;align-items:center;gap:0.4rem;color:#ccc;font-weight:600;"><input id="select-${p.id}" type="checkbox" /> Select</label>
+                              <input id="qty-${p.id}" type="number" min="1" value="1" style="width:72px;padding:0.4rem;border-radius:0.6rem;background:transparent;border:1px solid rgba(255,255,255,0.06);color:#fff;font-weight:700" />
+                            </div>
+                            <div class="social-actions">
+                              <button class="social-btn" onclick="addToCartHandler(${p.id}, parseInt(document.getElementById('qty-${p.id}').value) || 1)">Add to cart</button>
+                            </div>
+                          </div>
+                        </div>
+                      `).join('');
+                    }
+
+                    // simple toast
+                    function showToast(msg) {
+                      const t = document.createElement('div');
+                      t.textContent = msg;
+                      t.style.cssText = 'position:fixed;bottom:1.6rem;left:50%;transform:translateX(-50%);background:#1e1e30;color:#fff;padding:0.7rem 1.2rem;border-radius:1.2rem;border:1px solid rgba(255,140,66,0.2);z-index:9999';
+                      document.body.appendChild(t);
+                      setTimeout(()=>{ t.style.opacity='0'; t.style.transition='opacity 0.3s'; setTimeout(()=>t.remove(),300); }, 2200);
+                    }
+
+                    renderProducts(products);
+                  })();
+                </script>
     })();
   </script>
 </body>
