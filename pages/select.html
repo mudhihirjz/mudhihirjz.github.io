@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Select Items · New Class</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    body{background:#0f0f17;color:#f0f0f0;font-family:Segoe UI,Roboto,system-ui;margin:0}
+    .header{background:#12121f;padding:1rem 1.5rem;display:flex;align-items:center;gap:1rem}
+    .header h2{margin:0;background:linear-gradient(90deg,#ff8c42,#ffb347);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .controls{display:flex;gap:0.6rem;padding:1rem 1.5rem;align-items:center}
+    .back-home{background:rgba(255,140,66,0.12);border:1px solid rgba(255,140,66,0.25);color:#e0dce8;padding:.5rem 1rem;border-radius:1.2rem;text-decoration:none}
+    .grid{padding:1rem 1.5rem;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem}
+    .card{background:#1e1e30;padding:1rem;border-radius:10px}
+    .product-image{height:160px;background-size:cover;background-position:center;border-radius:8px}
+    .row{display:flex;align-items:center;gap:0.5rem;margin-top:.6rem}
+    input[type=number]{width:64px;padding:.35rem;border-radius:.5rem;background:transparent;border:1px solid rgba(255,255,255,0.06);color:#fff}
+    .btn-primary{background:#ff8c42;border:none;padding:.6rem 1rem;border-radius:.6rem;color:#0a0a10;font-weight:700}
+    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:.5rem 0.8rem;border-radius:.6rem;color:#ff8c42}
+  </style>
+</head>
+<body>
+  <header class="header">
+    <h2><i class="fas fa-list" style="color:#ff8c42;margin-right:.4rem"></i>Select Items</h2>
+    <a href="shop.html" class="back-home" style="margin-left:auto">Browse shop</a>
+    <a href="cart.html" class="back-home">View cart</a>
+  </header>
+
+  <div class="controls">
+    <button id="addSelectedBtn" class="btn-primary">Add selected to cart</button>
+    <button id="clearSelectionBtn" class="btn-ghost">Clear selection</button>
+  </div>
+
+  <main class="grid" id="selectGrid"></main>
+
+  <script>
+    (function(){
+      const products = [
+        { id: 1, name: 'Rustic Wall Clock', category: 'Decor', price: 45.00, image: 'https://images.unsplash.com/photo-1563861826100-9cb868fdbe1c?q=80&w=2070&auto=format&fit=crop' },
+        { id: 2, name: 'Ceramic Vase Set', category: 'Decor', price: 32.50, image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=2058&auto=format&fit=crop' },
+        { id: 3, name: 'Macrame Wall Hanging', category: 'Decor', price: 28.00, image: 'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?q=80&w=2015&auto=format&fit=crop' },
+        { id: 4, name: 'Santal & Wood', category: 'Perfume', price: 68.00, image: 'https://images.unsplash.com/photo-1594035910387-fea47794261f?q=80&w=2069&auto=format&fit=crop' },
+        { id: 5, name: 'Citrus Bloom', category: 'Perfume', price: 55.00, image: 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?q=80&w=2036&auto=format&fit=crop' },
+        { id: 6, name: 'Oud Noir', category: 'Perfume', price: 89.00, image: 'https://images.unsplash.com/photo-1585386959984-a4155224a1ad?q=80&w=2070&auto=format&fit=crop' },
+        { id: 7, name: 'Linen Blend Shirt', category: 'Clothing', price: 42.00, image: 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?q=80&w=2076&auto=format&fit=crop' },
+        { id: 8, name: 'Oversized Denim Jacket', category: 'Clothing', price: 79.00, image: 'https://images.unsplash.com/photo-1576995853123-5a10305d93c0?q=80&w=2070&auto=format&fit=crop' },
+        { id: 9, name: 'Cashmere Scarf', category: 'Clothing', price: 38.50, image: 'https://images.unsplash.com/photo-1601924994987-69e26d50dc26?q=80&w=2070&auto=format&fit=crop' },
+        { id: 10, name: 'Geometric Candle Holder', category: 'Decor', price: 22.00, image: 'https://images.unsplash.com/photo-1608042314453-ae338d80c427?q=80&w=2070&auto=format&fit=crop' },
+        { id: 11, name: 'Velvet Throw Pillow', category: 'Decor', price: 34.00, image: 'https://images.unsplash.com/photo-1584100936595-c0654b55a2e6?q=80&w=2011&auto=format&fit=crop' },
+        { id: 12, name: 'Mystic Amber', category: 'Perfume', price: 74.00, image: 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?q=80&w=2036&auto=format&fit=crop' }
+      ];
+
+      const grid = document.getElementById('selectGrid');
+      const addBtn = document.getElementById('addSelectedBtn');
+      const clearBtn = document.getElementById('clearSelectionBtn');
+
+      function loadCart(){ try{return JSON.parse(localStorage.getItem('nc_cart')||'[]')}catch(e){return[]}}
+      function saveCart(c){ localStorage.setItem('nc_cart', JSON.stringify(c)); }
+
+      function addToCart(id, qty){ qty = Math.max(1, parseInt(qty)||1); const p = products.find(x=>x.id===id); if(!p) return; const cart = loadCart(); const ex = cart.find(i=>i.id===id); if(ex) ex.quantity += qty; else cart.push(Object.assign({}, p, { quantity: qty })); saveCart(cart); showToast(`${p.name} (x${qty}) added to cart`); }
+
+      function render(){ grid.innerHTML = products.map(p=>`
+        <div class="card">
+          <div class="product-image" style="background-image:url('${p.image}')"></div>
+          <div style="font-weight:700;margin-top:.6rem">${p.name}</div>
+          <div style="color:#aaa">${p.category} — $${p.price.toFixed(2)}</div>
+          <div class="row">
+            <label style="display:flex;align-items:center;gap:.4rem;color:#ddd;font-weight:600"><input id="select-${p.id}" type="checkbox"> Select</label>
+            <input id="qty-${p.id}" type="number" min="1" value="1">
+            <button class="btn-primary" onclick="addToCart(${p.id}, document.getElementById('qty-${p.id}').value)">Add</button>
+          </div>
+        </div>
+      `).join(''); }
+
+      addBtn.addEventListener('click', ()=>{
+        let any=false; products.forEach(p=>{ const sel=document.getElementById('select-'+p.id); if(sel && sel.checked){ const q=document.getElementById('qty-'+p.id); addToCart(p.id, q?parseInt(q.value)||1:1); any=true; }}); if(!any) showToast('No products selected'); else showToast('Selected products added to cart');
+      });
+
+      clearBtn.addEventListener('click', ()=>{ products.forEach(p=>{ const sel=document.getElementById('select-'+p.id); const q=document.getElementById('qty-'+p.id); if(sel) sel.checked=false; if(q) q.value='1'; }); showToast('Selection cleared'); });
+
+      function showToast(msg){ const t=document.createElement('div'); t.textContent=msg; t.style.cssText='position:fixed;bottom:1.6rem;left:50%;transform:translateX(-50%);background:#1e1e30;color:#fff;padding:.7rem 1.2rem;border-radius:1.2rem;border:1px solid rgba(255,140,66,0.2);z-index:9999'; document.body.appendChild(t); setTimeout(()=>{t.style.opacity='0';t.style.transition='opacity .3s'; setTimeout(()=>t.remove(),300)},1800);} 
+
+      render();
+    })();
+  </script>
+</body>
+</html>
