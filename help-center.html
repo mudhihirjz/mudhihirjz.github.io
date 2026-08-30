@@ -181,6 +181,8 @@
         @media (max-width: 576px) {
             .help-hero {
                 padding: 30px 20px;
+                width: 100%;
+                max-width: 100%;
             }
             .help-hero h1 {
                 font-size: 26px;
@@ -190,13 +192,18 @@
             }
             .faq-section, .contact-form-section {
                 padding: 20px;
+                width: 100%;
+                max-width: 100%;
             }
             .social-support {
-                flex-direction: column;
-                align-items: stretch;
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 12px;
             }
             .social-support a {
+                flex: 1 1 calc(50% - 12px);
                 justify-content: center;
+                min-width: 0;
             }
         }
     </style>

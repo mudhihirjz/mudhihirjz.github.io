@@ -49,12 +49,40 @@
     --text-primary: #F1F5F9;
     --text-secondary: #94A3B8;
     --border-color: #334155;
+    --gray-50: #111827;
     --gray-100: #1E293B;
     --gray-200: #334155;
     --gray-300: #475569;
     --shadow: 0 4px 6px -1px rgba(0,0,0,0.3);
     --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.4);
     --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.4);
+}
+
+[data-theme="dark"] .payment-summary,
+[data-theme="dark"] .ticket-details,
+[data-theme="dark"] .qr-placeholder,
+[data-theme="dark"] .qr-section,
+[data-theme="dark"] .ticket-row,
+[data-theme="dark"] .ticket-row span,
+[data-theme="dark"] .ticket-row strong,
+[data-theme="dark"] .summary-item,
+[data-theme="dark"] .summary-item strong,
+[data-theme="dark"] .confirmation-header p,
+[data-theme="dark"] .qr-hint,
+[data-theme="dark"] .qr-placeholder span {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .payment-summary,
+[data-theme="dark"] .ticket-details,
+[data-theme="dark"] .qr-placeholder {
+    background: var(--bg-body);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .qr-section {
+    background: var(--bg-card);
+    border-color: var(--border-color);
 }
 
 /* ---------- RESET & BASE ---------- */
@@ -741,9 +769,17 @@ img {
 }
 
 @media (max-width: 576px) {
+    .container {
+        max-width: 100%;
+        width: 100%;
+        padding: 0 12px;
+    }
+
     .hero-slider {
         height: 320px;
         border-radius: var(--radius);
+        width: 100%;
+        max-width: 100%;
     }
     .slide {
         padding: 24px;
@@ -766,17 +802,22 @@ img {
     .quick-search {
         padding: 20px;
         margin: -20px 0 30px;
+        width: 100%;
+        max-width: 100%;
     }
     .search-form {
         grid-template-columns: 1fr;
+        width: 100%;
+        gap: 12px;
     }
 
     .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 12px;
     }
     .stat-card {
         padding: 16px;
+        min-width: 0;
     }
     .stat-number {
         font-size: 24px;
@@ -787,6 +828,21 @@ img {
     }
     .section-header h2 {
         font-size: 26px;
+    }
+
+    .trusted-badge {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        padding: 16px 12px;
+        width: 100%;
+        max-width: 100%;
+    }
+    .trusted-badge .item {
+        justify-content: center;
+        text-align: center;
+        font-size: 12px;
+        line-height: 1.4;
     }
 
     .footer-grid {
