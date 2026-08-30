@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="sw" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DE TRAVELS - About Us</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .about-hero {
+            background: var(--primary-gradient);
+            padding: 60px 40px;
+            border-radius: var(--radius-lg);
+            color: white;
+            text-align: center;
+            margin: 20px 0 40px;
+        }
+        .about-hero h1 {
+            font-size: 36px;
+        }
+        .about-hero p {
+            opacity: 0.9;
+            margin-top: 8px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 40px 0;
+            align-items: center;
+        }
+        .about-content .text h2 {
+            font-size: 28px;
+            margin-bottom: 16px;
+        }
+        .about-content .text p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 12px;
+        }
+        .about-content .image {
+            background: var(--gray-100);
+            border-radius: var(--radius-lg);
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            color: var(--primary);
+            border: 1px solid var(--border-color);
+        }
+        
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin: 40px 0;
+        }
+        .value-card {
+            background: var(--bg-card);
+            padding: 30px 24px;
+            border-radius: var(--radius);
+            text-align: center;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+        .value-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-xl);
+        }
+        .value-card .icon {
+            font-size: 40px;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+        .value-card h3 {
+            font-size: 18px;
+            margin-bottom: 6px;
+        }
+        .value-card p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin: 30px 0 40px;
+        }
+        .team-card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            text-align: center;
+            padding: 24px;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+        .team-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-xl);
+        }
+        .team-card .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: var(--gray-200);
+            margin: 0 auto 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: var(--primary);
+        }
+        .team-card h4 {
+            font-size: 16px;
+        }
+        .team-card .role {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        
+        .stats-about {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin: 30px 0;
+        }
+        .stats-about .stat {
+            background: var(--bg-card);
+            padding: 24px;
+            border-radius: var(--radius);
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+        .stats-about .stat .number {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+        .stats-about .stat .label {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        
+        @media (max-width: 992px) {
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .values-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .stats-about {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 576px) {
+            .about-hero {
+                padding: 30px 20px;
+            }
+            .about-hero h1 {
+                font-size: 26px;
+            }
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+            .stats-about {
+                grid-template-columns: 1fr 1fr;
+            }
+            .about-content .image {
+                height: 200px;
+                font-size: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="nav-logo">
+                <i class="fas fa-bus"></i>
+                DE<span>TRAVELS</span>
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="index.html">Nyumbani</a></li>
+                <li><a href="book-ticket.html">Book Ticket</a></li>
+                <li><a href="bookings.html">My Bookings</a></li>
+                <li><a href="help-center.html">Help Center</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <button class="theme-toggle" aria-label="Toggle theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <div class="nav-auth">
+                    <button class="auth-btn auth-login">Login</button>
+                    <button class="auth-btn auth-signup">Sign Up</button>
+                </div>
+                <button class="hamburger" aria-label="Toggle menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== ABOUT HERO ===== -->
+    <div class="container">
+        <div class="about-hero">
+            <h1><i class="fas fa-building"></i> About DE TRAVELS</h1>
+            <p>Your trusted partner for comfortable and safe bus travel across Tanzania.</p>
+        </div>
+    </div>
+
+    <!-- ===== ABOUT CONTENT ===== -->
+    <div class="container">
+        <div class="about-content">
+            <div class="text">
+                <h2>Who We Are</h2>
+                <p>
+                    DE TRAVELS is a leading bus transport company in Tanzania, committed to providing 
+                    safe, reliable, and comfortable travel experiences. With a fleet of modern buses 
+                    and a team of professional staff, we connect major cities across the country.
+                </p>
+                <p>
+                    Founded in 2015, we have grown to become a trusted name in the transport industry, 
+                    serving over 200+ happy customers and operating 100+ buses across Tanzania.
+                </p>
+                <p>
+                    Our mission is to make travel accessible, affordable, and enjoyable for everyone. 
+                    Whether you're traveling for business or leisure, we ensure your journey is smooth 
+                    and memorable.
+                </p>
+                <a href="book-ticket.html" class="btn btn-primary">
+                    <i class="fas fa-ticket-alt"></i> Book With Us
+                </a>
+            </div>
+            <div class="image">
+                <i class="fas fa-bus"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== STATS ===== -->
+    <div class="container">
+        <div class="stats-about">
+            <div class="stat">
+                <div class="number">200+</div>
+                <div class="label">Happy Customers</div>
+            </div>
+            <div class="stat">
+                <div class="number">30+</div>
+                <div class="label">Professional Staff</div>
+            </div>
+            <div class="stat">
+                <div class="number">100+</div>
+                <div class="label">Modern Buses</div>
+            </div>
+            <div class="stat">
+                <div class="number">24/7</div>
+                <div class="label">Customer Support</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== VALUES ===== -->
+    <div class="container">
+        <div class="section-header">
+            <h2>Our <span>Values</span></h2>
+            <p>The principles that guide us every day</p>
+        </div>
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="icon"><i class="fas fa-shield-alt"></i></div>
+                <h3>Safety First</h3>
+                <p>We prioritize the safety of our passengers and staff with well-maintained buses and professional drivers.</p>
+            </div>
+            <div class="value-card">
+                <div class="icon"><i class="fas fa-clock"></i></div>
+                <h3>Punctuality</h3>
+                <p>We value your time and ensure on-time departures and arrivals for every trip.</p>
+            </div>
+            <div class="value-card">
+                <div class="icon"><i class="fas fa-smile"></i></div>
+                <h3>Customer Satisfaction</h3>
+                <p>Your comfort and satisfaction are our top priorities. We strive to exceed your expectations.</p>
+            </div>
+            <div class="value-card">
+                <div class="icon"><i class="fas fa-handshake"></i></div>
+                <h3>Integrity</h3>
+                <p>We operate with honesty and transparency in all our dealings.</p>
+            </div>
+            <div class="value-card">
+                <div class="icon"><i class="fas fa-users"></i></div>
+                <h3>Teamwork</h3>
+                <p>Our dedicated team works together to deliver the best service possible.</p>
+            </div>
+            <div class="value-card">
+                <div class="icon"><i class="fas fa-globe"></i></div>
+                <h3>Community</h3>
+                <p>We believe in giving back to the communities we serve.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== TEAM ===== -->
+    <div class="container">
+        <div class="section-header">
+            <h2>Meet Our <span>Team</span></h2>
+            <p>Passionate professionals dedicated to your travel experience</p>
+        </div>
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="avatar"><i class="fas fa-user-tie"></i></div>
+                <h4>Hassan Ali</h4>
+                <div class="role">CEO & Founder</div>
+            </div>
+            <div class="team-card">
+                <div class="avatar"><i class="fas fa-user-tie"></i></div>
+                <h4>Fatma Mohamed</h4>
+                <div class="role">Operations Manager</div>
+            </div>
+            <div class="team-card">
+                <div class="avatar"><i class="fas fa-user-tie"></i></div>
+                <h4>Juma Khamis</h4>
+                <div class="role">Customer Support Lead</div>
+            </div>
+            <div class="team-card">
+                <div class="avatar"><i class="fas fa-user-tie"></i></div>
+                <h4>Salma Rashid</h4>
+                <div class="role">Finance Manager</div>
+            </div>
+            <div class="team-card">
+                <div class="avatar"><i class="fas fa-user-tie"></i></div>
+                <h4>David Mwangi</h4>
+                <div class="role">Fleet Manager</div>
+            </div>
+            <div class="team-card">
+                <div class="avatar"><i class="fas fa-user-tie"></i></div>
+                <h4>Amina Said</h4>
+                <div class="role">Marketing Manager</div>
+            </div>
+            <div class="team-card">
+                <div class="avatar"><i class="fas fa-user-tie"></i></div>
+                <h4>Omar Shabani</h4>
+                <div class="role">IT Manager</div>
+            </div>
+            <div class="team-card">
+                <div class="avatar"><i class="fas fa-user-tie"></i></div>
+                <h4>Zainab Hamza</h4>
+                <div class="role">HR Coordinator</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <a href="index.html" class="nav-logo">
+                        <i class="fas fa-bus"></i>
+                        DE<span>TRAVELS</span>
+                    </a>
+                    <p style="margin-top: 12px;">Your trusted bus transport partner in Tanzania.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="book-ticket.html">Book Ticket</a></li>
+                        <li><a href="bookings.html">My Bookings</a></li>
+                        <li><a href="help-center.html">Help Center</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="help-center.html">FAQ</a></li>
+                        <li><a href="help-center.html">Contact Us</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><i class="fas fa-phone"></i> +255 712 345 678</li>
+                        <li><i class="fas fa-envelope"></i> info@detravels.com</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Dar es Salaam, Tanzania</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 DE TRAVELS. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
