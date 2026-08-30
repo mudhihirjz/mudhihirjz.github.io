@@ -75,6 +75,9 @@ body {
     transition: var(--transition);
     line-height: 1.6;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
 }
 
 a {
@@ -613,7 +616,19 @@ img {
     background: var(--bg-card);
     border-top: 1px solid var(--border-color);
     padding: 48px 0 24px;
-    margin-top: 60px;
+    margin-top: auto;
+}
+
+.passenger-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.payment-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
 }
 
 .footer-grid {
@@ -1358,6 +1373,10 @@ img {
 @media (max-width: 768px) {
     .booking-flow {
         padding: 20px;
+    }
+    .passenger-grid,
+    .payment-layout {
+        grid-template-columns: 1fr;
     }
     
     .booking-progress {

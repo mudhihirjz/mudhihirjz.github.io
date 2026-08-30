@@ -79,7 +79,7 @@
                     Enter your origin, destination and travel date to find available trips.
                 </p>
                 
-                <form id="searchForm" class="search-form" style="grid-template-columns: 1fr 1fr 1fr auto;">
+                <form id="searchForm" class="search-form">
                     <div class="form-group">
                         <label><i class="fas fa-map-marker-alt"></i> From</label>
                         <select id="searchFrom" required>
@@ -161,7 +161,7 @@
                 </p>
                 
                 <form id="passengerForm">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                    <div class="passenger-grid">
                         <div class="form-group">
                             <label>Full Name *</label>
                             <input type="text" id="passengerName" placeholder="Enter full name" required>
@@ -207,7 +207,7 @@
                     Review your booking and complete the payment.
                 </p>
                 
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                <div class="payment-layout">
                     <div>
                         <h4 style="margin-bottom: 12px;">Payment Method</h4>
                         <div class="payment-methods">
