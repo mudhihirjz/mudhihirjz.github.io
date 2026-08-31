@@ -157,37 +157,39 @@
     <!-- ===== QUICK SEARCH ===== -->
     <div class="container">
         <div class="quick-search">
-            <form class="search-form" action="book-ticket.html" method="GET">
+            <form id="searchForm" class="search-form">
                 <div class="form-group">
                     <label><i class="fas fa-map-marker-alt"></i> From</label>
-                    <select required>
+                    <select id="searchFrom" required>
                         <option value="">Select Origin</option>
-                        <option value="dar">Dar es Salaam</option>
-                        <option value="mbeya">Mbeya</option>
-                        <option value="iringa">Iringa</option>
-                        <option value="zanzibar">Zanzibar</option>
-                        <option value="mwanza">Mwanza</option>
-                        <option value="arusha">Arusha</option>
+                        <option value="Dar es Salaam">Dar es Salaam</option>
+                        <option value="Mbeya">Mbeya</option>
+                        <option value="Iringa">Iringa</option>
+                        <option value="Zanzibar">Zanzibar</option>
+                        <option value="Mwanza">Mwanza</option>
+                        <option value="Arusha">Arusha</option>
+                        <option value="Dodoma">Dodoma</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label><i class="fas fa-map-pin"></i> To</label>
-                    <select required>
+                    <select id="searchTo" required>
                         <option value="">Select Destination</option>
-                        <option value="dar">Dar es Salaam</option>
-                        <option value="mbeya">Mbeya</option>
-                        <option value="iringa">Iringa</option>
-                        <option value="zanzibar">Zanzibar</option>
-                        <option value="mwanza">Mwanza</option>
-                        <option value="arusha">Arusha</option>
+                        <option value="Dar es Salaam">Dar es Salaam</option>
+                        <option value="Mbeya">Mbeya</option>
+                        <option value="Iringa">Iringa</option>
+                        <option value="Zanzibar">Zanzibar</option>
+                        <option value="Mwanza">Mwanza</option>
+                        <option value="Arusha">Arusha</option>
+                        <option value="Dodoma">Dodoma</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label><i class="fas fa-calendar"></i> Travel Date</label>
-                    <input type="date" required min="2026-08-30" value="2026-08-30">
+                    <input type="date" id="searchDate" required>
                 </div>
-                <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-search"></i> Search
+                <button type="submit" class="btn btn-primary" style="height: 48px;">
+                    <i class="fas fa-search"></i> Search Trips
                 </button>
             </form>
         </div>
@@ -342,5 +344,6 @@
     </footer>
 
     <script src="js/main.js"></script>
+    <script src="js/booking.js"></script>
 </body>
 </html>
