@@ -63,6 +63,14 @@ body {
   padding-bottom: 64px;
 }
 
+@media (max-width: 768px) {
+  .app-container {
+    padding: 0 16px;
+    gap: 24px;
+    padding-bottom: 40px;
+  }
+}
+
 /* Typography */
 h1, h2, h3, h4 { font-weight: 700; letter-spacing: -0.02em; }
 .text-gradient {
@@ -77,42 +85,22 @@ h1, h2, h3, h4 { font-weight: 700; letter-spacing: -0.02em; }
 }
 
 /* Scrollbar */
-::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar { width: 8px; height: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg-dark); }
 ::-webkit-scrollbar-thumb { background: var(--accent-blue); border-radius: 4px; }
 
+/* Responsive Utility Classes */
+.mobile-hide {
+  display: flex;
+}
+.mobile-show {
+  display: none;
+}
+
 @media (max-width: 768px) {
+  .mobile-hide { display: none !important; }
+  .mobile-show { display: block !important; }
+
   .desktop-nav { display: none !important; }
   .mobile-menu-btn { display: flex !important; }
-  
-  /* Hero Mobile layout */
-  .app-container section:first-of-type {
-    flex-direction: column;
-  }
-  .app-container section:first-of-type > div:first-child {
-    width: 100%;
-    border-radius: 40px 40px 0 0;
-    height: 300px;
-  }
-  .app-container section:first-of-type > div:last-child {
-    margin-left: 0;
-    margin-top: -20px;
-    border-radius: 40px;
-    padding: 40px 24px 24px 24px;
-  }
-  
-  /* Book Mobile layout */
-  .app-container > div:nth-child(3) > div > div {
-    flex-direction: column;
-    width: 100% !important;
-    height: auto !important;
-  }
-  .app-container > div:nth-child(3) > div > div > div {
-    border-radius: 10px !important;
-  }
-  
-  /* Quick Access Grid */
-  .app-container > div:nth-child(4) > div:last-child {
-    grid-template-columns: 1fr !important;
-  }
 }
