@@ -79,7 +79,7 @@ export default function Hero() {
         {/* Contact Information Integrated Directly */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '24px' }}>
           <a href="https://wa.me/255671533265" target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#fff', textDecoration: 'none', fontSize: '14px' }}>
-            <Phone size={16} color="var(--accent-cyan)" /> <span>+255 671 533 265 (WhatsApp / Normal Call)</span>
+            <Phone size={16} color="var(--accent-cyan)" /> <span>+255 671 533 265 </span>
           </a>
           <a href="mailto:mudhihirjz@gmail.com" style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#fff', textDecoration: 'none', fontSize: '14px' }}>
             <Mail size={16} color="var(--accent-cyan)" /> <span>mudhihirjz@gmail.com</span>
