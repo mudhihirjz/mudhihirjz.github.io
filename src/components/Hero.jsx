@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { MapPin, GraduationCap, Code2 } from 'lucide-react';
+import { MapPin, GraduationCap, Code2, Phone, Mail } from 'lucide-react';
 
 const chips = [
   { icon: <MapPin size={14} />, text: 'Tanzania' },
@@ -28,7 +28,7 @@ export default function Hero() {
       minHeight: isMobile ? 'auto' : '400px'
     }}>
       
-      {/* Left / Top: Profile Image */}
+      {/* Left / Top: Male Professional Avatar Image */}
       <div style={{ 
         position: 'relative',
         zIndex: 2,
@@ -43,7 +43,10 @@ export default function Hero() {
           src="/images/profile.jpg" 
           alt="Mudhihiri Selemani" 
           style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-          onError={(e) => { e.currentTarget.src = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80'; }}
+          onError={(e) => {
+            // Fallback immediately to a high-quality male developer avatar illustration image
+            e.currentTarget.src = 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=600&q=80';
+          }}
         />
         {/* Decorative glows */}
         <div style={{ position: 'absolute', top: '-20px', left: '-20px', width: '100px', height: '100px', background: 'var(--accent-purple)', filter: 'blur(60px)', opacity: 0.6 }}></div>
@@ -69,9 +72,19 @@ export default function Hero() {
         </p>
         
         <p style={{ color: 'var(--text-muted)', lineHeight: '1.6', maxWidth: '600px', marginBottom: '24px', fontSize: isMobile ? '14px' : '16px' }}>
-          Napenda teknolojia, kujenga mifumo na kutatua matatizo kwa njia za ubunifu. 
-          Lengo langu ni kujenga maboresho ya kisaolojia kupitia teknolojia.
+          Napenda teknologiia, kujenga mifumo na kutatua matatizo kwa njia za ubunifu.
+          Lengo langu ni kujenga maboresho ya kisaolojia kupitia teknolojia. Contact me below for collaborations!
         </p>
+
+        {/* Contact Information Integrated Directly */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '24px' }}>
+          <a href="https://wa.me/255671533265" target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#fff', textDecoration: 'none', fontSize: '14px' }}>
+            <Phone size={16} color="var(--accent-cyan)" /> <span>+255 671 533 265 (WhatsApp / Normal Call)</span>
+          </a>
+          <a href="mailto:mudhihirjz@gmail.com" style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#fff', textDecoration: 'none', fontSize: '14px' }}>
+            <Mail size={16} color="var(--accent-cyan)" /> <span>mudhihirjz@gmail.com</span>
+          </a>
+        </div>
 
         {/* Chips */}
         <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: isMobile ? '16px' : '0' }}>

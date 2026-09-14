@@ -3,11 +3,11 @@ import { MessageCircle, Github, Youtube, Instagram, X } from 'lucide-react';
 
 export default function Footer() {
   const socials = [
-    { icon: <MessageCircle size={18} />, label: 'WhatsApp' },
-    { icon: <Github size={18} />, label: 'GitHub' },
-    { icon: <Youtube size={18} />, label: 'YouTube' },
-    { icon: <Instagram size={18} />, label: 'Instagram' },
-    { icon: <X size={18} />, label: 'X/Twitter' },
+    { icon: <MessageCircle size={18} />, label: 'WhatsApp', url: 'https://wa.me/255671533265' },
+    { icon: <Github size={18} />, label: 'GitHub', url: 'https://github.com/mudhihirjz' },
+    { icon: <Youtube size={18} />, label: 'YouTube', url: '#' },
+    { icon: <Instagram size={18} />, label: 'Instagram', url: '#' },
+    { icon: <X size={18} />, label: 'X/Twitter', url: '#' },
   ];
 
   return (
@@ -35,7 +35,7 @@ export default function Footer() {
           {['Home', 'About', 'Services', 'Projects', 'Skills', 'Contact'].map(link => (
             <a
               key={link}
-              href={`#${link.toLowerCase()}`}
+              href={link === 'Contact' ? 'mailto:mudhihirjz@gmail.com' : `#${link.toLowerCase()}`}
               style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '14px', transition: 'color 0.3s' }}
               onMouseEnter={(e) => e.currentTarget.style.color = 'white'}
               onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-muted)'}
@@ -48,16 +48,25 @@ export default function Footer() {
         {/* Social Icons */}
         <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
           {socials.map((social, idx) => (
-            <button
+            <a
               key={idx}
+              href={social.url}
+              target="_blank"
+              rel="noreferrer"
               className="glass-pill"
-              style={{ padding: '10px', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+              style={{ padding: '10px', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none' }}
               aria-label={social.label}
             >
               {social.icon}
-            </button>
+            </a>
           ))}
         </div>
+      </div>
+
+      {/* Contact Panel directly under brand info */}
+      <div style={{ marginBottom: '24px', fontSize: '13px', color: 'var(--text-muted)' }}>
+        <p style={{ margin: '0 0 4px 0' }}>📞 WhatsApp / Normal: <strong style={{ color: '#fff' }}>+255 671 533 265</strong></p>
+        <p style={{ margin: 0 }}>✉️ Email: <strong style={{ color: '#fff' }}>mudhihirjz@gmail.com</strong></p>
       </div>
 
       {/* Bottom section: Legal & Signature info */}
