@@ -1,7 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap");
-
 :root {
-  font-family: "DM Sans", "Manrope", Arial, sans-serif;
+  font-family: "DM Sans Variable", Arial, sans-serif;
   color: #f8f8fa;
   background: #17161c;
   font-synthesis: none;
@@ -87,7 +85,7 @@ a {
 }
 
 .brand-copy strong {
-  font-family: "Manrope", sans-serif;
+  font-family: "Manrope Variable", sans-serif;
   font-size: 27px;
   line-height: 1.05;
   letter-spacing: -1.4px;
@@ -242,7 +240,7 @@ a {
 .hero h1 {
   max-width: 900px;
   margin: 0 auto 8px;
-  font-family: "Manrope", sans-serif;
+  font-family: "Manrope Variable", sans-serif;
   font-size: clamp(21px, 2.25vw, 28px);
   font-weight: 800;
   line-height: 1.25;
@@ -315,7 +313,7 @@ a {
 
 .section-heading h2 {
   margin: 0 0 2px;
-  font-family: "Manrope", sans-serif;
+  font-family: "Manrope Variable", sans-serif;
   font-size: 25px;
   font-weight: 800;
   letter-spacing: -0.6px;
@@ -452,7 +450,7 @@ a {
 }
 
 .system-copy strong {
-  font-family: "Manrope", sans-serif;
+  font-family: "Manrope Variable", sans-serif;
   font-size: 18px;
   line-height: 1.2;
   font-weight: 800;
@@ -649,7 +647,7 @@ a {
 
 .contact-dialog h2 {
   margin: 0;
-  font-family: "Manrope", sans-serif;
+  font-family: "Manrope Variable", sans-serif;
   font-size: 23px;
   line-height: 1.25;
 }
