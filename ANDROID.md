@@ -1,20 +1,20 @@
 # Android app
 
-The Android app uses the existing responsive Kilivo Labs site inside a native
-Capacitor shell.
+The Android app is a native Java application. Its screens, product cards,
+navigation, and contact form are built with Android views; it does not load the
+website or require an internet connection.
 
 ## Build and run
 
-1. Install Android Studio with the Android SDK and a JDK supported by the
-   installed Android Gradle Plugin.
-2. Install JavaScript dependencies with `npm ci`.
-3. Run `npm run android:sync` to build the site and copy it into the Android
-   project.
-4. Open the project with `npm run android:open`, then build or run it from
-   Android Studio using an emulator or connected Android device.
-
-To run directly from the command line, use `npm run android:run` with an
-Android device or emulator available to ADB.
+1. Install Android Studio with the Android SDK and JDK 21.
+2. Open the `android` directory in Android Studio and run the app on a device
+   or emulator.
+3. Or build a debug APK with `npm run android:build`.
+4. With a connected device or running emulator, install it with
+   `npm run android:install`.
 
 The debug APK is generated at
 `android/app/build/outputs/apk/debug/app-debug.apk`.
+
+The contact form is a local demo and does not send or store messages. Product
+systems and Google Play downloads are shown as planned/not yet available.
