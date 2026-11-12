@@ -16,5 +16,8 @@ website or require an internet connection.
 The debug APK is generated at
 `android/app/build/outputs/apk/debug/app-debug.apk`.
 
-The contact form is a local demo and does not send or store messages. Product
-systems and Google Play downloads are shown as planned/not yet available.
+The app presents KILIVOSAFARI as Kilivo Labs' first product under development.
+The booking demo and 30-second explainer video are not available yet; the demo
+button clearly reports that ticket bookings have not started. Other products
+are listed as future vision only. WhatsApp contact opens
+`https://wa.me/255671533265` in WhatsApp or a browser.
