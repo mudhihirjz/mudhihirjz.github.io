@@ -65,10 +65,9 @@ const searchItems = [
 function Brand({ light = false }) {
   return (
     <a className={`brand${light ? " brand--light" : ""}`} href="#top" aria-label="KILIVO LABS home">
-      <svg className="brand-mark" viewBox="0 0 64 54" aria-hidden="true">
-        <path d="M7 39 27 7h12L21 39H7Z" />
-        <path d="m25 39 16-32h14L39 39H25Z" />
-        <path className="brand-swoosh" d="M3 43c15 0 24-3 35-12 8-7 14-13 22-21-5 12-10 21-19 28-11 9-24 10-38 5Z" />
+      <svg className="brand-mark" viewBox="0 0 96 96" aria-hidden="true">
+        <path d="M24 16h15v64H24zM39 47l31-31h20L53 49l38 31H68L39 58z" />
+        <path className="brand-swoosh" d="m40 52 48-27-5 9-38 28z" />
       </svg>
       <span className="brand-copy">
         <strong>KILIVO LABS</strong>
