@@ -1,102 +1,89 @@
 import React, { useState } from "react";
 
-const systems = [
+const divisions = [
   {
-    id: "safari",
-    category: "Travel & Transport",
-    name: "KILIVOSAFARI BOOKING SYSTEM",
-    description: "Planned for intercity bus bookings & fleet management.",
-    icon: "bus",
-    color: "teal",
-    apps: ["Desktop App", "Conductor App", "Owner App", "Agent App"],
-    details: "Product details, features, and downloads will be shared when this system is available.",
+    name: "KILIVO BUSINESS",
+    description: "Commerce & More",
+    color: "business",
+    icon: "▣",
+    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=85",
   },
   {
-    id: "shule",
-    category: "Education",
-    name: "SHULEBORA SYSTEM",
-    description: "Planned for school admissions, fees, exams & reporting.",
-    icon: "school",
-    color: "purple",
-    apps: ["Desktop App", "Owner App", "Agent App"],
-    details: "Product details, features, and downloads will be shared when this system is available.",
+    name: "KILIVO TECHNOLOGIES",
+    description: "Tech for a Better World",
+    color: "technology",
+    icon: "</>",
+    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=85",
   },
   {
-    id: "duka",
-    category: "Retail",
-    name: "DUKABORA POS",
-    description: "Planned point of sale & inventory for shops and retailers.",
-    icon: "shop",
-    color: "orange",
-    apps: ["Desktop App", "Owner App", "Agent App"],
-    details: "Product details, features, and downloads will be shared when this system is available.",
+    name: "KILIVO PROJECTS",
+    description: "Projects & Opportunities",
+    color: "projects",
+    icon: "◒",
+    image: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=800&q=85",
   },
   {
-    id: "afya",
-    category: "Health",
-    name: "AFYABORA CLINIC SYSTEM",
-    description: "Planned for clinic appointments, patients & prescriptions.",
-    icon: "health",
-    color: "pink",
-    apps: ["Desktop App", "Owner App", "Agent App"],
-    details: "Product details, features, and downloads will be shared when this system is available.",
+    name: "KILIVO IMPACT",
+    description: "Community & Hope",
+    color: "impact",
+    icon: "♧",
+    image: "https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=800&q=85",
   },
 ];
 
-function ProductIcon({ name }) {
-  const common = {
-    viewBox: "0 0 48 48",
-    fill: "none",
-    "aria-hidden": true,
-    focusable: false,
-  };
+const articles = [
+  {
+    date: "Nov 10, 2025",
+    title: "Innovation for a Better Tomorrow",
+    summary: "KILIVO LABS continues to drive innovation for social good...",
+    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=85",
+    alt: "Illuminated technology and circuit board",
+  },
+  {
+    date: "Nov 05, 2025",
+    title: "Community Impact in Action",
+    summary: "Together we are creating lasting change...",
+    image: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=900&q=85",
+    alt: "Friends spending time together outdoors",
+  },
+  {
+    date: "Oct 28, 2025",
+    title: "KILIVO LABS New Milestone",
+    summary: "A new chapter of growth and opportunity...",
+    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=900&q=85",
+    alt: "Modern glass office buildings",
+  },
+];
 
-  if (name === "bus") {
-    return (
-      <svg {...common}>
-        <rect x="11" y="8" width="26" height="26" rx="5" stroke="currentColor" strokeWidth="3" />
-        <path d="M15 14h18v10H15zM14 30h20M16 35v4m16-4v4M15 29h.1m18 0h.1" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    );
-  }
-  if (name === "school") {
-    return (
-      <svg {...common}>
-        <path d="m5 18 19-10 19 10-19 10L5 18Z" fill="currentColor" />
-        <path d="M13 23v8c5 5 17 5 22 0v-8M41 19v12" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
-        <circle cx="41" cy="34" r="2.5" fill="currentColor" />
-      </svg>
-    );
-  }
-  if (name === "shop") {
-    return (
-      <svg {...common}>
-        <path d="M9 21h30v19H9zM6 17l4-10h28l4 10a5 5 0 0 1-9 3 5 5 0 0 1-9 0 5 5 0 0 1-9 0 5 5 0 0 1-9-3Z" fill="currentColor" stroke="currentColor" strokeWidth="2.5" strokeLinejoin="round" />
-        <path d="M17 40V28h9v12" stroke="#fff" strokeWidth="2.5" strokeLinejoin="round" />
-      </svg>
-    );
-  }
+const searchItems = [
+  { title: "Our Family", href: "#family" },
+  { title: "Latest News & Articles", href: "#news" },
+  { title: "Join KILIVO LABS", href: "#join" },
+  { title: "Community Impact", href: "#impact" },
+];
+
+function Brand({ light = false }) {
   return (
-    <svg {...common}>
-      <path d="M24 40S7 30 7 18a9 9 0 0 1 17-4 9 9 0 0 1 17 4c0 12-17 22-17 22Z" stroke="currentColor" strokeWidth="3.5" strokeLinejoin="round" />
-      <path d="m17 24 5 5 10-11" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
+    <a className={`brand${light ? " brand--light" : ""}`} href="#top" aria-label="KILIVO LABS home">
+      <svg className="brand-mark" viewBox="0 0 64 54" aria-hidden="true">
+        <path d="M7 39 27 7h12L21 39H7Z" />
+        <path d="m25 39 16-32h14L39 39H25Z" />
+        <path className="brand-swoosh" d="M3 43c15 0 24-3 35-12 8-7 14-13 22-21-5 12-10 21-19 28-11 9-24 10-38 5Z" />
+      </svg>
+      <span className="brand-copy">
+        <strong>KILIVO LABS</strong>
+        <small>Build. Innovate. Empower.</small>
+      </span>
+    </a>
   );
 }
 
-function DeviceIcon() {
+function PersonIcon() {
   return (
-    <svg viewBox="0 0 20 16" aria-hidden="true" focusable="false">
-      <rect x="2" y="2" width="16" height="11" rx="1" />
-      <path d="M1 15h18" />
-    </svg>
-  );
-}
-
-function PlayIcon() {
-  return (
-    <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-      <path d="M4 2.5v11L13 8 4 2.5Z" />
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="9" cy="8" r="3.2" />
+      <path d="M3.3 19v-1.6a5.7 5.7 0 0 1 11.4 0V19H3.3Z" />
+      <path d="M16 5.2a3 3 0 0 1 0 5.7m2 2.3a4.7 4.7 0 0 1 2.7 4.2V19h-4" />
     </svg>
   );
 }
@@ -111,27 +98,20 @@ function ContactDialog({ title, onClose }) {
 
   return (
     <div className="dialog-backdrop" onMouseDown={(event) => event.target === event.currentTarget && onClose()}>
-      <section
-        aria-labelledby="contact-dialog-title"
-        aria-modal="true"
-        className="contact-dialog"
-        role="dialog"
-      >
-        <button className="dialog-close" type="button" onClick={onClose} aria-label="Close dialog">
-          ×
-        </button>
+      <section aria-labelledby="contact-dialog-title" aria-modal="true" className="contact-dialog" role="dialog">
+        <button className="dialog-close" type="button" onClick={onClose} aria-label="Close dialog">×</button>
         {submitted ? (
           <div className="success-state">
             <span className="success-mark" aria-hidden="true">✓</span>
             <h2 id="contact-dialog-title">Thanks for reaching out</h2>
-            <p>This frontend demo does not send or store messages. Connect a backend to receive requests.</p>
+            <p>This demo does not send or store messages. Connect a backend to receive requests.</p>
             <button className="button button--primary" type="button" onClick={onClose}>Done</button>
           </div>
         ) : (
           <>
             <p className="eyebrow">KILIVO LABS</p>
             <h2 id="contact-dialog-title">{title}</h2>
-            <p className="dialog-intro">Tell us what you need and we’ll help you find the right system.</p>
+            <p className="dialog-intro">Be part of a forward-thinking community that builds, innovates and gives back.</p>
             <form className="contact-form" onSubmit={handleSubmit}>
               <label>
                 Your name
@@ -143,7 +123,7 @@ function ContactDialog({ title, onClose }) {
               </label>
               <label>
                 How can we help?
-                <textarea name="message" rows="3" placeholder="Tell us a little about your needs" required />
+                <textarea name="message" rows="3" placeholder="Tell us a little about your interest" required />
               </label>
               <button className="button button--primary" type="submit">Send request</button>
               <p className="form-note">Demo only — your message will not be sent or saved.</p>
@@ -156,171 +136,190 @@ function ContactDialog({ title, onClose }) {
 }
 
 function App() {
-  const [selectedSystem, setSelectedSystem] = useState("safari");
-  const [detailsOpen, setDetailsOpen] = useState(false);
   const [dialogTitle, setDialogTitle] = useState("");
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const searchResults = searchItems.filter((item) =>
+    item.title.toLowerCase().includes(searchQuery.trim().toLowerCase()),
+  );
 
   function openContact(title) {
     setDialogTitle(title);
+    setMenuOpen(false);
   }
 
   return (
-    <div className="site-shell">
+    <div className="site-shell" id="top">
       <header className="site-header">
-        <a className="brand" href="#" aria-label="Kilivo Labs home">
-          <svg className="brand-mark" viewBox="0 0 56 56" aria-hidden="true">
-            <path d="M16 10 30 3l16 8v34l-16 8-14-7-8-9V19l8-9Z" />
-            <path d="M18 19h12l8-6m-20 6 9 9h13m-22 0 9 10h13m-22 0 9-10m0 0 9-8m-9 18 9-10m4-15h7m-7 15h7m-7 10h7" />
-            <circle cx="43" cy="13" r="2.5" />
-            <circle cx="43" cy="28" r="2.5" />
-            <circle cx="43" cy="43" r="2.5" />
-            <circle cx="18" cy="19" r="2" />
-            <circle cx="18" cy="38" r="2" />
-          </svg>
-          <span className="brand-copy">
-            <strong>KILIVO LABS</strong>
-            <small>We Build Systems For Everything</small>
-          </span>
-        </a>
-
-        <nav className="main-nav" aria-label="Main navigation">
-          <a href="#systems">Products</a>
-          <a href="#solutions">Solutions</a>
-          <a href="#apps">Docs</a>
-          <a href="#contact">Pricing</a>
-          <a href="#about">About</a>
+        <Brand />
+        <button
+          aria-expanded={menuOpen}
+          aria-label={menuOpen ? "Close navigation" : "Open navigation"}
+          className="menu-toggle"
+          onClick={() => setMenuOpen(!menuOpen)}
+          type="button"
+        >
+          <span />
+          <span />
+          <span />
+        </button>
+        <nav className={`main-nav${menuOpen ? " main-nav--open" : ""}`} aria-label="Main navigation">
+          <a className="nav-home" href="#top" onClick={() => setMenuOpen(false)}>Home</a>
+          <a href="#about" onClick={() => setMenuOpen(false)}>About <span aria-hidden="true">⌄</span></a>
+          <a href="#family" onClick={() => setMenuOpen(false)}>Our Family <span aria-hidden="true">⌄</span></a>
+          <a href="#news" onClick={() => setMenuOpen(false)}>News &amp; Media <span aria-hidden="true">⌄</span></a>
+          <a href="#impact" onClick={() => setMenuOpen(false)}>Community Impact <span aria-hidden="true">⌄</span></a>
+          <a href="#join" onClick={() => setMenuOpen(false)}>Join Us <span aria-hidden="true">⌄</span></a>
         </nav>
         <div className="header-actions">
-          <button className="button button--outline button--small" type="button" onClick={() => openContact("Sign in")}>Sign in</button>
-          <button className="button button--primary button--small" type="button" onClick={() => openContact("Contact Kilivo Labs")}>Contact</button>
+          <button
+            aria-expanded={searchOpen}
+            aria-label={searchOpen ? "Close search" : "Open search"}
+            className="search-button"
+            onClick={() => setSearchOpen(!searchOpen)}
+            type="button"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8" /><path d="m16 16 5 5" /></svg>
+          </button>
+          <button className="button button--primary button--member" type="button" onClick={() => openContact("Become a Member")}>
+            <PersonIcon /> <span>Become a Member</span>
+          </button>
         </div>
+        {searchOpen && (
+          <div className="search-panel">
+            <label htmlFor="site-search">Search KILIVO LABS</label>
+            <input
+              autoFocus
+              id="site-search"
+              onChange={(event) => setSearchQuery(event.target.value)}
+              placeholder="Search..."
+              value={searchQuery}
+            />
+            {searchQuery.trim() && (
+              <ul>
+                {searchResults.length ? searchResults.map((item) => (
+                  <li key={item.href}><a href={item.href} onClick={() => setSearchOpen(false)}>{item.title} <span aria-hidden="true">→</span></a></li>
+                )) : <li className="no-results">No matching sections found.</li>}
+              </ul>
+            )}
+          </div>
+        )}
       </header>
 
       <main>
-        <section className="hero" id="solutions">
+        <section className="hero" aria-labelledby="hero-title">
           <div className="hero-content">
-            <p className="hero-kicker">BUILT FOR EAST AFRICA</p>
-            <h1>Practical systems for transport, education, retail &amp; health</h1>
+            <h1 id="hero-title">Together for a<br />Brighter Future</h1>
             <p className="hero-description">
-              We’re preparing software systems for Tanzania and East Africa. Product details and launch updates will be shared as they become available.
+              <strong>KILIVO LABS</strong> is a forward-thinking organization committed to innovation, community impact, and empowering people through technology.
             </p>
             <div className="hero-actions">
-              <button className="button button--primary button--hero" type="button" onClick={() => openContact("Request a system")}>
-                <span aria-hidden="true">ϟ</span> Request a System
-              </button>
-              <button className="button button--outline button--hero" type="button" onClick={() => openContact("Contact us")}>
-                <span aria-hidden="true">✉</span> Contact Us
+              <a className="button button--primary" href="#about"><span aria-hidden="true">ⓘ</span> Learn More</a>
+              <button className="button button--outline" type="button" onClick={() => openContact("Join Our Community")}>
+                <PersonIcon /> Join Our Community
               </button>
             </div>
-            <ul className="trust-points">
-              <li><span aria-hidden="true">◈</span> For Tanzania &amp; East Africa</li>
-              <li><span aria-hidden="true">◈</span> Four planned product areas</li>
-              <li><span aria-hidden="true">◈</span> Availability updates here</li>
-            </ul>
+          </div>
+          <div className="hero-dots" aria-label="Slide 1 of 3">
+            <span className="is-active" /><span /><span />
           </div>
         </section>
 
-        <section className="systems-section" id="systems">
-          <div className="section-heading">
-            <p className="eyebrow">SOFTWARE THAT WORKS FOR YOU</p>
-            <h2>Planned Systems</h2>
-            <p>Explore the products we’re planning. Availability and product details will be announced here.</p>
-          </div>
+        <div className="page-content">
+          <section className="family-section" id="family">
+            <div className="section-title-row">
+              <div className="section-heading">
+                <span className="section-rule" aria-hidden="true" />
+                <h2>Our Family</h2>
+                <p>Four Unique Identities. One Greater Purpose.</p>
+              </div>
+              <a className="button button--outline button--compact" href="#divisions">Explore All Divisions <span aria-hidden="true">→</span></a>
+            </div>
+            <div className="division-grid" id="divisions">
+              {divisions.map((division) => (
+                <a
+                  className={`division-card division-card--${division.color}`}
+                  href="#join"
+                  key={division.name}
+                  style={{ backgroundImage: `linear-gradient(90deg, var(--card-wash), var(--card-wash)), url("${division.image}")` }}
+                >
+                  <span className="division-icon" aria-hidden="true">{division.icon}</span>
+                  <span className="division-copy">
+                    <strong>{division.name}</strong>
+                    <small>{division.description}</small>
+                  </span>
+                  <span className="division-arrow" aria-hidden="true">→</span>
+                </a>
+              ))}
+            </div>
+          </section>
 
-          <div className="systems-grid">
-            {systems.map((system) => {
-              const isSelected = selectedSystem === system.id;
-              return (
-                <article className={`system-card ${isSelected ? "system-card--selected" : ""}`} key={system.id}>
-                  <div className="card-category">
-                    <span>Product · {system.category}</span>
-                    <span className="availability-badge">Not yet available</span>
-                    {isSelected && (
-                      <button
-                        type="button"
-                        aria-label={`Close ${system.name} details`}
-                        onClick={() => {
-                          setSelectedSystem(null);
-                          setDetailsOpen(false);
-                        }}
-                      >
-                        ×
-                      </button>
-                    )}
-                  </div>
-                  <button
-                    className="system-card-main"
-                    type="button"
-                    aria-expanded={isSelected && detailsOpen}
-                    onClick={() => {
-                      if (isSelected) {
-                        setDetailsOpen(!detailsOpen);
-                      } else {
-                        setSelectedSystem(system.id);
-                        setDetailsOpen(true);
-                      }
-                    }}
-                  >
-                    <span className={`product-icon product-icon--${system.color}`}>
-                      <ProductIcon name={system.icon} />
-                    </span>
-                    <span className="system-copy">
-                      <strong>{system.name}</strong>
-                      <span>{system.description}</span>
-                    </span>
-                  </button>
-                  {isSelected && detailsOpen && (
-                    <div className="system-details">
-                      <p>{system.details}</p>
+          <div className="lower-content">
+            <section className="news-section" id="news">
+              <div className="section-title-row news-title-row">
+                <div className="section-heading">
+                  <span className="section-rule" aria-hidden="true" />
+                  <h2>Latest News &amp; Articles</h2>
+                </div>
+                <a className="button button--outline button--compact" href="#news">View All News <span aria-hidden="true">→</span></a>
+              </div>
+              <div className="article-grid">
+                {articles.map((article) => (
+                  <article className="article-card" key={article.title}>
+                    <a className="article-image" href="#news" aria-label={`Read ${article.title}`}>
+                      <img src={article.image} alt={article.alt} />
+                      <time>{article.date}</time>
+                    </a>
+                    <div className="article-copy">
+                      <h3><a href="#news">{article.title}</a></h3>
+                      <p>{article.summary}</p>
+                      <a className="read-more" href="#news">Read More <span aria-hidden="true">→</span></a>
                     </div>
-                  )}
-                  <div className="system-apps">
-                    {system.apps.map((app, index) => {
-                      const isDesktop = index === 0;
-                      const isConductor = system.id === "safari" && index === 1;
-                      const variant = isDesktop
-                        ? "desktop"
-                        : isConductor
-                          ? "conductor"
-                          : index === 1 || (system.id === "safari" && index === 2)
-                            ? "owner"
-                            : "agent";
-                      return (
-                        <span className={`app-chip app-chip--${variant}`} key={app}>
-                          {isDesktop ? <DeviceIcon /> : <PlayIcon />}
-                          <span>{app}</span>
-                          <small className="chip-status">Not yet available</small>
-                        </span>
-                      );
-                    })}
-                  </div>
-                </article>
-              );
-            })}
-          </div>
+                  </article>
+                ))}
+              </div>
+            </section>
 
-          <div className="mobile-apps" id="apps">
-            <h3>Mobile apps</h3>
-            <p>Not yet available</p>
-            <div className="play-store-badge" aria-label="Coming soon to Google Play">
-              <span className="play-store-mark" aria-hidden="true">▶</span>
-              <span className="play-store-copy">
-                <small>Coming soon to</small>
-                <strong>Google Play</strong>
-              </span>
-            </div>
+            <aside className="community-column">
+              <section className="join-card" id="join">
+                <div className="join-copy">
+                  <h2>Join KILIVO LABS</h2>
+                  <p>Be part of a forward-thinking community that builds, innovates and gives back.</p>
+                  <button className="button button--yellow" type="button" onClick={() => openContact("Apply for Membership")}>
+                    <PersonIcon /> Apply for Membership <span aria-hidden="true">→</span>
+                  </button>
+                </div>
+                <div className="community-symbol" aria-hidden="true">
+                  <PersonIcon />
+                  <span />
+                </div>
+              </section>
+              <section className="impact-card" id="impact">
+                <div>
+                  <h2>Support Our Community Impact</h2>
+                  <p>Contribute to projects that uplift our society.</p>
+                  <button className="button button--outline button--compact" type="button" onClick={() => openContact("Make a Contribution")}>
+                    <span aria-hidden="true">♥</span> Make a Contribution <span aria-hidden="true">→</span>
+                  </button>
+                </div>
+              </section>
+            </aside>
           </div>
-
-          <div className="bottom-actions" id="contact">
-            <button className="button button--outline" type="button" onClick={() => openContact("Request custom integration")}>Request Custom Integration</button>
-            <button className="button button--primary" type="button" onClick={() => openContact("Talk to sales")}>Talk to Sales</button>
-          </div>
-        </section>
+        </div>
       </main>
 
       <footer className="site-footer" id="about">
-        <span>© {new Date().getFullYear()} KILIVO LABS</span>
-        <span>Built in Tanzania · For East Africa</span>
+        <Brand light />
+        <nav aria-label="Footer navigation">
+          <a href="#about">About</a><a href="#family">Our Family</a><a href="#news">News &amp; Media</a>
+          <a href="#impact">Community Impact</a><a href="#join">Contact Us</a>
+        </nav>
+        <div className="social-links" aria-label="Social media">
+          <a href="#join" aria-label="YouTube">▶</a><a href="#join" aria-label="LinkedIn">in</a>
+          <a href="#join" aria-label="X">𝕏</a><a href="#join" aria-label="Facebook">f</a>
+        </div>
+        <p className="footer-tagline">Together for a Brighter Future.</p>
       </footer>
 
       {dialogTitle && <ContactDialog title={dialogTitle} onClose={() => setDialogTitle("")} />}
