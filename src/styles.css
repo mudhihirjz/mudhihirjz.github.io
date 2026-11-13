@@ -495,20 +495,12 @@ a {
   width: 48px;
   flex: 0 0 48px;
   color: var(--division-color);
-  font-family: "Manrope Variable", sans-serif;
-  font-size: 36px;
-  font-weight: 800;
-  line-height: 1;
-  text-align: center;
 }
 
-.division-card--technology .division-icon {
-  font-size: 27px;
-  letter-spacing: -3px;
-}
-
-.division-card--projects .division-icon {
-  font-size: 45px;
+.division-icon svg {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .division-copy {
@@ -520,13 +512,13 @@ a {
 
 .division-copy strong {
   font-family: "Manrope Variable", sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 800;
   line-height: 1.15;
 }
 
 .division-copy small {
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 500;
 }
 
@@ -1080,11 +1072,11 @@ a {
   }
 
   .division-copy strong {
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .division-copy small {
-    font-size: 10px;
+    font-size: 11px;
   }
 
   .lower-content {
@@ -1260,23 +1252,14 @@ a {
   .division-icon {
     width: 36px;
     flex-basis: 36px;
-    font-size: 31px;
-  }
-
-  .division-card--technology .division-icon {
-    font-size: 23px;
-  }
-
-  .division-card--projects .division-icon {
-    font-size: 39px;
   }
 
   .division-copy strong {
-    font-size: 11px;
+    font-size: 12px;
   }
 
   .division-copy small {
-    font-size: 9px;
+    font-size: 10px;
   }
 
   .division-arrow {
@@ -1437,23 +1420,14 @@ a {
   .division-icon {
     width: 30px;
     flex-basis: 30px;
-    font-size: 27px;
-  }
-
-  .division-card--technology .division-icon {
-    font-size: 20px;
-  }
-
-  .division-card--projects .division-icon {
-    font-size: 34px;
   }
 
   .division-copy strong {
-    font-size: 10px;
+    font-size: 11px;
   }
 
   .division-copy small {
-    font-size: 8px;
+    font-size: 9px;
   }
 
   .division-arrow {

@@ -5,28 +5,45 @@ const divisions = [
     name: "KILIVO BUSINESS",
     description: "Commerce & More",
     color: "business",
-    icon: "▣",
+    icon: (
+      <svg viewBox="0 0 48 48" focusable="false">
+        <path fill="currentColor" d="M17 8a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v4h8a4 4 0 0 1 4 4v22a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V16a4 4 0 0 1 4-4h8V8Zm4 4h6V8h-6v4ZM9 18v6h30v-6H9Zm0 10v10h30V28H9Zm13 2h4v4h-4v-4Z" />
+      </svg>
+    ),
     image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=85",
   },
   {
     name: "KILIVO TECHNOLOGIES",
     description: "Tech for a Better World",
     color: "technology",
-    icon: "</>",
+    icon: (
+      <svg viewBox="0 0 48 48" focusable="false">
+        <path d="m16 12-11 12 11 12M32 12l11 12-11 12M28 9l-8 30" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="4" />
+      </svg>
+    ),
     image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=85",
   },
   {
     name: "KILIVO PROJECTS",
     description: "Projects & Opportunities",
     color: "projects",
-    icon: "◒",
+    icon: (
+      <svg viewBox="0 0 48 48" focusable="false">
+        <path fill="currentColor" d="M5 31h38v3a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3v-3Zm3-3a16 16 0 0 1 32 0v1H8v-1Zm14-15v13h4V13a2 2 0 0 0-4 0Zm-9 5v8h4v-8a2 2 0 0 0-4 0Zm18 0v8h4v-8a2 2 0 0 0-4 0Z" />
+      </svg>
+    ),
     image: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=800&q=85",
   },
   {
     name: "KILIVO IMPACT",
     description: "Community & Hope",
     color: "impact",
-    icon: "♧",
+    icon: (
+      <svg viewBox="0 0 48 48" focusable="false">
+        <path fill="currentColor" d="M24 24.5 13.8 14.8A6.2 6.2 0 0 1 22.6 6l1.4 1.5L25.4 6a6.2 6.2 0 0 1 8.8 8.8L24 24.5Z" />
+        <path d="M5 24c3.5-3 6.2-3.1 9.2-.2l5.2 5.1c1.8 1.8 4.7 1.8 6.5 0l1.3-1.3a3 3 0 0 1 4.3 0 3 3 0 0 1 0 4.2l-7.4 7.4a4 4 0 0 1-5.7 0L5 26.6V24Zm38 0c-3.5-3-6.2-3.1-9.2-.2l-1.5 1.5a6.5 6.5 0 0 1 2.1 1.4 6 6 0 0 1 1.7 3.2l6.9-6.1V24Z" fill="currentColor" />
+      </svg>
+    ),
     image: "https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=800&q=85",
   },
 ];
