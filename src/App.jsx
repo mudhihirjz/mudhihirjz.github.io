@@ -104,8 +104,10 @@ function PersonIcon() {
   );
 }
 
-function ContactDialog({ title, onClose }) {
+function ContactDialog({ title, onClose, applicationMode = false }) {
   const [submitted, setSubmitted] = useState(false);
+  const [applicationType, setApplicationType] = useState("");
+  const [email, setEmail] = useState("");
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -118,32 +120,97 @@ function ContactDialog({ title, onClose }) {
         <button className="dialog-close" type="button" onClick={onClose} aria-label="Close dialog">×</button>
         {submitted ? (
           <div className="success-state">
-            <span className="success-mark" aria-hidden="true">✓</span>
-            <h2 id="contact-dialog-title">Thanks for reaching out</h2>
-            <p>This demo does not send or store messages. Connect a backend to receive requests.</p>
+            {applicationMode ? (
+              <>
+                <h2 id="contact-dialog-title">Application form request prepared</h2>
+                <p>
+                  The {applicationType === "kilivo_member" ? "Kilivo Member" : "Community Impact"} form is selected for {email}.
+                  Email delivery is not connected yet, so nothing was sent or saved.
+                </p>
+              </>
+            ) : (
+              <>
+                <span className="success-mark" aria-hidden="true">✓</span>
+                <h2 id="contact-dialog-title">Thanks for reaching out</h2>
+                <p>This demo does not send or store messages. Connect a backend to receive requests.</p>
+              </>
+            )}
             <button className="button button--primary" type="button" onClick={onClose}>Done</button>
           </div>
         ) : (
           <>
-            <p className="eyebrow">KILIVO LABS</p>
-            <h2 id="contact-dialog-title">{title}</h2>
-            <p className="dialog-intro">Be part of a forward-thinking community that builds, innovates and gives back.</p>
-            <form className="contact-form" onSubmit={handleSubmit}>
-              <label>
-                Your name
-                <input autoFocus name="name" placeholder="e.g. Amina" required />
-              </label>
-              <label>
-                Email address
-                <input name="email" type="email" placeholder="you@example.com" required />
-              </label>
-              <label>
-                How can we help?
-                <textarea name="message" rows="3" placeholder="Tell us a little about your interest" required />
-              </label>
-              <button className="button button--primary" type="submit">Send request</button>
-              <p className="form-note">Demo only — your message will not be sent or saved.</p>
-            </form>
+            <p className="eyebrow">{applicationMode ? "MEMBERSHIP APPLICATION" : "KILIVO LABS"}</p>
+            <h2 id="contact-dialog-title">{applicationMode ? "Choose your application" : title}</h2>
+            <p className="dialog-intro">
+              {applicationMode
+                ? "Choose the application you want. The matching form will be sent to your email once email delivery is connected."
+                : "Be part of a forward-thinking community that builds, innovates and gives back."}
+            </p>
+            {applicationMode ? (
+              <form className="contact-form" onSubmit={handleSubmit}>
+                <fieldset className="application-options">
+                  <legend>What would you like to apply for?</legend>
+                  <label className={`application-option${applicationType === "kilivo_member" ? " is-selected" : ""}`}>
+                    <input
+                      type="radio"
+                      name="applicationType"
+                      value="kilivo_member"
+                      checked={applicationType === "kilivo_member"}
+                      onChange={(event) => setApplicationType(event.target.value)}
+                      required
+                    />
+                    <span><strong>Kilivo Member</strong><small>Join the KILIVO LABS membership community.</small></span>
+                  </label>
+                  <label className={`application-option${applicationType === "community_impact" ? " is-selected" : ""}`}>
+                    <input
+                      type="radio"
+                      name="applicationType"
+                      value="community_impact"
+                      checked={applicationType === "community_impact"}
+                      onChange={(event) => setApplicationType(event.target.value)}
+                      required
+                    />
+                    <span><strong>Community Impact</strong><small>Apply to participate in community impact initiatives.</small></span>
+                  </label>
+                </fieldset>
+                {applicationType && (
+                  <>
+                    <label>
+                      Email address
+                      <input
+                        autoFocus
+                        autoComplete="email"
+                        name="email"
+                        type="email"
+                        placeholder="you@example.com"
+                        value={email}
+                        onChange={(event) => setEmail(event.target.value)}
+                        required
+                      />
+                    </label>
+                    <button className="button button--primary" type="submit">Request application form</button>
+                    <p className="form-note">Preview only — email delivery is not connected, and this address will not be sent or saved.</p>
+                  </>
+                )}
+              </form>
+            ) : (
+              <form className="contact-form" onSubmit={handleSubmit}>
+                <label>
+                  Your name
+                  <input autoFocus name="name" placeholder="e.g. Amina" required />
+                </label>
+                <label>
+                  Email address
+                  <input name="email" type="email" placeholder="you@example.com" required />
+                </label>
+                <label>
+                  How can we help?
+                  <textarea name="message" rows="3" placeholder="Tell us a little about your interest" required />
+                </label>
+                <button className="button button--primary" type="submit">Send request</button>
+                <p className="form-note">Demo only — your message will not be sent or saved.</p>
+              </form>
+            )}
           </>
         )}
       </section>
@@ -153,6 +220,7 @@ function ContactDialog({ title, onClose }) {
 
 function App() {
   const [dialogTitle, setDialogTitle] = useState("");
+  const [dialogApplicationMode, setDialogApplicationMode] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -160,8 +228,9 @@ function App() {
     item.title.toLowerCase().includes(searchQuery.trim().toLowerCase()),
   );
 
-  function openContact(title) {
+  function openContact(title, applicationMode = false) {
     setDialogTitle(title);
+    setDialogApplicationMode(applicationMode);
     setMenuOpen(false);
   }
 
@@ -198,7 +267,7 @@ function App() {
           >
             <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8" /><path d="m16 16 5 5" /></svg>
           </button>
-          <button className="button button--primary button--member" type="button" onClick={() => openContact("Become a Member")}>
+          <button className="button button--primary button--member" type="button" onClick={() => openContact("Become a Member", true)}>
             <PersonIcon /> <span>Become a Member</span>
           </button>
         </div>
@@ -232,7 +301,7 @@ function App() {
             </p>
             <div className="hero-actions">
               <a className="button button--primary" href="#about"><span aria-hidden="true">ⓘ</span> Learn More</a>
-              <button className="button button--outline" type="button" onClick={() => openContact("Join Our Community")}>
+              <button className="button button--outline" type="button" onClick={() => openContact("Join Our Community", true)}>
                 <PersonIcon /> Join Our Community
               </button>
             </div>
@@ -302,7 +371,7 @@ function App() {
                 <div className="join-copy">
                   <h2>Join KILIVO LABS</h2>
                   <p>Be part of a forward-thinking community that builds, innovates and gives back.</p>
-                  <button className="button button--yellow" type="button" onClick={() => openContact("Apply for Membership")}>
+                  <button className="button button--yellow" type="button" onClick={() => openContact("Apply for Membership", true)}>
                     <PersonIcon /> Apply for Membership <span aria-hidden="true">→</span>
                   </button>
                 </div>
@@ -338,7 +407,13 @@ function App() {
         <p className="footer-tagline">Together for a Brighter Future.</p>
       </footer>
 
-      {dialogTitle && <ContactDialog title={dialogTitle} onClose={() => setDialogTitle("")} />}
+      {dialogTitle && (
+        <ContactDialog
+          title={dialogTitle}
+          applicationMode={dialogApplicationMode}
+          onClose={() => { setDialogTitle(""); setDialogApplicationMode(false); }}
+        />
+      )}
     </div>
   );
 }
