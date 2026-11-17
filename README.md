@@ -1,181 +1,61 @@
-
-<!-- =================================== -->
-<!-- MJz | GITHUB PROFILE README          -->
-<!-- =================================== -->
-
 <div align="center">
-
-  <!-- HERO BANNER -->
-  <img src="assets/profile-banner.png" width="100%" alt="MJz Developer Banner"/>
-
-  <h1>Hey, I'm MJz 👋</h1>
-
-  <h3>Software Developer | Technology Enthusiast | Lifelong Learner</h3>
-
-  <p>
-    <b>Code • Innovate • Impact</b><br/>
-    Building meaningful software solutions for a better tomorrow.
-  </p>
-
-  <img src="https://img.shields.io/badge/Open%20to-Opportunities-238636?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/Location-Tanzania-1f6feb?style=for-the-badge" />
-
-  <br/><br/>
-
-  <a href="https://github.com/YOUR_USERNAME">
-    <img src="https://img.shields.io/badge/GitHub-Profile-181717?style=for-the-badge&logo=github" />
-  </a>
-
+  <img src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/svgs/solid/lightbulb.svg" width="56" alt="Font Awesome lightbulb icon" />
+  <h1>KILIVO LABS</h1>
+  <p><strong>Together for a Brighter Future</strong></p>
+  <p>A home for innovation, technology, community impact, and empowering people.</p>
 </div>
 
 ---
 
-<!-- ABOUT ME -->
+<h2><img src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/svgs/solid/circle-info.svg" width="20" alt="" /> About</h2>
 
-## 👨‍💻 About Me
+KILIVO LABS is a forward-thinking organization focused on using innovation and technology to make a positive difference in the community. This repository contains the KILIVO LABS website.
 
-Hello! I'm **MJz**, a software developer from Tanzania 🇹🇿.
+<h2><img src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/svgs/solid/laptop-code.svg" width="20" alt="" /> Website features</h2>
 
-I'm passionate about technology, software engineering and building solutions that solve real-world problems.
+- Responsive landing page for KILIVO LABS.
+- Organization, news, and community-impact sections.
+- Membership and contact form previews. Forms are currently a demo and do not send or save submissions.
+- Search for sections on the website.
 
-- 💻 Interested in Software Development.
-- 🏗️ Exploring System Design & Architecture.
-- 🌍 Interested in technology with social impact.
-- 🚀 Building meaningful software projects.
-- 📚 Always learning and improving.
+<h2><img src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/svgs/solid/list-check.svg" width="20" alt="" /> Project</h2>
 
----
+| Project | Description |
+| --- | --- |
+| **KILIVO LABS** | Official landing page introducing the organization, its work, and ways to get involved. |
 
-<!-- TECH STACK -->
+<h2><img src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/svgs/solid/code.svg" width="20" alt="" /> Built with</h2>
 
-## 🛠️ Tech Stack
+![React](https://img.shields.io/badge/React-18-149ECA?style=flat&logo=react&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-6-646CFF?style=flat&logo=vite&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-ES_modules-F7DF1E?style=flat&logo=javascript&logoColor=111111)
+![CSS](https://img.shields.io/badge/Styles-CSS-663399?style=flat&logo=css&logoColor=white)
 
-### Languages & Development
+<h2><img src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/svgs/solid/rocket.svg" width="20" alt="" /> Run locally</h2>
 
-<p>
-  <img src="https://skillicons.dev/icons?i=cpp,python,js,ts" />
-</p>
+### Requirements
 
-### Frameworks & Tools
+- Node.js
+- npm
 
-<p>
-  <img src="https://skillicons.dev/icons?i=react,qt,tauri,postgres,linux,git,docker" />
-</p>
+### Setup
 
----
+```bash
+git clone <repository-url>
+cd <repository-directory>
+npm install
+npm run dev
+```
 
-<!-- FEATURED PROJECTS -->
+Open the local URL printed by Vite in your browser.
 
-## 🚀 Featured Projects
+### Production build
 
-<table>
-<tr>
-<td width="50%">
+```bash
+npm run build
+npm run preview
+```
 
-### 🚌 KILIVOSAFARI
+<h2><img src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/svgs/solid/heart.svg" width="20" alt="" /> Our purpose</h2>
 
-A bus ticketing and transport management system.
-
-**Focus:** Transportation Technology
-
-<a href="https://github.com/YOUR_USERNAME/KILIVOSAFARI">
-View Project →
-</a>
-
-</td>
-<td width="50%">
-
-### 📚 TeacherSmart Lite
-
-A lightweight offline personal assistant for teachers.
-
-**Focus:** Offline Applications
-
-<a href="https://github.com/YOUR_USERNAME/TeacherSmart-Lite">
-View Project →
-</a>
-
-</td>
-</tr>
-
-<tr>
-<td width="50%">
-
-### ❤️ KILIVO LABS
-
-Technology and innovation with community impact.
-
-**Focus:** Technology & Innovation
-
-<a href="https://github.com/YOUR_USERNAME/KILIVO-LABS">
-View Project →
-</a>
-
-</td>
-<td width="50%">
-
-### 💡 More Coming Soon
-
-Exploring ideas, experimenting with technology and building new solutions.
-
-</td>
-</tr>
-</table>
-
----
-
-<!-- GITHUB STATISTICS -->
-
-## 📊 GitHub Statistics
-
-<div align="center">
-
-<img width="49%" src="https://github-readme-stats.vercel.app/api?username=YOUR_USERNAME&show_icons=true&theme=tokyonight&hide_border=true&bg_color=0D1117&title_color=58A6FF&icon_color=BC8CFF&text_color=C9D1D9" />
-
-<img width="49%" src="https://github-readme-stats.vercel.app/api/top-langs/?username=YOUR_USERNAME&layout=compact&theme=tokyonight&hide_border=true&bg_color=0D1117&title_color=58A6FF&text_color=C9D1D9" />
-
-<br/>
-
-<img width="75%" src="https://streak-stats.demolab.com?user=YOUR_USERNAME&theme=tokyonight&hide_border=true&background=0D1117" />
-
-</div>
-
----
-
-<!-- CONTRIBUTION GRAPH -->
-
-## 🔥 Contribution Activity
-
-<div align="center">
-
-<img src="https://ghchart.rshah.org/238636/YOUR_USERNAME" width="100%" alt="GitHub Contribution Graph"/>
-
-</div>
-
----
-
-<!-- CONNECT -->
-
-## 🤝 Let's Connect
-
-<div align="center">
-
-<a href="https://github.com/YOUR_USERNAME">
-  <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white"/>
-</a>
-
-<a href="https://www.linkedin.com/in/YOUR_LINKEDIN/">
-  <img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white"/>
-</a>
-
-<a href="mailto:YOUR_EMAIL">
-  <img src="https://img.shields.io/badge/Email-EA4335?style=for-the-badge&logo=gmail&logoColor=white"/>
-</a>
-
-<br/><br/>
-
-### ✨ Dream Big. Code Better. Impact Lives.
-
-*Together, let's build something great!* 🚀
-
-</div>
+**Build. Innovate. Empower.**
