@@ -1,0 +1,182 @@
+[
+    {
+        "merged": "tz.co.kilivolabs.app-debug-46:/drawable_ic_search.xml.flat",
+        "source": "tz.co.kilivolabs.app-main-48:/drawable/ic_search.xml"
+    },
+    {
+        "merged": "tz.co.kilivolabs.app-debug-46:/drawable_ic_calendar.xml.flat",
+        "source": "tz.co.kilivolabs.app-main-48:/drawable/ic_calendar.xml"
+    },
+    {
+        "merged": "tz.co.kilivolabs.app-debug-46:/drawable_ic_mobile.xml.flat",
+        "source": "tz.co.kilivolabs.app-main-48:/drawable/ic_mobile.xml"
+    },
+    {
+        "merged": "tz.co.kilivolabs.app-debug-46:/drawable-nodpi_impact_students.jpg.flat",
+        "source": "tz.co.kilivolabs.app-main-48:/drawable-nodpi/impact_students.jpg"
+    },
+    {
+        "merged": "tz.co.kilivolabs.app-debug-46:/drawable_ic_arrow_right.xml.flat",
+        "source": "tz.co.kilivolabs.app-main-48:/drawable/ic_arrow_right.xml"
+    },
+    {
+        "merged": "tz.co.kilivolabs.app-debug-46:/drawable_ic_projects.xml.flat",
+        "source": "tz.co.kilivolabs.app-main-48:/drawable/ic_projects.xml"
+    },
+    {
+        "merged": "tz.co.kilivolabs.app-debug-46:/drawable_ic_chip.xml.flat",
+        "source": "tz.co.kilivolabs.app-main-48:/drawable/ic_chip.xml"
+    },
+    {
+        "merged": "tz.co.kilivolabs.app-debug-46:/drawable-nodpi_technology_laptop.jpg.flat",
+        "source": "tz.co.kilivolabs.app-main-48:/drawable-nodpi/technology_laptop.jpg"
+    },
+    {
+        "merged": "tz.co.kilivolabs.app-debug-46:/drawable_ic_shield.xml.flat",
+        "source": "tz.co.kilivolabs.app-main-48:/drawable/ic_shield.xml"
+    },
+    {
+        "merged": "tz.co.kilivolabs.app-debug-46:/drawable_ic_back.xml.flat",
+        "source": "tz.co.kilivolabs.app-main-48:/drawable/ic_back.xml"
+    },
+    {
+        "merged": "tz.co.kilivolabs.app-debug-46:/drawable_ic_book.xml.flat",
+        "source": "tz.co.kilivolabs.app-main-48:/drawable/ic_book.xml"
+    },
+    {
+        "merged": "tz.co.kilivolabs.app-debug-46:/drawable_ic_edit.xml.flat",
+        "source": "tz.co.kilivolabs.app-main-48:/drawable/ic_edit.xml"
+    },
+    {
+        "merged": "tz.co.kilivolabs.app-debug-46:/drawable_ic_menu.xml.flat",
+        "source": "tz.co.kilivolabs.app-main-48:/drawable/ic_menu.xml"
+    },
+    {
+        "merged": "tz.co.kilivolabs.app-debug-46:/drawable_ic_welcome_hardhat.xml.flat",
+        "source": "tz.co.kilivolabs.app-main-48:/drawable/ic_welcome_hardhat.xml"
+    },
+    {
+        "merged": "tz.co.kilivolabs.app-debug-46:/drawable_ic_people.xml.flat",
+        "source": "tz.co.kilivolabs.app-main-48:/drawable/ic_people.xml"
+    },
+    {
+        "merged": "tz.co.kilivolabs.app-debug-46:/drawable_ic_logout.xml.flat",
+        "source": "tz.co.kilivolabs.app-main-48:/drawable/ic_logout.xml"
+    },
+    {
+        "merged": "tz.co.kilivolabs.app-debug-46:/drawable_ic_technology.xml.flat",
+        "source": "tz.co.kilivolabs.app-main-48:/drawable/ic_technology.xml"
+    },
+    {
+        "merged": "tz.co.kilivolabs.app-debug-46:/drawable_ic_leaf.xml.flat",
+        "source": "tz.co.kilivolabs.app-main-48:/drawable/ic_leaf.xml"
+    },
+    {
+        "merged": "tz.co.kilivolabs.app-debug-46:/drawable_ic_updates.xml.flat",
+        "source": "tz.co.kilivolabs.app-main-48:/drawable/ic_updates.xml"
+    },
+    {
+        "merged": "tz.co.kilivolabs.app-debug-46:/drawable_ic_impact.xml.flat",
+        "source": "tz.co.kilivolabs.app-main-48:/drawable/ic_impact.xml"
+    },
+    {
+        "merged": "tz.co.kilivolabs.app-debug-46:/drawable-nodpi_splash_family.jpg.flat",
+        "source": "tz.co.kilivolabs.app-main-48:/drawable-nodpi/splash_family.jpg"
+    },
+    {
+        "merged": "tz.co.kilivolabs.app-debug-46:/drawable_ic_help.xml.flat",
+        "source": "tz.co.kilivolabs.app-main-48:/drawable/ic_help.xml"
+    },
+    {
+        "merged": "tz.co.kilivolabs.app-debug-46:/drawable_ic_bell.xml.flat",
+        "source": "tz.co.kilivolabs.app-main-48:/drawable/ic_bell.xml"
+    },
+    {
+        "merged": "tz.co.kilivolabs.app-debug-46:/drawable_ic_gear.xml.flat",
+        "source": "tz.co.kilivolabs.app-main-48:/drawable/ic_gear.xml"
+    },
+    {
+        "merged": "tz.co.kilivolabs.app-debug-46:/drawable_ic_cart.xml.flat",
+        "source": "tz.co.kilivolabs.app-main-48:/drawable/ic_cart.xml"
+    },
+    {
+        "merged": "tz.co.kilivolabs.app-debug-46:/drawable-nodpi_background.jpg.flat",
+        "source": "tz.co.kilivolabs.app-main-48:/drawable-nodpi/background.jpg"
+    },
+    {
+        "merged": "tz.co.kilivolabs.app-debug-46:/drawable_ic_building.xml.flat",
+        "source": "tz.co.kilivolabs.app-main-48:/drawable/ic_building.xml"
+    },
+    {
+        "merged": "tz.co.kilivolabs.app-debug-46:/drawable_ic_profile.xml.flat",
+        "source": "tz.co.kilivolabs.app-main-48:/drawable/ic_profile.xml"
+    },
+    {
+        "merged": "tz.co.kilivolabs.app-debug-46:/drawable_ic_code.xml.flat",
+        "source": "tz.co.kilivolabs.app-main-48:/drawable/ic_code.xml"
+    },
+    {
+        "merged": "tz.co.kilivolabs.app-debug-46:/drawable_ic_logo_mark.xml.flat",
+        "source": "tz.co.kilivolabs.app-main-48:/drawable/ic_logo_mark.xml"
+    },
+    {
+        "merged": "tz.co.kilivolabs.app-debug-46:/drawable-nodpi_business_buildings.jpg.flat",
+        "source": "tz.co.kilivolabs.app-main-48:/drawable-nodpi/business_buildings.jpg"
+    },
+    {
+        "merged": "tz.co.kilivolabs.app-debug-46:/drawable_ic_kilivo_icon.xml.flat",
+        "source": "tz.co.kilivolabs.app-main-48:/drawable/ic_kilivo_icon.xml"
+    },
+    {
+        "merged": "tz.co.kilivolabs.app-debug-46:/drawable-nodpi_home_skyline.jpg.flat",
+        "source": "tz.co.kilivolabs.app-main-48:/drawable-nodpi/home_skyline.jpg"
+    },
+    {
+        "merged": "tz.co.kilivolabs.app-debug-46:/drawable_ic_divisions.xml.flat",
+        "source": "tz.co.kilivolabs.app-main-48:/drawable/ic_divisions.xml"
+    },
+    {
+        "merged": "tz.co.kilivolabs.app-debug-46:/drawable_ic_target.xml.flat",
+        "source": "tz.co.kilivolabs.app-main-48:/drawable/ic_target.xml"
+    },
+    {
+        "merged": "tz.co.kilivolabs.app-debug-46:/drawable_ic_people_heart.xml.flat",
+        "source": "tz.co.kilivolabs.app-main-48:/drawable/ic_people_heart.xml"
+    },
+    {
+        "merged": "tz.co.kilivolabs.app-debug-46:/drawable-nodpi_settings_landscape.jpg.flat",
+        "source": "tz.co.kilivolabs.app-main-48:/drawable-nodpi/settings_landscape.jpg"
+    },
+    {
+        "merged": "tz.co.kilivolabs.app-debug-46:/drawable_ic_welcome_impact.xml.flat",
+        "source": "tz.co.kilivolabs.app-main-48:/drawable/ic_welcome_impact.xml"
+    },
+    {
+        "merged": "tz.co.kilivolabs.app-debug-46:/drawable_ic_heart.xml.flat",
+        "source": "tz.co.kilivolabs.app-main-48:/drawable/ic_heart.xml"
+    },
+    {
+        "merged": "tz.co.kilivolabs.app-debug-46:/drawable_ic_check.xml.flat",
+        "source": "tz.co.kilivolabs.app-main-48:/drawable/ic_check.xml"
+    },
+    {
+        "merged": "tz.co.kilivolabs.app-debug-46:/drawable_ic_truck.xml.flat",
+        "source": "tz.co.kilivolabs.app-main-48:/drawable/ic_truck.xml"
+    },
+    {
+        "merged": "tz.co.kilivolabs.app-debug-46:/drawable-nodpi_project_site.jpg.flat",
+        "source": "tz.co.kilivolabs.app-main-48:/drawable-nodpi/project_site.jpg"
+    },
+    {
+        "merged": "tz.co.kilivolabs.app-debug-46:/drawable_ic_support.xml.flat",
+        "source": "tz.co.kilivolabs.app-main-48:/drawable/ic_support.xml"
+    },
+    {
+        "merged": "tz.co.kilivolabs.app-debug-46:/drawable_ic_home.xml.flat",
+        "source": "tz.co.kilivolabs.app-main-48:/drawable/ic_home.xml"
+    },
+    {
+        "merged": "tz.co.kilivolabs.app-debug-46:/drawable_ic_business.xml.flat",
+        "source": "tz.co.kilivolabs.app-main-48:/drawable/ic_business.xml"
+    }
+]

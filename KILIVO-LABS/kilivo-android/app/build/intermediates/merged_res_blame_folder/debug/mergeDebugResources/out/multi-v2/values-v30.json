@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "tz.co.kilivolabs.app-mergeDebugResources-44:/values-v30/values-v30.xml",
+            "map": [
+                {
+                    "source": "/home/mudhihirjz/.gradle/caches/9.8.1/transforms/b8eec4342cc77aefd1f05ef4da2127f4/transformed/material3-release/res/values-v30/values-v30.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "72",
+                        "endOffsets": "123"
+                    }
+                }
+            ]
+        }
+    ]
+}

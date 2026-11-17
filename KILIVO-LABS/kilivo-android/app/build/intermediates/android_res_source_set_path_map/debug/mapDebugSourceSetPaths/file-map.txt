@@ -1,0 +1,8 @@
+tz.co.kilivolabs.app-pngs-0 /home/mudhihirjz/Projects/KILIVO-LABS/kilivo-android/app/build/generated/res/pngs/debug
+tz.co.kilivolabs.app-updated_navigation_xml-1 /home/mudhihirjz/Projects/KILIVO-LABS/kilivo-android/app/build/generated/updated_navigation_xml/debug
+tz.co.kilivolabs.app-packageDebugResources-2 /home/mudhihirjz/Projects/KILIVO-LABS/kilivo-android/app/build/intermediates/incremental/debug/packageDebugResources/merged.dir
+tz.co.kilivolabs.app-packageDebugResources-3 /home/mudhihirjz/Projects/KILIVO-LABS/kilivo-android/app/build/intermediates/incremental/debug/packageDebugResources/stripped.dir
+tz.co.kilivolabs.app-debug-4 /home/mudhihirjz/Projects/KILIVO-LABS/kilivo-android/app/build/intermediates/merged_res/debug/mergeDebugResources
+tz.co.kilivolabs.app-debug-5 /home/mudhihirjz/Projects/KILIVO-LABS/kilivo-android/app/src/debug/res
+tz.co.kilivolabs.app-main-6 /home/mudhihirjz/Projects/KILIVO-LABS/kilivo-android/app/src/main/res
+gradleHome-0 /home/mudhihirjz/.gradle

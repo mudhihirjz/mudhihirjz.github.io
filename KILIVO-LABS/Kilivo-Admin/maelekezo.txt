@@ -1,0 +1,7 @@
+maelekezo:
+Company Overview: hapa kunakuwa na real current informations za maendeleo ya company, mafanikio, missions, palans, divisions briefling, mapato, michango.. hapa ni GET API ndio inatumika kwasababu ni read only tu.
+Divisons: hapa kunakuwa na cards zile za divisions, ni buttons za kubonyeza..ila kubwa kama zinavyoonekana, hazina action buttons.. kisha ukibonyeza, ni kama sub-controller hiyo.. kila kinachohusiana na division husika kinakuwa managed huko, contents za division hiyo, muonekano wa hiyo division uwe kule kwenye apps, na vitu vingine.
+Project & Impact menu tunaiondoa kwasababu nishaeleza hapo juu kila division inashughulikia kitu chake husika
+News & Media: hapa tutakuwa tunachapisha taarifa zozote, aidha zinahusiana na division fulani bila kujali, aidha tangazo.
+Public website: hapa vyote ambavyo vinaonekana kwenye webApp lakini havionekani kwenye mobile app(workers), utofauti niliousema
+Company profile: hapo ni ambapo zipo zile logo za kampuni zile mbili(nyeupe na ile ya blue), na taarifa rasmi za kampuni, kisha kuna button ya kuadd divisions ambazo zitaonekana sasa kwenye divisons, kuziedit hapo images zake zile, na maelezo mafupi.
