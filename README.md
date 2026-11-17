@@ -18,7 +18,7 @@
       <p>KILIVO LABS is a forward-thinking organization committed to innovation, community impact, and empowering people through technology.</p>
       <ul>
         <li>Building technology for a better world.</li>
-        <li>Sharing news, ideas, and opportunities.</li>
+        <li>Sharing news, ideas, and opportunities..</li>
         <li>Supporting community initiatives.</li>
         <li>Bringing people together to build a brighter future.</li>
       </ul>
