@@ -24,6 +24,17 @@ KILIVO LABS is a forward-thinking organization focused on using innovation and t
 | --- | --- |
 | **KILIVO LABS** | Official landing page introducing the organization, its work, and ways to get involved. |
 
+<h2><img src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/svgs/solid/chart-simple.svg" width="20" alt="" /> Repository stats</h2>
+
+Live GitHub statistics for the KILIVO LABS website repository:
+
+<a href="https://github.com/mudhihirjz/mudhihirjz.github.io">
+  <img src="https://img.shields.io/github/stars/mudhihirjz/mudhihirjz.github.io?style=for-the-badge&logo=github&label=Stars" alt="GitHub stars" />
+  <img src="https://img.shields.io/github/forks/mudhihirjz/mudhihirjz.github.io?style=for-the-badge&logo=git&label=Forks" alt="GitHub forks" />
+  <img src="https://img.shields.io/github/watchers/mudhihirjz/mudhihirjz.github.io?style=for-the-badge&logo=github&label=Watchers" alt="GitHub watchers" />
+  <img src="https://img.shields.io/github/last-commit/mudhihirjz/mudhihirjz.github.io?style=for-the-badge&logo=github&label=Last%20commit" alt="Last commit" />
+</a>
+
 <h2><img src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/svgs/solid/code.svg" width="20" alt="" /> Built with</h2>
 
 ![React](https://img.shields.io/badge/React-18-149ECA?style=flat&logo=react&logoColor=white)
