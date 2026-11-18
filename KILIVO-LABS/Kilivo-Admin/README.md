@@ -42,6 +42,15 @@ are limited to PDF/JPEG/PNG/WebP files up to 10 MB. Approving an application
 only updates local mock records; secure invitation delivery requires the
 backend email service and is not simulated as sent.
 
+System workspaces provide local member summaries and CSV exports, a recent
+content-updated view, integration configuration details, and help topics.
+They do not create real admin accounts or roles, collect security events or
+website analytics, publish content, or send support requests. The support
+workspace can copy a draft message to the clipboard but does not submit it.
+Company profile and division details return to read-only mode after saving;
+select **Edit** to make further changes. Content and member editors also close
+after a successful save.
+
 Website pages, navigation entries, and SEO settings are local drafts on this
 computer. They do not update the public website until a shared admin API is
 implemented and configured.
@@ -69,7 +78,7 @@ npm run tauri:rpm
 The package is written to:
 
 ```text
-src-tauri/target/release/bundle/rpm/KILIVO LABS Admin-0.5.0-1.x86_64.rpm
+src-tauri/target/release/bundle/rpm/KILIVO LABS Admin-0.5.1-1.x86_64.rpm
 ```
 
 On Linux, app content is stored under:
@@ -83,5 +92,5 @@ On Linux, app content is stored under:
 Install on Fedora:
 
 ```sh
-sudo dnf install ./src-tauri/target/release/bundle/rpm/KILIVO\ LABS\ Admin-0.5.0-1.x86_64.rpm
+sudo dnf install ./src-tauri/target/release/bundle/rpm/KILIVO\ LABS\ Admin-0.5.1-1.x86_64.rpm
 ```

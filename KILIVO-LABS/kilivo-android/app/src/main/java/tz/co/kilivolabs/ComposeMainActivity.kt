@@ -442,6 +442,7 @@ private fun KilivoComposeApp() {
                                 .putString("profile_name", updatedName)
                                 .putString("account_email", updatedEmail)
                                 .apply()
+                            replaceRoute(ComposeScreen.Profile)
                             formDialog = if (passwordChange) "account_password_preview" else "account_saved"
                         }
                     )

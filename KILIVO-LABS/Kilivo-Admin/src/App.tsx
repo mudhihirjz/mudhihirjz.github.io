@@ -191,6 +191,20 @@ const sectionContent: Record<string, { kind: ContentKind; title: string }> = {
   "Documents & Resources": { kind: "document", title: "Documents & Resources" },
 };
 
+const sectionDescriptions: Record<string, string> = {
+  "Roles & Permissions": "Review the local preview’s access-control limitations.",
+  "Website Analytics": "Website traffic reporting is unavailable until a tracking source is connected.",
+  "Member Reports": "Summaries calculated from this computer’s local member records.",
+  "Export Reports": "Download reports from local member and content data.",
+  "General Settings": "Review local storage and application configuration.",
+  "Admin Accounts": "Admin account provisioning requires a shared identity service.",
+  Integrations: "Review connected services and integrations that are not configured.",
+  "Activity History": "Review recent content timestamps without a user audit trail.",
+  "Security Events": "Security event collection requires an authentication and audit service.",
+  "Help Center": "Find guidance for using the local admin workspace.",
+  "Contact Support": "Prepare a support message; no request is sent from this app.",
+};
+
 type OverviewItem = {
   id: string;
   title: string;
@@ -572,6 +586,7 @@ function CompanyProfileWorkspace({
   onSave: (record: ContentRecord) => Promise<void>;
 }) {
   const [editing, setEditing] = useState(profile);
+  const [isEditing, setIsEditing] = useState(false);
   const [saving, setSaving] = useState(false);
   const [creatingDivision, setCreatingDivision] = useState(false);
   const [divisionTitle, setDivisionTitle] = useState("");
@@ -585,6 +600,7 @@ function CompanyProfileWorkspace({
     setError("");
     try {
       await onSave({ ...editing, kind: "company", logoWhite: null, logoBlue: null });
+      setIsEditing(false);
     } catch (saveError) {
       setError(`Could not save company profile: ${String(saveError)}`);
     } finally {
@@ -624,49 +640,74 @@ function CompanyProfileWorkspace({
       <article className="profile-edit-panel">
         <div className="profile-section-heading">
           <div><h2>Official company information</h2><p>Saved on this computer; edits are not shared with the website or mobile app.</p></div>
-          <span className="status-badge status-draft">Local profile</span>
+          {isEditing ? (
+            <span className="status-badge status-draft">Editing profile</span>
+          ) : (
+            <button className="button-secondary" type="button" disabled={Boolean(storageError)} onClick={() => { setError(""); setIsEditing(true); }}>Edit</button>
+          )}
         </div>
-        <div className="profile-edit-fields">
-          <label className="field-label">
-            Company name
-            <input value={editing.title} maxLength={140} onChange={(event) => setEditing((current) => ({ ...current, title: event.target.value }))} />
-          </label>
-          <label className="field-label">
-            Short description
-            <textarea value={editing.summary} maxLength={300} rows={3} onChange={(event) => setEditing((current) => ({ ...current, summary: event.target.value }))} />
-          </label>
-          <label className="field-label">
-            Official information
-            <textarea className="body-field" value={editing.body} rows={7} onChange={(event) => setEditing((current) => ({ ...current, body: event.target.value }))} />
-          </label>
-        </div>
+        {isEditing ? (
+          <div className="profile-edit-fields">
+            <label className="field-label">
+              Company name
+              <input value={editing.title} maxLength={140} onChange={(event) => setEditing((current) => ({ ...current, title: event.target.value }))} />
+            </label>
+            <label className="field-label">
+              Short description
+              <textarea value={editing.summary} maxLength={300} rows={3} onChange={(event) => setEditing((current) => ({ ...current, summary: event.target.value }))} />
+            </label>
+            <label className="field-label">
+              Official information
+              <textarea className="body-field" value={editing.body} rows={7} onChange={(event) => setEditing((current) => ({ ...current, body: event.target.value }))} />
+            </label>
+          </div>
+        ) : (
+          <div className="profile-read-only">
+            <div><span>Company name</span><p>{editing.title || "Not provided"}</p></div>
+            <div><span>Short description</span><p>{editing.summary || "Not provided"}</p></div>
+            <div><span>Official information</span><p className="profile-read-only-body">{editing.body || "Not provided"}</p></div>
+          </div>
+        )}
         <div className="company-logo-grid">
           {([
             ["white", "White K logo"],
             ["blue", "Blue K logo"],
           ] as const).map(([variant, label]) => (
-            <button
-              className={`company-logo-card${editing.logoVariant === variant ? " company-logo-card--selected" : ""}`}
-              type="button"
-              key={variant}
-              aria-pressed={editing.logoVariant === variant}
-              disabled={saving}
-              onClick={() => setEditing((current) => ({ ...current, logoVariant: variant }))}
-            >
-              <span className={`company-logo-preview company-logo-preview--${variant}`}>
-                <CompanyLogoMark variant={variant} />
-              </span>
-              <strong>{label}</strong>
-              <small>{editing.logoVariant === variant ? "Selected" : "Choose this logo"}</small>
-            </button>
+            isEditing ? (
+              <button
+                className={`company-logo-card${editing.logoVariant === variant ? " company-logo-card--selected" : ""}`}
+                type="button"
+                key={variant}
+                aria-pressed={editing.logoVariant === variant}
+                disabled={saving}
+                onClick={() => setEditing((current) => ({ ...current, logoVariant: variant }))}
+              >
+                <span className={`company-logo-preview company-logo-preview--${variant}`}>
+                  <CompanyLogoMark variant={variant} />
+                </span>
+                <strong>{label}</strong>
+                <small>{editing.logoVariant === variant ? "Selected" : "Choose this logo"}</small>
+              </button>
+            ) : (
+              <div className={`company-logo-card company-logo-card--read-only${editing.logoVariant === variant ? " company-logo-card--selected" : ""}`} key={variant}>
+                <span className={`company-logo-preview company-logo-preview--${variant}`}>
+                  <CompanyLogoMark variant={variant} />
+                </span>
+                <strong>{label}</strong>
+                <small>{editing.logoVariant === variant ? "Selected logo" : "Available logo"}</small>
+              </div>
+            )
           ))}
         </div>
         <p className="upload-help">Choose the built-in white or blue KILIVO logo. No logo upload is needed.</p>
-        <div className="editor-actions">
-          <button className="button-primary" type="button" disabled={saving || !editing.title.trim() || Boolean(storageError)} onClick={() => void saveProfile()}>
-            <Icon name="save" size={17} />{saving ? "Saving…" : "Save company profile"}
-          </button>
-        </div>
+        {isEditing && (
+          <div className="editor-actions">
+            <button className="button-secondary" type="button" disabled={saving} onClick={() => { setEditing(profile); setIsEditing(false); setError(""); }}>Cancel</button>
+            <button className="button-primary" type="button" disabled={saving || !editing.title.trim() || Boolean(storageError)} onClick={() => void saveProfile()}>
+              <Icon name="save" size={17} />{saving ? "Saving…" : "Save company profile"}
+            </button>
+          </div>
+        )}
       </article>
 
       <article className="profile-edit-panel">
@@ -730,12 +771,14 @@ function DivisionsWorkspace({
   const [tab, setTab] = useState<DivisionTab>("details");
   const selectedDivision = divisions.find((division) => division.id === selectedId) ?? null;
   const [editing, setEditing] = useState<ContentRecord | null>(selectedDivision);
+  const [isEditing, setIsEditing] = useState(false);
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState("");
 
   useEffect(() => {
     setEditing(selectedDivision);
+    setIsEditing(false);
     setTab("details");
     setError("");
   }, [selectedDivision]);
@@ -746,6 +789,7 @@ function DivisionsWorkspace({
     setError("");
     try {
       await onSave({ ...editing, kind: "division" });
+      setIsEditing(false);
     } catch (saveError) {
       setError(`Could not save division: ${String(saveError)}`);
     } finally {
@@ -822,31 +866,51 @@ function DivisionsWorkspace({
       </div>
       {tab === "details" ? (
         <article className="profile-edit-panel division-details-panel">
-          <div className="profile-edit-fields">
-            <label className="field-label">Division name<input value={editing.title} maxLength={140} onChange={(event) => setEditing((current) => current ? { ...current, title: event.target.value } : current)} /></label>
-            <label className="field-label">Short description<textarea value={editing.summary} maxLength={300} rows={3} onChange={(event) => setEditing((current) => current ? { ...current, summary: event.target.value } : current)} /></label>
-            <label className="field-label">Division information<textarea className="body-field" value={editing.body} rows={7} onChange={(event) => setEditing((current) => current ? { ...current, body: event.target.value } : current)} /></label>
-            <label className="field-label">Local publication status<select value={editing.status} onChange={(event) => setEditing((current) => current ? { ...current, status: event.target.value as ContentRecord["status"] } : current)}><option value="draft">Draft</option><option value="published">Published locally</option></select></label>
-          </div>
-          <aside className="editor-aside">
-            <span className="field-label">Division image for app cards</span>
-            <div className="upload-preview">{editing.image ? <ImageThumbnail filename={editing.image} alt={editing.title} /> : <span className="division-image-empty">No division image uploaded</span>}</div>
-            <label className={`upload-button${uploading ? " is-disabled" : ""}`}>
-              <Icon name="upload" size={17} />{uploading ? "Uploading…" : "Choose division image"}
-              <input type="file" accept="image/png,image/jpeg,image/webp" disabled={uploading || saving} onChange={(event) => {
-                const file = event.currentTarget.files?.[0];
-                if (file) void uploadDivisionImage(file);
-                event.currentTarget.value = "";
-              }} />
-            </label>
-            {editing.image && <button className="remove-image-button" type="button" disabled={uploading || saving} onClick={() => setEditing((current) => current ? { ...current, image: null } : current)}>Remove image</button>}
-            <p className="upload-help">PNG, JPEG or WebP · up to 10 MB. Stored locally; not synchronized to other apps.</p>
-          </aside>
-          <div className="editor-actions">
-            <button className="button-primary" type="button" disabled={saving || uploading || !editing.title.trim() || Boolean(storageError)} onClick={() => void saveDivision()}>
-              <Icon name="save" size={17} />{saving ? "Saving…" : "Save division"}
-            </button>
-          </div>
+          {isEditing ? (
+            <>
+              <div className="profile-edit-fields">
+                <label className="field-label">Division name<input value={editing.title} maxLength={140} onChange={(event) => setEditing((current) => current ? { ...current, title: event.target.value } : current)} /></label>
+                <label className="field-label">Short description<textarea value={editing.summary} maxLength={300} rows={3} onChange={(event) => setEditing((current) => current ? { ...current, summary: event.target.value } : current)} /></label>
+                <label className="field-label">Division information<textarea className="body-field" value={editing.body} rows={7} onChange={(event) => setEditing((current) => current ? { ...current, body: event.target.value } : current)} /></label>
+                <label className="field-label">Local publication status<select value={editing.status} onChange={(event) => setEditing((current) => current ? { ...current, status: event.target.value as ContentRecord["status"] } : current)}><option value="draft">Draft</option><option value="published">Published locally</option></select></label>
+              </div>
+              <aside className="editor-aside">
+                <span className="field-label">Division image for app cards</span>
+                <div className="upload-preview">{editing.image ? <ImageThumbnail filename={editing.image} alt={editing.title} /> : <span className="division-image-empty">No division image uploaded</span>}</div>
+                <label className={`upload-button${uploading ? " is-disabled" : ""}`}>
+                  <Icon name="upload" size={17} />{uploading ? "Uploading…" : "Choose division image"}
+                  <input type="file" accept="image/png,image/jpeg,image/webp" disabled={uploading || saving} onChange={(event) => {
+                    const file = event.currentTarget.files?.[0];
+                    if (file) void uploadDivisionImage(file);
+                    event.currentTarget.value = "";
+                  }} />
+                </label>
+                {editing.image && <button className="remove-image-button" type="button" disabled={uploading || saving} onClick={() => setEditing((current) => current ? { ...current, image: null } : current)}>Remove image</button>}
+                <p className="upload-help">PNG, JPEG or WebP · up to 10 MB. Stored locally; not synchronized to other apps.</p>
+              </aside>
+              <div className="editor-actions">
+                <button className="button-secondary" type="button" disabled={saving || uploading} onClick={() => { setEditing(selectedDivision); setIsEditing(false); setError(""); }}>Cancel</button>
+                <button className="button-primary" type="button" disabled={saving || uploading || !editing.title.trim() || Boolean(storageError)} onClick={() => void saveDivision()}>
+                  <Icon name="save" size={17} />{saving ? "Saving…" : "Save division"}
+                </button>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="profile-section-heading division-read-only-heading">
+                <div><h2>{editing.title}</h2><p>{editing.summary || "No short description yet."}</p></div>
+                <button className="button-secondary" type="button" disabled={Boolean(storageError)} onClick={() => { setError(""); setIsEditing(true); }}>Edit</button>
+              </div>
+              <div className="division-read-only-grid">
+                <div><span>Division information</span><p className="profile-read-only-body">{editing.body || "No information provided."}</p></div>
+                <div><span>Local publication status</span><strong className={`status-badge status-${editing.status}`}>{editing.status === "published" ? "Published locally" : "Draft"}</strong></div>
+                <div>
+                  <span>Division image for app cards</span>
+                  <div className="division-read-only-image">{editing.image ? <ImageThumbnail filename={editing.image} alt={editing.title} /> : <span className="division-image-empty">No division image uploaded</span>}</div>
+                </div>
+              </div>
+            </>
+          )}
         </article>
       ) : (
         <ContentWorkspace
@@ -1344,6 +1408,365 @@ function Logo() {
   );
 }
 
+function downloadCsv(fileName: string, rows: (string | number | null | undefined)[][]) {
+  const csv = rows
+    .map((row) => row.map((value) => `"${String(value ?? "").replace(/"/g, "\"\"")}"`).join(","))
+    .join("\r\n");
+  const url = URL.createObjectURL(new Blob([`\uFEFF${csv}`], { type: "text/csv;charset=utf-8" }));
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = fileName;
+  document.body.append(link);
+  link.click();
+  link.remove();
+  window.setTimeout(() => URL.revokeObjectURL(url), 0);
+}
+
+function SystemWorkspace({
+  section,
+  records,
+  memberWorkspace,
+  contentLoading,
+  memberLoading,
+  storageError,
+  memberStorageError,
+  apiBaseUrl,
+  onNavigate,
+}: {
+  section: string;
+  records: ContentRecord[];
+  memberWorkspace: MemberWorkspaceData | null;
+  contentLoading: boolean;
+  memberLoading: boolean;
+  storageError: string;
+  memberStorageError: string;
+  apiBaseUrl: string;
+  onNavigate: (section: string) => void;
+}) {
+  const [helpSearch, setHelpSearch] = useState("");
+  const [supportSubject, setSupportSubject] = useState("");
+  const [supportMessage, setSupportMessage] = useState("");
+  const [notice, setNotice] = useState("");
+  const [error, setError] = useState("");
+  const members = memberWorkspace?.members ?? [];
+  const applications = memberWorkspace?.applications ?? [];
+  const pendingApplications = applications.filter((application) => application.status === "pending").length;
+  const activeMembers = members.filter((member) => member.status === "active").length;
+  const inactiveMembers = members.filter((member) => member.status === "inactive").length;
+  const memberDataAvailable = Boolean(memberWorkspace) && !memberStorageError;
+  const contentDataAvailable = !contentLoading && !storageError;
+  const divisionName = (divisionId: string | null) =>
+    records.find((record) => record.id === divisionId && record.kind === "division")?.title ?? "";
+  const recentRecords = [...records]
+    .sort((left, right) => Number(right.updatedAt) - Number(left.updatedAt))
+    .slice(0, 10);
+  const helpTopics = [
+    { title: "Where is my content stored?", body: "Content and member preview records are stored on this computer. They are not synced to the public website or Android app.", section: "General Settings" },
+    { title: "How do I update public website content?", body: "Use Website Pages, Navigation, or SEO Settings under Public Website. Those changes remain local drafts until a shared publishing API is connected.", section: "Website Pages" },
+    { title: "Do worker assignments reach the Android app?", body: "Assignments, events, and documents are local management records only. They are not delivered to mobile members yet.", section: "Assignments" },
+    { title: "Can I create real member accounts or roles?", body: "No. Member records are local previews; login, secure invitations, and permission enforcement require a shared identity service.", section: "Admin Accounts" },
+    { title: "Why are website analytics unavailable?", body: "No visitor tracking source is connected, so the admin app does not have real website analytics to display.", section: "Website Analytics" },
+  ];
+  const visibleHelpTopics = helpTopics.filter((topic) =>
+    `${topic.title} ${topic.body}`.toLowerCase().includes(helpSearch.trim().toLowerCase()),
+  );
+
+  function exportFile(fileName: string, rows: (string | number | null | undefined)[][]) {
+    setNotice("");
+    setError("");
+    try {
+      downloadCsv(fileName, rows);
+      setNotice(`${fileName} was downloaded to this computer.`);
+    } catch (exportError) {
+      setError(`Could not create the report: ${String(exportError)}`);
+    }
+  }
+
+  async function copySupportDraft(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setNotice("");
+    setError("");
+    const draft = `KILIVO LABS Admin support request\nSubject: ${supportSubject.trim()}\n\n${supportMessage.trim()}`;
+    if (!navigator.clipboard?.writeText) {
+      setError("Clipboard access is unavailable. Select and copy the draft text manually.");
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(draft);
+      setNotice("Draft copied. It was not sent; paste it into your support channel.");
+    } catch (copyError) {
+      setError(`Could not copy the draft: ${String(copyError)}`);
+    }
+  }
+
+  if (section === "Roles & Permissions") {
+    return (
+      <div className="system-workspace">
+        <div className="system-workspace-grid">
+          <section className="system-workspace-card">
+            <div className="system-card-heading"><Icon name="audit" size={21} /><h2>Access control status</h2></div>
+            <p>This desktop preview has no sign-in service or server-side role checks. The “Super Admin” label is a UI preview, not proof of an authenticated account.</p>
+            <span className="system-status-pill system-status-pill--warning">Permission enforcement not configured</span>
+          </section>
+          <section className="system-workspace-card">
+            <div className="system-card-heading"><Icon name="members" size={21} /><h2>What can be managed here</h2></div>
+            <ul className="system-check-list">
+              <li>Local member directory and application preview records</li>
+              <li>Content saved in this desktop app</li>
+              <li>No real login roles, invitations, or remote access policy</li>
+            </ul>
+            <button className="button-secondary" type="button" onClick={() => onNavigate("Member Directory")}>Open Member Directory</button>
+          </section>
+        </div>
+        <div className="system-workspace-note" role="note">Role names and permissions have not been defined for the shared backend. This page intentionally does not invent or enforce permissions.</div>
+      </div>
+    );
+  }
+
+  if (section === "Website Analytics") {
+    return (
+      <div className="system-workspace">
+        <div className="system-workspace-grid">
+          <section className="system-workspace-card system-empty-card">
+            <span className="system-empty-icon"><Icon name="chart" size={27} /></span>
+            <h2>No website tracking data</h2>
+            <p>No analytics provider or visitor event source is connected. This workspace will not display sample traffic as real measurements.</p>
+            <span className="system-status-pill system-status-pill--muted">Tracking not configured</span>
+          </section>
+          <section className="system-workspace-card">
+            <div className="system-card-heading"><Icon name="website" size={21} /><h2>Next step</h2></div>
+            <p>The public site can be managed locally, but visitor analytics and publishing are separate backend integrations.</p>
+            <button className="button-secondary" type="button" onClick={() => onNavigate("Integrations")}>Review integrations</button>
+          </section>
+        </div>
+      </div>
+    );
+  }
+
+  if (section === "Member Reports") {
+    return (
+      <div className="system-workspace">
+        {memberStorageError && <div className="storage-error" role="alert">{memberStorageError}</div>}
+        {memberLoading ? (
+          <section className="system-workspace-card"><p>Loading local member records…</p></section>
+        ) : !memberDataAvailable ? (
+          <section className="system-workspace-card system-empty-card"><h2>Member data unavailable</h2><p>Reports cannot be calculated until the local member store is available.</p></section>
+        ) : (
+          <>
+            <div className="system-stat-grid">
+              <article className="system-stat-card"><span>Total members</span><strong>{members.length}</strong><small>Local directory records</small></article>
+              <article className="system-stat-card"><span>Active</span><strong>{activeMembers}</strong><small>Marked active locally</small></article>
+              <article className="system-stat-card"><span>Inactive</span><strong>{inactiveMembers}</strong><small>Marked inactive locally</small></article>
+              <article className="system-stat-card"><span>Pending applications</span><strong>{pendingApplications}</strong><small>Awaiting local review</small></article>
+            </div>
+            <div className="system-workspace-note" role="note">These figures are calculated from this computer’s local preview data. They are not live company-wide reports.</div>
+            <section className="system-workspace-card">
+              <div className="system-card-heading"><Icon name="members" size={21} /><h2>Member categories</h2></div>
+              <div className="system-report-row"><span>KILIVO Members</span><strong>{members.filter((member) => member.memberType === "kilivo_member").length}</strong></div>
+              <div className="system-report-row"><span>Community Impact</span><strong>{members.filter((member) => member.memberType === "community_impact").length}</strong></div>
+            </section>
+          </>
+        )}
+      </div>
+    );
+  }
+
+  if (section === "Export Reports") {
+    const canExportMembers = memberDataAvailable && !memberLoading;
+    const canExportContent = contentDataAvailable;
+    return (
+      <div className="system-workspace">
+        {(memberStorageError || storageError) && (
+          <div className="storage-error" role="alert">{[memberStorageError, storageError].filter(Boolean).join(" ")}</div>
+        )}
+        <div className="system-workspace-grid">
+          <section className="system-workspace-card">
+            <div className="system-card-heading"><Icon name="members" size={21} /><h2>Member directory</h2></div>
+            <p>Export local member names, contact details, type, status, and join date as a CSV file.</p>
+            <button
+              className="button-primary"
+              type="button"
+              disabled={!canExportMembers}
+              onClick={() => exportFile("kilivo-members.csv", [
+                ["Name", "Email", "Phone", "Member type", "Status", "Joined"],
+                ...members.map((member) => [member.fullName, member.email, member.phone, memberTypeLabel(member.memberType), member.status, member.joinedAt]),
+              ])}
+            >Download member CSV</button>
+          </section>
+          <section className="system-workspace-card">
+            <div className="system-card-heading"><Icon name="file" size={21} /><h2>Content inventory</h2></div>
+            <p>Export local content titles, types, status, division association, and last update time.</p>
+            <button
+              className="button-primary"
+              type="button"
+              disabled={!canExportContent}
+              onClick={() => exportFile("kilivo-content-inventory.csv", [
+                ["Title", "Type", "Status", "Division", "Updated"],
+                ...records.map((record) => [record.title, record.kind, record.status, divisionName(record.divisionId), record.updatedAt]),
+              ])}
+            >Download content CSV</button>
+          </section>
+        </div>
+        <div className="system-workspace-note" role="note">Exports are generated locally. Member exports include personal contact details; store the downloaded file securely. No data is sent to a server.</div>
+        {notice && <div className="member-notice" role="status">{notice}</div>}
+        {error && <div className="storage-error" role="alert">{error}</div>}
+      </div>
+    );
+  }
+
+  if (section === "General Settings") {
+    return (
+      <div className="system-workspace">
+        <div className="system-workspace-grid">
+          <section className="system-workspace-card">
+            <div className="system-card-heading"><Icon name="settings" size={21} /><h2>Application</h2></div>
+            <div className="system-report-row"><span>Mode</span><strong>Local desktop preview</strong></div>
+            <div className="system-report-row"><span>Content store</span><strong>{contentLoading ? "Checking…" : storageError ? "Unavailable" : "Available"}</strong></div>
+            <div className="system-report-row"><span>Member store</span><strong>{memberLoading ? "Checking…" : memberStorageError ? "Unavailable" : "Available"}</strong></div>
+          </section>
+          <section className="system-workspace-card">
+            <div className="system-card-heading"><Icon name="company" size={21} /><h2>Company profile</h2></div>
+            <p>Update official company details, logos, and division summaries in the existing profile workspace.</p>
+            <button className="button-secondary" type="button" onClick={() => onNavigate("Company Profile")}>Open Company Profile</button>
+          </section>
+        </div>
+        <div className="system-workspace-note" role="note">Authentication, notification preferences, and cross-device settings are not configured in this local app.</div>
+      </div>
+    );
+  }
+
+  if (section === "Admin Accounts") {
+    return (
+      <div className="system-workspace">
+        <section className="system-workspace-card">
+          <div className="system-card-heading"><Icon name="person" size={21} /><h2>Current preview identity</h2></div>
+          <div className="system-admin-account">
+            <span className="avatar"><Icon name="person" size={22} /></span>
+            <span><strong>Mudhihiri Selemani</strong><small>Super Admin · display label only</small></span>
+            <span className="system-status-pill system-status-pill--warning">Not authenticated</span>
+          </div>
+          <p>Admin account creation, sign-in, password management, and secure invitations need a shared identity service. This local app does not create credentials.</p>
+          <button className="button-secondary" type="button" onClick={() => onNavigate("Integrations")}>Review backend integration</button>
+        </section>
+      </div>
+    );
+  }
+
+  if (section === "Integrations") {
+    return (
+      <div className="system-workspace">
+        <div className="system-workspace-grid">
+          <section className="system-workspace-card">
+            <div className="system-card-heading"><Icon name="company" size={21} /><h2>Company Overview API</h2></div>
+            <span className={`system-status-pill ${apiBaseUrl.trim() ? "system-status-pill--warning" : "system-status-pill--muted"}`}>
+              {apiBaseUrl.trim() ? "Base URL configured · not health-checked" : "Base URL not configured"}
+            </span>
+            <p>This API is used by the read-only Company Overview screen. A configured address alone does not confirm connectivity or authorization.</p>
+            <code className="system-code">GET /api/v1/admin/dashboard?range=30d</code>
+            <button className="button-secondary" type="button" onClick={() => onNavigate("Company Overview")}>Open Company Overview</button>
+          </section>
+          <section className="system-workspace-card">
+            <div className="system-card-heading"><Icon name="website" size={21} /><h2>Publishing & mobile sync</h2></div>
+            <p>Public website publishing, mobile content sync, authentication, and analytics are not connected to this local content store.</p>
+            <span className="system-status-pill system-status-pill--muted">Not connected</span>
+          </section>
+        </div>
+      </div>
+    );
+  }
+
+  if (section === "Activity History") {
+    return (
+      <div className="system-workspace">
+        {storageError && <div className="storage-error" role="alert">{storageError}</div>}
+        <section className="system-workspace-card">
+          <div className="system-card-heading"><Icon name="history" size={21} /><h2>Recently updated local content</h2></div>
+          {contentLoading ? <p>Loading local content…</p> : recentRecords.length ? (
+            <div className="system-history-list">
+              {recentRecords.map((record) => {
+                const timestamp = Number(record.updatedAt);
+                const date = Number.isFinite(timestamp) ? new Date(timestamp * 1000) : null;
+                const dateLabel = date && Number.isFinite(date.getTime())
+                  ? date.toLocaleString("en-TZ", { dateStyle: "medium", timeStyle: "short", timeZone: "Africa/Dar_es_Salaam" })
+                  : "Date unavailable";
+                return (
+                  <article className="system-history-row" key={record.id}>
+                    <span className="system-history-dot" />
+                    <span><strong>{record.title}</strong><small>{record.kind} · {record.status}</small></span>
+                    <time>{dateLabel}</time>
+                  </article>
+                );
+              })}
+            </div>
+          ) : <p>No local content records are available.</p>}
+        </section>
+        <div className="system-workspace-note" role="note">This is a view of content update timestamps, not an audit log. The app does not record who changed a record or keep a history of previous values.</div>
+      </div>
+    );
+  }
+
+  if (section === "Security Events") {
+    return (
+      <div className="system-workspace">
+        <section className="system-workspace-card system-empty-card">
+          <span className="system-empty-icon"><Icon name="audit" size={27} /></span>
+          <h2>No security event source connected</h2>
+          <p>This local preview has no authentication provider or security audit service. No sample alerts are shown as real security events.</p>
+          <span className="system-status-pill system-status-pill--muted">Event collection unavailable</span>
+          <button className="button-secondary" type="button" onClick={() => onNavigate("Integrations")}>Review integrations</button>
+        </section>
+      </div>
+    );
+  }
+
+  if (section === "Help Center") {
+    return (
+      <div className="system-workspace">
+        <label className="system-help-search">
+          <Icon name="search" size={19} />
+          <input value={helpSearch} onChange={(event) => setHelpSearch(event.target.value)} placeholder="Search help topics…" />
+        </label>
+        <section className="system-workspace-card">
+          {visibleHelpTopics.length ? visibleHelpTopics.map((topic) => (
+            <article className="system-help-topic" key={topic.title}>
+              <div><h2>{topic.title}</h2><p>{topic.body}</p></div>
+              <button className="button-secondary" type="button" onClick={() => onNavigate(topic.section)}>Open workspace</button>
+            </article>
+          )) : <p className="system-empty-copy">No help topics match “{helpSearch}”.</p>}
+        </section>
+      </div>
+    );
+  }
+
+  if (section === "Contact Support") {
+    return (
+      <div className="system-workspace">
+        <div className="system-workspace-note" role="note">No support address or ticket service is configured. This form only prepares a local draft; it does not send or save a request.</div>
+        <section className="system-workspace-card">
+          <div className="system-card-heading"><Icon name="help" size={21} /><h2>Prepare a support draft</h2></div>
+          <form className="system-support-form" onSubmit={(event) => void copySupportDraft(event)}>
+            <label>Subject<input value={supportSubject} onChange={(event) => setSupportSubject(event.target.value)} required maxLength={120} /></label>
+            <label>What do you need help with?<textarea value={supportMessage} onChange={(event) => setSupportMessage(event.target.value)} required maxLength={2000} rows={5} /></label>
+            <div className="system-support-actions">
+              <button className="button-primary" type="submit">Copy draft</button>
+              <button className="button-secondary" type="button" onClick={() => onNavigate("Help Center")}>Open Help Center</button>
+            </div>
+          </form>
+          {notice && <div className="member-notice" role="status">{notice}</div>}
+          {error && <div className="storage-error" role="alert">{error}</div>}
+        </section>
+      </div>
+    );
+  }
+
+  return (
+    <section className="system-workspace-card">
+      <h2>{section}</h2>
+      <p>No workspace is registered for this menu.</p>
+    </section>
+  );
+}
+
 function App() {
   const [activeSection, setActiveSection] = useState("Dashboard");
   const [expanded, setExpanded] = useState<string[]>([]);
@@ -1599,7 +2022,7 @@ function App() {
                   ? "Manage KILIVO LABS ecosystem — Company, Members, Divisions, Projects and Public Presence"
                   : isCompanyOverview
                     ? "Read current company progress, plans, divisions and financial summary from the API."
-                    : `${activeSection} management workspace for the KILIVO LABS ecosystem.`}</p>
+                    : sectionDescriptions[activeSection] ?? `${activeSection} management workspace for the KILIVO LABS ecosystem.`}</p>
               </div>
               <span className="preview-chip"><Icon name="history" size={14} />{isCompanyOverview ? "GET API · Read-only" : "This desktop only"}</span>
             </section>
@@ -1654,15 +2077,17 @@ function App() {
                   : "News and announcements are stored locally; choose a division association if relevant."}
             />
           ) : !isDashboard ? (
-            <section className="module-placeholder">
-              <span className="module-icon"><Icon name="company" size={29} /></span>
-              <h2>{activeSection}</h2>
-              <p>{activeSection.includes("Member") || activeSection.includes("Roles")
-                ? "The Members page stores local mock profiles and categories only. Real login accounts, admin permissions, and secure invitations need a shared identity service."
-                : "This section is not part of the local content editor yet."}</p>
-              <span className="preview-chip"><Icon name="history" size={14} />Stored on this desktop only</span>
-              <button className="button-primary module-back" type="button" onClick={() => navigate("Dashboard")}>Back to dashboard</button>
-            </section>
+            <SystemWorkspace
+              section={activeSection}
+              records={records}
+              memberWorkspace={memberWorkspace}
+              contentLoading={contentLoading}
+              memberLoading={memberLoading}
+              storageError={storageError}
+              memberStorageError={memberStorageError}
+              apiBaseUrl={import.meta.env.VITE_ADMIN_API_BASE_URL ?? ""}
+              onNavigate={navigate}
+            />
           ) : (
             <>
               <section className="metric-grid" aria-label="KILIVO overview metrics">
