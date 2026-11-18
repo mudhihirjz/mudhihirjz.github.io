@@ -78,7 +78,7 @@ npm run tauri:rpm
 The package is written to:
 
 ```text
-src-tauri/target/release/bundle/rpm/KILIVO LABS Admin-0.5.1-1.x86_64.rpm
+src-tauri/target/release/bundle/rpm/KILIVO LABS Admin-0.5.2-1.x86_64.rpm
 ```
 
 On Linux, app content is stored under:
@@ -92,5 +92,5 @@ On Linux, app content is stored under:
 Install on Fedora:
 
 ```sh
-sudo dnf install ./src-tauri/target/release/bundle/rpm/KILIVO\ LABS\ Admin-0.5.1-1.x86_64.rpm
+sudo dnf install ./src-tauri/target/release/bundle/rpm/KILIVO\ LABS\ Admin-0.5.2-1.x86_64.rpm
 ```
