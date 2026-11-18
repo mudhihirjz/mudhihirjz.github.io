@@ -292,7 +292,7 @@ function App() {
         )}
       </header>
 
-      <main>
+      <main className="main-wrapper">
         <section className="hero" aria-labelledby="hero-title">
           <div className="hero-content">
             <h1 id="hero-title">Together for a<br />Brighter Future</h1>

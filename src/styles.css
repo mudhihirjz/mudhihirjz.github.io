@@ -47,8 +47,14 @@ a {
 
 .site-shell {
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
   background: #fff;
+}
+
+.main-wrapper {
+  flex: 1;
 }
 
 .site-header {
