@@ -20,9 +20,7 @@ drawable ic_heart
 drawable ic_help
 drawable ic_home
 drawable ic_impact
-drawable ic_kilivo_icon
 drawable ic_leaf
-drawable ic_logo_mark
 drawable ic_logout
 drawable ic_menu
 drawable ic_mobile
@@ -40,6 +38,9 @@ drawable ic_updates
 drawable ic_welcome_hardhat
 drawable ic_welcome_impact
 drawable impact_students
+drawable kilivo_launcher_icon
+drawable kilivo_logo_blue
+drawable kilivo_logo_white
 drawable project_site
 drawable settings_landscape
 drawable splash_family

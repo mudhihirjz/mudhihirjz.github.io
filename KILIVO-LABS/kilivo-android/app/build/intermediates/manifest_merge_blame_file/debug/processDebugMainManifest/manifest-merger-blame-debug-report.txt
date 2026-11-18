@@ -23,41 +23,41 @@
 15-->[androidx.core:core:1.13.1] /home/mudhihirjz/.gradle/caches/9.8.1/transforms/c5036c383ab4d0391f28cbf9fe5e7925/transformed/core-1.13.1/AndroidManifest.xml:26:22-94
 16
 17    <application
-17-->/home/mudhihirjz/Projects/KILIVO-LABS/kilivo-android/app/src/main/AndroidManifest.xml:2:5-18:19
+17-->/home/mudhihirjz/git_hub/mudhihirjz.github.io/KILIVO-LABS/kilivo-android/app/src/main/AndroidManifest.xml:2:5-18:19
 18        android:allowBackup="true"
-18-->/home/mudhihirjz/Projects/KILIVO-LABS/kilivo-android/app/src/main/AndroidManifest.xml:3:9-35
+18-->/home/mudhihirjz/git_hub/mudhihirjz.github.io/KILIVO-LABS/kilivo-android/app/src/main/AndroidManifest.xml:3:9-35
 19        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
 19-->[androidx.core:core:1.13.1] /home/mudhihirjz/.gradle/caches/9.8.1/transforms/c5036c383ab4d0391f28cbf9fe5e7925/transformed/core-1.13.1/AndroidManifest.xml:28:18-86
 20        android:debuggable="true"
 21        android:extractNativeLibs="false"
 21-->INJECTED
-22        android:icon="@drawable/ic_kilivo_icon"
-22-->/home/mudhihirjz/Projects/KILIVO-LABS/kilivo-android/app/src/main/AndroidManifest.xml:5:9-48
+22        android:icon="@drawable/kilivo_launcher_icon"
+22-->/home/mudhihirjz/git_hub/mudhihirjz.github.io/KILIVO-LABS/kilivo-android/app/src/main/AndroidManifest.xml:5:9-54
 23        android:label="KILIVO LABS"
-23-->/home/mudhihirjz/Projects/KILIVO-LABS/kilivo-android/app/src/main/AndroidManifest.xml:4:9-36
-24        android:roundIcon="@drawable/ic_kilivo_icon"
-24-->/home/mudhihirjz/Projects/KILIVO-LABS/kilivo-android/app/src/main/AndroidManifest.xml:6:9-53
+23-->/home/mudhihirjz/git_hub/mudhihirjz.github.io/KILIVO-LABS/kilivo-android/app/src/main/AndroidManifest.xml:4:9-36
+24        android:roundIcon="@drawable/kilivo_launcher_icon"
+24-->/home/mudhihirjz/git_hub/mudhihirjz.github.io/KILIVO-LABS/kilivo-android/app/src/main/AndroidManifest.xml:6:9-59
 25        android:supportsRtl="true"
-25-->/home/mudhihirjz/Projects/KILIVO-LABS/kilivo-android/app/src/main/AndroidManifest.xml:8:9-35
+25-->/home/mudhihirjz/git_hub/mudhihirjz.github.io/KILIVO-LABS/kilivo-android/app/src/main/AndroidManifest.xml:8:9-35
 26        android:theme="@style/AppTheme" >
-26-->/home/mudhihirjz/Projects/KILIVO-LABS/kilivo-android/app/src/main/AndroidManifest.xml:7:9-40
+26-->/home/mudhihirjz/git_hub/mudhihirjz.github.io/KILIVO-LABS/kilivo-android/app/src/main/AndroidManifest.xml:7:9-40
 27        <activity
-27-->/home/mudhihirjz/Projects/KILIVO-LABS/kilivo-android/app/src/main/AndroidManifest.xml:9:9-17:20
+27-->/home/mudhihirjz/git_hub/mudhihirjz.github.io/KILIVO-LABS/kilivo-android/app/src/main/AndroidManifest.xml:9:9-17:20
 28            android:name="tz.co.kilivolabs.ComposeMainActivity"
-28-->/home/mudhihirjz/Projects/KILIVO-LABS/kilivo-android/app/src/main/AndroidManifest.xml:10:13-48
+28-->/home/mudhihirjz/git_hub/mudhihirjz.github.io/KILIVO-LABS/kilivo-android/app/src/main/AndroidManifest.xml:10:13-48
 29            android:exported="true"
-29-->/home/mudhihirjz/Projects/KILIVO-LABS/kilivo-android/app/src/main/AndroidManifest.xml:11:13-36
+29-->/home/mudhihirjz/git_hub/mudhihirjz.github.io/KILIVO-LABS/kilivo-android/app/src/main/AndroidManifest.xml:11:13-36
 30            android:screenOrientation="portrait" >
-30-->/home/mudhihirjz/Projects/KILIVO-LABS/kilivo-android/app/src/main/AndroidManifest.xml:12:13-49
+30-->/home/mudhihirjz/git_hub/mudhihirjz.github.io/KILIVO-LABS/kilivo-android/app/src/main/AndroidManifest.xml:12:13-49
 31            <intent-filter>
-31-->/home/mudhihirjz/Projects/KILIVO-LABS/kilivo-android/app/src/main/AndroidManifest.xml:13:13-16:29
+31-->/home/mudhihirjz/git_hub/mudhihirjz.github.io/KILIVO-LABS/kilivo-android/app/src/main/AndroidManifest.xml:13:13-16:29
 32                <action android:name="android.intent.action.MAIN" />
-32-->/home/mudhihirjz/Projects/KILIVO-LABS/kilivo-android/app/src/main/AndroidManifest.xml:14:17-69
-32-->/home/mudhihirjz/Projects/KILIVO-LABS/kilivo-android/app/src/main/AndroidManifest.xml:14:25-66
+32-->/home/mudhihirjz/git_hub/mudhihirjz.github.io/KILIVO-LABS/kilivo-android/app/src/main/AndroidManifest.xml:14:17-69
+32-->/home/mudhihirjz/git_hub/mudhihirjz.github.io/KILIVO-LABS/kilivo-android/app/src/main/AndroidManifest.xml:14:25-66
 33
 34                <category android:name="android.intent.category.LAUNCHER" />
-34-->/home/mudhihirjz/Projects/KILIVO-LABS/kilivo-android/app/src/main/AndroidManifest.xml:15:17-77
-34-->/home/mudhihirjz/Projects/KILIVO-LABS/kilivo-android/app/src/main/AndroidManifest.xml:15:27-74
+34-->/home/mudhihirjz/git_hub/mudhihirjz.github.io/KILIVO-LABS/kilivo-android/app/src/main/AndroidManifest.xml:15:17-77
+34-->/home/mudhihirjz/git_hub/mudhihirjz.github.io/KILIVO-LABS/kilivo-android/app/src/main/AndroidManifest.xml:15:27-74
 35            </intent-filter>
 36        </activity>
 37        <activity

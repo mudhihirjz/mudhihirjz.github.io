@@ -19,9 +19,7 @@ int drawable ic_heart 0x0
 int drawable ic_help 0x0
 int drawable ic_home 0x0
 int drawable ic_impact 0x0
-int drawable ic_kilivo_icon 0x0
 int drawable ic_leaf 0x0
-int drawable ic_logo_mark 0x0
 int drawable ic_logout 0x0
 int drawable ic_menu 0x0
 int drawable ic_mobile 0x0
@@ -39,6 +37,9 @@ int drawable ic_updates 0x0
 int drawable ic_welcome_hardhat 0x0
 int drawable ic_welcome_impact 0x0
 int drawable impact_students 0x0
+int drawable kilivo_launcher_icon 0x0
+int drawable kilivo_logo_blue 0x0
+int drawable kilivo_logo_white 0x0
 int drawable project_site 0x0
 int drawable settings_landscape 0x0
 int drawable splash_family 0x0

@@ -52,6 +52,10 @@
         "source": "tz.co.kilivolabs.app-main-48:/drawable/ic_menu.xml"
     },
     {
+        "merged": "tz.co.kilivolabs.app-debug-46:/drawable-nodpi_kilivo_launcher_icon.png.flat",
+        "source": "tz.co.kilivolabs.app-main-48:/drawable-nodpi/kilivo_launcher_icon.png"
+    },
+    {
         "merged": "tz.co.kilivolabs.app-debug-46:/drawable_ic_welcome_hardhat.xml.flat",
         "source": "tz.co.kilivolabs.app-main-48:/drawable/ic_welcome_hardhat.xml"
     },
@@ -88,6 +92,10 @@
         "source": "tz.co.kilivolabs.app-main-48:/drawable/ic_help.xml"
     },
     {
+        "merged": "tz.co.kilivolabs.app-debug-46:/drawable-nodpi_kilivo_logo_white.png.flat",
+        "source": "tz.co.kilivolabs.app-main-48:/drawable-nodpi/kilivo_logo_white.png"
+    },
+    {
         "merged": "tz.co.kilivolabs.app-debug-46:/drawable_ic_bell.xml.flat",
         "source": "tz.co.kilivolabs.app-main-48:/drawable/ic_bell.xml"
     },
@@ -112,20 +120,16 @@
         "source": "tz.co.kilivolabs.app-main-48:/drawable/ic_profile.xml"
     },
     {
+        "merged": "tz.co.kilivolabs.app-debug-46:/drawable-nodpi_kilivo_logo_blue.png.flat",
+        "source": "tz.co.kilivolabs.app-main-48:/drawable-nodpi/kilivo_logo_blue.png"
+    },
+    {
         "merged": "tz.co.kilivolabs.app-debug-46:/drawable_ic_code.xml.flat",
         "source": "tz.co.kilivolabs.app-main-48:/drawable/ic_code.xml"
     },
     {
-        "merged": "tz.co.kilivolabs.app-debug-46:/drawable_ic_logo_mark.xml.flat",
-        "source": "tz.co.kilivolabs.app-main-48:/drawable/ic_logo_mark.xml"
-    },
-    {
         "merged": "tz.co.kilivolabs.app-debug-46:/drawable-nodpi_business_buildings.jpg.flat",
         "source": "tz.co.kilivolabs.app-main-48:/drawable-nodpi/business_buildings.jpg"
-    },
-    {
-        "merged": "tz.co.kilivolabs.app-debug-46:/drawable_ic_kilivo_icon.xml.flat",
-        "source": "tz.co.kilivolabs.app-main-48:/drawable/ic_kilivo_icon.xml"
     },
     {
         "merged": "tz.co.kilivolabs.app-debug-46:/drawable-nodpi_home_skyline.jpg.flat",

@@ -19,9 +19,9 @@
         android:appComponentFactory="androidx.core.app.CoreComponentFactory"
         android:debuggable="true"
         android:extractNativeLibs="false"
-        android:icon="@drawable/ic_kilivo_icon"
+        android:icon="@drawable/kilivo_launcher_icon"
         android:label="KILIVO LABS"
-        android:roundIcon="@drawable/ic_kilivo_icon"
+        android:roundIcon="@drawable/kilivo_launcher_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
         <activity
