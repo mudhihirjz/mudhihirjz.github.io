@@ -2,8 +2,8 @@
     <application
         android:allowBackup="true"
         android:label="KILIVO LABS"
-        android:icon="@drawable/ic_kilivo_icon"
-        android:roundIcon="@drawable/ic_kilivo_icon"
+        android:icon="@drawable/kilivo_launcher_icon"
+        android:roundIcon="@drawable/kilivo_launcher_icon"
         android:theme="@style/AppTheme"
         android:supportsRtl="true">
         <activity

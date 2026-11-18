@@ -639,9 +639,20 @@ private fun ComposeToolbar(
                 tint = Color.White, modifier = Modifier.size(28.dp))
         }
         if (isHome) {
-            Column(Modifier.weight(1f), horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("KILIVO LABS", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 17.sp)
-                Text("Our Family. Your Partner.", color = Color.White, fontSize = 11.sp)
+            Row(
+                Modifier.weight(1f),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Image(
+                    painterResource(R.drawable.kilivo_logo_white),
+                    "KILIVO LABS logo",
+                    Modifier.width(48.dp).height(30.dp)
+                )
+                Column(Modifier.padding(start = 7.dp)) {
+                    Text("KILIVO LABS", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 17.sp)
+                    Text("Our Family. Your Partner.", color = Color.White, fontSize = 11.sp)
+                }
             }
             IconButton(onClick = onNotifications) {
                 Box {
@@ -827,7 +838,7 @@ private fun LoginScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(Modifier.height(36.dp))
-        Image(painterResource(R.drawable.ic_logo_mark), "KILIVO LABS logo", Modifier.size(82.dp))
+        Image(painterResource(R.drawable.kilivo_logo_blue), "KILIVO LABS logo", Modifier.width(138.dp).height(80.dp))
         Text("Member sign in", Modifier.padding(top = 18.dp), color = KilivoInk,
             fontSize = 25.sp, fontWeight = FontWeight.Bold)
         Text("Sign in with your company account.", Modifier.padding(top = 6.dp, bottom = 22.dp),
@@ -1164,7 +1175,7 @@ private fun SplashScreen() {
             Modifier.align(Alignment.TopCenter).padding(top = 110.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Image(painterResource(R.drawable.ic_logo_mark), "KILIVO LABS logo", Modifier.size(86.dp))
+            Image(painterResource(R.drawable.kilivo_logo_white), "KILIVO LABS logo", Modifier.width(145.dp).height(84.dp))
             Text("KILIVO LABS", color = Color.White, fontSize = 29.sp, fontWeight = FontWeight.Bold)
             Text("Build. Innovate. Empower.", color = Color.White, fontSize = 14.sp, fontWeight = FontWeight.Bold)
         }

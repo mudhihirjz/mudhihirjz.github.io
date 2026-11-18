@@ -154,9 +154,10 @@ class MainActivity : Activity() {
         }, FrameLayout.LayoutParams(-1, -1))
         val brand = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; gravity = Gravity.CENTER }
         brand.addView(ImageView(this).apply {
-            setImageResource(R.drawable.ic_logo_mark)
+            setImageResource(R.drawable.kilivo_logo_white)
             contentDescription = "KILIVO LABS logo"
-        }, LinearLayout.LayoutParams(dp(86), dp(86)))
+            scaleType = ImageView.ScaleType.FIT_CENTER
+        }, LinearLayout.LayoutParams(dp(145), dp(84)))
         brand.addView(label("KILIVO LABS", 29, Color.WHITE, Typeface.BOLD).apply { setPadding(0, dp(8), 0, dp(3)) })
         brand.addView(label("Build. Innovate. Empower.", 14, Color.WHITE, Typeface.BOLD))
         root.addView(brand, FrameLayout.LayoutParams(-1, dp(240), Gravity.TOP).apply { topMargin = dp(100) })

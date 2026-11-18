@@ -564,12 +564,7 @@ function ImageThumbnail({ filename, alt }: { filename: string | null; alt: strin
 }
 
 function CompanyLogoMark({ variant }: { variant: LogoVariant }) {
-  return (
-    <svg className={`company-logo-mark company-logo-mark--${variant}`} viewBox="0 0 96 96" aria-hidden="true">
-      <path d="M24 16h15v64H24zM39 47l31-31h20L53 49l38 31H68L39 58z" />
-      <path className="company-logo-swoosh" d="m40 52 48-27-5 9-38 28z" />
-    </svg>
-  );
+  return <img className={`company-logo-mark company-logo-mark--${variant}`} src={`/logos/company-logo-${variant}.png`} alt="" />;
 }
 
 function CompanyProfileWorkspace({
@@ -1398,10 +1393,7 @@ const quickActions: { label: string; icon: IconName; tone: string }[] = [
 function Logo() {
   return (
     <div className="brand-lockup" aria-label="KILIVO LABS">
-      <svg className="brand-mark" viewBox="0 0 96 96" aria-hidden="true">
-        <path d="M24 16h15v64H24zM39 47l31-31h20L53 49l38 31H68L39 58z" />
-        <path className="brand-swoosh" d="m40 52 48-27-5 9-38 28z" />
-      </svg>
+      <img className="brand-mark" src="/logos/company-logo-white.png" alt="" />
       <strong>KILIVO LABS</strong>
       <span>Build. Innovate. Empower.</span>
     </div>

@@ -58,8 +58,7 @@ button:focus-visible, input:focus-visible { outline: 3px solid #78a5ff; outline-
   text-align: center;
 }
 
-.brand-mark { width: 84px; height: 70px; margin-bottom: 5px; fill: #fff; }
-.brand-mark .brand-swoosh { fill: #ffb21a; }
+.brand-mark { width: 126px; height: 72px; margin-bottom: 5px; object-fit: contain; }
 .brand-lockup strong { font: 800 24px/1.1 "Manrope", "Segoe UI", sans-serif; letter-spacing: -.7px; }
 .brand-lockup > span { margin-top: 5px; font-size: 12px; font-weight: 600; }
 
@@ -421,11 +420,9 @@ button:focus-visible, input:focus-visible { outline: 3px solid #78a5ff; outline-
 .company-logo-card:focus-visible { outline: 3px solid #7da8fa; outline-offset: 2px; }
 .company-logo-preview { display: grid; min-height: 125px; place-items: center; overflow: hidden; border: 1px solid #e1e8f2; border-radius: 9px; background: #fff; }
 .company-logo-preview--white { background: #092d7d; }
-.company-logo-mark { width: 86px; height: 86px; }
-.company-logo-mark--white { fill: #fff; }
-.company-logo-mark--blue { fill: #0b3f9f; }
-.company-logo-swoosh { fill: #ffb21a; }
-.company-logo-mark--blue .company-logo-swoosh { fill: #f5ad18; }
+.company-logo-mark { width: 100%; max-width: 180px; height: 100px; object-fit: contain; }
+.company-logo-mark--white { filter: drop-shadow(0 1px 2px rgb(0 0 0 / 18%)); }
+.company-logo-mark--blue { filter: drop-shadow(0 1px 2px rgb(8 36 90 / 12%)); }
 .company-logo-card strong { font-size: 11px; }
 .company-logo-card small { color: #71809a; font-size: 10px; }
 .profile-division-list { display: grid; gap: 7px; }
