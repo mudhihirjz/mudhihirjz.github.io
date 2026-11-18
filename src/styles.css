@@ -80,12 +80,8 @@ a {
 .brand-mark {
   width: 52px;
   height: 45px;
-  fill: #0b3f9f;
+  object-fit: contain;
   overflow: visible;
-}
-
-.brand-mark .brand-swoosh {
-  fill: #f5ad18;
 }
 
 .brand-copy {
