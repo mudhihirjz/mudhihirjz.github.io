@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"name": "Java-Backend",
+			"path": "../Java-Backend"
+		}
+	],
+	"settings": {}
+}

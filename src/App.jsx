@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 const divisions = [
   {
@@ -79,9 +79,9 @@ const searchItems = [
   { title: "Community Impact", href: "#impact" },
 ];
 
-function Brand({ light = false }) {
+function Brand({ light = false, href = "#top" }) {
   return (
-    <a className={`brand${light ? " brand--light" : ""}`} href="#top" aria-label="KILIVO LABS home">
+    <a className={`brand${light ? " brand--light" : ""}`} href={href} aria-label="KILIVO LABS home">
       <img
         className="brand-mark"
         src={light ? "/logos/company-logo-white.png" : "/logos/company-logo-blue.png"}
@@ -115,6 +115,14 @@ function ContactDialog({ title, onClose, applicationMode = false }) {
     setSubmitted(true);
   }
 
+  function getFormLink() {
+    const url = new URL(window.location.href);
+    url.search = "";
+    url.hash = "";
+    url.searchParams.set("application", applicationType);
+    return url.toString();
+  }
+
   return (
     <div className="dialog-backdrop" onMouseDown={(event) => event.target === event.currentTarget && onClose()}>
       <section aria-labelledby="contact-dialog-title" aria-modal="true" className="contact-dialog" role="dialog">
@@ -123,11 +131,17 @@ function ContactDialog({ title, onClose, applicationMode = false }) {
           <div className="success-state">
             {applicationMode ? (
               <>
-                <h2 id="contact-dialog-title">Application form request prepared</h2>
-                <p>
-                  The {applicationType === "kilivo_member" ? "Kilivo Member" : "Community Impact"} form is selected for {email}.
-                  Email delivery is not connected yet, so nothing was sent or saved.
-                </p>
+                <span className="success-mark" aria-hidden="true">✉</span>
+                <h2 id="contact-dialog-title">Demo email prepared</h2>
+                <p>A sample email for the {applicationType === "kilivo_member" ? "KILIVO Member" : "Community Impact"} form is shown for <strong>{email}</strong>.</p>
+                <div className="demo-email">
+                  <p className="eyebrow">KILIVO LABS · APPLICATION LINK</p>
+                  <p>Click below to open your application form in the browser.</p>
+                  <a className="button button--primary" href={getFormLink()} target="_blank" rel="noreferrer">
+                    Open application form
+                  </a>
+                </div>
+                <p className="form-note">Demo only — no email was sent and no information was saved.</p>
               </>
             ) : (
               <>
@@ -144,7 +158,7 @@ function ContactDialog({ title, onClose, applicationMode = false }) {
             <h2 id="contact-dialog-title">{applicationMode ? "Choose your application" : title}</h2>
             <p className="dialog-intro">
               {applicationMode
-                ? "Choose the application you want. The matching form will be sent to your email once email delivery is connected."
+                ? "Choose an application type and enter your email to preview the link-request flow."
                 : "Be part of a forward-thinking community that builds, innovates and gives back."}
             </p>
             {applicationMode ? (
@@ -190,7 +204,7 @@ function ContactDialog({ title, onClose, applicationMode = false }) {
                       />
                     </label>
                     <button className="button button--primary" type="submit">Request application form</button>
-                    <p className="form-note">Preview only — email delivery is not connected, and this address will not be sent or saved.</p>
+                    <p className="form-note">Demo only — this will preview an email; it will not be sent or saved.</p>
                   </>
                 )}
               </form>
@@ -219,6 +233,265 @@ function ContactDialog({ title, onClose, applicationMode = false }) {
   );
 }
 
+const applicationSteps = ["Personal Info", "Details", "Additional Info", "Review & Submit"];
+const allowedAttachmentTypes = [".pdf", ".doc", ".docx", ".jpg", ".jpeg", ".png"];
+const maxAttachmentSize = 5 * 1024 * 1024;
+
+function ApplicationFormPage({ applicationType }) {
+  const isMemberApplication = applicationType === "kilivo_member";
+  const title = isMemberApplication ? "KILIVO Member Application Form" : "Community Impact Application Form";
+  const [step, setStep] = useState(0);
+  const [values, setValues] = useState({ areas: [] });
+  const [attachment, setAttachment] = useState(null);
+  const [fileError, setFileError] = useState("");
+  const [complete, setComplete] = useState(false);
+  const formRef = useRef(null);
+
+  function updateField(event) {
+    const { name, value } = event.target;
+    setValues((current) => ({ ...current, [name]: value }));
+  }
+
+  function updateArea(event) {
+    const { checked, value } = event.target;
+    setValues((current) => ({
+      ...current,
+      areas: checked
+        ? [...current.areas, value]
+        : current.areas.filter((area) => area !== value),
+    }));
+  }
+
+  function updateAttachment(event) {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    const extension = `.${file.name.split(".").pop().toLowerCase()}`;
+    if (!allowedAttachmentTypes.includes(extension)) {
+      setAttachment(null);
+      setFileError("Choose a PDF, DOC, DOCX, JPG, or PNG file.");
+      event.target.value = "";
+      return;
+    }
+    if (file.size > maxAttachmentSize) {
+      setAttachment(null);
+      setFileError("The file must be 5 MB or smaller.");
+      event.target.value = "";
+      return;
+    }
+
+    setAttachment(file);
+    setFileError("");
+  }
+
+  function nextStep() {
+    if (formRef.current?.reportValidity()) {
+      setStep((current) => Math.min(current + 1, applicationSteps.length - 1));
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }
+
+  function previousStep() {
+    setStep((current) => Math.max(current - 1, 0));
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    setComplete(true);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  const reviewItems = isMemberApplication
+    ? [
+        ["Full Name", values.fullName],
+        ["Email Address", values.email],
+        ["Phone Number", values.phone],
+        ["Gender", values.gender],
+        ["Date of Birth", values.dateOfBirth],
+        ["Department / Division", values.division],
+        ["Position / Role", values.position],
+        ["Highest Education Level", values.education],
+        ["Skills / Expertise", values.skills],
+      ]
+    : [
+        ["Full Name", values.fullName],
+        ["Email Address", values.email],
+        ["Phone Number", values.phone],
+        ["Location", values.location],
+        ["Type of Support", values.supportType],
+        ["Areas of Interest", values.areas?.join(", ")],
+        ["Your Message", values.message],
+      ];
+
+  return (
+    <div className="application-page">
+      <header className="application-header">
+        <Brand href="/" />
+        <span className="secure-badge"><span aria-hidden="true">✓</span> Secure Application</span>
+      </header>
+      <section className={`application-hero${isMemberApplication ? " application-hero--member" : " application-hero--impact"}`}>
+        <div>
+          <p className="eyebrow">KILIVO LABS</p>
+          <h1>{title}</h1>
+          <p>{isMemberApplication ? "Join our forward-thinking team and be part of something greater." : "Together for a Better Tomorrow."}</p>
+        </div>
+      </section>
+
+      <div className="application-progress" aria-label="Application progress">
+        {applicationSteps.map((label, index) => (
+          <div className={`progress-step${index === step ? " is-active" : ""}${index < step ? " is-complete" : ""}`} key={label} aria-current={index === step ? "step" : undefined}>
+            <span>{index < step ? "✓" : index + 1}</span>
+            <small>{label}</small>
+          </div>
+        ))}
+      </div>
+
+      <main className="application-content">
+        {complete ? (
+          <section className="application-complete" aria-live="polite">
+            <span className="success-mark" aria-hidden="true">✓</span>
+            <h2>Application demo complete</h2>
+            <p>Your {isMemberApplication ? "KILIVO Member" : "Community Impact"} form has been completed in this preview. It has not been sent or saved.</p>
+            <a className="button button--primary" href="/">Return to KILIVO LABS</a>
+          </section>
+        ) : (
+          <form className="application-form" ref={formRef} onSubmit={handleSubmit}>
+            {step === 0 && (
+              <section className="application-section">
+                <h2><span aria-hidden="true">{isMemberApplication ? "♙" : "♥"}</span> Personal Information</h2>
+                <p>{isMemberApplication ? "Please provide your basic details" : "Tell us about yourself"}</p>
+                <div className="application-fields">
+                  <label>Full Name *
+                    <input autoFocus name="fullName" autoComplete="name" value={values.fullName || ""} onChange={updateField} placeholder="Enter your full name" required />
+                  </label>
+                  <label>Email Address *
+                    <input name="email" type="email" autoComplete="email" value={values.email || ""} onChange={updateField} placeholder="you@example.com" required />
+                  </label>
+                  <label>Phone Number *
+                    <input name="phone" type="tel" autoComplete="tel" value={values.phone || ""} onChange={updateField} placeholder="+255 7XX XXX XXX" required />
+                  </label>
+                  {isMemberApplication ? (
+                    <>
+                      <label>Gender *
+                        <select name="gender" value={values.gender || ""} onChange={updateField} required>
+                          <option value="">Select gender</option><option>Female</option><option>Male</option><option>Prefer not to say</option>
+                        </select>
+                      </label>
+                      <label>Date of Birth *
+                        <input name="dateOfBirth" type="date" value={values.dateOfBirth || ""} onChange={updateField} required />
+                      </label>
+                    </>
+                  ) : (
+                    <label>Location *
+                      <select name="location" value={values.location || ""} onChange={updateField} required>
+                        <option value="">Select your region</option>
+                        <option>Arusha</option><option>Dar es Salaam</option><option>Dodoma</option><option>Geita</option>
+                        <option>Iringa</option><option>Kagera</option><option>Kilimanjaro</option><option>Mbeya</option>
+                        <option>Mwanza</option><option>Other</option>
+                      </select>
+                    </label>
+                  )}
+                </div>
+              </section>
+            )}
+
+            {step === 1 && (
+              <section className="application-section">
+                <h2><span aria-hidden="true">{isMemberApplication ? "▣" : "♡"}</span> {isMemberApplication ? "Professional Details" : "Contribution Details"}</h2>
+                <p>{isMemberApplication ? "Tell us about your professional background" : "How would you like to support our community impact?"}</p>
+                <div className="application-fields">
+                  {isMemberApplication ? (
+                    <>
+                      <label>Department / Division *
+                        <select name="division" value={values.division || ""} onChange={updateField} required>
+                          <option value="">Select department</option>
+                          <option>KILIVO Business</option><option>KILIVO Technologies</option><option>KILIVO Projects</option><option>KILIVO Impact</option>
+                        </select>
+                      </label>
+                      <label>Position / Role *
+                        <input name="position" value={values.position || ""} onChange={updateField} placeholder="Enter your position" required />
+                      </label>
+                      <label>Highest Education Level *
+                        <select name="education" value={values.education || ""} onChange={updateField} required>
+                          <option value="">Select education level</option>
+                          <option>Secondary School</option><option>Certificate</option><option>Diploma</option><option>Bachelor's Degree</option><option>Master's Degree</option><option>Doctorate</option><option>Other</option>
+                        </select>
+                      </label>
+                      <label>Skills / Expertise
+                        <input name="skills" value={values.skills || ""} onChange={updateField} placeholder="e.g. Programming, Project Management" />
+                      </label>
+                    </>
+                  ) : (
+                    <>
+                      <label>Type of Support *
+                        <select name="supportType" value={values.supportType || ""} onChange={updateField} required>
+                          <option value="">Select support type</option><option>Volunteer</option><option>Donate resources</option><option>Partner with us</option><option>Share expertise</option><option>Other</option>
+                        </select>
+                      </label>
+                      <fieldset className="interest-options">
+                        <legend>Area of Interest</legend>
+                        {["Education", "Health", "Environment", "Others"].map((area) => (
+                          <label key={area}><input type="checkbox" value={area} checked={values.areas?.includes(area) || false} onChange={updateArea} /> {area}</label>
+                        ))}
+                        {values.areas?.includes("Others") && (
+                          <input aria-label="Specify other area of interest" name="otherArea" value={values.otherArea || ""} onChange={updateField} placeholder="Specify other area..." />
+                        )}
+                      </fieldset>
+                    </>
+                  )}
+                </div>
+              </section>
+            )}
+
+            {step === 2 && (
+              <section className="application-section">
+                <h2><span aria-hidden="true">↗</span> Additional Information</h2>
+                {!isMemberApplication && (
+                  <label className="application-wide-field">Your Message (Optional)
+                    <textarea name="message" rows="5" value={values.message || ""} onChange={updateField} placeholder="Tell us more about your interest or ideas..." />
+                  </label>
+                )}
+                <label className="upload-field">
+                  Supporting Documents (Optional)
+                  <span>You may attach a CV, certificates, proposal, or other relevant documents.</span>
+                  <input type="file" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" onChange={updateAttachment} />
+                  <small>PDF, DOC, DOCX, JPG, PNG · Max 5 MB</small>
+                  {attachment && <small className="selected-file">Selected: {attachment.name}</small>}
+                  {fileError && <small className="file-error" role="alert">{fileError}</small>}
+                </label>
+                <p className="application-demo-note">Preview only — attachments and form details will not be uploaded or saved.</p>
+              </section>
+            )}
+
+            {step === 3 && (
+              <section className="application-section">
+                <h2><span aria-hidden="true">✓</span> Review Your Application</h2>
+                <p>Check your details before completing the preview.</p>
+                <dl className="application-review">
+                  {reviewItems.filter(([, value]) => value).map(([label, value]) => (
+                    <div key={label}><dt>{label}</dt><dd>{value}</dd></div>
+                  ))}
+                  {attachment && <div><dt>Supporting Document</dt><dd>{attachment.name}</dd></div>}
+                </dl>
+                <p className="application-demo-note">This is a demo. Submitting will not send or store your information.</p>
+              </section>
+            )}
+
+            <div className="application-actions">
+              <button className="button button--outline" type="button" onClick={previousStep} disabled={step === 0}>← Back</button>
+              {step < applicationSteps.length - 1
+                ? <button className="button button--primary" type="button" onClick={nextStep}>Continue →</button>
+                : <button className="button button--primary" type="submit">Submit Application</button>}
+            </div>
+          </form>
+        )}
+      </main>
+      <footer className="application-footer">© KILIVO LABS · Build. Innovate. Empower.</footer>
+    </div>
+  );
+}
+
 function App() {
   const [dialogTitle, setDialogTitle] = useState("");
   const [dialogApplicationMode, setDialogApplicationMode] = useState(false);
@@ -228,6 +501,11 @@ function App() {
   const searchResults = searchItems.filter((item) =>
     item.title.toLowerCase().includes(searchQuery.trim().toLowerCase()),
   );
+  const requestedApplication = new URLSearchParams(window.location.search).get("application");
+
+  if (requestedApplication === "kilivo_member" || requestedApplication === "community_impact") {
+    return <ApplicationFormPage applicationType={requestedApplication} />;
+  }
 
   function openContact(title, applicationMode = false) {
     setDialogTitle(title);
