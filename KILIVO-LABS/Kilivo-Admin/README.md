@@ -1,9 +1,13 @@
 # KILIVO LABS Admin
 
-Tauri desktop manager for company profile information and logos, division
-profiles, division-scoped projects and impact programs, worker assignments,
-events, documents and resources, news, announcements, and public-website-only
-pages, navigation, and SEO settings.
+Tauri desktop workspace for the content and records required by the KILIVO
+LABS company and mobile app: company and division profiles, member applications
+and directory, assignments, events, documents, news, and announcements.
+Member reports and CSV exports are included as supporting tools.
+
+The public website's page structure, navigation, headings, header, and footer
+are fixed. Admin manages content shown within that structure; it does not
+create pages, menus, or SEO settings.
 
 The company profile includes the built-in white and blue KILIVO K logo
 variants for selection; logo files do not need to be uploaded.
@@ -36,24 +40,29 @@ including local attachment storage. The app does not create login credentials
 or send invitations; passwords, real member roles, analytics, and cross-app
 publishing are not managed by this local content editor.
 
+The Admin sign-in and profile are also mock UI. Sign-in accepts any valid
+email and non-empty password without checking credentials; the password is
+never stored. The signed-in flag lasts only for the current webview session,
+and the editable display name/email are stored in local browser storage. This
+does not protect the desktop app or its local data.
+
 On first use, the Members page creates five sample applications and two
 corresponding approved sample members. Locally added application attachments
 are limited to PDF/JPEG/PNG/WebP files up to 10 MB. Approving an application
 only updates local mock records; secure invitation delivery requires the
 backend email service and is not simulated as sent.
 
-System workspaces provide local member summaries and CSV exports, a recent
-content-updated view, integration configuration details, and help topics.
-They do not create real admin accounts or roles, collect security events or
-website analytics, publish content, or send support requests. The support
-workspace can copy a draft message to the clipboard but does not submit it.
+The dashboard retains local member summaries and CSV exports, a local content
+update list, backend connection details, and Admin help topics. Placeholder
+screens for website analytics, roles, admin accounts, security events,
+activity logs, and support-message drafts have been removed because they do
+not perform those functions.
+
 Company profile and division details return to read-only mode after saving;
 select **Edit** to make further changes. Content and member editors also close
-after a successful save.
-
-Website pages, navigation entries, and SEO settings are local drafts on this
-computer. They do not update the public website until a shared admin API is
-implemented and configured.
+after a successful save. The Admin content store remains local: mobile content
+sync and public-site publishing are not connected yet. The mobile app's
+account and help screens are therefore not managed through this Admin build.
 
 Projects and impact programs are managed from inside their owning division.
 News articles and announcements can be associated with a division or left
@@ -78,7 +87,7 @@ npm run tauri:rpm
 The package is written to:
 
 ```text
-src-tauri/target/release/bundle/rpm/KILIVO LABS Admin-0.5.2-1.x86_64.rpm
+src-tauri/target/release/bundle/rpm/KILIVO LABS Admin-0.5.4-1.x86_64.rpm
 ```
 
 On Linux, app content is stored under:
@@ -92,5 +101,5 @@ On Linux, app content is stored under:
 Install on Fedora:
 
 ```sh
-sudo dnf install ./src-tauri/target/release/bundle/rpm/KILIVO\ LABS\ Admin-0.5.2-1.x86_64.rpm
+sudo dnf install ./src-tauri/target/release/bundle/rpm/KILIVO\ LABS\ Admin-0.5.4-1.x86_64.rpm
 ```

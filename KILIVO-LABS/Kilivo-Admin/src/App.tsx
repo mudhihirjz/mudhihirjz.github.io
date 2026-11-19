@@ -94,6 +94,58 @@ type MemberAttachmentPayload = {
   mimeType: string;
   base64Data: string;
 };
+type AdminProfile = {
+  fullName: string;
+  email: string;
+};
+
+const adminProfileStorageKey = "kilivo-admin.mock-profile";
+const adminSessionStorageKey = "kilivo-admin.mock-session";
+const defaultAdminProfile: AdminProfile = { fullName: "Mudhihiri Selemani", email: "" };
+
+function loadMockAdminState() {
+  let profile = defaultAdminProfile;
+  let profileError = "";
+  let authenticated = false;
+
+  try {
+    const storedProfile = localStorage.getItem(adminProfileStorageKey);
+    if (storedProfile) {
+      const parsed: unknown = JSON.parse(storedProfile);
+      if (
+        typeof parsed !== "object"
+        || parsed === null
+        || !("fullName" in parsed)
+        || !("email" in parsed)
+        || typeof parsed.fullName !== "string"
+        || typeof parsed.email !== "string"
+      ) {
+        throw new Error("Saved profile data has an invalid format.");
+      }
+      profile = { fullName: parsed.fullName, email: parsed.email };
+    }
+  } catch (error) {
+    profileError = `Could not load the saved Admin profile: ${String(error)}`;
+  }
+
+  try {
+    authenticated = sessionStorage.getItem(adminSessionStorageKey) === "signed-in";
+  } catch (error) {
+    profileError = [profileError, `Could not read the mock Admin session: ${String(error)}`].filter(Boolean).join(" ");
+  }
+
+  return { profile, profileError, authenticated };
+}
+
+function profileInitials(profile: AdminProfile) {
+  return profile.fullName
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0].toUpperCase())
+    .join("") || "A";
+}
 
 function Icon({
   name,
@@ -162,14 +214,12 @@ const navigation: NavItem[] = [
   { label: "Dashboard", icon: "dashboard" },
   { label: "Company Management", icon: "company", children: ["Company Overview", "Company Profile"] },
   { label: "Divisions", icon: "divisions" },
-  { label: "Members Management", icon: "members", children: ["Member Directory", "Roles & Permissions"] },
+  { label: "Members Management", icon: "members", children: ["Member Directory"] },
   { label: "Workers App", icon: "folder", children: ["Assignments", "Meetings & Events", "Documents & Resources"] },
   { label: "News & Media", icon: "news", children: ["Articles", "Announcements"] },
-  { label: "Public Website", icon: "website", children: ["Website Pages", "Navigation", "SEO Settings"] },
-  { label: "Analytics & Reports", icon: "analytics", children: ["Website Analytics", "Member Reports", "Export Reports"] },
-  { label: "System Settings", icon: "settings", children: ["General Settings", "Admin Accounts", "Integrations"] },
-  { label: "Audit Logs", icon: "audit", children: ["Activity History", "Security Events"] },
-  { label: "Help & Support", icon: "help", children: ["Help Center", "Contact Support"] },
+  { label: "Reports & Exports", icon: "analytics", children: ["Member Reports", "Export Reports"] },
+  { label: "Integrations", icon: "settings" },
+  { label: "Help Center", icon: "help" },
 ];
 
 const metrics: { label: string; value: string; icon: IconName; tone: string; section: string }[] = [
@@ -183,26 +233,17 @@ const metrics: { label: string; value: string; icon: IconName; tone: string; sec
 const sectionContent: Record<string, { kind: ContentKind; title: string }> = {
   Articles: { kind: "news", title: "News Articles" },
   Announcements: { kind: "announcement", title: "Announcements" },
-  "Website Pages": { kind: "page", title: "Website Pages" },
-  Navigation: { kind: "navigation", title: "Website Navigation" },
-  "SEO Settings": { kind: "seo", title: "SEO Settings" },
   Assignments: { kind: "assignment", title: "Worker Assignments" },
   "Meetings & Events": { kind: "event", title: "Meetings & Events" },
   "Documents & Resources": { kind: "document", title: "Documents & Resources" },
 };
 
 const sectionDescriptions: Record<string, string> = {
-  "Roles & Permissions": "Review the local preview’s access-control limitations.",
-  "Website Analytics": "Website traffic reporting is unavailable until a tracking source is connected.",
-  "Member Reports": "Summaries calculated from this computer’s local member records.",
-  "Export Reports": "Download reports from local member and content data.",
-  "General Settings": "Review local storage and application configuration.",
-  "Admin Accounts": "Admin account provisioning requires a shared identity service.",
-  Integrations: "Review connected services and integrations that are not configured.",
-  "Activity History": "Review recent content timestamps without a user audit trail.",
-  "Security Events": "Security event collection requires an authentication and audit service.",
-  "Help Center": "Find guidance for using the local admin workspace.",
-  "Contact Support": "Prepare a support message; no request is sent from this app.",
+  "Reports & Exports": "Review and download summaries from the member directory.",
+  "Member Reports": "Review summaries calculated from the member directory.",
+  "Export Reports": "Download local member and content records as CSV files.",
+  Integrations: "Review the backend connection used by Company Overview.",
+  "Help Center": "Find guidance for managing company and app content.",
 };
 
 type OverviewItem = {
@@ -1386,8 +1427,8 @@ function MemberManagementWorkspace({
 const quickActions: { label: string; icon: IconName; tone: string }[] = [
   { label: "Add Member", icon: "members", tone: "blue" },
   { label: "Publish News", icon: "file", tone: "blue" },
+  { label: "Post Announcement", icon: "megaphone", tone: "orange" },
   { label: "Manage Divisions", icon: "divisions", tone: "green" },
-  { label: "Update Website Content", icon: "website", tone: "purple" },
 ];
 
 function Logo() {
@@ -1436,8 +1477,6 @@ function SystemWorkspace({
   onNavigate: (section: string) => void;
 }) {
   const [helpSearch, setHelpSearch] = useState("");
-  const [supportSubject, setSupportSubject] = useState("");
-  const [supportMessage, setSupportMessage] = useState("");
   const [notice, setNotice] = useState("");
   const [error, setError] = useState("");
   const members = memberWorkspace?.members ?? [];
@@ -1449,15 +1488,11 @@ function SystemWorkspace({
   const contentDataAvailable = !contentLoading && !storageError;
   const divisionName = (divisionId: string | null) =>
     records.find((record) => record.id === divisionId && record.kind === "division")?.title ?? "";
-  const recentRecords = [...records]
-    .sort((left, right) => Number(right.updatedAt) - Number(left.updatedAt))
-    .slice(0, 10);
   const helpTopics = [
-    { title: "Where is my content stored?", body: "Content and member preview records are stored on this computer. They are not synced to the public website or Android app.", section: "General Settings" },
-    { title: "How do I update public website content?", body: "Use Website Pages, Navigation, or SEO Settings under Public Website. Those changes remain local drafts until a shared publishing API is connected.", section: "Website Pages" },
-    { title: "Do worker assignments reach the Android app?", body: "Assignments, events, and documents are local management records only. They are not delivered to mobile members yet.", section: "Assignments" },
-    { title: "Can I create real member accounts or roles?", body: "No. Member records are local previews; login, secure invitations, and permission enforcement require a shared identity service.", section: "Admin Accounts" },
-    { title: "Why are website analytics unavailable?", body: "No visitor tracking source is connected, so the admin app does not have real website analytics to display.", section: "Website Analytics" },
+    { title: "Where is my content stored?", body: "Company, member, app, and news records are stored on this computer. They are not synced to the public website or Android app." },
+    { title: "How do I update company information?", body: "Edit the company profile or select a division to update its details.", section: "Company Profile" },
+    { title: "How do I manage member records?", body: "Review applications and update member status in the Member Directory.", section: "Member Directory" },
+    { title: "Do app updates reach Android members?", body: "No. This desktop app currently stores app content locally; mobile sync is not connected.", section: "Assignments" },
   ];
   const visibleHelpTopics = helpTopics.filter((topic) =>
     `${topic.title} ${topic.body}`.toLowerCase().includes(helpSearch.trim().toLowerCase()),
@@ -1472,67 +1507,6 @@ function SystemWorkspace({
     } catch (exportError) {
       setError(`Could not create the report: ${String(exportError)}`);
     }
-  }
-
-  async function copySupportDraft(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setNotice("");
-    setError("");
-    const draft = `KILIVO LABS Admin support request\nSubject: ${supportSubject.trim()}\n\n${supportMessage.trim()}`;
-    if (!navigator.clipboard?.writeText) {
-      setError("Clipboard access is unavailable. Select and copy the draft text manually.");
-      return;
-    }
-    try {
-      await navigator.clipboard.writeText(draft);
-      setNotice("Draft copied. It was not sent; paste it into your support channel.");
-    } catch (copyError) {
-      setError(`Could not copy the draft: ${String(copyError)}`);
-    }
-  }
-
-  if (section === "Roles & Permissions") {
-    return (
-      <div className="system-workspace">
-        <div className="system-workspace-grid">
-          <section className="system-workspace-card">
-            <div className="system-card-heading"><Icon name="audit" size={21} /><h2>Access control status</h2></div>
-            <p>This desktop preview has no sign-in service or server-side role checks. The “Super Admin” label is a UI preview, not proof of an authenticated account.</p>
-            <span className="system-status-pill system-status-pill--warning">Permission enforcement not configured</span>
-          </section>
-          <section className="system-workspace-card">
-            <div className="system-card-heading"><Icon name="members" size={21} /><h2>What can be managed here</h2></div>
-            <ul className="system-check-list">
-              <li>Local member directory and application preview records</li>
-              <li>Content saved in this desktop app</li>
-              <li>No real login roles, invitations, or remote access policy</li>
-            </ul>
-            <button className="button-secondary" type="button" onClick={() => onNavigate("Member Directory")}>Open Member Directory</button>
-          </section>
-        </div>
-        <div className="system-workspace-note" role="note">Role names and permissions have not been defined for the shared backend. This page intentionally does not invent or enforce permissions.</div>
-      </div>
-    );
-  }
-
-  if (section === "Website Analytics") {
-    return (
-      <div className="system-workspace">
-        <div className="system-workspace-grid">
-          <section className="system-workspace-card system-empty-card">
-            <span className="system-empty-icon"><Icon name="chart" size={27} /></span>
-            <h2>No website tracking data</h2>
-            <p>No analytics provider or visitor event source is connected. This workspace will not display sample traffic as real measurements.</p>
-            <span className="system-status-pill system-status-pill--muted">Tracking not configured</span>
-          </section>
-          <section className="system-workspace-card">
-            <div className="system-card-heading"><Icon name="website" size={21} /><h2>Next step</h2></div>
-            <p>The public site can be managed locally, but visitor analytics and publishing are separate backend integrations.</p>
-            <button className="button-secondary" type="button" onClick={() => onNavigate("Integrations")}>Review integrations</button>
-          </section>
-        </div>
-      </div>
-    );
   }
 
   if (section === "Member Reports") {
@@ -1606,44 +1580,6 @@ function SystemWorkspace({
     );
   }
 
-  if (section === "General Settings") {
-    return (
-      <div className="system-workspace">
-        <div className="system-workspace-grid">
-          <section className="system-workspace-card">
-            <div className="system-card-heading"><Icon name="settings" size={21} /><h2>Application</h2></div>
-            <div className="system-report-row"><span>Mode</span><strong>Local desktop preview</strong></div>
-            <div className="system-report-row"><span>Content store</span><strong>{contentLoading ? "Checking…" : storageError ? "Unavailable" : "Available"}</strong></div>
-            <div className="system-report-row"><span>Member store</span><strong>{memberLoading ? "Checking…" : memberStorageError ? "Unavailable" : "Available"}</strong></div>
-          </section>
-          <section className="system-workspace-card">
-            <div className="system-card-heading"><Icon name="company" size={21} /><h2>Company profile</h2></div>
-            <p>Update official company details, logos, and division summaries in the existing profile workspace.</p>
-            <button className="button-secondary" type="button" onClick={() => onNavigate("Company Profile")}>Open Company Profile</button>
-          </section>
-        </div>
-        <div className="system-workspace-note" role="note">Authentication, notification preferences, and cross-device settings are not configured in this local app.</div>
-      </div>
-    );
-  }
-
-  if (section === "Admin Accounts") {
-    return (
-      <div className="system-workspace">
-        <section className="system-workspace-card">
-          <div className="system-card-heading"><Icon name="person" size={21} /><h2>Current preview identity</h2></div>
-          <div className="system-admin-account">
-            <span className="avatar"><Icon name="person" size={22} /></span>
-            <span><strong>Mudhihiri Selemani</strong><small>Super Admin · display label only</small></span>
-            <span className="system-status-pill system-status-pill--warning">Not authenticated</span>
-          </div>
-          <p>Admin account creation, sign-in, password management, and secure invitations need a shared identity service. This local app does not create credentials.</p>
-          <button className="button-secondary" type="button" onClick={() => onNavigate("Integrations")}>Review backend integration</button>
-        </section>
-      </div>
-    );
-  }
-
   if (section === "Integrations") {
     return (
       <div className="system-workspace">
@@ -1658,55 +1594,11 @@ function SystemWorkspace({
             <button className="button-secondary" type="button" onClick={() => onNavigate("Company Overview")}>Open Company Overview</button>
           </section>
           <section className="system-workspace-card">
-            <div className="system-card-heading"><Icon name="website" size={21} /><h2>Publishing & mobile sync</h2></div>
-            <p>Public website publishing, mobile content sync, authentication, and analytics are not connected to this local content store.</p>
-            <span className="system-status-pill system-status-pill--muted">Not connected</span>
+            <div className="system-card-heading"><Icon name="file" size={21} /><h2>Content storage</h2></div>
+            <p>Company content, member records, app resources, and announcements are stored on this computer. They are not published or synchronized to the public website or mobile app.</p>
+            <span className="system-status-pill system-status-pill--muted">Local only</span>
           </section>
         </div>
-      </div>
-    );
-  }
-
-  if (section === "Activity History") {
-    return (
-      <div className="system-workspace">
-        {storageError && <div className="storage-error" role="alert">{storageError}</div>}
-        <section className="system-workspace-card">
-          <div className="system-card-heading"><Icon name="history" size={21} /><h2>Recently updated local content</h2></div>
-          {contentLoading ? <p>Loading local content…</p> : recentRecords.length ? (
-            <div className="system-history-list">
-              {recentRecords.map((record) => {
-                const timestamp = Number(record.updatedAt);
-                const date = Number.isFinite(timestamp) ? new Date(timestamp * 1000) : null;
-                const dateLabel = date && Number.isFinite(date.getTime())
-                  ? date.toLocaleString("en-TZ", { dateStyle: "medium", timeStyle: "short", timeZone: "Africa/Dar_es_Salaam" })
-                  : "Date unavailable";
-                return (
-                  <article className="system-history-row" key={record.id}>
-                    <span className="system-history-dot" />
-                    <span><strong>{record.title}</strong><small>{record.kind} · {record.status}</small></span>
-                    <time>{dateLabel}</time>
-                  </article>
-                );
-              })}
-            </div>
-          ) : <p>No local content records are available.</p>}
-        </section>
-        <div className="system-workspace-note" role="note">This is a view of content update timestamps, not an audit log. The app does not record who changed a record or keep a history of previous values.</div>
-      </div>
-    );
-  }
-
-  if (section === "Security Events") {
-    return (
-      <div className="system-workspace">
-        <section className="system-workspace-card system-empty-card">
-          <span className="system-empty-icon"><Icon name="audit" size={27} /></span>
-          <h2>No security event source connected</h2>
-          <p>This local preview has no authentication provider or security audit service. No sample alerts are shown as real security events.</p>
-          <span className="system-status-pill system-status-pill--muted">Event collection unavailable</span>
-          <button className="button-secondary" type="button" onClick={() => onNavigate("Integrations")}>Review integrations</button>
-        </section>
       </div>
     );
   }
@@ -1722,30 +1614,9 @@ function SystemWorkspace({
           {visibleHelpTopics.length ? visibleHelpTopics.map((topic) => (
             <article className="system-help-topic" key={topic.title}>
               <div><h2>{topic.title}</h2><p>{topic.body}</p></div>
-              <button className="button-secondary" type="button" onClick={() => onNavigate(topic.section)}>Open workspace</button>
+              {topic.section && <button className="button-secondary" type="button" onClick={() => topic.section && onNavigate(topic.section)}>Open workspace</button>}
             </article>
           )) : <p className="system-empty-copy">No help topics match “{helpSearch}”.</p>}
-        </section>
-      </div>
-    );
-  }
-
-  if (section === "Contact Support") {
-    return (
-      <div className="system-workspace">
-        <div className="system-workspace-note" role="note">No support address or ticket service is configured. This form only prepares a local draft; it does not send or save a request.</div>
-        <section className="system-workspace-card">
-          <div className="system-card-heading"><Icon name="help" size={21} /><h2>Prepare a support draft</h2></div>
-          <form className="system-support-form" onSubmit={(event) => void copySupportDraft(event)}>
-            <label>Subject<input value={supportSubject} onChange={(event) => setSupportSubject(event.target.value)} required maxLength={120} /></label>
-            <label>What do you need help with?<textarea value={supportMessage} onChange={(event) => setSupportMessage(event.target.value)} required maxLength={2000} rows={5} /></label>
-            <div className="system-support-actions">
-              <button className="button-primary" type="submit">Copy draft</button>
-              <button className="button-secondary" type="button" onClick={() => onNavigate("Help Center")}>Open Help Center</button>
-            </div>
-          </form>
-          {notice && <div className="member-notice" role="status">{notice}</div>}
-          {error && <div className="storage-error" role="alert">{error}</div>}
         </section>
       </div>
     );
@@ -1759,11 +1630,106 @@ function SystemWorkspace({
   );
 }
 
+function MockLogin({
+  profile,
+  profileError,
+  error,
+  onSignIn,
+}: {
+  profile: AdminProfile;
+  profileError: string;
+  error: string;
+  onSignIn: (email: string) => void;
+}) {
+  const [email, setEmail] = useState(profile.email);
+  const [password, setPassword] = useState("");
+
+  function submit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    onSignIn(email.trim());
+    setPassword("");
+  }
+
+  return (
+    <main className="mock-auth-shell">
+      <form className="mock-login-card" onSubmit={submit}>
+        <Logo />
+        <span className="mock-auth-eyebrow">ADMIN ACCESS · DEMO MODE</span>
+        <h1>Sign in</h1>
+        <p>Use any email and password to open this local mock Admin workspace.</p>
+        <label>
+          Email address
+          <input autoComplete="username" type="email" value={email} onChange={(event) => setEmail(event.target.value)} required />
+        </label>
+        <label>
+          Password
+          <input autoComplete="current-password" type="password" value={password} onChange={(event) => setPassword(event.target.value)} required />
+        </label>
+        <div className="mock-auth-notice" role="note">Demo only: credentials are not checked, sent, or saved. This sign-in does not secure the app.</div>
+        {profileError && <div className="storage-error" role="alert">{profileError}</div>}
+        {error && <div className="storage-error" role="alert">{error}</div>}
+        <button className="button-primary" type="submit">Sign in to Admin</button>
+      </form>
+    </main>
+  );
+}
+
+function AdminProfileWorkspace({
+  profile,
+  profileError,
+  onSave,
+}: {
+  profile: AdminProfile;
+  profileError: string;
+  onSave: (profile: AdminProfile) => boolean;
+}) {
+  const [editing, setEditing] = useState(false);
+  const [draft, setDraft] = useState(profile);
+
+  useEffect(() => {
+    setDraft(profile);
+  }, [profile]);
+
+  function save(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (onSave({ fullName: draft.fullName.trim(), email: draft.email.trim() })) setEditing(false);
+  }
+
+  return (
+    <section className="admin-profile-workspace">
+      <div className="admin-profile-card">
+        <div className="admin-profile-heading">
+          <span className="avatar avatar--profile">{profileInitials(profile)}</span>
+          <div><h2>{profile.fullName}</h2><p>{profile.email || "Email not set"} · Mock Admin</p></div>
+          {!editing && <button className="button-secondary" type="button" onClick={() => setEditing(true)}>Edit profile</button>}
+        </div>
+        <div className="mock-auth-notice" role="note">This is a local demo profile. It is not linked to an authenticated Admin account.</div>
+        {profileError && <div className="storage-error" role="alert">{profileError}</div>}
+        {editing && (
+          <form className="admin-profile-form" onSubmit={save}>
+            <label>Full name<input autoFocus maxLength={100} value={draft.fullName} onChange={(event) => setDraft((current) => ({ ...current, fullName: event.target.value }))} required /></label>
+            <label>Email address<input type="email" maxLength={254} value={draft.email} onChange={(event) => setDraft((current) => ({ ...current, email: event.target.value }))} required /></label>
+            <div className="admin-profile-actions">
+              <button className="button-secondary" type="button" onClick={() => { setDraft(profile); setEditing(false); }}>Cancel</button>
+              <button className="button-primary" type="submit" disabled={!draft.fullName.trim() || !draft.email.trim()}>Save profile</button>
+            </div>
+          </form>
+        )}
+      </div>
+    </section>
+  );
+}
+
 function App() {
+  const [mockAdminState] = useState(loadMockAdminState);
+  const [adminProfile, setAdminProfile] = useState(mockAdminState.profile);
+  const [profileError, setProfileError] = useState(mockAdminState.profileError);
+  const [authError, setAuthError] = useState("");
+  const [isAuthenticated, setIsAuthenticated] = useState(mockAdminState.authenticated);
   const [activeSection, setActiveSection] = useState("Dashboard");
   const [expanded, setExpanded] = useState<string[]>([]);
   const [search, setSearch] = useState("");
-  const [openPanel, setOpenPanel] = useState<"search" | "notifications" | "profile" | null>(null);
+  const [openPanel, setOpenPanel] = useState<"search" | "profile" | null>(null);
   const [toast, setToast] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [records, setRecords] = useState<ContentRecord[]>([]);
@@ -1775,7 +1741,9 @@ function App() {
   const [createRequest, setCreateRequest] = useState(0);
 
   useEffect(() => {
+    if (!isAuthenticated) return;
     let active = true;
+    setContentLoading(true);
     invoke<ContentRecord[]>("load_content")
       .then((loadedRecords) => {
         if (active) setRecords(loadedRecords);
@@ -1787,10 +1755,12 @@ function App() {
         if (active) setContentLoading(false);
       });
     return () => { active = false; };
-  }, []);
+  }, [isAuthenticated]);
 
   useEffect(() => {
+    if (!isAuthenticated) return;
     let active = true;
+    setMemberLoading(true);
     invoke<MemberWorkspaceData>("load_member_workspace")
       .then((loadedWorkspace) => {
         if (active) setMemberWorkspace(loadedWorkspace);
@@ -1802,7 +1772,7 @@ function App() {
         if (active) setMemberLoading(false);
       });
     return () => { active = false; };
-  }, []);
+  }, [isAuthenticated]);
 
   const visibleNavigation = useMemo(
     () => navigation.filter((item) =>
@@ -1828,12 +1798,66 @@ function App() {
     setOpenPanel(null);
   }
 
+  function signIn(email: string) {
+    setAuthError("");
+    try {
+      sessionStorage.setItem(adminSessionStorageKey, "signed-in");
+    } catch (error) {
+      setAuthError(`Could not start the mock Admin session: ${String(error)}`);
+      return;
+    }
+
+    const updatedProfile = { ...adminProfile, email };
+    setAdminProfile(updatedProfile);
+    try {
+      localStorage.setItem(adminProfileStorageKey, JSON.stringify(updatedProfile));
+      setProfileError("");
+    } catch (error) {
+      setProfileError(`Could not save the local Admin profile: ${String(error)}`);
+    }
+
+    setContentLoading(true);
+    setMemberLoading(true);
+    setActiveSection("Dashboard");
+    setIsAuthenticated(true);
+  }
+
+  function signOut() {
+    try {
+      sessionStorage.removeItem(adminSessionStorageKey);
+    } catch (error) {
+      setAuthError(`Could not end the mock Admin session: ${String(error)}`);
+      return;
+    }
+    setIsAuthenticated(false);
+    setActiveSection("Dashboard");
+    setOpenPanel(null);
+    setSearch("");
+    setRecords([]);
+    setMemberWorkspace(null);
+  }
+
+  function saveAdminProfile(profile: AdminProfile) {
+    const updatedProfile = { fullName: profile.fullName.trim(), email: profile.email.trim() };
+    if (!updatedProfile.fullName || !updatedProfile.email) return false;
+    try {
+      localStorage.setItem(adminProfileStorageKey, JSON.stringify(updatedProfile));
+      setAdminProfile(updatedProfile);
+      setProfileError("");
+      showToast("Mock profile saved on this computer.");
+      return true;
+    } catch (error) {
+      setProfileError(`Could not save the local Admin profile: ${String(error)}`);
+      return false;
+    }
+  }
+
   function runQuickAction(label: string) {
     const destinations: Record<string, { section: string; create?: boolean }> = {
       "Add Member": { section: "Member Directory" },
       "Publish News": { section: "Articles", create: true },
+      "Post Announcement": { section: "Announcements", create: true },
       "Manage Divisions": { section: "Divisions" },
-      "Update Website Content": { section: "Website Pages", create: true },
     };
     const destination = destinations[label];
     if (!destination) return;
@@ -1863,6 +1887,7 @@ function App() {
   const isDashboard = activeSection === "Dashboard";
   const isCompanyOverview = activeSection === "Company Overview";
   const isMemberDirectory = activeSection === "Member Directory";
+  const isAdminProfile = activeSection === "Admin Profile";
   const contentSection = sectionContent[activeSection];
   const metricValues: Record<string, string> = {
     Company: String(records.filter((record) => record.kind === "company").length),
@@ -1886,6 +1911,10 @@ function App() {
     hour12: true,
     timeZone: "Africa/Dar_es_Salaam",
   }).format(new Date());
+
+  if (!isAuthenticated) {
+    return <MockLogin profile={adminProfile} profileError={profileError} error={authError} onSignIn={signIn} />;
+  }
 
   return (
     <div className="app-shell">
@@ -1929,11 +1958,10 @@ function App() {
         <div className="sidebar-footer">
           <div className="system-status"><span className="status-dot" />{isCompanyOverview ? "Company Overview API" : "Local content storage"}</div>
           <span className="sidebar-time">{localTime}</span>
-          <button type="button" className="sidebar-account" onClick={() => setOpenPanel(openPanel === "profile" ? null : "profile")}>
-            <span className="avatar avatar--large"><Icon name="person" size={28} /></span>
-            <span><strong>Super Admin</strong><small>Admin</small></span>
-            <Icon name="chevron" size={16} />
-          </button>
+          <div className="sidebar-workspace-label">
+            <span className="avatar avatar--sidebar">{profileInitials(adminProfile)}</span>
+            <span><strong>{adminProfile.fullName}</strong><small>Mock Admin</small></span>
+          </div>
         </div>
       </aside>
 
@@ -1970,50 +1998,42 @@ function App() {
           <div className="topbar-spacer" />
           <div className="popover-anchor">
             <button
-              className="icon-button notification-button"
+              className="profile-button"
               type="button"
-              aria-label="Notifications"
-              onClick={() => setOpenPanel(openPanel === "notifications" ? null : "notifications")}
+              aria-expanded={openPanel === "profile"}
+              onClick={() => setOpenPanel(openPanel === "profile" ? null : "profile")}
             >
-              <Icon name="bell" size={22} />
-            </button>
-            {openPanel === "notifications" && (
-              <div className="popover notification-popover">
-                <div className="popover-title">Notifications</div>
-                <p className="popover-empty">Notifications are not available in local desktop mode.</p>
-              </div>
-            )}
-          </div>
-          <div className="topbar-divider" />
-          <div className="popover-anchor">
-            <button className="profile-button" type="button" onClick={() => setOpenPanel(openPanel === "profile" ? null : "profile")}>
-              <span className="avatar"><Icon name="person" size={22} /></span>
-              <span className="profile-copy"><strong>Mudhihiri Selemani</strong><small>Super Admin</small></span>
+              <span className="avatar">{profileInitials(adminProfile)}</span>
+              <span className="profile-copy"><strong>{adminProfile.fullName}</strong><small>Mock Admin</small></span>
               <Icon name="chevron" size={16} />
             </button>
             {openPanel === "profile" && (
               <div className="popover profile-popover">
-                <div className="profile-popover-heading"><strong>Mudhihiri Selemani</strong><span>Super Admin</span></div>
-                <button type="button" onClick={() => navigate("General Settings")}><Icon name="person" size={17} />Admin profile</button>
-                <button type="button" onClick={() => navigate("General Settings")}><Icon name="settings" size={17} />Account settings</button>
-                <button type="button" onClick={() => showToast("Sign out is not connected in this preview.")}><Icon name="audit" size={17} />Sign out</button>
+                <div className="profile-popover-heading">
+                  <strong>{adminProfile.fullName}</strong>
+                  <span>{adminProfile.email || "Email not set"} · Mock Admin</span>
+                </div>
+                <button type="button" onClick={() => navigate("Admin Profile")}><Icon name="person" size={17} />My profile</button>
+                <button type="button" onClick={signOut}><Icon name="close" size={17} />Sign out</button>
               </div>
             )}
           </div>
         </header>
 
-        <main className="main-content" onClick={() => openPanel && openPanel !== "search" && setOpenPanel(null)}>
+        <main className="main-content">
           {!isMemberDirectory && (
             <section className="page-heading">
               <div className="heading-copy">
                 <div className="heading-title">
-                  <span className="heading-icon"><Icon name={isDashboard ? "analytics" : "company"} size={32} /></span>
+                  <span className="heading-icon"><Icon name={isDashboard ? "dashboard" : "company"} size={32} /></span>
                   <h1>{isDashboard ? "Admin Dashboard" : activeSection}</h1>
                 </div>
                 <p>{isDashboard
-                  ? "Manage KILIVO LABS ecosystem — Company, Members, Divisions, Projects and Public Presence"
+                  ? "Manage company information, members, app content, news, and announcements."
                   : isCompanyOverview
                     ? "Read current company progress, plans, divisions and financial summary from the API."
+                    : isAdminProfile
+                      ? "Update the display name and email for this local mock profile."
                     : sectionDescriptions[activeSection] ?? `${activeSection} management workspace for the KILIVO LABS ecosystem.`}</p>
               </div>
               <span className="preview-chip"><Icon name="history" size={14} />{isCompanyOverview ? "GET API · Read-only" : "This desktop only"}</span>
@@ -2022,7 +2042,9 @@ function App() {
 
           {storageError && !isCompanyOverview && <div className="storage-error" role="alert">{storageError}</div>}
 
-          {isCompanyOverview ? (
+          {isAdminProfile ? (
+            <AdminProfileWorkspace profile={adminProfile} profileError={profileError} onSave={saveAdminProfile} />
+          ) : isCompanyOverview ? (
             <CompanyOverviewWorkspace apiBaseUrl={import.meta.env.VITE_ADMIN_API_BASE_URL ?? ""} />
           ) : activeSection === "Company Profile" ? (
             <CompanyProfileWorkspace
@@ -2062,9 +2084,7 @@ function App() {
               onDelete={removeRecord}
               divisionOptions={divisionRecords}
               memberOptions={memberWorkspace?.members ?? []}
-              workspaceNote={["page", "navigation", "seo"].includes(contentSection.kind)
-                ? "Public website only · This content is not used by the mobile workers app."
-                : ["assignment", "event", "document"].includes(contentSection.kind)
+              workspaceNote={["assignment", "event", "document"].includes(contentSection.kind)
                   ? "Workers app workspace · Stored on this computer only and not yet available to mobile members."
                   : "News and announcements are stored locally; choose a division association if relevant."}
             />
@@ -2093,18 +2113,6 @@ function App() {
               </section>
 
               <section className="overview-grid">
-                <article className="panel system-panel">
-                  <div className="panel-heading">
-                    <h2><Icon name="chart" size={23} />System Overview</h2>
-                    <span className="analytics-status">No tracking data</span>
-                  </div>
-                  <div className="analytics-empty">
-                    <span className="analytics-empty-icon"><Icon name="chart" size={28} /></span>
-                    <strong>Website and app analytics are not connected.</strong>
-                    <span>This desktop-only content store does not collect visitor or member activity.</span>
-                  </div>
-                </article>
-
                 <article className="panel divisions-panel">
                   <div className="panel-heading"><h2><Icon name="members" size={23} />Divisions Overview</h2><button className="text-link" type="button" onClick={() => navigate("Divisions")}>Manage</button></div>
                   <div className="division-list">

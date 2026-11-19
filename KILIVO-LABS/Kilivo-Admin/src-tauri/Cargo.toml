@@ -1,6 +1,6 @@
 [package]
 name = "kilivo-admin"
-version = "0.5.2"
+version = "0.5.4"
 description = "KILIVO LABS Admin Dashboard"
 authors = ["KILIVO LABS"]
 edition = "2024"
