@@ -6,6 +6,10 @@
 		{
 			"name": "Java-Backend",
 			"path": "../Java-Backend"
+		},
+		{
+			"name": "uniE-voting",
+			"path": "../uniE-voting"
 		}
 	],
 	"settings": {}
