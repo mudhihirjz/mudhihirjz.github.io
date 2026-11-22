@@ -139,15 +139,17 @@ button {
   text-align: center;
 }
 
-.profile-photo {
+.profile-avatar {
+  display: grid;
   width: 122px;
   height: 122px;
+  place-items: center;
   border: 3px solid #fff;
   border-radius: 50%;
-  background: #14213e;
+  background: radial-gradient(circle at 35% 30%, #1a467b, #101c3b 68%);
   box-shadow: 0 0 0 3px rgba(38, 156, 255, 0.45), 0 0 35px rgba(20, 148, 255, 0.75);
-  object-fit: cover;
-  object-position: center 38%;
+  color: #b6ecff;
+  font-size: 46px;
 }
 
 .hero-content h1,
@@ -914,7 +916,7 @@ button {
     padding-top: 18px;
   }
 
-  .profile-photo {
+  .profile-avatar {
     width: 112px;
     height: 112px;
   }
@@ -1072,7 +1074,7 @@ button {
     min-height: 495px;
   }
 
-  .profile-photo {
+  .profile-avatar {
     width: 104px;
     height: 104px;
   }

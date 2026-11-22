@@ -5,6 +5,7 @@ import {
   faCloudArrowUp,
   faHandshake,
   faLightbulb,
+  faUser,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faJava,
@@ -220,8 +221,10 @@ function Hero() {
     <section className="hero" id="home">
       <Header />
       <div className="hero-content">
-        <img className="profile-photo" src="/profile-photo.jpg" alt="Mudihir JZ" />
-        <h1>Mudihir JZ</h1>
+        <div className="profile-avatar" aria-hidden="true">
+          <FontAwesomeIcon icon={faUser} />
+        </div>
+        <h1>Mudhihir JZ</h1>
         <div className="hero-role">
           <span />
           <p>Aspiring Backend Developer</p>
