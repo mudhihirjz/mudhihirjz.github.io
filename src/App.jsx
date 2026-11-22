@@ -110,24 +110,75 @@ function Icon({ name, size = 20, className = '' }) {
   );
 }
 
+function ImageSlideshow({ images, className = '', interval = 10000 }) {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    if (images.length < 2) return undefined;
+
+    const timer = window.setInterval(() => {
+      setActiveIndex((current) => (current + 1) % images.length);
+    }, interval);
+
+    return () => window.clearInterval(timer);
+  }, [images, interval]);
+
+  return (
+    <div className={`image-slideshow ${className}`}>
+      {images.map((image, index) => (
+        <img
+          key={image}
+          className={index === activeIndex ? 'slideshow-image is-active' : 'slideshow-image'}
+          src={image}
+          alt=""
+          loading={index === 0 ? 'eager' : 'lazy'}
+        />
+      ))}
+      <div className="slideshow-dots" aria-hidden="true">
+        {images.map((image, index) => (
+          <span
+            key={image}
+            className={index === activeIndex ? 'slideshow-dot is-active' : 'slideshow-dot'}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 const highlights = [
   {
     title: 'Coding Journey',
     description: 'Turning ideas into solutions...',
-    image:
+    images: [
       'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=85',
+      'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=900&q=85',
+      'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=900&q=85',
+      'https://images.unsplash.com/photo-1537498425277-c283d32ef9db?auto=format&fit=crop&w=900&q=85',
+      'https://images.unsplash.com/photo-1526378722484-bd91ca387e72?auto=format&fit=crop&w=900&q=85',
+    ],
   },
   {
     title: 'Technology & Innovation',
     description: 'Exploring the digital world...',
-    image:
+    images: [
       'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=85',
+      'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&w=900&q=85',
+      'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=900&q=85',
+      'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=85',
+      'https://images.unsplash.com/photo-1527430253228-e93688616381?auto=format&fit=crop&w=900&q=85',
+    ],
   },
   {
     title: 'Knowledge is Power',
     description: 'Keep learning, keep growing...',
-    image:
+    images: [
       'https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=900&q=85',
+      'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=900&q=85',
+      'https://images.unsplash.com/photo-1495446815901-a7297e633e8d?auto=format&fit=crop&w=900&q=85',
+      'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=900&q=85',
+      'https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=900&q=85',
+    ],
   },
 ];
 
@@ -136,24 +187,39 @@ const articles = [
     title: 'Getting Started with Java',
     date: 'Nov 21, 2025',
     description: "A beginner's guide to Java programming...",
-    image:
+    images: [
       'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=900&q=85',
+      'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=900&q=85',
+      'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=85',
+      'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=900&q=85',
+      'https://images.unsplash.com/photo-1526378722484-bd91ca387e72?auto=format&fit=crop&w=900&q=85',
+    ],
     body: 'Java is a great place to begin learning object-oriented programming. Start with variables, data types, and control flow, then build small projects to practice classes, methods, and problem-solving.',
   },
   {
     title: 'Introduction to PostgreSQL',
     date: 'Nov 15, 2025',
     description: 'Learn the basics of PostgreSQL databases...',
-    image:
+    images: [
       'https://images.unsplash.com/photo-1544383835-bda2bc66a55d?auto=format&fit=crop&w=900&q=85',
+      'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=900&q=85',
+      'https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&w=900&q=85',
+      'https://images.unsplash.com/photo-1489875347897-49f64b51c1f8?auto=format&fit=crop&w=900&q=85',
+      'https://images.unsplash.com/photo-1504639725590-34d0984388bd?auto=format&fit=crop&w=900&q=85',
+    ],
     body: 'PostgreSQL is a powerful open-source relational database. This introduction covers tables, common SQL queries, and how structured data can support reliable backend applications.',
   },
   {
     title: 'Understanding REST APIs',
     date: 'Nov 10, 2025',
     description: 'Build and consume RESTful APIs...',
-    image:
+    images: [
       'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=900&q=85',
+      'https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&w=900&q=85',
+      'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=85',
+      'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=900&q=85',
+      'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&w=900&q=85',
+    ],
     body: 'REST APIs let applications communicate through predictable HTTP endpoints. Learn how resources, request methods, status codes, and JSON responses fit together in a web service.',
   },
 ];
@@ -161,18 +227,33 @@ const articles = [
 const closingImages = [
   {
     title: 'Explore · Learn · Innovate',
-    image:
+    images: [
       'https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=900&q=85',
+      'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=900&q=85',
+      'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=85',
+      'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=900&q=85',
+      'https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=900&q=85',
+    ],
   },
   {
     title: 'Never Stop Learning',
-    image:
+    images: [
       'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=85',
+      'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=900&q=85',
+      'https://images.unsplash.com/photo-1495446815901-a7297e633e8d?auto=format&fit=crop&w=900&q=85',
+      'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=900&q=85',
+      'https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=900&q=85',
+    ],
   },
   {
     title: 'Build a Better Tomorrow',
-    image:
+    images: [
       'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=900&q=85',
+      'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=900&q=85',
+      'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=900&q=85',
+      'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=900&q=85',
+      'https://images.unsplash.com/photo-1524230572899-a752b3835840?auto=format&fit=crop&w=900&q=85',
+    ],
   },
 ];
 
@@ -262,8 +343,9 @@ function HighlightCards() {
           className="highlight-card"
           href="#about"
           key={item.title}
-          style={{ backgroundImage: `linear-gradient(0deg, rgba(5, 11, 28, .96), rgba(5, 11, 28, .03) 85%), url("${item.image}")` }}
         >
+          <ImageSlideshow images={item.images} className="highlight-slideshow" />
+          <span className="highlight-shade" />
           <span className="highlight-copy">
             <strong>{item.title}</strong>
             <span>{item.description}</span>
@@ -333,7 +415,7 @@ function ArticleModal({ article, onClose }) {
         <button className="modal-close" type="button" onClick={onClose} aria-label="Close article">
           ×
         </button>
-        <img src={article.image} alt="" />
+        <ImageSlideshow images={article.images} className="modal-slideshow" interval={10000} />
         <div className="modal-copy">
           <span className="modal-date">{article.date}</span>
           <h2 id="modal-title">{article.title}</h2>
@@ -362,7 +444,7 @@ function Articles() {
         {articles.map((article) => (
           <article className="article-card" key={article.title}>
             <div className="article-image-wrap">
-              <img src={article.image} alt="" loading="lazy" />
+              <ImageSlideshow images={article.images} className="article-slideshow" />
               <span className="article-date">
                 <Icon name="calendar" size={14} />
                 {article.date}
@@ -403,6 +485,10 @@ function ContactBanner() {
       <a className="primary-button" href="#contact">
         <Icon name="send" size={18} />
         Get in Touch
+        <href className="email-link" href="mailto:mudhihirjz@gmail.com">
+          
+          mudhihirjz@gmail.com
+        </href>
       </a>
     </section>
   );
@@ -431,8 +517,9 @@ function ClosingGallery() {
         <div
           className="closing-card"
           key={item.title}
-          style={{ backgroundImage: `linear-gradient(0deg, rgba(5, 11, 28, .8), transparent 80%), url("${item.image}")` }}
         >
+          <ImageSlideshow images={item.images} className="closing-slideshow" />
+          <span className="closing-shade" />
           <strong>{item.title}</strong>
         </div>
       ))}
