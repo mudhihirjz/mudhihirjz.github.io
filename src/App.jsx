@@ -1,4 +1,16 @@
 import { useEffect, useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faBookOpen,
+  faCloudArrowUp,
+  faHandshake,
+  faLightbulb,
+} from '@fortawesome/free-solid-svg-icons';
+import {
+  faJava,
+  faPostgresql,
+  faWhatsapp,
+} from '@fortawesome/free-brands-svg-icons';
 
 const icons = {
   home: (
@@ -74,12 +86,6 @@ const icons = {
         fill="currentColor"
         stroke="none"
       />
-    </>
-  ),
-  whatsapp: (
-    <>
-      <path d="M20.5 3.5A11.8 11.8 0 0 0 2 17.7L.5 23.5l6-1.6A11.8 11.8 0 0 0 20.5 3.5Z" />
-      <path d="M8.2 7.5c-.3-.7-.6-.7-.9-.7h-.8c-.3 0-.7.1-1 .5-.4.4-1.3 1.3-1.3 3.1s1.3 3.6 1.5 3.9c.2.3 2.5 4 6.1 5.4 3 .1 3.7.4 4.3.4.5 0 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.3-.7-.5l-2.1-1c-.3-.2-.6-.2-.8.2-.3.4-.8 1-1 1.2-.2.2-.4.3-.8.1-.4-.2-1.6-.6-3-1.9-1.1-1-1.8-2.2-2-2.6-.2-.4 0-.6.2-.8l.6-.7c.2-.2.3-.4.4-.6.1-.2.1-.4 0-.6Z" />
     </>
   ),
 };
@@ -272,8 +278,8 @@ function Learning() {
   return (
     <section className="learning-panel panel" id="about">
       <div className="learning-art" aria-hidden="true">
-        <span className="bulb">💡</span>
-        <span className="open-book">📖</span>
+        <FontAwesomeIcon icon={faLightbulb} className="learning-bulb" />
+        <FontAwesomeIcon icon={faBookOpen} className="learning-book" />
       </div>
       <div className="learning-copy">
         <h2>
@@ -285,13 +291,16 @@ function Learning() {
         </p>
         <div className="skill-list">
           <span className="skill-pill">
-            <span className="skill-emoji java-emoji">♨</span> Java
+            <FontAwesomeIcon icon={faJava} className="skill-icon java-icon" />
+            Java
           </span>
           <span className="skill-pill">
-            <span className="skill-emoji postgres-emoji">◉</span> PostgreSQL
+            <FontAwesomeIcon icon={faPostgresql} className="skill-icon postgres-icon" />
+            PostgreSQL
           </span>
           <span className="skill-pill">
-            <span className="skill-emoji api-emoji">⌘</span> REST API
+            <FontAwesomeIcon icon={faCloudArrowUp} className="skill-icon api-icon" />
+            REST API
           </span>
         </div>
       </div>
@@ -381,7 +390,7 @@ function ContactBanner() {
   return (
     <section className="contact-banner">
       <div className="handshake" aria-hidden="true">
-        🤝
+        <FontAwesomeIcon icon={faHandshake} />
       </div>
       <h2>
         Have an Opportunity?
@@ -469,7 +478,7 @@ function App() {
         rel="noreferrer"
         aria-label="Contact me on WhatsApp"
       >
-        <Icon name="whatsapp" size={32} />
+        <FontAwesomeIcon icon={faWhatsapp} />
       </a>
     </div>
   );

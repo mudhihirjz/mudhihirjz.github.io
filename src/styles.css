@@ -320,13 +320,15 @@ button {
   line-height: 1;
 }
 
-.bulb {
+.learning-bulb {
+  color: #22c5ff;
   font-size: 66px;
   filter: drop-shadow(0 0 13px rgba(23, 167, 255, 0.62));
 }
 
-.open-book {
+.learning-book {
   margin-top: -3px;
+  color: #1496ff;
   font-size: 36px;
   filter: drop-shadow(0 0 9px rgba(23, 167, 255, 0.5));
 }
@@ -375,20 +377,20 @@ button {
   white-space: nowrap;
 }
 
-.skill-emoji {
+.skill-icon {
   font-size: 24px;
   line-height: 1;
 }
 
-.java-emoji {
+.java-icon {
   color: #f1545a;
 }
 
-.postgres-emoji {
+.postgres-icon {
   color: #56a8e8;
 }
 
-.api-emoji {
+.api-icon {
   color: #248bff;
 }
 
@@ -566,6 +568,10 @@ button {
   border-radius: 18px;
   background: rgba(13, 129, 255, 0.18);
   font-size: 38px;
+}
+
+.handshake svg {
+  color: #18aaff;
 }
 
 .contact-banner h2 {
@@ -957,11 +963,11 @@ button {
     border-bottom: 1px solid rgba(117, 153, 223, 0.35);
   }
 
-  .bulb {
+  .learning-bulb {
     font-size: 48px;
   }
 
-  .open-book {
+  .learning-book {
     margin: 0;
     font-size: 31px;
   }
