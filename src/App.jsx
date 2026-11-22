@@ -482,13 +482,9 @@ function ContactBanner() {
         <span>Let&apos;s Connect!</span>
       </h2>
       <p>I&apos;m open for internships, collaborations and new opportunities.</p>
-      <a className="primary-button" href="#contact">
+      <a className="primary-button" href="mailto:mudhihirjz@gmail.com">
         <Icon name="send" size={18} />
         Get in Touch
-        <href className="email-link" href="mailto:mudhihirjz@gmail.com">
-          
-          mudhihirjz@gmail.com
-        </href>
       </a>
     </section>
   );
